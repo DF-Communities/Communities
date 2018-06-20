@@ -1,0 +1,7 @@
+<project name="DF-SFDC" default="deploy" basedir="." xmlns:sf="antlib:com.salesforce">
+
+	<target name="deploy">
+		<sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="./src/" testLevel="${sf.testLevel}" maxPoll="500" checkOnly="${sf.checkOnly}"
+		 logType="${sf.logType}" ignoreWarnings="true" purgeOnDelete="${sf.purge}"/>
+  	</target>
+</project>
