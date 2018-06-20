@@ -1,0 +1,69 @@
+<apex:page standardController="DF_Event__c" extensions="DfEventAttendeeController" tabStyle="DF_Contact__c">
+<!-- Dementia Friends Champions Event Attendee Page -->
+<!-- Created by Venkat Akula, January 2013 -->
+<!-- Modified by Sri Tadikonda March 2013 -->
+<!-- Added Title to page -->
+<!-- MT - hidden field lastmodified added to handle concurrency issues-->
+
+<apex:form >
+    <apex:pageBlock >
+    <apex:outputPanel >
+    <h1 style="font-size: 100%; font-weight: bold;">
+        Dementia Friends Event: {!EventTitle}
+    </h1>
+
+        <apex:pageblocksection id="pgmessage" >
+          <apex:pageMessages />
+        </apex:pageblocksection>
+  </apex:outputPanel>
+  <apex:pageBlockButtons >
+     <apex:commandButton value="Save" action="{!save}"/>
+     <apex:commandButton value="Cancel" action="{!cancel}"/>   
+  </apex:pageBlockButtons>
+  <apex:pageBlockTable value="{!listEventAttendees}" var="eventAttendees" rendered="{!EventRT == 'Champion_Training_Course'}">
+  <apex:column headerValue="DF Champion" value="{!eventAttendees.DF_Contact__r.Name}">
+   </apex:column>
+   
+   <apex:column headerValue="Event Attendee Status">
+     <apex:inputField value="{!eventAttendees.EventAttendeeStatus__c}" required="true"/> 
+   </apex:column>
+ 
+  <!--  <apex:column headerValue="Date of Champion Training">
+       <apex:outputText value="{0,date,d/MM/yyyy}"> 
+          <apex:param value="{!eventAttendees.DF_Event__r.Event_Date_Time__c}" /> 
+       </apex:outputText>
+
+   </apex:column>-->
+
+   <apex:column headerValue="Partner Organisation" >
+   <apex:selectList value="{!eventAttendees.DF_Contact__r.Partner_Organisation_ID__c}" size="1">
+    <apex:selectOptions value="{!partnerOrgs}"/>
+    <apex:actionSupport event="onchange" reRender="sprints"/>
+  </apex:selectList>
+  </apex:column> 
+  <apex:column headerValue="Contact Status" >
+     <apex:inputField value="{!eventAttendees.DF_Contact__r.Status__c}"/> 
+   </apex:column>
+   <apex:column headerValue="Type of Champion">
+     <apex:inputField value="{!eventAttendees.DF_Contact__r.Type_of_Champion__c}"/> 
+   </apex:column> 
+   <apex:column headerValue="LastmodifiedDate" rendered="false">
+     <apex:inputField value="{!eventAttendees.LastModifiedDate}"/>
+   </apex:column> 
+   <apex:column headerValue="LastmodifiedDate2" rendered="false">
+     <apex:inputField value="{!eventAttendees.DF_Contact__r.LastModifiedDate}"/>
+   </apex:column> 
+ 
+  </apex:pageBlockTable>
+  
+  <apex:pageBlockTable value="{!listEventAttendees}" var="eventAttendees" rendered="{!EventRT != 'Champion_Training_Course'}">
+  <apex:column headerValue="DF Champion" value="{!eventAttendees.DF_Contact__r.Name}">
+   </apex:column>
+   
+   <apex:column headerValue="Event Attendee Status">
+     <apex:inputField value="{!eventAttendees.EventAttendeeStatus__c}" required="true"/> 
+   </apex:column>
+   </apex:pageBlockTable>
+ </apex:pageBlock>
+    </apex:form>
+</apex:page>

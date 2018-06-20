@@ -1,0 +1,557 @@
+<aura:component controller="DFEventTriggerMethods">
+    
+    <aura:attribute name="simpleRecord" type="DF_Event__c"/>
+    <aura:attribute name="userIsChampion" type="Boolean" description="This determines which page to redirect to"/>
+    <aura:attribute name="userIsRequester" type="Boolean"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    
+    <aura:handler name="STD_yesNoSelectEvt" event="c:STD_yesNoSelectEvt" action="{!c.handleDynAddInfoBoxes}"/>
+    <aura:attribute name="friendOnChampExplanation" type="Boolean"/>
+    <aura:attribute name="friendSessionContentExplanation" type="Boolean"/>
+    <aura:attribute name="champOnFriendExplanation" type="Boolean"/>
+    <aura:attribute name="groupResponseExplanation" type="Boolean"/>
+    <aura:attribute name="champSessionContentExplanation" type="Boolean"/>
+    
+    
+    <form styleClass="form-horizontal">
+        <div class="well" style="clear:both;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <aura:if isTrue="{!!v.userIsRequester}">
+                    <div class="alert alert-info" >
+                        Please complete the feedback form and press submit. Your Dementia Friends will not be saved until the form has been submitted.
+                    </div>
+                    <aura:set attribute="else">
+                        <div class="alert alert-info" >
+                        Please complete the feedback form and press submit. 
+                    </div>
+                    </aura:set>
+                </aura:if>
+            </div>
+            <aura:if isTrue="{!v.userIsRequester}">
+                
+                <h1>Did the Dementia Friends Champion...</h1>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12" onclick="{!c.handleDynAddInfoBoxes}">
+                            <c:STD_yesNoSelect name="friendOnChamp" 
+                                               label="Communicate with you in a timely manner when finalising arrangements" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Champion_Communication__c}"
+                                               aura:id="questionSet1"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="friendOnChamp" 
+                                               label="Arrive on time?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Champion_Arrival_Time__c}"
+                                               aura:id="questionSet1"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="friendOnChamp" 
+                                               label="Treat attendees with respect and courtesy" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Champion_Manners__c}"
+                                               aura:id="questionSet1"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">                                
+                            <c:STD_yesNoSelect name="friendOnChamp" 
+                                               label="Come prepared with appropriate resources" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Champion_Preparation__c}"
+                                               aura:id="questionSet1"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendOnChamp" 
+                                               label="Deliver the Session in a clear and engaging way?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Champion_Delivery__c}"
+                                               aura:id="questionSet1"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendOnChamp" 
+                                               label="Display positivity in their approach and language when talking about dementia?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Champion_Positivity__c}"
+                                               aura:id="questionSet1"/>
+                        </div>
+                </div>
+                
+                <!-- ADDITIONAL INFO BOX 'aura:id' MUST MATCH The 'name' ATTRIBUTE ON THE RELATED QUESTION FIELDS -->
+                <aura:if isTrue="{!v.friendOnChampExplanation}">
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-12">  
+                                <ui:inputTextArea label="You answered 'No' to one or more of the above. Please provide additional information below" 
+                                                  rows="5"
+                                                  resizable="false"
+                                                  value="{!v.simpleRecord.Host_Feedback_Champion__c}"
+                                                  aura:id="friendOnChamp"
+                                                  class="form-control"/>
+                            </div>
+                    </div> 
+                </aura:if>
+                
+                
+                
+                <div class="well" style="clear:both;"></div>                  
+                <h1>Did the Session include...</h1>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendSessionContent" 
+                                               label="Short introduction" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Content_Intro__c}"
+                                               aura:id="questionSet2"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendSessionContent" 
+                                               label="'Bingo' activity or 'Broken sentences' activity" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Content_Activity1__c}"
+                                               aura:id="questionSet2"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendSessionContent" 
+                                               label="Bookcase analogy" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Content_Analogy__c}"
+                                               aura:id="questionSet2"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendSessionContent" 
+                                               label="'Who is right?' activity or 'Making a cup of tea' activity" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Content_Activity2__c}"
+                                               aura:id="questionSet2"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendSessionContent" 
+                                               label="Recap of five key messages" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Content_Recap__c}"
+                                               aura:id="questionSet2"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendSessionContent" 
+                                               label="Turning understanding into action (and committing to an action)" 
+                                               showDependentFieldWhenSelected_Option="No"
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Content_Understand_Action__c }"
+                                               aura:id="questionSet2"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendSessionContent" 
+                                               label="Distribution and explanation of badges and action cards" 
+                                               showDependentFieldWhenSelected_Option="No"
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Content_Badges__c}"
+                                               aura:id="questionSet2"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="friendSessionContent" 
+                                               label="Did the Information Session meet your expectations, based on the information you received beforehand?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Content_Expectations__c}"
+                                               aura:id="questionSet2"/>
+                        </div>
+                </div>
+                
+                <!-- ADDITIONAL INFO BOX 'aura:id' MUST MATCH The 'name' ATTRIBUTE ON THE RELATED QUESTION FIELDS -->
+                <aura:if isTrue="{!v.friendSessionContentExplanation}">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-12">  
+                                <ui:inputTextArea label="You answered 'No' to one or more of the above. Please provide additional information below" 
+                                                  rows="5"
+                                                  resizable="false"
+                                                  class="form-control"
+                                                  value="{!v.simpleRecord.Host_Feedback_Content__c}"
+                                                  aura:id="friendSessionContent"/>
+                            </div>
+                    </div>
+                </aura:if>                     
+                
+                <div class="well" style="clear:both;"></div>                 
+                <h1>Summary</h1>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <ui:inputTextArea label="In a few words, how would you summarise the Session?" 
+                                              rows="5"
+                                              class="form-control"
+                                              value="{!v.simpleRecord.Host_Feedback_Summary_Comments}"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_dynamicPicklist name="sessionTypePicklist" 
+                                                   label="How would you rate the requester"
+                                                   sObjectApiName="DF_Event__c"
+                                                   value="{!v.simpleRecord.Host_Feedback_Summary_Rating__c}"
+                                                   sObjectFieldApiName="Host_Feedback_Summary_Rating__c"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="summaryComments" 
+                                               label="Would you recommend the Dementia Friends initiative to other organisations?" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Host_Feedback_Summary_Recommend__c}"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <ui:inputTextArea label="Please explain" 
+                                              class="form-control"
+                                              value="{!v.simpleRecord.Host_Feedback_Recommendation_Explanation__c}"
+                                              rows="5"/>
+                        </div>
+                </div>
+                
+            </aura:if>
+            
+            <aura:if isTrue="{!!v.userIsRequester}">
+                
+                <h1>Did the Session requester...</h1> 
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">  
+                            <c:STD_yesNoSelect name="champOnFriend" 
+                                               label="Communicate with you in a timely manner when finalising arrangements?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Host_Communication__c}"
+                                               aura:id="questionSet4"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champOnFriend" 
+                                               label="Welcome you?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Host_Welcome__c}"
+                                               aura:id="questionSet4"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champOnFriend" 
+                                               label="Provide an adequate venue?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Quality_of_Venue__c}"
+                                               aura:id="questionSet4"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champOnFriend" 
+                                               label="Provide agreed items/resources?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Venue_Resources__c}"
+                                               aura:id="questionSet4"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champOnFriend" 
+                                               label="Allow you to keep to the agreed duration of the session?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Session_Duration__c}"
+                                               aura:id="questionSet4"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champOnFriend" 
+                                               label="Ask you to change your Information Session or include content not covered in a normal Information Session?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Curriculum_Deviation__c}"
+                                               aura:id="questionSet4"/>
+                        </div>
+                </div>
+                
+                <aura:if isTrue="{!v.champOnFriendExplanation}">                                    
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-12">
+                                <ui:inputTextArea label="You answered 'No' to one or more of the above. Please provide additional information below" 
+                                                  class="form-control"
+                                                  value="{!v.simpleRecord.Champion_Feedback_Session_Owner__c}"
+                                                  resizable="false"
+                                                  rows="5"/>
+                            </div>
+                    </div>
+                    
+                </aura:if>
+                
+                <div class="well" style="clear:both;"></div>                 
+                <h1>Did the group...</h1>                
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="groupResponse" 
+                                               label="Know the Session was not training?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Group_Awareness__c}"
+                                               aura:id="questionSet5"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="groupResponse" 
+                                               label="Respond well to the Session?" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Group_Response__c}"
+                                               aura:id="questionSet5"/>
+                        </div>
+                </div>
+                
+                <aura:if isTrue="{!v.groupResponseExplanation}"> 
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-12">
+                                <ui:inputTextArea rows="5"
+                                                  resizable="false"
+                                                  label="You answered 'No' to one or more of the above. Please provide additional information below"
+                                                  class="form-control"
+                                                  value="{!v.simpleRecord.Champion_Feedback_Group__c}"
+                                                  aura:id="groupResponse"/>
+                            </div>
+                    </div>
+                    
+                </aura:if>
+                
+                <div class="well" style="clear:both;"></div>                  
+                <h1>Did the Session include...</h1>            
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champSessionContent" 
+                                               label="Short introduction" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Content_Intro__c}"
+                                               aura:id="questionSet6"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champSessionContent" 
+                                               label="'Bingo' activity or 'Broken sentences' activity" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Content_Activity1__c}"
+                                               aura:id="questionSet6"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champSessionContent" 
+                                               label="Bookcase analogy" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Content_Analogy__c}"
+                                               aura:id="questionSet6"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champSessionContent" 
+                                               label="'Who is right?' activity or 'Making a cup of tea' activity" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Content_Activity2__c}"
+                                               aura:id="questionSet6"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champSessionContent" 
+                                               label="Recap of five key messages" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Content_Recap__c}"
+                                               aura:id="questionSet6"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champSessionContent" 
+                                               label="Turning understanding into action (and committing to an action)" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champ_Feedback_Content_Understand_Action__c}"
+                                               aura:id="questionSet6"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="champSessionContent" 
+                                               label="Distribution and explanation of badges and action cards" 
+                                               showDependentFieldWhenSelected_Option="No" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Content_Badges__c}"
+                                               aura:id="questionSet6"/>
+                        </div>
+                </div>
+                
+                <aura:if isTrue="{!v.champSessionContentExplanation}">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-12">
+                                <ui:inputTextArea rows="5"
+                                                  resizable="false"
+                                                  label="You answered 'No' to one or more of the above. Please provide additional information below"
+                                                  class="form-control"
+                                                  value="{!v.simpleRecord.Champion_Feedback_Content__c}"
+                                                  aura:id="champSessionContent"/>
+                            </div>
+                    </div>
+                </aura:if>
+                
+                <div class="well" style="clear:both;"></div>                  
+                <h1>Summary</h1>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <ui:inputTextArea rows="5"
+                                              label="How would you describe the overall experience?"
+                                              class="form-control"
+                                              value="{!v.simpleRecord.Champion_Feedback_Summary_Comments__c}"/>
+                        </div>
+                </div>
+                
+                <!--div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label required">How would you rate the champion</label>
+                            <div class="col-md-12">
+                                <c:STD_dynamicPicklist name="sessionTypePicklist" 
+                                                       label=""
+                                                       value="{!v.simpleRecord.Champion_Feedback_Summary_Rating__c}"
+                                                       sObjectApiName="DF_Event__c" 
+                                                       sObjectFieldApiName="Champion_Feedback_Summary_Rating__c"/>
+                            </div>
+                        </div>
+                    </div-->
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <c:STD_yesNoSelect name="sessionContent" 
+                                               label="Would you recommend the requester as one that Dementia Friends should support with further requests?" 
+                                               sldsOverride="false"
+                                               value="{!v.simpleRecord.Champion_Feedback_Summary_Recommend__c}"/>
+                        </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12">
+                            <ui:inputTextArea rows="5"
+                                              label="Please explain"
+                                              class="form-control"
+                                              value="{!v.simpleRecord.Champ_Fdback_Recommendation_Explanation}"/>
+                        </div>
+                </div>
+                
+            </aura:if> 
+            <div class="well" style="clear:both;border-bottom:none;"></div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="clear:both;">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding-bottom:15px;">
+                <div onclick="{!c.handleSaveRecord}">
+                    <a class="btn-primary btn-xs" style="font-size: 14px;float:left; margin-right: 15px;margin-bottom: 15px;">
+                        Submit Feedback
+                    </a>
+                </div>
+                
+                
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <aura:if isTrue="{!v.isLoading}">
+                    <ui:spinner aura:id="loadingSpinner" />
+                </aura:if>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <aura:if isTrue="{!v.feedbackSubmittedSuccessfully}">
+                <div>
+                    <a href="/user-home">
+                        <ui:message severity="confirm">
+                            Your feedback has been successfully saved.
+                            Click this confirmation message to return to your dashboard.
+                        </ui:message> 
+                    </a>
+                </div>
+            </aura:if>
+        </div>
+        
+    </form>
+    
+</aura:component>

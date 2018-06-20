@@ -1,0 +1,142 @@
+<aura:component >
+    
+    <ltng:require scripts="{!$Resource.LightningCodeLibrary}" />
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:attribute name="auraIdsToValidate" type="Object[]" default="[{auraId: 'requiredInputField', isCustomCmp: false},
+                                                                      {auraId: 'requiredChildComponent', isCustomCmp: true}]"/>
+    
+    <aura:attribute name="isRegisterCommunityUserFastrack" type="Boolean" required="true"/>
+    <aura:attribute name="isOtherTitle" type="Boolean" default="false"/>
+    
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="contactInstance" type="DF_Event__c"/>
+    
+    <aura:method name="getAllParams" action="{!c.validateAndGetParams}"/>
+    
+    <aura:registerEvent name="STD_contactDetailsOutputEvt" type="c.STD_contactDetailsOutputEvt"/>
+    
+    <aura:handler name="STD_picklistSelectionEvt" event="c.STD_picklistSelectionEvt" action="{!c.handleSelDynPicklistOption}" includeFacets="true"/>
+    
+    <aura:registerEvent name="STD_passwordEntryEvt" type="c.STD_passwordEntryEvt"/>
+    <aura:attribute name="enteredPassword" type="String"/>
+    <aura:handler name="change" value="{!v.enteredPassword}" action="{!c.firePasswordChange}"/>
+    
+    <aura:attribute name="passwordMismatch" type="Boolean"/>
+    <aura:attribute name="emailMismatch" type="Boolean"/>
+    
+
+    
+    <aura:if isTrue="{!v.isRegisterCommunityUserFastrack}">
+        <h1>Account details</h1>
+        
+            <div class="col-md-12 zero-indent form-group required">
+                <label class="col-md-3 control-label required">Email address</label>
+                <div class="col-md-8">
+                    <ui:inputEmail value="{!v.contactInstance.Email__c}" 
+                                   label="" 
+                                   required="true"
+                                   class="form-control" 
+                                   change="{!c.assessEmailComposition}"
+                                   aura:id="requiredInputField"/>
+                </div>
+            </div>
+        
+        <div class="col-md-12 zero-indent form-group required">
+            <label class="col-md-3 control-label required">Confirm Email address</label>
+            <div class="col-md-8">
+                <ui:inputEmail label="" 
+                               required="true" 
+                               class="form-control" 
+                               aura:id="requiredInputField" 
+                               blur="{!c.validateEmailEntry}"/>
+            </div>
+        </div>
+        
+        <div class="col-md-12 zero-indent form-group required">
+            <label class="col-md-3 control-label required">Password</label>
+            <div class="col-md-8">
+                <ui:inputSecret value="{!v.enteredPassword}" 
+                                label="" 
+                                required="true" 
+                                class="form-control" 
+                                change="{!c.checkFieldIsPopulated}"
+                                aura:id="requiredInputField"/>
+                <small>Minimum 8 characters with numbers and letters</small>
+            </div>
+        </div>
+        
+        <div class="col-md-12 zero-indent form-group required">
+            <label class="col-md-3 control-label required">Re-enter password</label>
+            <div class="col-md-8">
+                <ui:inputSecret label="" 
+                                required="true" 
+                                class="form-control" 
+                                aura:id="requiredInputField" 
+                                blur="{!c.validatePasswordEntry}"/>
+            </div>
+        </div>
+    </aura:if>
+    
+    <div class="well" style="clear:both;"></div>
+    <h1>Personal details</h1>
+    
+    <div class="col-md-12 zero-indent form-group required">
+        <label class="col-md-3 control-label required">Title</label>
+        <div class="col-md-8">
+            <ui:inputSelect label="" required="true" 
+                            value="{!v.contactInstance.Title__c}" 
+                            class="form-control" 
+                            change="{!c.checkFieldIsPopulated}"
+                            aura:id="requiredInputField">
+                
+                <option value="" text="Please select"/>
+                <option value="Mr" text="Mr."/>
+                <option value="Mrs" text="Mrs"/>
+                <option value="Miss" text="Miss"/>
+                <option value="Ms" text="Ms."/>
+                <option value="Other" text="Other"/>
+            </ui:inputSelect>
+        </div>
+    </div>
+    
+    <aura:if isTrue="{!v.isOtherTitle}">
+        <div class="col-md-12 zero-indent form-group required">
+            <label class="col-md-3 control-label required">Other title</label>
+            <div class="col-md-8">
+                <ui:inputText value="" 
+                              label="Other title" 
+                              required="true" 
+                              class="form-control"
+                              blur="{!c.handleOtherTitle}"
+                              aura:id="requiredInputField"/>
+            </div>
+        </div>
+    </aura:if>
+    
+
+    <div class="col-md-12 zero-indent form-group required">
+        <label class="col-md-3 control-label required">First name</label>
+        <div class="col-md-8">
+            <ui:inputText value="{!v.contactInstance.First_Name__c}" 
+                          label="" 
+                          required="true" 
+                          class="form-control"
+                          blur="{!c.validateTwoCharsMin}"
+                          aura:id="requiredInputField"/>
+        </div>
+    </div>
+    
+    <div class="col-md-12 zero-indent form-group required">
+        <label class="col-md-3 control-label required">Last name</label>
+        <div class="col-md-8">
+            <ui:inputText value="{!v.contactInstance.Last_Name__c}" 
+                          label="" 
+                          required="true" 
+                          class="form-control" 
+                          blur="{!c.validateTwoCharsMin}"
+                          aura:id="requiredInputField"/>
+        </div>
+    </div>
+   
+    
+</aura:component>

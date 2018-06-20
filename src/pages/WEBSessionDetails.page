@@ -1,0 +1,225 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="WEBSessionDetails"  applyBodyTag="false" applyHtmlTag="false">
+    <html>
+        <head>
+            <meta property="og:title"   content="I'm running an #DementiaFriends Information Session – why not come along?" />
+            <meta property="og:description"   content="I'm running an #DementiaFriends Information Session – why not come along?" />
+            
+        </head>
+        
+        <body>
+            <c:DF_WEBR_WebMeta />
+            <div class="container">
+                <c:DF_WEBR_WebHeader />
+                <c:DF_WEBR_WebNavbar activeValue=""/>
+                
+                <div class="row *.css">
+                    <div class="col-md-12">
+                        <div class="row *.css">
+                            <div class="col-md-9 column">
+                                
+                                <ul class="breadcrumb">
+                                    <li class="item"><a href="/">Home</a> &gt;</li>
+                                    <li class="item"><a href="WebArticle?page=how-to-get-involved">Get involved</a></li>
+                                    <li class="item"><a href="WebSession">Find a Session</a></li>
+                                    <li class="item"><apex:outputtext value="{!selectedEvent.theEvent.Name}" /></li>
+                                </ul>
+                                
+                                <h1>{!selectedEvent.theEvent.Name}</h1>
+                                <div class="alert alert-success" >
+                                    Invite people to attend this session 
+                                    <br/> <br/>
+                                    <c:DF_WEBC_SocialLinks displaytext="I’m running an #DementiaFriends Information Session – why not come along?"/>
+                                    
+                                </div>
+                                <apex:outputPanel rendered="{!selectedEvent.theEvent.Session_Organiser__r!=''}">
+                                    <h4>Session held by <strong>{!selectedEvent.theEvent.Session_Organiser__r.Name}<br/></strong> </h4>
+                                </apex:outputPanel>    
+                                <p>
+                                    {!selectedEvent.theEvent.Event_Description__c}
+                                </p>
+
+                                <c:DF_GoogleMaps addressName="{!selectedEvent.theEvent.Name}"
+                                                 addressStreet="{!selectedEvent.theEvent.Street__c}"
+                                                 addressCity="{!selectedEvent.theEvent.City__c}"
+                                                 addressPostcode="{!selectedEvent.theEvent.Postcode__c}"
+                                                 showMapWhereComponentIsAddedOnPage="true"
+                                                 isEmbeddedLightningApp="false"/>
+                                
+                            </div>
+                            <div class="sidebar col-md-3 column">
+                                <!-- Session details panel starts --> 
+                                <div class="panel-group" id="accordion">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-alt-heading panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSessionDetails">
+                                                            Session details
+                                                        </a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapseSessionDetails" class="panel-collapse collapse in">
+                                                    <!-- Panel content starts-->
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                
+                                                                <p><strong>Session availability:</strong><br/>
+                                                                    <apex:outputPanel rendered="{!selectedEvent.theEvent.Request_Status__c == 'Waiting for approval'}">
+                                                                        <div class="unavailable-highlight">
+                                                                            <apex:outputtext value="{!selectedEvent.theEvent.Request_Status__c}"/>
+                                                                        </div>  
+                                                                        <p>
+                                                                            Watch this space: Once approved this session will take bookings
+                                                                        </p>
+                                                                    </apex:outputPanel>
+                                                                    
+                                                                    <apex:outputPanel rendered="{!selectedEvent.theEvent.Event_Status__c=='Available'}" layout="none">
+                                                                        <div class="available-highlight">
+                                                                            <apex:outputtext value="{!selectedEvent.theEvent.Event_Status__c}"/>
+                                                                        </div>                                                    
+                                                                    </apex:outputPanel>
+                                                                    
+                                                                    <apex:outputPanel rendered="{!selectedEvent.theEvent.Event_Status__c != 'Available'}" layout="none">
+                                                                        <div class="unavailable-highlight">
+                                                                            <apex:outputtext value="{!selectedEvent.theEvent.Event_Status__c}"/>
+                                                                        </div>
+                                                                    </apex:outputPanel>
+                                                                    
+                                                                </p>
+                                                                <p><strong>Date:</strong><br/>
+                                                                    {!selectedEvent.eventDay} {!selectedEvent.eventMonth}</p>
+                                                                <apex:outputPanel rendered="{!!selectedEvent.isRequestedSession || 
+                                                                                            (CONTAINS(selectedEvent.theEvent.Request_Status__c, 'Matched with champion')
+                                                                                            || CONTAINS(selectedEvent.theEvent.Request_Status__c, 'Completed'))}">
+                                                                    <!--{!!OR(selectedEvent.isRequestedSession,OR(selectedEvent.theEvent.Request_Status__c == 'Matched with champion',selectedEvent.theEvent.Request_Status__c == 'Completed'))}"-->
+                                                                    <p><strong>Start time:</strong><br/>
+                                                                        <span>{!selectedEvent.eventHour}
+                                                                            <span>{!selectedEvent.eventMin}</span>
+                                                                        </span>
+                                                                    </p>
+                                                                    
+                                                                    <p><strong>End time:</strong><br/>
+                                                                        <span>{!selectedEvent.eventEndHour}
+                                                                            <span>{!selectedEvent.eventEndMin}</span>
+                                                                        </span>
+                                                                    </p>
+                                                                </apex:outputPanel>
+                                                                
+                                                                <p><strong>Public session:</strong><br/>
+                                                                    <span>{!selectedEvent.isPublicSession}</span></p>
+                                                                
+                                                                <apex:outputPanel rendered="{!OR(AND(!selectedEvent.theEvent.Public_Event__c, selectedEvent.theEvent.Requested_Info_Session__c),NOT(selectedEvent.theEvent.Requested_Info_Session__c))}">
+                                                                    <p><strong>Spaces left:</strong><br/>
+                                                                        <span>{!placesLeft}</span></p>
+                                                                </apex:outputPanel>
+                                                                
+                                                                <apex:outputPanel rendered="{!AND(selectedEvent.theEvent.Public_Event__c, selectedEvent.theEvent.Requested_Info_Session__c)}">
+                                                                    <p><strong>Public Spaces left:</strong><br/>
+                                                                        <span>{!noPublicPlacesLeft}</span></p>
+                                                                </apex:outputPanel>
+                                                                
+                                                                <p><strong>Wheelchair accessible:</strong><br/>
+                                                                    <span>{!selectedEvent.wheelchairAccess}</span></p>
+                                                                
+                                                                <p><strong>Hearing loop available:</strong><br/>
+                                                                    <span>{!selectedEvent.hearingLoopAvailable}</span></p>
+                                                                <div id="address">
+                                                                    <p><strong>Address</strong>
+                                                                        <address>
+                                                                            <apex:outputText rendered="{!!ISBLANK(selectedEvent.theEvent.Location__c)}"><strong>{!selectedEvent.theEvent.Location__c}</strong><br/></apex:outputText>
+                                                                            {!selectedEvent.theEvent.Street__c}<br/>
+                                                                            {!selectedEvent.theEvent.City__c}<br/>                        
+                                                                            <apex:outputText rendered="{!!ISBLANK(selectedEvent.theEvent.County__c)}">{!selectedEvent.theEvent.County__c}<br/></apex:outputText>
+                                                                            {!selectedEvent.theEvent.Postcode__c}<br/>
+                                                                    </address>
+                                                                </p>
+                                                            </div>
+                                                            <div class="booking-container">
+                                                                
+                                                                <apex:outputPanel rendered="{!!isLoggedIn}">
+                                                                    
+                                                                    <p>
+                                                                        
+                                                                        Please <a href="WEBLogin">sign in</a> or <a href="WEBRegisterFriend">register</a> before you book a session.
+                                                                        
+                                                                    </p>
+                                                                    
+                                                                </apex:outputPanel>
+                                                                
+                                                                <apex:outputPanel rendered="{!isLoggedIn && isFriend && (loggedInDFContact.Id != selectedEvent.requestDfContactId)}"> 
+                                                                    <apex:form html-data-once="true">
+                                                                        <p>
+                                                                            <!-- <a href="/champion/training/register/id/3915" class="book-session btn btn-primary btn-large">Book your session</a> -->
+                                                                            <apex:commandButton disabled="{!isAlreadyBooked}" value="Register for Session" styleClass="book-session btn btn-primary btn-large" action="{!bookOnSession}" rendered="{!!isAlreadyBooked && !hasOtherBooking && !eventClosed }"/>
+                                                                        </p>
+                                                                        <p>
+                                                                            <apex:commandButton value="Unregister for Session" styleClass="unbook-session btn-primary btn-small" action="{!removeFromSession}" rendered="{!isAlreadyBooked && !hasOtherBooking}"/>
+                                                                        </p>
+                                                                        <apex:outputPanel rendered="{!hasOtherBooking}">
+                                                                            <p>
+                                                                                You must unregister from your previous session before you can register onto this session.<br/>
+                                                                                <a href="/WEBFriend">My Sessions</a>
+                                                                            </p>
+                                                                        </apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!eventClosed}">
+                                                                            <p>
+                                                                                This session is no longer available for booking.  Please search for another session.
+                                                                            </p>
+                                                                        </apex:outputPanel>
+                                                                    </apex:form>
+                                                                </apex:outputPanel>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Panel content ends-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Session details panel ends -->
+                            <!-- Friends panel starts --> 
+                            <div class="panel-group" id="accordion">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFriends">
+                                                        Friends
+                                                    </a>
+                                                </h3>
+                                            </div>
+                                            <div id="collapseFriends" class="panel-collapse collapse in">
+                                                <!-- Panel content starts-->
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                                            <ul>
+                                                                <li ><a href="WEBArticle?page=what-is-a-friend">What is a Friend?</a></li>
+                                                                <li><a href="WEBArticle?page=friend-am-eligible">Am I eligible?</a></li>
+                                                                <li><a href="WEBArticle?page=friend-how-else-can-i-help">How else can I help?</a></li>
+                                                                <li><a href="WEBSession">Find sessions</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Panel content ends-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Friends panel ends -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <c:DF_WEBR_WebFooter />
+        </div>
+    </body>
+</html>
+</apex:page>

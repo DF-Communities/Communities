@@ -1,0 +1,98 @@
+<apex:component >
+    
+    <apex:attribute name="isVisualforceApexOnly" type="Boolean" required="false" default="true" description="This setting determines the type of body elements required"/>
+    <apex:attribute name="emailPref" type="Boolean" required="false" description="Email Preference"/>
+    <apex:attribute name="telPref" type="Boolean" required="false" description="Telephone Preference"/>
+    <apex:attribute name="textPref" type="Boolean" required="false" description="Text Message Preference"/>
+    <apex:attribute name="socialPref" type="Boolean" required="false" description="social Media Preference"/>
+    <apex:attribute name="postPref" type="Boolean" required="false" description="Post Preference"/>
+    
+    <apex:outputPanel rendered="{!isVisualforceApexOnly}">
+        <div class="form-group"> 
+            <div class="control-group element-proximity element-type-checkbox optional">
+                <label for=".checkbox" class="control-label col-sm-2 optional" style="margin-top:3px">How can we contact you?</label>
+                <div class="checkbox col-sm-10">
+                    <label class="help-block" style="padding-left: 0px;padding-bottom: 10px;">We&#x2019;d love to stay in touch with you about Dementia Friends and everything Alzheimer&#x2019;s Society is doing; from fundraising, campaigning, services and research to volunteering.<br/><br/>
+                        It&#x2019;s totally up to you &#x2013; you can update what you get at any time and we will never sell your details to third parties.</label>
+                    
+                    
+                    <label class="fLabel">Please <b>contact me</b> by (please tick all that apply)</label>
+                    <div></div>
+                    <label>
+                        <div><apex:inputCheckbox value="{!emailPref}" title="Email"/> Email</div>
+                        <div><apex:inputCheckbox value="{!telPref}" title="Telephone"/> Telephone</div>
+                        <div><apex:inputCheckbox value="{!textPref}" title="Text Message"/> Text Message</div>
+                        <div><apex:inputCheckbox value="{!socialPref}" title="Social Media"/> Social Media</div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <div class="control-group element-proximity element-type-checkbox optional">
+                <label for="optOutContact" class="control-label col-sm-2 optional"> </label>
+                <div class="checkbox col-sm-10">
+                    <label class="fLabel">Please <u>do not</u> contact me by </label>
+                    <div></div>
+                    <label>
+                        <div><apex:inputCheckbox value="{!postPref}" title="Post"/> Post</div>   
+                    </label>                                            
+                </div>
+            </div>
+        </div>
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!NOT(isVisualforceApexOnly)}">
+        
+        <style>
+            label.fLabel { 
+            padding: padding-left: 0px;
+            padding-bottom: 10px;
+            display: inline-block;max-width: 100%;
+            margin-bottom: 5px;
+            font-weight: 700;
+            padding-left: 0px
+            }
+            
+        </style>
+        
+        
+        <div class="col-md-12 zero-indent form-group" style="margin-bottom:0px;">
+            <label class="col-md-3 control-label required" for="preferences-container" style="padding-left: 3px;padding-top: 10px;"></label>
+            
+            <div class="form-group" id="preferences-container">
+                
+                <div class="col-md-8 checkbox" style="padding-left: 0px;" id="prefcheckboxes"> 
+                    
+                    <label class="help-block" style="padding-left: 0px;">We&#x2019;d love to stay in touch with you about Dementia Friends and everything Alzheimer&#x2019;s Society is doing; from fundraising, campaigning, services and research to volunteering.<br/><br/>
+                        It&#x2019;s totally up to you &#x2013; you can update what you get at any time and we will never sell your details to third parties.</label>
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;margin-top: 20px;">
+                        <input type="checkbox" id="emailPref"/>
+                        <div>Yes, I'd like to receive updates by email</div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                        <input type="checkbox" id="smsPref"/>
+                        <div>Yes, I'd like to receive updates via SMS</div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                        <input type="checkbox" id="phonePref"/>
+                        <div>Yes, I'd like to speak to someone on the phone</div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                        <input type="checkbox" id="socialPref"/>
+                        <div>Yes, I'd like to receive updates through social media</div>
+                    </div>
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="margin-top: 20px;">
+                        Please <strong>do not</strong> contact me by:
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                        <input type="checkbox" id="postPref"/>
+                        <div>Post</div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        
+    </apex:outputPanel>
+</apex:component>

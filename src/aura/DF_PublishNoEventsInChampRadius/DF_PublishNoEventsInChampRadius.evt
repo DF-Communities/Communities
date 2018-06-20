@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="noSessionsInChampRadius" 
+                    type="Integer" 
+                    default="0"/>
+</aura:event>

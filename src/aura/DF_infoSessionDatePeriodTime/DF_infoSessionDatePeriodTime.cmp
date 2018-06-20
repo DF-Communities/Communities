@@ -1,0 +1,33 @@
+<aura:component >
+    
+    <ltng:require scripts="{!$Resource.LightningCodeLibrary}" />
+    <aura:method name="getAllParams" action="{!c.getAllParams}"/>
+    <aura:attribute name="outputParams" type="Object" default="{}"/>
+    <aura:attribute name="isValid" type="Boolean" default="false"/>
+    <aura:attribute name="name" type="String" default="setSessionPeriodCmp"/>
+    <aura:attribute name="instanceNo" type="Integer" default="1"/>
+    <aura:attribute name="valueObj" type="Object" default="{date: '', period: '', time: ''}"/>
+    
+    <aura:handler name="STD_datePickerSelectionEvt" event="c:STD_datePickerSelectionEvt" action="{!c.getDateFromEvt}"/>
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:attribute name="auraIdsToValidate" type="Object[]" default="[{auraId: 'requiredInputField', isCustomCmp: false},
+                                                                      {auraId: 'requiredChildComponent', isCustomCmp: true}]"/>
+    
+    <aura:attribute name="showSpecificTime" type="Boolean"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="selectedDate" type="Date"/>
+    <aura:attribute name="selectedPeriod" type="String"/>
+    <aura:attribute name="selectedTimeHour" type="String" default="null"/>
+    <aura:attribute name="selectedTimeMinutes" type="String" default="null"/>
+    <aura:attribute name="selectedTime" type="String" default="null"/>
+    
+    
+    <!--aura:registerEvent name="DF_timeDetailEvt" type="c.DF_timeDetailEvt"/--> <!-- can maybe delete -->
+    <!--aura:handler name="DF_timeDetailEvt" event="DF_timeDetailEvt" action="{!c.handle description="If specific time is selected then the time must be entered"/-->
+    <!--aura:attribute name="isSessionDetailComplete" type="Boolean" description="If specific time is selected then the time must be entered"/-->
+    
+    <aura:registerEvent name="DF_rowItemDetailEvt" type="c.DF_rowItemDetailEvt"/>
+    
+    
+</aura:component>

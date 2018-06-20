@@ -1,0 +1,230 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_PartnerOfflineSessions_Ctr" action="{!orgAdminLoginRedirect}">
+<style>
+.outText
+{
+color: #a94442;
+}
+
+</style>
+
+ <c:DF_WEBR_WebMeta />
+<style>
+.datepicker.dropdown-menu { background : #ccc;}
+
+</style>
+<apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+
+ <div class="container">
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+         
+
+     <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+                          
+             <div class="col-md-9 column col-md-push-3">            
+        
+           <div id="message-center"></div> 
+           <apex:outputPanel rendered="{!offlineRecordSaved}" >
+                    
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">�</button>
+                        You have successfully saved offline record.           
+                    </div>
+                
+                </apex:outputPanel>          
+           
+           <h1>Record video views – offline route</h1>
+           <div>
+            <p>Please only complete this form to log the number of people watching the videos on internal systems/on DVD format. </p>
+            <p>Click the save button and the number will be added to the total number of Dementia Friends created on your dashboard.</p>
+           
+            
+           </div>
+       
+           <div class="well">
+           <apex:form styleClass="form-horizontal">
+           
+           <div class="form-group required" >
+                             
+                              <label for="partcipants" class="col-md-3 control-label required" > Number of people who became Dementia Friends </label>
+                              <div class="col-md-8">
+                              
+                               <apex:inputField id="partcipants" value="{!event.Participant_Count__c}" styleClass="form-control" />
+                               <apex:outputText value="{!partcipantsError}" rendered="{!LEN(partcipantsError)>0}" styleClass="help-block outText"/>
+                               
+             </div>
+            </div>
+            <div class="form-group required">
+                <label for="howVideo" class="col-md-3 control-label required" > What method was used to create the Dementia Friends? </label>
+                              <div class="col-md-8">
+                          
+                         <apex:selectlist size="1" value="{!howVideo}" id="howVideo" styleClass="form-control">   
+                             
+                            <apex:selectoptions value="{!HowVideoOptions}"/> 
+                                  
+                        </apex:selectlist> 
+                        <apex:outputText value="{!howVideoError}" rendered="{!LEN(howVideoError)>0}" styleClass="help-block outText"/>  
+                        
+                  </div>  
+              </div>
+         
+          <div class="form-group" id="howVideo-other-container">
+                              <label for="howVideoOther" class="col-md-3 control-label required" >  </label>
+                              <div class="col-md-8">
+                              <label id="howVideoOtherLabel">Please specify</label>
+                             
+                               <apex:inputText id="howVideoOther" value="{!howVideoOther}" styleClass="form-control" />
+                               <apex:outputText id="howVideoOtherError" value="{!howVideoOtherError}" rendered="{!LEN(howVideoOtherError)>0}" styleClass="help-block outText"/>            
+                              
+                               
+             </div>
+            </div>
+          <div class="form-group required">
+           <label for="dateVideo" class="col-md-3 control-label required" > Please enter the date of the activity </label>
+           <div class="col-md-6">
+            
+          <apex:inputField id="dateVideo" value="{!event.Offline_Event_Date__c}" styleClass="as-datepicker form-control"/>    
+          <apex:outputText value="{!dateVideoError}" rendered="{!LEN(dateVideoError)>0}" styleClass="help-block outText"/>                    
+          </div>
+          </div>
+        
+                <div class="form-group">
+                <div class="col-sm-10">
+                <div class="btn-toolbar"> 
+                     <apex:commandButton id="save" value="Save" action="{!save}" styleClass="btn-primary btn"/>
+                      <apex:commandButton id="cancel" value="Cancel" action="{!cancel}" styleClass="btn btn-default" />
+                 </div> 
+                 </div>
+                 </div>    
+
+            </apex:form>
+      </div>
+      <apex:outputpanel rendered="{!events.size>0}">
+      <h1>Recorded offline video views</h1>
+      <div class="well">
+        <apex:form styleClass="form-horizontal">
+         <table class="table table-striped">
+                   
+                   <thead>
+                   <th>Number of people</th>
+                   <th>How did you watch the videos? </th>
+                   <th>Event Date</th>
+                   </thead>
+                   <tbody>
+          <apex:repeat value="{!events}" var="e">
+              
+               <tr class="event">
+                                    
+                                   <td>
+                                    <span class="people"  >{!e.Participant_Count__c}</span>
+                                    
+                                   </td>       
+                                   <td>
+                                   <apex:outputpanel rendered="{!e.How_did_you_watch_the_videos__c!='Other (please specify)'}">
+                                   <span class="how"  >{!e.How_did_you_watch_the_videos__c}</span>
+                                   </apex:outputpanel>
+                                    <apex:outputpanel rendered="{!e.Other_please_specify__c!=null}">
+                                     <span class="date"  >{!e.Other_please_specify__c}</span>
+                                   </apex:outputpanel>   
+                                   </td>
+                                                                      
+                                   <td>
+                                   <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                                <apex:param value="{!e.Event_Date__c}" /> 
+                                    </apex:outputText>
+                                  
+                                       
+                                   </td>
+                                   
+                                  
+                            </tr>
+                         </apex:repeat>
+                      </tbody>
+                 </table>  
+                
+            </apex:form>
+            </div>
+            </apex:outputpanel>
+     </div>  
+      
+            
+ 
+    <c:DF_WEBC_AdminNavigationMenu activeValue="OFFLINE" partnerid="{!partnerId}" partnerhasActions="{!hasActions}" />   
+     </div>
+     </div>
+    
+    </div>
+        
+
+    <c:DF_WEBR_WebFooter />
+    
+    </div>
+    
+     <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
+    
+    
+    <script type="text/javascript">
+    
+       $('[id$=howVideo').change(
+          function () {
+
+            
+            
+            if ( $('[id$=howVideo]').val().indexOf("please specify")>-1 )  { 
+
+                $('#howVideo-other-container').show();
+                
+
+            } else {
+
+                $('#howVideo-other-container').hide();
+                $('#howVideo-other-container input').val("");
+            }
+
+        
+
+        });
+        
+        function howVideoInput(){
+        
+        if( $('[id$=howVideo]').val()=='Other (please specify)'){
+        document.getElementById('howVideo_input').onchange = ""; 
+        $('#howVideo-other-container').show(); 
+       
+         
+        }
+        
+        }
+
+            
+            
+        
+      
+        $(document).ready(function() {
+       
+         
+        howVideoInput();
+          
+        $('#howVideo-other-container').show();
+        
+           
+             $('[id$=howVideo-other-container]').hide();
+              
+            $( ".datepicker" ).datepicker({     
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-80:+0"
+            });
+
+        });
+        
+         $(".as-datepicker").datepicker({
+            format: 'dd/mm/yyyy'
+        });
+
+    </script>
+ 
+</apex:page>

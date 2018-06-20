@@ -1,0 +1,77 @@
+<apex:page showHeader="false" sidebar="false" controller="EdtPageController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+    
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>Cupcake Day Terms and Conditions – Alzheimer’s Society</title>
+    <c:Cke_CommonHead />
+
+</head>    
+    
+<body class="sub">
+    
+   <c:Cke_CommonBody pageUrl="terms-and-conditions"/>
+   <c:Cke_WebMainNav pageUrl="terms-and-conditions"/>
+
+    <main>  
+        <div class="tsandcs">
+            <article>
+                <div class="container">
+                    <div id="responsive-spacer"></div>
+                    <div class="row "> 
+                        <div class="col-xs-12">
+                        <h2><u><c:EdtText group="cke-termsconditions" key="intro-title-1" context="{!edtContext}" text="Terms and conditions for taking part in Cupcake Day"/></u></h2>
+                        <ol>                        
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-1" context="{!edtContext}" text="I understand that, in organising a Cupcake Day, I am organising such event at my own risk and take full responsibility for organising the event (including the health and safety for such event). I will not hold Alzheimer’s Society, their employees or their agents responsible for any injury, loss or harm resulting from me organising a Cupcake Day."/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-2" context="{!edtContext}" text="I hereby confirm that I am 16 years of age or older."/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-3" context="{!edtContext}" text="All funds raised for Alzheimer's Society shall be paid to Alzheimer’s Society as soon as reasonably possible and in any case within 12 weeks after the date(s) on which your Cupcake Day has been scheduled to take place."/> </li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-4" context="{!edtContext}" text="Any materials supplied to you by Alzheimer’s Society for the purpose of running a Cupcake Day will only be used by you in connection with such event and/or to carry out fundraising activities for the benefit of Alzheimer's Society."/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-5" context="{!edtContext}" text="Nothing in these terms and conditions shall limit or exclude Alzheimer’s Society’s liability in respect of death or personal injury sustained as a direct result of the negligence, breach of statutory duty or fraudulent misrepresentation of Alzheimer’s Society, its employees or agents or any deliberate act or omission of Alzheimer’s Society, its employees or agents."/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-6" context="{!edtContext}" text="Alzheimer’s Society may use your contact details to contact you about your Cupcake Day."/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-7" context="{!edtContext}" text="Alzheimer’s Society may vary these terms and conditions from time to time and the up to date terms shall be available on this website."/></li>
+                        </ol>
+                        
+
+                        <c:EdtText group="cke-termsconditions" key="ol-section-2" context="{!edtContext}" text=""/>                        
+
+                        </div>
+
+                    </div>   
+                    <div class="row "> 
+                        <div class="col-xs-12">
+                        <h2><u><c:EdtText group="cke-termsconditions" key="intro-title-1" context="{!edtContext}" text="Terms and conditions for Cupcake Day Prize Draw"/></u></h2>
+                        <ol>                        
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-1" context="{!edtContext}" text="No purchase necessary. There is no obligation to make a donation to be eligible for entry"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-2" context="{!edtContext}" text="Subject to these terms and conditions, you can enter this draw without making a donation by sending your name and address on a postcard to: Cupcake Prize Draw, Alzheimer’s Society, 43-44 Crutched Friars, London, EC3N 2AE"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-3" context="{!edtContext}" text="Entry is open to UK residents over 16 years of age"/> </li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-4" context="{!edtContext}" text="Maximum 1 entry per person. Participants must have supplied a full postal address to participate"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-5" context="{!edtContext}" text="Entry signifies acceptance of these rules. Entries not submitted in accordance with the rules and illegible, incomplete or altered entries will be disqualified and Alzheimer’s Society reserves the right to withhold or cancel the prize in the event of non-compliance with these rules. Alzheimer’s Society decision is final and no correspondence will be entered into in relation to the competition"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-6" context="{!edtContext}" text="The prize draw will be open until the end of 16 July 2018"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-7" context="{!edtContext}" text="The winning entry will be drawn 13 August 2018"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-8" context="{!edtContext}" text="There is one prize consisting of: a £150 John Lewis Partnership Gift Card. There will not be any alternative prizes, no interest is payable and prizes are not transferable"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-9" context="{!edtContext}" text="The prize will be posted to the winner within 14 days of the draw"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-10" context="{!edtContext}" text="Details of the winner and prize awarded will be published on our website and can be sent on request to anyone who supplies an ordinary postage stamped self-addressed envelope"/></li>
+                            <li><c:EdtText group="cke-termsconditions" key="intro-text-11" context="{!edtContext}" text="The winner will be notified by email, post or phone within 5 days of being selected (using details provided at entry) and must provide a postal address to claim their prize.  If we cannot contact the winner (using the details provided) within a reasonable period of time (to be established at Alzheimer's Society's discretion) then Alzheimer’s Society reserves the right to choose another winner and thereafter until a winner on these terms is found."/></li>
+
+                        </ol>
+
+                        <c:EdtText group="cke-termsconditions" key="ol-section-2" context="{!edtContext}" text=""/>                        
+
+                        </div>
+
+                    </div>        
+                </div>                             
+            </article>
+        </div>
+    </main>
+
+    
+    <c:Cke_CommonDonateAside />
+    <c:Cke_CommonFooter />    
+    <c:Cke_CommonScripts />
+
+</body>
+
+</html>
+    
+</apex:page>

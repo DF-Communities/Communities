@@ -1,0 +1,22 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html">
+    
+     <c:DF_WEBR_WebMeta />
+
+
+    <div class="container">
+    
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+
+        <h1>Success</h1>
+        <div class="well">
+            <p>
+            Thank you for your message.
+            </p>
+        </div>
+
+    <c:DF_WEBR_WebFooter />
+
+  </div>
+
+</apex:page>

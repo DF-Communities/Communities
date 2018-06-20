@@ -1,0 +1,7 @@
+<aura:component extensible="true" abstract="true">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/> 
+	
+</aura:component>

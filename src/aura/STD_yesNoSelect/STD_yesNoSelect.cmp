@@ -1,0 +1,49 @@
+<aura:component extensible="true">
+     
+    
+    <aura:attribute name="useSlds" type="Boolean" default="false" description="This value will be taken from the application event when the app first loads"/>
+    <aura:attribute name="sldsOverride" type="Boolean" description="If this optional attribute is set then the boolean value will override the value of attribtue 'useSlds'"/>
+    <aura:handler event="c:SldsVsCustomStylingEvt" value="{!this}" action="{!c.setStylingFramework}"/>
+    <aura:registerEvent name="STD_yesNoSelectEvt" type="c:STD_yesNoSelectEvt" />
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+                    
+    <aura:method name="getAllParams" action="{!c.validateAndGetParams}"/>
+    <aura:attribute name="value" type="String" default="Please select..."/>
+    <aura:attribute name="uiCompatValue" type="String" default="Please select..."/>
+
+    
+    <aura:attribute name="name" required="yes" type="String" default="Placeholder: YesNo Selection"/>
+    <aura:attribute name="label" required="yes" type="String" default="Yes/No"/>
+    <aura:attribute name="showDependentFieldWhenSelected_Option" type="String" default="false"/>
+    <aura:attribute name="required" type="Boolean" default="false"/>
+    <aura:attribute name="returnSelectionAsBoolean" type="Boolean" default="false"/>
+    
+    
+    <!-- value and option must be the same in order for the controller logic to work -->
+    <aura:if isTrue="{!v.useSlds}">
+        <lightning:select required="{!v.required}" 
+                          name="{!v.name}" 
+                          label="{!v.label}" 
+                          value="{!v.value}"
+                          onchange="{!c.handleSelectionChange}"
+                          aura:id="yesNoSelect">
+            <option value="">Please select...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </lightning:select> 
+    
+        <aura:set attribute="else">
+            <ui:inputSelect class="form-control" 
+                            required="{!v.required}"
+                            label="{!v.label}" 
+                            change="{!c.handleSelectionChange}"
+                            aura:id="yesNoSelect" >
+                <ui:inputSelectOption text="" label="Please select..." value="true"/>
+                <ui:inputSelectOption text="Yes" label="Yes"/>
+                <ui:inputSelectOption text="No" label="No"/>
+            </ui:inputSelect>
+        </aura:set>
+    </aura:if>
+
+</aura:component>

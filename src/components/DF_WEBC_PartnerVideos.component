@@ -1,0 +1,381 @@
+<apex:component controller="DF_WEBC_PartnerVideos_Controller" allowDML="true">
+
+<!--==================== STYLES =========================-->
+<apex:attribute name="partnerid" description="Which partner organisation?" type="String" required="false" default="" assignTo="{!orgId}" />
+<apex:attribute name="partnercode" description="partner code" type="String" required="false" default="" />
+
+
+    <!-- Start Video Block -->
+    <div class="video-menu row clearfix">
+        <div class="col-sm-12 col-md-12 column">
+            <p><img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/partners_main.jpg')}" alt="" class="img-responsive" /></p>
+            <div class="play-icon" data-title="Understanding Dementia" data-videoid="UivLL05xzd4"></div>
+            <div class="video-time">03:43</div>
+            <h3>Understanding Dementia</h3>
+            <p>For all employees who want to understand a little more about dementia.</p>
+            <p><a href="{!URLFOR($Resource.WEBC_Assets, 'partner/transcript/1_Dementia_Friends_Intro_Film_Transcript.pdf')}" id="UnderstandingDementia" target="_blank" class="translink">Transcript</a></p>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-6 col-md-6 column">
+            <p><img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/on_the_phone.jpg')}" alt="" class="img-responsive" /></p>
+            <div class="play-icon" data-title="On the phone" data-videoid="3fbRu7jbdRc"></div>
+            <div class="video-time">02:31</div>
+            <h3>On the phone</h3>
+            <p>For employees who often take calls from the public, helping them with queries.</p>
+            <p><a href="{!URLFOR($Resource.WEBC_Assets, 'partner/transcript/2_Dementia_Friends_On_The_Phone_Transcript.pdf')}" id="OnThePhone" target="_blank" class="translink">Transcript</a></p>
+        </div>
+        <div class="col-sm-6 col-md-6 column">
+            <p><img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/getting_around.jpg')}" alt="" class="img-responsive" /></p>
+            <div class="play-icon" data-title="Getting around" data-videoid="fAbpzDzKmhY"></div>
+            <div class="video-time">03:03</div>
+            <h3>Getting around</h3>
+            <p>For employees who work on public transport and help passengers get from A to B.</p>
+            <p><a href="{!URLFOR($Resource.WEBC_Assets, 'partner/transcript/3_Dementia_Friends_Getting_Around_Transcript.pdf')}" id="GettingAround" target="_blank" class="translink">Transcript</a></p>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-6 col-md-6 column">
+            <p><img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/paying_for_things.jpg')}" alt="" class="img-responsive" /></p>
+            <div class="play-icon" data-title="Paying for things" data-videoid="9kER8QGjgyo"></div>
+            <div class="video-time">02:38</div>
+            <h3>Paying for things</h3>
+            <p>For employees who regularly take payment from customers, particularly in a retail environment.</p>
+            <p><a href="{!URLFOR($Resource.WEBC_Assets, 'partner/transcript/4_Dementia_Friends_Paying_For_Things_Transcipt.pdf')}" id="PayingForThings" target="_blank" class="translink">Transcript</a></p>
+        </div>
+        <div class="col-sm-6 col-md-6 column">
+            <p><img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/reading_writing.jpg')}" alt="" class="img-responsive" /></p>
+            <div class="play-icon" data-title="Reading & writing" data-videoid="uuGfNaCxFS8"></div>
+            <div class="video-time">02:44</div>
+            <h3>Reading &amp; writing</h3>
+            <p>For employees who provide forms and accept forms from the public.</p>
+            <p><a href="{!URLFOR($Resource.WEBC_Assets, 'partner/transcript/5_Dementia_Friends_Reading_And_Writing_Transcript.pdf')}" id="ReadingWriting" target="_blank" class="translink">Transcript</a></p>
+        </div>
+    </div>
+    
+    <div class="row clearfix">
+        <div class="col-sm-6 col-md-6 column">
+            <p><img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/gina.jpg')}" alt="" class="img-responsive" /></p>
+            <div class="play-icon" data-title="Becoming a Dementia Friend" data-videoid="fync5IKMgnk"></div>
+            <div class="video-time">04:25</div>
+            <h3>Becoming a Dementia Friend</h3>
+            <p>Becoming a Dementia Friend</p>
+            <p><a href="{!URLFOR($Resource.WEBC_Assets, 'partner/transcript/4_Dementia_Friends_Paying_For_Things_Transcipt.pdf')}" id="PayingForThings" target="_blank" class="translink">Transcript</a></p>
+        </div>
+        
+    </div>
+    <!-- End Video Block -->
+    
+
+    <!-- These vars will be updated by a re-render when the modal form is submitted. 
+         If theid is null, it means the db entry to record the viewing was not saved
+    -->     
+     <apex:form id="partnerData" style="display:none">
+
+        <apex:inputHidden value="{!event.id}" id="eventId"/>
+        <apex:inputField value="{!event.Participant_Count__c}"/>
+        <apex:inputField value="{!event.Postcode__c}"/>
+        <apex:outputText value="{!orgId}" id="partnerId"/>
+
+     </apex:form>   
+      
+
+      <!-- ================== Video Modal ========================= -->
+
+      <div id="vidModal" class="modal fade">
+      <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header"> 
+      <button type="button" class="close" data-dismiss="modal">&times;</button>           
+      <h4 class="modal-title" id="vid-title"></h4>
+      <div class="modal-body">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="//www.youtube.com/embed/h57ZVMh59uU" id="vid-iframe" allowfullscreen="true"></iframe>
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>  
+      </div>
+
+
+    <!-- ================== Overlay to Record Usage ========================= -->
+
+      <div id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">            
+              <h4 class="modal-title">Dementia Friends at Work</h4>
+              
+              <p> The details you enter below will allow us to keep track of the number people watching these videos and becoming Dementia Friends within your organisation. It will count towards our target of reaching four million Dementia Friends by 2020.</p>
+              <h5>To become a Dementia Friend you need to:</h5>
+              <ol>
+               <li>Enter your organisation code*</li>
+                <superscript>* Your organisation’s Dementia Friends administrator can provide your code. If you’re not sure who your administrator is, please contact us at programmepartnerships@alzheimers.org.uk  </superscript>
+               <li>Enter the number of people </li>
+               <p>This is the number of people that are watching the videos with you right now who have not watched the videos before. Enter 0 if you have all watched the videos before</p>
+               <li>Enter the postcode</li>
+               <p>The location where the majority of people watching with you normally work</p>
+              
+              </ol>
+          
+          </div>
+          
+          
+          <div class="modal-body">
+            
+            <apex:form id="accessForm" styleClass="form-horizontal">
+
+            <!-- This function will submit the form, record the viewing in a database record and then when complete, 
+                refresh the partnerData above with a rerender. When all that is complete the initStatus will call 
+                doCheckServerResponse. That checks for an id, indicating the record was saved to the database. Otherwise
+                (if id is null) an error is displayed. 
+
+                -->
+
+            <apex:actionFunction name="initVideos" 
+                    reRender="partnerData" 
+                    action="{!init}" 
+                    status="initStatus"
+                    />
+
+            <apex:actionStatus id="initStatus" onstop="_webc_video.doCheckServerResponse()"/>        
+
+            <div class="row clearfix">
+            <div class="col-md-12">
+
+            <div class="control-group required">
+              <apex:outputPanel rendered="{!orgId==null}"> 
+                 <label for="code" class="col-md-8 control-label">Code</label>
+                 <div class="col-md-8">                                                 
+                 <apex:inputText value="{!code}" label="Organisation Code" id="dlgCode" styleClass="form-control"/>
+                 <span id="dlgCodeError" class="help-block"></span>
+                  </div>
+                 </apex:outputPanel>
+                 <apex:outputPanel rendered="{!orgId!=null && partnercode!=null && partnercode!='' }">   
+                  <label for="code" class="col-md-8 control-label">Code</label>
+                 <div class="col-md-8">
+                 <apex:outputText value="{!partnercode}" label="Organisation Code" id="dlgCode2" styleClass="form-control"/>
+                 </div>
+                 </apex:outputPanel>            
+                 
+             </div>    
+
+             <div class="control-group element-title element-type-text required">
+                 <label for="people" class="col-md-8 control-label">No. of people</label>
+                 <div class="col-md-8">                 
+                 <apex:inputField value="{!event.Participant_Count__c}" label="Number of People" id="dlgNumber" styleClass="form-control"/>
+                 <span id="dlgNumberError" class="help-block"></span>
+                 </div>
+             </div>    
+
+             <div class="control-group element-title element-type-text required">
+                 <label for="postcode" class="col-md-8 control-label">Postcode</label>
+                 <div class="col-md-8">                 
+                 <apex:inputField value="{!event.Postcode__c}" label="Postcode" id="dlgPostcode" styleClass="form-control" />
+                 <span id="dlgPostcodeError" class="help-block"></span>
+                 </div>
+             </div>    
+
+             <div class="has-error">
+                 <div style="display:none" id="summaryError" class="help-block"></div>   
+             </div>    
+             
+             </div>
+             </div>
+
+             </apex:form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="dlgSubmit">Submit</button>
+            <button type="button" class="btn btn-default" id="dlgCancel">Close</button>
+            <apex:outputPanel rendered="{!partnerId!=null}">
+            <button type="button" class="btn btn-default" id="dlgSkip">Skip</button>
+            </apex:outputPanel>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+
+    <!--===================SCRIPTS=========================-->
+     
+     <script>
+
+        function _webc_videos(){};
+        var _webc_video = new _webc_videos(); 
+
+        _webc_video.doCheckServerResponse = function() {
+
+            if ( $('[id$=eventId]').val()=='' ) {
+
+                _webc.setErrorMessage('summary','Sorry. That code is not recognised');
+
+            } else {
+
+                _webc_video.partnerVideos_init();
+                //$( "#dialog" ).dialog("close");
+                 
+                 //$("#myModal").modal('hide');
+
+            }
+
+        };
+
+        _webc_video.partnerVideos_init = function () { 
+         
+
+            $('.play-icon').click(function() {
+
+                var vid = $(this).data('videoid');
+                var vtitle =  $(this).data('title');
+                //_gaq.push(['_trackEvent', 'video', 'show', vid]);
+                
+                //$('#' + vid).click();
+
+                $('#vid-iframe').attr('src', '//www.youtube.com/embed/' + vid + '?autoplay=1');
+                $('#vid-title').html(vtitle);
+                $("#vidModal").modal('show'); 
+
+                //google tracking EV01
+                  _webc.googleTrackingVideo();    
+                         
+
+            });
+
+       };    
+       
+         $('[id$=dlgCode]').change(function () { 
+     
+      Visualforce.remoting.Manager.invokeAction (
+                    '{!$RemoteAction.DF_WEBC_PartnerVideos_Controller.isPartnerFound}', 
+                
+               _webc.getFieldValue('dlgCode'), 
+                function(response, event) {
+           
+          if ( response==false) {  
+           
+          _webc.setErrorMessage('dlgCode','Organisation Code not found.');
+                 $('#dlgSubmit').hide();
+                 return;
+         
+         }
+         else{
+         
+          _webc.clearErrors('dlgCode');                   
+          $('#dlgSubmit').show();  
+         
+         }
+         }
+         
+         );
+     });
+
+       _webc_video.validateForm = function() {
+
+            var isOK = true;
+            var partnercode='{!partnercode}';
+ 
+            if ( _webc.isNull('dlgCode') && partnercode=="" ) {
+                 _webc.setErrorMessage('dlgCode','Please enter an Organisation Code');
+                 isOK = false;
+            }
+
+            if ( _webc.isNull('dlgNumber') ) {
+                 _webc.setErrorMessage('dlgNumber','Please enter a valid number');
+                 isOK = false;
+            }
+
+            if ( isNaN(_webc.getFieldValue('dlgNumber')) ) {
+                 _webc.setErrorMessage('dlgNumber','Please enter a valid number');
+                 isOK = false;
+            }
+
+           
+             if (/^((GIR[ ]?0AA)|((([A-PR-UWYZ][0-9][0-9]?)|(([A-PR-UWYZ][A-HK-Y][0-9][0-9]?)|(([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY]))))[ ]?[0-9][ABD-HJLNP-UWXYZ]{2}))$/.test(_webc.getFieldValue('dlgPostcode').toUpperCase())==false) {
+             
+                 _webc.setErrorMessage('dlgPostcode','Please enter a valid post code');
+                 isOK = false;
+            }
+            return isOK;
+
+       };
+
+       _webc_video.doDialogSubmit = function() {
+       
+            _webc.clearErrors();
+            if ( !_webc_video.validateForm() ) {
+                return;
+            }
+
+           else  {
+            var numok =window.confirm('You have entered '+$('[id$=dlgNumber]').val()+ ' as the number of people watching this film. Is this correct? ');
+            
+            // if(numok == true){
+              //initVideos();
+             //}
+             
+             if(numok == true){
+               if($('[id$=partnerId]').val()!=null){
+               $('.play-icon').show();
+               initVideos();
+               $("#myModal").modal('hide');
+               }
+            
+              else{
+                   initVideos();                 
+                 }
+            }
+             
+             if(numok==false){
+             $('[id$=dlgNumber]').val('');
+             $('[id$=dlgNumber]').focus();
+             }
+           
+           }
+
+       };
+
+       $(document).ready(function() {  
+            
+           var partnerId='{!partnerid}';
+           $('.play-icon').hide();
+           
+        
+            $('#dlgSubmit').click(function(){
+                _webc_video.doDialogSubmit();
+            });
+
+           $('#dlgCancel').click(function(){
+          if(partnerId==''){
+             window.history.back();}
+             else{
+              var url = window.location.href; 
+              window.location.replace(url);
+             
+             }
+           
+           });   
+           
+            $('#dlgSkip').click(function(){
+             var numok =window.confirm('Are you sure you want to skip recording the number of people watching the videos. Please only use this option if everyone with you has watched the videos before.');
+                        
+             if(numok == true){
+                $("#myModal").modal('hide');
+                $('.play-icon').show();
+               }
+              else{
+               return;
+              }
+              
+           });                
+           
+       });
+
+
+    </script>
+
+
+</apex:component>

@@ -1,0 +1,60 @@
+.THIS.uiInputDefaultError .form-element__help {
+    font-size: 19px;
+}
+
+.THIS.uiInputDefaultError .form-element__help {
+            font-size: .75rem;
+            margin-top: .5rem;
+            color: #a94442;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            line-height: 1.429em;
+            font-size: 14px;
+}
+
+.THIS .uiInputDefaultError .form-element__help {
+    font-size: 14px;
+    color: #a94442;
+    margin-top: 5px !important;
+    margin-bottom: 10px !important;
+}
+
+.THIS td th {
+    padding: 0;
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+.THIS .form-control.no-pad {
+    padding-left:0px;
+    padding-right:0px;
+}
+
+
+.THIS .btn-primary {
+	font-size: 1em;
+}
+
+.THIS .form-submit-err {
+	color: #a94442; 
+    padding-top: 15px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.THIS uiInputDefaultError uiInput uiInputText uiInput--default uiInput--input {
+    list-style-image: none;
+}
+
+.THIS.form-element__help {
+    list-style-image: none;
+}
+
+.THIS .form-element__help {
+    list-style-image: none;
+}
+
+.THIS .required.df-required {
+    color: #a94442;
+}

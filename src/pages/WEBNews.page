@@ -1,0 +1,152 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="WEBNews">
+
+<head>
+<style type='text/css'>
+    
+ b,strong{
+        color: #1C1463 !important;
+    }
+</style>
+</head>
+
+     <c:DF_WEBR_WebMeta />
+   
+    <div class="container">
+    
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar activeValue="NEWS" />  
+    
+    <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+
+                <div class="col-md-8 column">    
+                    
+                   <h1>News &amp; press</h1>
+                   <c:DF_WEBC_SocialLinks />
+                   
+                                       
+                     <ul class="plain">
+                        <apex:repeat value="{!newsStories}" var="story">
+                            <li>
+                                <div class="col-md-9 col-xs-12">
+                                <h4>
+                                    <a href="WEBNewsStory?storyId={!story.Id}">{!story.Title__c}</a>
+                                </h4>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <apex:outputText value="{0,date,dd MMM yyyy}">
+                                        <apex:param value="{!story.Publish_Date__c}" /> 
+                                    </apex:outputText>
+                                </div>
+                                <div class="col-xs-12">
+                                <p>
+                                    <apex:outputText value="{!LEFT(story.Body_Text__c,200) & '... '}" escape="false" />
+                                    <a href="WEBNewsStory?storyId={!story.Id}" class="read-more">Read more</a>
+                                </p>
+                                <hr/>
+                                </div>
+
+                            </li>
+                        </apex:repeat>
+                        </ul>  
+                                                    
+                        
+                   <div class="paging row *.css">
+                    <apex:form forceSSL="true">
+
+                      <div class="col-md-6 column">
+                            <p><apex:commandLink styleClass="btn-xs btn-primary" 
+                                action="{!previousPage}"
+                                rendered="{!IF(startRecord > 0,TRUE,FALSE)}"
+                                >
+                                &lt;&lt;
+                                </apex:commandLink>
+
+                                &nbsp;
+                                {!startRecord+1} to {!IF((startRecord+recordsPerPage) > noOfRecords, noOfRecords, startRecord+recordsPerPage)} of {!noOfRecords} articles&nbsp;&nbsp;
+
+                                <apex:commandLink styleClass="btn-xs btn-primary" 
+                                action="{!nextPage}"
+                                rendered="{!IF(startRecord+recordsPerPage < noOfRecords, TRUE,FALSE)}"
+                                >
+                               &gt;&gt;
+                                </apex:commandLink>
+
+                          </p>
+                        </div>
+                    
+                        <div class="col-md-6 column">
+                        <p> Show&nbsp;
+
+                            <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="10">
+                                <apex:param assignTo="{!recordsPerPage}" value="10" ></apex:param>
+                            </apex:commandLink>&nbsp;
+
+                            <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="20">
+                                <apex:param assignTo="{!recordsPerPage}" value="20" ></apex:param>
+                            </apex:commandLink>&nbsp;
+
+                            <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="50">
+                                <apex:param assignTo="{!recordsPerPage}" value="50" ></apex:param>
+                            </apex:commandLink>&nbsp;
+
+
+                            &nbsp;per page.
+
+</p>
+                        
+                        </div>
+                    
+                    </apex:form>
+                    </div>
+
+                    <div class="row *.css">
+                    <div class="col-md-12">      
+                        <hr/>
+                    </div>
+                    </div>
+
+                </div>    
+
+                <div class="col-md-4 column">
+                                
+                    <div class="sidebar-block">
+                        <h3>Media Enquiries</h3>
+                        <p>To contact the media team please <a href="WEBContactForm">email</a>, If you are a journalist with an inquiry please call Alzheimer's Society press team on 020 7423 3595 or 07802 688 774 (out of hours).</p>                        
+                    </div>                
+
+                
+                    <div class="sidebar-block">
+                        <h3>Friends Information Sessions</h3>
+                        <p>Friends Information Sessions are run by Dementia Friends Champions to help you understand what it's like to live with dementia and the actions you can take. Search for your nearest information session.</p>    
+                        <p><a class="btn btn-primary" href="WEBSession">Find a Session</a></p>
+                    </div>                
+
+
+                    <div class="sidebar-block">
+                        <h3>Champions inductions</h3>
+                        <p>Our induction prepares Dementia Friends Champions to help people understand what it's like to live with dementia and the actions they can take in their communities. Search for your nearest induction.</p>    
+                        <p><a class="btn btn-primary" href="WEBTraining">Find Induction</a></p>
+                    </div>                
+
+
+                    <apex:outputPanel layout="none" rendered="{!!isLoggedIn}" >   
+                    <div class="sidebar-block">
+                        <h3>Already Registered</h3>
+                        <p>Friends Information Sessions are run by Dementia Friends Champions to help you understand what it is like to live with dementia the actions you can take. Search for your nearest information session.</p>    
+                        <p><a class="btn btn-primary" href="WEBLogin">Sign in here</a></p>
+                    </div>                
+                    </apex:outputPanel>
+
+                </div>
+
+    </div>
+    </div>
+    </div>
+
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+
+</apex:page>

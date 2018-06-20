@@ -1,0 +1,9 @@
+<apex:component controller="WEBController">
+                    <header><h3>My details</h3></header>
+                    <p>Name: <i>{!thisUser.title + ' ' + thisUser.firstName + ' ' + thisUser.lastName}</i></p>
+                    <apex:outputPanel rendered="{!isChampion}">
+                    <p>Postcode: <i>{!dfContact.Postcode__c}</i></p>
+                    <P>Telephone: <i>{!dfContact.Contact_Number__c}</i></p>
+                    </apex:outputPanel>
+                    <p>Email: <i>{!thisUser.Email}</i></p>
+</apex:component>

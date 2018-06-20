@@ -1,0 +1,54 @@
+<messaging:emailTemplate subject="Dementia Friends - Your Information Session is soon!" recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Dear {!relatedto.First_Name__c},<br/><br/>
+
+Thanks for booking to attend a Dementia Friends Information Session. <br/><br/>
+The details of the Session again are;
+<br/>
+<c:DF_Mail_SessionDetails TOID="{!relatedto.Id}"/>
+<br/><br/>
+The Session will last approximately forty-five minutes to one hour. 
+<br/><br/>
+<b>Changed your mind?</b>
+<br/>
+If you can no longer attend please <a href="https://www.dementiafriends.org.uk/login"> log in</a> to your account on the Dementia Friends website and unregister from the Session. This will notify the volunteer running the Session so they can plan accordingly. 
+<br/><br/>
+Many thanks for supporting the Dementia Friends initiative – we hope you enjoy the Session!
+<br/><br/>
+
+Kind regards, <br/>
+Dementia Friends team<br/><br/>
+
+0300 222 5855<br/>
+<a href = "http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href ="https://www.facebook.com/DementiaFriends">Facebook</a><br/>
+Email Id:TEREF18
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+Thanks for booking to attend a Dementia Friends Information Session. The details of the Session again are: 
+<c:DF_Mail_SessionDetails_Plain TOID="{!relatedto.Id}"/>
+
+The Session will last approximately forty-five minutes to one hour. 
+
+Changed your mind?
+
+If you can no longer attend please log in to your account on the Dementia Friends website and unregister from the Session. This will notify the volunteer running the Session so they can plan accordingly. 
+
+Many thanks for supporting the Dementia Friends initiative – we hope you enjoy the Session!
+
+
+Kind regards,
+Dementia Friends team
+
+0300 222 5855
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+Email Id:TEREF18
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

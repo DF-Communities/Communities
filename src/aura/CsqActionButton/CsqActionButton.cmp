@@ -1,0 +1,15 @@
+<aura:component access="GLOBAL">
+	
+    <aura:attribute name="class" type="String" access="GLOBAL"/>
+    <aura:attribute name="disabled" type="Boolean" default="false" access="GLOBAL"/>
+
+    <aura:attribute name="forceDisabled" type="Boolean" default="false" access="GLOBAL"/>
+    
+    <aura:registerEvent name="onclick" type="c:CsqComponentEvent"/>
+    
+    <aura:handler event="c:CsqActionBegin" action="c.onActionBegin"/>
+    <aura:handler event="c:CsqActionComplete" action="c.onActionComplete"/>
+    
+    <button class="{!v.class}" onclick="{!c.onClick}" disabled="{!v.disabled||v.forceDisabled}">{!v.body}</button>
+    
+</aura:component>

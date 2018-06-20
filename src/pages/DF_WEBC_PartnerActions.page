@@ -1,0 +1,88 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="DF_WEBC_PartnerActions_Controller" action="{!orgAdminLoginRedirect}">
+ 
+ <style>
+
+  .checkBoxTable label { display: inline;} 
+
+ </style>   
+
+
+ <c:DF_WEBR_WebMeta />
+
+
+ <div class="container">
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+         
+
+   
+
+        
+        <div class="row *.css">
+                          
+        <div class="col-md-9 column col-md-push-3">            
+        
+           <div id="message-center"></div>          
+           
+           <h1>Tell us about your action</h1>
+           <div>
+            <p> Dementia Friends is about turning understanding into action. We want to know what your organisation is going to do as a result of having Dementia Friends in your workplace. Every action you take makes a difference.</p>
+             <p> Please select from the list below – you can choose more than one and/or tell us about an action you’re taking which isn’t already listed:</p>
+   
+           </div>
+         <div class="well">
+      
+           <apex:form >
+             <div class="form-group">
+         
+        
+                         <apex:selectcheckboxes layout="pageDirection" value="{!Actionname}" id="stactions" styleClass="checkBoxTable">   
+                             
+                            <apex:selectoptions value="{!actionnames}"/> 
+                                  
+                        </apex:selectcheckboxes> 
+                        
+                    
+              </div>
+               <div class="form-group required">
+                   <label for="name" >Other – please specify</label>
+                        
+                   <apex:inputTextarea id="name" value="{!action5}" styleClass="form-control" />
+                   
+                   
+                </div>
+                
+                <div class="form-group">
+                <p >We’ll send you more information relevant to the actions you choose. </p>
+              <!--   <label for="public" class="control-label">
+                      <apex:inputCheckbox id="public" value="{!publicCheckbox}"/>
+                      Public Action</label> – ticking this box means you’re happy for the action(s) you take to be shared publically on the Dementia Friends website. 
+                 -->   
+                </div>
+        
+                <div class="form-group">
+                     <apex:commandButton id="save" value="Save changes" styleClass="btn-primary btn" action="{!save}" />
+                     <apex:commandButton id="cancel" value="Cancel" styleClass="btn btn-default" action="{!cancel}" />
+                 </div>     
+
+            </apex:form>
+
+        </div>  
+    
+    </div>    
+    <c:DF_WEBC_AdminNavigationMenu activeValue="ACTIONS" partnerid="{!partnerId}" partnerhasActions="{!partnerhasActions}" />   
+     
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+     <script type="text/javascript">
+ 
+     //$('[Id="j_id0:j_id66:j_id68:j_id69:j_id70:4"]').hide();
+     </script>
+
+    <c:DF_WEBR_WebFooter />
+    
+    </div>
+ 
+
+</apex:page>

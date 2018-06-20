@@ -1,0 +1,104 @@
+<aura:component extends="c:CsqViewComponent">
+    
+    <!-- These attributes are also on the Community Store   -->
+    <aura:attribute name="communityData" type="Object" access="GLOBAL"/>
+    <aura:attribute name="county" type="Object" access="GLOBAL"/>
+    
+    <aura:attribute name="alliance" type="Object" access="GLOBAL"/>
+
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    
+    <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+     
+    <h3>Community Details</h3>
+ 
+  <div class="well">
+
+         <div class="form-group">
+            <label>Country</label>
+            <div>
+                <ui:outputText value="{!v.communityData.Country__c}" class="form-control" /> 
+            </div>
+        </div>
+
+        <div class="{!v.communityData.Central_Location__c=='No'?'form-group':'hide'}">
+            <label>About this community</label>
+            <div>
+                <ui:outputTextArea value="{!v.communityData.Why_No_Central_Location__c}" class="form-control" /> 
+            </div>
+        </div>
+
+
+        <span class="{!v.communityData.Central_Location__c=='Yes'?'':'hide'}"> 
+
+        <div class="{!and(v.communityData.Country__c=='England',v.alliance.Name)?'form-group':'hide' }">
+            <label>Dementia Action Alliance</label>
+            <div>
+                <ui:outputText value="{!v.alliance.Name}" class="form-control" /> 
+            </div>
+        </div>
+
+     
+
+        <div class="form-group">
+            <label>County</label>
+            <div>
+                <ui:outputText value="{!v.county.Name}" class="form-control" /> 
+            </div>
+        </div>
+
+           <div class="form-group">
+            <label>Community Location</label>
+            <div>
+                <ui:outputTextArea value="{!v.communityData.Location__c}" class="form-control" /> 
+            </div>
+        </div>
+
+        </span>
+
+
+
+    
+        
+
+        <!-- Display using two columns -->
+    <div class="dfc-col2 clearfix">
+
+            <div class="form-group">
+            <label>Population</label>
+            <div>
+                <ui:outputText value="{!v.communityData.Population__c}" class="form-control" />                
+            </div>
+            </div>
+
+         <div class="form-group">
+            <label>Location Type</label>
+            
+            <div>
+                <ui:outputText value="{!v.communityData.Central_Location__c=='Yes'?v.communityData.Location_Type__c:'N/A'}" class="form-control" /> 
+            </div>
+             
+          </div>
+
+
+    </div>
+
+
+        <div class="dfc-col2 clearfix">
+            <div class="form-group">
+                <label>Date Submitted</label>
+                <div>
+                  <ui:outputDateTime value="{!v.communityData.Date_Submitted__c}" format="D MMM YYYY" timezone="Europe/London" class="form-control"/> 
+                </div>
+            </div>
+           <div class="form-group">
+                <label>Date Approved</label>
+                <div>
+                  <ui:outputDateTime value="{!v.communityData.Date_Approved__c}" format="D MMM YYYY" timezone="Europe/London"  class="form-control"/> 
+                </div>
+            </div>
+        </div>
+    
+ </div>
+	
+</aura:component>

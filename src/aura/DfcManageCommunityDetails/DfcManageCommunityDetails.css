@@ -1,0 +1,96 @@
+.THIS {
+    margin-top:-16px
+}
+
+.THIS .dfc-tabular {
+    display: table;
+    width:100%;
+}
+
+.THIS .dfc-tabular > p {
+    display: table-row;
+    line-height:1.5em;
+}
+
+.THIS .dfc-tabular > p > span {
+    display: table-cell;
+    padding:6px 10px;
+    border-top: 1px solid #ffffff;
+}
+
+.THIS .dfc-tabular > p:first-child > span {
+    border-top: 0;
+}
+
+.THIS .dfc-tabular > p > span:first-child {
+    width:1px;
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+.THIS .dfc-tabular.dfc-right > p > span:last-child {
+    text-align: right;
+}
+
+.THIS .dfc-container {
+    width:100%;
+    border: 1px solid #285987;
+    border-radius: 4px;
+    margin-bottom: 10px; 
+    background-color:#D6E6F5;
+}
+
+.THIS .dfc-container.w60 {
+    width:60%
+}
+
+.THIS .dfc-container.w30 {
+    width:30%
+}
+
+.THIS h4 {
+    margin: 20px 0 6px 0; 
+  
+}
+
+.THIS  .list-group-item.detail > div:first-child{
+       width:200px; 
+       font-weight: 700;
+       display: table-cell;
+}
+
+
+.THIS  .list-group-item> div:last-child{
+       display: table-cell;
+}
+
+
+.THIS  .list-group-item.activities > div:first-child{
+       width:70%; 
+       font-weight: 700;
+       display: table-cell;
+}
+
+.THIS  .list-group-item.activities > div:last-child{
+       text-align: right;
+     
+}
+
+.THIS .panel
+{
+  
+}
+
+.THIS .list-group
+{
+    margin-bottom: 0px;
+}
+
+.THIS .panel-body {
+    border-bottom: solid 1px #ccc;
+    padding: 0;
+}
+
+.THIS h3 {
+    margin:0;
+}

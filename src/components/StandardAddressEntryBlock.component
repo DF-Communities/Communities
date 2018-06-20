@@ -1,0 +1,260 @@
+<apex:component layout="none">
+    
+    <apex:attribute name="ltngCmpOriginUrl" type="String" 
+                    required="true" description="This is the host for lightning components"/>        
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+        <div class="form-group required">
+            <label class="col-md-3 col-sm-3 col-xs-3 control-label required ng-cloak" for="postcode">Postcode</label>
+            <div class="col-md-8 col-sm-8 col-xs-8 column">
+                <input id="pca-postcode" type="text" name="postcode" 
+                       class="form-control" maxlength="8"
+                       onfocus="detectEdit()"/>
+                <p id="postcode-error" style="color:#a94442;display:none;">Please enter the postcode</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="addressSection">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+            <div class="form-group required">
+                <label class="col-md-3 col-sm-3 col-xs-3 control-label required" for="address1">House No./Street</label>
+                <div class="col-md-8 col-sm-8 col-xs-8 column">
+                    <input id="pca-street1" type="text" name="address1" class="form-control" 
+                           placeholder="" maxlength="40" style="border:1px solid #ccc;" 
+                           onchange="sendMessageFromVfToLightning(this, true)"/>
+                    <p id="street1-error" style="color:red;display:none;">Please enter the first line of the address</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+            <div class="form-group">
+                <label class="col-md-3 col-sm-3 col-xs-3 control-label" for="address2">Address line 2</label>
+                <div class="col-md-8 col-sm-8 col-xs-8 column">
+                    <input id="pca-street2" type="text" name="address2" 
+                           class="form-control" maxlength="40"
+                           onchange="sendMessageFromVfToLightning(this, true)"/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+            <div class="form-group">
+                <label class="col-md-3 col-sm-3 col-xs-3 control-label" for="address3">Address line 3</label>
+                <div class="col-md-8 col-sm-8 col-xs-8 column">
+                    <input id="pca-street3" type="text" name="address3" 
+                           class="form-control" maxlength="40"
+                           onchange="sendMessageFromVfToLightning(this, true)"/>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+            <div class="form-group required">
+                <label class="col-md-3 col-sm-3 col-xs-3 control-label required" for="towncity">City</label>
+                <div class="col-md-8 col-sm-8 col-xs-8 column">
+                    <input id="pca-city" type="text" name="towncity" 
+                           class="form-control" maxlength="40"
+                           onchange="sendMessageFromVfToLightning(this, true)"/>
+                    <p id="city-error" style="color:#a94442;display:none;">Please enter the city</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+            <div class="form-group">
+                <label class="col-md-3 col-sm-3 col-xs-3 control-label ng-cloak" for="county">County</label>
+                <div class="col-md-8 col-sm-8 col-xs-8 column">
+                    <input id="pca-county" type="text" name="county" 
+                           maxlength="40" class="form-control" value="" 
+                           onchange="sendMessageFromVfToLightning(this, true)"/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+            <div class="form-group">
+                <label class="col-md-3 col-sm-3 col-xs-3 control-label ng-cloak" for="country">Country</label>
+                <div class="col-md-8 col-sm-8 col-xs-8 column">
+                    <input id="pca-country" type="text" name="country" 
+                           maxlength="40" class="form-control" value="" 
+                           onchange="sendMessageFromVfToLightning(this, true)"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    
+    /*
+            The method below passes the address data entered on this VF component to 
+            its encompassing Lightning component via the browser postMessage API.
+    */
+    var isTouched = false;
+    
+    function detectEdit() {
+        isTouched = true;
+    }
+    
+    function sendMessageFromVfToLightning(component, requireTouchedForm) {
+        
+        setTimeout(function() {
+            
+            var proceed = false;
+            if(requireTouchedForm) { // On events on this VF page
+                if(isTouched) { // The form must be validated (proceed=true) for the postmessage to be called
+                    proceed = true;
+                } else {
+                    if(component != null && component.value != '' && component.value != undefined) {
+                        isTouched = true;
+                        proceed = true;
+                    }
+                }
+            } else { // On "submit request" button press in lightning app
+                proceed = true;      
+                isTouched = true;
+            }
+            
+            if(proceed) {
+                
+                
+                
+                var addressIsValid = doValidation(requireTouchedForm);        
+                var lexOrigin = 'https://' + '{!ltngCmpOriginUrl}';
+                
+                console.log("pca-street1: " + document.getElementById("pca-street1").value);
+                console.log("pca-street2: " + document.getElementById("pca-street2").value);
+                console.log("pca-street3: " + document.getElementById("pca-street3").value);
+                console.log("pca-city: " + document.getElementById("pca-city").value);
+                console.log("pca-county: " + document.getElementById("pca-county").value);
+                console.log("pca-country: " + document.getElementById("pca-country").value);
+                console.log("pca-postcode: " + document.getElementById("pca-postcode").value);
+                
+                var data = {};
+                data.cmp='pca';
+                data.isValid = addressIsValid;
+                
+                var message = {};
+                if(!addressIsValid) {
+                    
+                    message["street1"] = '';
+                    message["street2"] = '';
+                    message["street3"] = '';
+                    message["city"] = '';
+                    message["county"] = '';
+                    message["country"] = '';
+                    message["postcode"] = '';
+                    
+                    // Hide address info text if errors are present to make room for
+                    // the error messages (iframe height will not scale dynamically)
+                    //document.getElementById('addressInfoText').style.display="none";
+                    
+                } else {
+                    
+                    message["street1"] = document.getElementById("pca-street1").value;
+                    message["street2"] = document.getElementById("pca-street2").value;
+                    message["street3"] = document.getElementById("pca-street3").value;
+                    message["city"] = document.getElementById("pca-city").value;
+                    message["county"] = document.getElementById("pca-county").value;
+                    message["country"] = document.getElementById("pca-country").value;
+                    message["postcode"] = document.getElementById("pca-postcode").value;
+                    
+                }
+                
+                data.body = message;
+                console.log('Sending out postmessage');
+                parent.postMessage(data, lexOrigin);
+            }
+            console.log('finished validation ');}, 1000);
+    }
+    
+    /*
+        Method to show or hide required field error messages. 
+            
+        This method is run when the fields are changed by the end user and when the
+        form submit button is pressed from the parent Lightning Application
+    */
+    function doValidation(requireTouchedForm){
+        console.log('In validation');
+        var isValid = true;
+        var invalidCount = 0;
+        
+        console.log(document.getElementById('pca-street1').value == '');
+        if(document.getElementById('pca-street1').value == ''){
+            document.getElementById("pca-street1").style.border = "1px solid rgb(169,68,66)";
+            document.getElementById("street1-error").style.display = "block";
+            isValid = false;
+            console.log('Street validity: ' + isValid);
+            invalidCount++;
+        } else {
+            document.getElementById("pca-street1").style.border = "1px solid rgb(204, 204, 204)";
+            document.getElementById("street1-error").style.display = "none";
+        }
+        
+        if(document.getElementById('pca-city').value == ''){
+            document.getElementById("pca-city").style.border = "1px solid rgb(169,68,66)";
+            document.getElementById("city-error").style.display = "block";
+            isValid = false;
+            console.log('City validity: ' + isValid);
+            invalidCount++;
+        } else {
+            document.getElementById("pca-city").style.border = "1px solid rgb(204, 204, 204)";
+            document.getElementById("city-error").style.display = "none";
+        }
+        
+        if(document.getElementById('pca-postcode').value == ''){
+            document.getElementById("pca-postcode").style.border = "1px solid rgb(169,68,66)";
+            document.getElementById("postcode-error").style.display = "block";
+            isValid = false;
+            console.log('Postcode validity: ' + isValid);
+            invalidCount++;
+        } else {
+            document.getElementById("pca-postcode").style.border = "1px solid rgb(204, 204, 204)";
+            document.getElementById("postcode-error").style.display = "none";
+        }
+        
+        // Workaround for quirk with postcode anywhere selection requiring two clicks/events to persist
+        if(requireTouchedForm && invalidCount==3) {
+            // Prevent error messages appearing when all fields are empty 
+            // (applies to VF events - where requireTouchedForm = true- only).
+            isValid = true; 
+            document.getElementById("pca-street1").style.border = "1px solid rgb(204, 204, 204)";
+            document.getElementById("street1-error").style.display = "none";
+            document.getElementById("pca-city").style.border = "1px solid rgb(204, 204, 204)";
+            document.getElementById("city-error").style.display = "none";
+            document.getElementById("pca-postcode").style.border = "1px solid rgb(204, 204, 204)";
+            document.getElementById("postcode-error").style.display = "none";
+        }
+        
+        return isValid;
+    }
+    
+    /*
+            Method to show or hide the address line fields depending on whether a postcode
+            has been entered in the lookup or not.
+            
+            This functionality is currently not being used as cannot find a way to change the
+            iframe height dynamically to accommodate the amount of page space required
+    */
+    function showAddrSectionOnLookup(hideAddrSectionOverride) {
+        
+        var postcodeLookupVal = document.getElementById("pca-lookup");
+        var addrFields = document.getElementById("addressSection");
+        
+        if(hideAddrSectionOverride) {
+            document.getElementById("addressSection").style.display = "block";
+        } else if (postcodeLookupVal === "" || postcodeLookupVal == null) {
+            addrFields.style.display = "none";
+            addrFields.style.height = 0; 
+            addrFields.style.overflow = "visible";
+        } else {
+            document.getElementById("addressSection").style.display = "block";
+        }
+        
+    }
+    </script> 
+    
+    
+</apex:component>

@@ -1,0 +1,126 @@
+<apex:component >
+    <apex:attribute name="activeValue" description="Which menu is active ?" type="String" required="false" default=""/>    
+    <apex:attribute name="dfcW" description="Current DF_Contact Wrapper" required="false" default="" type="DF_Contact_Wrapper"/>   
+     
+    <div class="col-md-3 column col-md-pull-9"> 
+
+        <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+     
+
+       <div class="well">
+                
+            <ul class="navigation">
+ 
+                <li class="{!IF(activeValue=='Dashboard','active','')}">
+                    <a href="/user-home">Dashboard home</a>
+                </li>
+
+                
+                
+
+                    <apex:outputPanel layout="none" rendered="{!(!dfcW.hasActions) }"> <!--rendered="{!(!dfcW.hasActions && dfcw.isFriendConverted) }"-->
+                        <li class="{!IF(activeValue=='EditAction','active','')}">
+                            <a href="/WEBCreateActions">Tell us your actions</a>
+                        </li>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!dfcW.hasActions}">
+                        <li class="{!IF(activeValue=='EditAction','active','')}">
+                            <a href="/WEBCreateActions?id={!dfcW.friendAction.id}">Edit your actions</a>
+                        </li>
+                    </apex:outputPanel>
+
+                 
+
+                <li class="{!IF(activeValue=='EditDetails','active','')}">
+                       <a href="/edit-details">Edit my details</a>
+                </li>
+                <li class="{!IF(activeValue=='ChangePassword','active','')}">
+                       <a href="/change-password">Change my password</a>
+                </li>
+                <li class="{!IF(activeValue=='WebFriendtoChamp','active','')}">
+                      <a href="WEBFriendConvertToChampion">Convert to a Dementia Friends Champion</a>
+               </li>
+               
+               <li class="{!IF(activeValue=='NewsArchive','active','')}">
+                            <a href="/WEBNewsletterArchives">Newsletter archive</a>
+              </li>  
+               
+
+             </ul>
+       </div>
+       
+       
+               <div class="well">
+                   <ul> 
+                    
+                     <apex:outputPanel layout="none" rendered="{!( dfcW.partners==null && dfcw.orgLeads.size<=0)}">  
+                         <li class="{!IF(activeValue=='ORG','active','')}">
+                              <a href="/register-partner">Register your organisation</a>
+                        </li> 
+                     </apex:outputPanel> 
+                      
+                     <apex:outputPanel layout="none" rendered="{!dfcW.partners!=null && dfcw.orgLeads.size<=0}">
+                     
+                        <li class="{!IF(activeValue=='ORG','active','')}">
+                              <a href="/register-partner">Register another organisation</a>
+                        </li> 
+                                              
+                    </apex:outputPanel>  
+               
+                    
+                  <apex:outputPanel layout="none" rendered="{!(dfcW.partners!=null && dfcW.partners.size==1 &&  dfcw.orgLeads.size==0)}">
+                     
+                        <li class="{!IF(activeValue=='ORG','active','')}">
+                              <a href="/partner-home?id={!dfcW.partners[0].Id}">Manage my organisation</a>
+                        </li> 
+                      
+                    </apex:outputPanel> 
+                     <apex:outputPanel layout="none" rendered="{!(dfcW.partners!=null && dfcW.partners.size>1) ||( dfcw.orgLeads.size>0 ) }">
+                     
+                        <li class="{!IF(activeValue=='ORG','active','')}">
+                              <a href="/DF_WEBC_ManageOrganisations">Manage my organisations</a>
+                        </li> 
+                      
+                    </apex:outputPanel> 
+
+                    </ul>    
+                   
+                 </div>
+            
+            <div class="well"> 
+                <ul>
+                    <li>
+                        <a href="/WEBRequestInfoSession">Request a Session</a>
+                    </li>
+                </ul>
+            </div>
+               
+               
+       
+       <div class="well">
+
+            <h3>My details</h3>
+            <p class="small"><strong>Name:</strong><br/>
+                {!dfcW.dfc.Title__c + ' ' + dfcW.dfc.First_Name__c + ' ' + dfcW.dfc.Last_Name__c}
+            </p>
+            <p class="small"><strong>Postcode:</strong><br/>
+                {!dfcW.dfc.Postcode__c}
+            </p>
+            <p class="small"><strong>Telephone:</strong><br/>
+                {!dfcW.dfc.Contact_Number__c}
+            </p>
+            <p class="small"><strong>Email:</strong><br/>
+                {!dfcW.dfc.Email__c}
+            </p>
+        
+     </div> 
+    
+     </div>         
+     </div>
+        
+ </div>
+
+
+</apex:component>

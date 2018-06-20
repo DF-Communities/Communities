@@ -1,0 +1,15 @@
+.THIS.error-msg {
+    font-size: 14px;
+    color: #a94442;
+    margin-top: 5px!important;
+    margin-bottom: 10px!important;
+}
+
+
+.THIS .no-left-padding {
+    padding-left: 0px;
+}
+
+.THIS .form-control {
+    margin-bottom: 15px;
+}

@@ -1,0 +1,101 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBChampionPreTrainingMaterials" action="{!loginRedirect}">
+
+
+    <c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+   
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />    
+
+     <div class="row *.css">
+     <div class="col-sm-12">
+    
+     <div class="row *.css">
+                     
+
+      <div class="col-md-9 column col-md-push-3">
+           
+                <div id="message-center"></div> 
+                <div class="intro">    
+
+                    <h1>Pre-induction materials</h1>
+                    <div>
+                        <p>We want everyone to come to Dementia Friends Champions induction with a similar basic understanding of dementia. Although, many of you may already know about dementia through your own experience or other inductions this online module will mean that we know everyone is starting from the same point.</p>
+                        <p>Please complete this module of the SCIE's (Social Care Institute for Excellence) <a href="http://www.scie.org.uk/publications/elearning/dementia/index.asp">Open Dementia Programme</a>, written with Alzheimer's Society, before you come to the induction and we will explore the implications for people living with dementia during the session.</p>    
+                    </div>
+                </div>
+
+                <apex:outputPanel rendered="{!dfcW.isChampionProspective}" layout="none" >
+                
+                    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">        
+                        
+                        <apex:repeat value="{!sessionCategories}" var="session" >
+                            <li role="presentation" tabindex="{!session.rowNum}">
+                                <a href="#tabs-{!session.rowNum+1}" data-toggle="tab" role="presentation" tabindex="-1" id="ui-id-{!session.rowNum+1}">{!session.Name}</a>
+                            </li>
+                        </apex:repeat>
+                    
+                    </ul>
+
+                    <div class="tab-content">
+                    
+                    <apex:repeat value="{!sessionCategories}" var="session" >                
+                        
+                        <div class="well tab-pane" id="tabs-{!session.rowNum+1}">
+                            
+                            <p><apex:outputText value="{!session.description}" escape="false" /></p>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Details</th>
+                                        <th>File Size</th>
+                                        <th><span>Download</span></th>
+                                    </tr>
+                                </thead>                           
+                                <apex:repeat value="{!sessionResources[session.rowNum]}" var="resource" >                               
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p><strong>{!resource.Name__c}</strong></p>
+                                            </td>
+                                            <td><span>{!CEILING(att[resource.Id].BodyLength/1024)}</span>KB</td>
+                                            <td><a href="{!URLFOR($Action.Attachment.Download, att[resource.Id].id)}" class="btn btn-primary"><span>Download</span></a></td>
+                                        </tr>
+                                    </tbody>     
+                                </apex:repeat>                       
+                           </table>
+                        </div>
+                    
+                    </apex:repeat> 
+                    </div>       
+                
+                </apex:outputPanel> 
+    
+                </div>
+
+                <c:DF_WEBC_ChampionNav activeValue="SESSIONRESOURCES" dfcW="{!dfcW}"/>
+          
+     </div>
+     </div>
+     </div>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+  <c:DF_WEBR_WebFooter />
+
+   <script>
+
+   $(document).ready(function() {
+
+    $('#tabs').tab();
+    $('#tabs a:first').tab('show');
+
+   });
+
+   </script> 
+
+    </div>
+
+
+</apex:page>

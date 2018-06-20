@@ -1,0 +1,45 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBChampionActionList" action="{!loginRedirect}">
+    
+    <c:DF_WEBR_WebMeta />
+    <div class="container">
+     <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+
+
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="row clearfix">
+                
+                
+                <div class="col-md-9 column col-md-push-3">
+
+            
+                <div id="message-center"></div>
+                    <div class="intro">
+                        <h1>Dementia Friends Actions</h1>
+                    </div>
+
+                    <p>Actions recorded by Dementia Friends I have created</p>
+                    <ul class="friends-actions">
+
+                        <apex:repeat value="{!actions}" var="action">                                   
+                            <li><apex:outputText value="{!action.Action__c}" escape="false" />
+                            <strong>by {!action.DF_Contact__r.Name}</strong></li>
+                        </apex:repeat> 
+    
+                    </ul>
+                
+            </div>
+
+            <c:DF_WEBC_ChampionNav activeValue="FRIENDSACTIONS" dfcW="{!dfcW}"/>
+
+     </div>
+    </div>
+   </div>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+     <c:DF_WEBR_WebFooter />
+
+  </div>
+  
+</apex:page>

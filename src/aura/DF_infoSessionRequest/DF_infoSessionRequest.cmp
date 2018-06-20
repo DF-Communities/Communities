@@ -1,0 +1,264 @@
+<aura:component implements="flexipage:availableForAllPageTypes" 
+                controller="DFEventTriggerMethods"
+                access="global">
+    
+    <!--aura:handler event="c:STD_errorEvt" action="{!c.handleErrorCount}"/-->
+    <aura:attribute name="totalErrorCount" type="Integer" default="0"/>
+    <aura:attribute name="publicSessionSearchOnly" type="Boolean" default="false" description="This attribute is passed to the scheduling 'child' component. The attribute if uipdated in the child will then update this attribute in the parent"/>
+    
+    <aura:registerEvent name="DF_validationResultToVfEvt" type="c:DF_validationResultToVfEvt"/>
+    <aura:attribute name="eventId" type="String"/>
+    <aura:attribute name="useSlds" type="Boolean" default="true"/>
+    <aura:attribute name="isCommunityApp" type="Boolean" default="false"/>
+    <aura:registerEvent name="SldsVsCustomStylingEvt" type="c:SldsVsCustomStylingEvt"/>
+    
+    <aura:attribute name="vfHost" type="String"/>  
+    
+    <aura:attribute name="contactIsPoAdmin" type="Boolean" default="false"/>
+    <aura:attribute name="memberOrgs" type="Object" default="No partner org found"/>
+    
+    <aura:attribute name="submissionFailed" type="Boolean" default="false"/>
+    <aura:attribute name="erroneousSubmissionMessage" type="String" default="Unhandled error. Please contact support."/>
+    
+    <aura:handler name="DF_proceedToFormEvt" event="c:DF_proceedToFormEvt" action="{!c.handleProceedToForm}"/>
+    <aura:handler name="DF_subsequentSessionEvt" event="c:DF_subsequentSessionEvt" action="{!c.handlePrepopulatedSession}"/>
+    
+    <aura:handler name="DF_thirdPartySafetyMarshalInfo" event="c:DF_thirdPartySafetyMarshalInfo" action="{!c.handleThirdPartySafetyMarshalInfo}"/>
+    <aura:attribute name="thirdPartySafetyMarshalDetailsComplete" type="Boolean" default="false"/>
+    <aura:attribute name="isHealthSafetyPersonKnown" type="Boolean" default="true"/>
+    
+    <aura:attribute name="noInsurance" type="Boolean" default="false"/>    
+    
+    <aura:attribute name="userJourneyStep" type="Integer"/>
+    <aura:attribute name="isAnonymous" type="Boolean" default="true"/>
+    <aura:attribute name="hasCommunityAccount" type="Boolean" default="false"/>
+    <aura:attribute name="userIdentifiersMap" type="Map" default=""/>
+    <aura:attribute name="dfContactId" type="String" default=""/>
+    <aura:attribute name="isChampion" type="String" default=""/>
+    
+    <aura:attribute name="isSuccessfulFormSubmission" type="Boolean" default="false"/>
+    <aura:handler name="change" value="{!v.isSuccessfulFormSubmission}" action="{!c.handleSectionVisibilityOnFormSubmit}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="DF_infoSessionTimePreferenceEvt" event="c:DF_infoSessionTimePreferenceEvt" action="{!c.populateEventTimingPref}"/>
+    <aura:handler event="c:STD_dynRowCountEvt" action="{!c.captureNoRows}"/>
+    <aura:attribute name="numRows" type="Integer"/>
+    
+    <aura:attribute name="dfEvent" type="DF_Event__c"
+                    default="{ 'sobjectType': 'DF_Event__c' }"/>
+    
+    <aura:attribute name="dfContact" type="DF_Contact__c"
+                    default="{ 'sobjectType': 'DF_Contact__c' }"/>
+    
+    <aura:attribute name="dfContactDemographic" type="Demographic_information__c"
+                    default="{ 'sobjectType': 'Demographic_information__c' }"/>
+    
+    <aura:attribute name="gdprPreferences" type="Map" default='{"Email_Optin__c" : false,
+                                                               "SMS_Optin__c" : false,
+                                                               "Phone_Optin__c" : false,
+                                                               "Social_Media_Optin__c" : false,
+                                                               "Post_Optout__c" : false}'/>
+    
+    <aura:attribute name="blockRequests" type="Boolean"/>
+    <aura:attribute name="tooManyOpenRequests" type="Boolean"/>
+    <aura:attribute name="numRequestsMade" type="Integer" default="0"/>
+    <aura:attribute name="isFormSubmissionInProgress" type="Boolean" default="false"/>
+    
+    <!--aura:registerEvent name="DF_sessionInfoCardFocusEvt" type="c:DF_sessionInfoCardFocusEvt"/--> 
+    <aura:handler name="DF_sessionInfoCardFocusEvt" event="c:DF_sessionInfoCardFocusEvt" action="{!c.handleCardFocusChange}"/>
+    <aura:attribute name="currentCardInFocusId" type="String" default="null"/>
+    <aura:handler name="change" value="{!v.currentCardInFocusId}" action="{!c.handleCardFocusChange}"/>
+    
+    <!-- START: Attributes for the Scheduling Section -->
+    <aura:attribute name="isSessionPublic" type="Boolean"/>
+    <aura:attribute name="showFindOrg" type="Boolean" default="false"/>
+    <!--aura:handler name="STD_yesNoSelectEvt" event="c:STD_yesNoSelectEvt" action="{!c.handleYesNoEvents}"/-->
+    
+    <aura:registerEvent name="DF_groupSizeEvt" type="c:DF_groupSizeEvt" />
+    <!--aura:handler name="DF_groupSizeEvt" event="c:DF_groupSizeEvt" action="{!c.handleGroupSize}"/-->
+    <aura:attribute name="showFindSessionSearch" type="Boolean"/>
+    
+    <aura:registerEvent name="DF_selectPublicSessionEvt" type="c:DF_selectPublicSessionEvt"/>
+    <!--aura:handler name="DF_selectPublicSessionEvt" event="c:DF_selectPublicSessionEvt" action="{!c.handleSessionVisibility}"/-->
+    <!-- END: Attributes for the Scheduling Section -->
+    
+    
+    <aura:attribute name="sessionTypes" type="List"/>
+    
+    <aura:handler name="STD_contactDetailsOutputEvt" event="c:STD_contactDetailsOutputEvt" action="{!c.handleContactDetailsValidity}"/>
+    
+    <aura:handler name="STD_passwordEntryEvt" event="c:STD_passwordEntryEvt" action="{!c.handlePasswordEntry}"/>
+    <!--aura:handler name="DF_newUserPasswordEvt" event="c:DF_newUserPasswordEvt" action="{!c.setPasswordAttribute}"/-->
+    <aura:attribute name="userEnteredPassword" type="String"/>
+    
+    <aura:attribute name="areContactDetailsValid" type="Boolean"/>
+    <aura:handler name="STD_addressDetailsValidityEvt" event="c:STD_addressDetailsValidityEvt" action="{!c.handleAddressDetailsValidity}"/>
+    <aura:attribute name="areAddressDetailsValid" type="Boolean"/>
+    
+    <aura:attribute name="formIsInvalid" type="Boolean"/>
+    <aura:attribute name="erroneousFormSubmitMessage" type="String"/>
+    <aura:attribute name="isLoading" type="Boolean" default="true"/>
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    
+    <aura:attribute name="isFormUntouched" type="Boolean" default="true"/>
+    <aura:attribute name="communityUrl" type="String" default="https://uat-alzheimerscommunities.cs81.force.com"/>
+    <aura:handler name="DF_anonEvt" event="c:DF_anonEvt" action="c.handleAnonEvt"/>
+    
+    <aura:attribute name="addressValuesMapFromVf" type="Object"/>
+    <aura:attribute name="addrContainerHeight" type="String" default="370px;"/>
+    <aura:handler name="change" value="{!v.addressValuesMapFromVf}" action="{!c.handleAddressChange}"/>
+    
+    <aura:attribute name="isHumanCaptchaResult" type="Object" default="true" description="The captcha is only shown for anonymous user requests and is therefore not used for the authenticated request journeys"/>
+    <aura:attribute name="captchaContainerHeight" type="String" default="650px;"/>
+    <!--aura:handler name="change" value="{!v.isHumanCaptchaResult}" action="{!c.handleCaptchaChange}"/-->
+    
+    <aura:registerEvent name="STD_addressChangeEvt" type="c:STD_addressChangeEvt"/>
+    
+    <aura:if isTrue="{!v.numRequestsMade > 10 || v.blockRequests || v.tooManyOpenRequests}">
+        
+        <c:DF_infoSessionBlockRequest numExistingRequests="{!v.numRequestsMade}"
+                                      blockSessionRequests="{!v.blockRequests}"
+                                      tooManyRequests="{!v.tooManyOpenRequests}"/>
+        
+        <aura:set attribute="else">
+            <aura:if isTrue="{!and(v.userJourneyStep==1, !v.blockRequests, !v.tooManyOpenRequests)}">
+                <c:DF_infoSessionGuidelines isLoading="{!v.isLoading}" />
+            </aura:if>
+            
+            <!--aura:if isTrue="{!!v.isSuccessfulFormSubmission}" v.isSuccessfulFormSubmission should be used to toggle the visbility class-->
+            <div aura:id="request-form">  
+                
+                <form styleClass="form-horizontal">
+                    
+                    <!--div class="form-group">
+                        
+                        <div class="control-group element-name element-type-text required"-->
+                            
+                            <aura:if isTrue="{!and(v.isAnonymous, v.userJourneyStep==2)}">
+                                <!--DF_infoSessionAnon isCommunityApp="{!v.isCommunityApp}" hasCommunityAccount="{!v.hasCommunityAccount}" communityUrl="{!v.communityUrl}"/-->  
+                                <aura:if isTrue="{!!v.isCommunityApp}">
+                                    <div id="newOrExistingContact well">
+                                        <ui:inputSelect value=""
+                                                        label="Do you already have an account on the Dementia Friends website?"
+                                                        change="{!c.handleMemberNonMember}"
+                                                        class="form-control">
+                                            <option value="unselected">Please select...</option>
+                                            <option value="alreadyFriend">Yes</option>
+                                            <option value="notRegistered">No</option>
+                                        </ui:inputSelect>
+                                    </div>
+                                </aura:if>
+                                
+                                <aura:if isTrue="{!v.hasCommunityAccount}">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <p class="help-block" id="friend-options-text-99" style="">
+                                            Please sign in to your account to request an Information Session.                           
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top: 20px; padding-bottom: 20px;">
+                                        <span>
+                                            <a class="btn-primary" href="{!v.communityUrl+'/login'}">Sign in</a>
+                                        </span>
+                                    </div> 
+                                </aura:if>
+                            </aura:if>
+                            
+                            <aura:if isTrue="{!and(v.isAnonymous, v.userJourneyStep==3)}">
+ 
+                                <div onclick="{!c.contactCardFocus}">                                
+                                    <c:DF_infoSessionContactDetails dfContact="{!v.dfContact}" 
+                                                                    dfDemographic="{!v.dfContactDemographic}"
+                                                                    gdprPreferences="{!v.gdprPreferences}"
+                                                                    dfEvent="{!v.dfEvent}"
+                                                                    aura:id="contactDetailsCard"/>
+                                </div>
+                                
+                                <div class="well" style="clear:both;"></div>
+                                
+                            </aura:if>
+                            
+                            <aura:if isTrue="{!v.userJourneyStep==3}">
+                                
+                                <div aura:id="main-form" >
+                                    
+                                    <h1>Scheduling</h1>
+                                    
+                                    <div onclick="{!c.schedulingCardFocus}">
+                                        <c:DF_infoSessionScheduling dfEvent="{!v.dfEvent}" 
+                                                                    publicSessionSearchOnly="{!v.publicSessionSearchOnly}"
+                                                                    isAlreadyDementiaFriend="{!!v.isAnonymous}"
+                                                                    contactIsPoAdmin="{!v.contactIsPoAdmin}"
+                                                                    memberOrgs="{!v.memberOrgs}"
+                                                                    aura:id="schedulingCard"/>
+                                    </div>                                    
+                                    
+                                    <div class="well" style="clear:both;"></div>
+                                    <h1>Location</h1>
+                                    <iframe src="{!'https://' + v.vfHost + '/apex/LightningAddressEntry'}" 
+                                            width="100%" 
+                                            frameBorder="0" scrolling="no"
+                                            aura:id="vfAddressForm" style="{! 'height:'+v.addrContainerHeight+'px;'}"/>
+                                    
+                                    <c:STD_addressFields label="Address where the Session will be taking place" 
+                                                         aura:id="locationCard"/>
+                                    
+                                    <div class="well" style="clear:both;margin-top:0px;padding-top:0px;"></div>
+                                    <h1>Host registration details</h1>
+                                    
+                                    
+                                    <c:DF_infoSessionRegistration dfEvent="{!v.dfEvent}" 
+                                                                  noInsurance="{!v.noInsurance}"
+                                                                  isHealthSafetyPersonKnown="{!v.isHealthSafetyPersonKnown}"
+                                                                  aura:id="registrationCard"/>
+                                    
+                                </div>
+                                
+                                <div style="display: inline-block; margin-top: 15px;">
+                                    <span>
+                                        <input type="button" class="btn-primary btn-xs form-control" 
+                                               onclick="{!c.validateAndSubmitForm}" 
+                                               disabled="{!v.isFormSubmissionInProgress}"
+                                               value="Request this Session"
+                                               aura:id="requestSubmitButton"/>
+                                    </span>
+                                    <aura:if isTrue="{!v.isFormSubmissionInProgress}">
+                                        <ui:spinner aura:id="loadingSubmitSpinner" />
+                                    </aura:if>
+                                </div>  
+                                
+                                <aura:if isTrue="{!v.formIsInvalid}">
+                                    <p class="form-submit-err">{!v.erroneousFormSubmitMessage}</p>
+                                </aura:if>
+                                
+                                <aura:if isTrue="{!v.submissionFailed}">
+                                    <p style="color: #a94442; padding-top: 15px">{!v.erroneousSubmissionMessage}</p>
+                                </aura:if>
+                                
+                            </aura:if> 
+                        <!--/div-->
+                        <!--aura:if isTrue="{!and(v.isAnonymous, v.userJourneyStep==3)}">
+                            <div style="margin-top:15px;">
+                                <iframe src="{!'https://' + v.vfHost + '/apex/LightningCaptcha'}" 
+                                        width="100%" 
+                                        frameBorder="0" scrolling="no"
+                                        aura:id="vfCaptchaForm"
+                                        style="{! 'height:'+v.captchaContainerHeight+'px;'}"/>
+                            </div>
+                        </aura:if-->
+                    <!--/div-->
+                    
+                </form> 
+                <!--/aura:if--> 
+            </div>
+            
+            <aura:if isTrue="{!v.isSuccessfulFormSubmission}">
+                <div aura:id="confirmation-section" class="hide-section">
+                    <c:DF_infoSessionSuccessConfirmation isNewMember="{!!v.hasCommunityAccount}"/>
+                </div>
+            </aura:if>
+            
+            
+        </aura:set>
+    </aura:if>
+</aura:component>

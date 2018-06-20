@@ -1,0 +1,7 @@
+<apex:component >
+  <ol class="breadcrumb no-print" style="margin-bottom:13px;">
+          <li><a href="/">Home </a></li>
+          <li><a href="/user-home">My Dashboard </a></li>
+          <li>My Dementia Friendly Community</li>
+      </ol>
+</apex:component>

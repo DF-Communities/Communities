@@ -1,0 +1,598 @@
+<apex:component >
+          
+<!--      
+ <style>
+.form-group {
+    margin-bottom: 24px;
+}
+
+
+
+.dfc-selected-region{
+    display: table;
+    border-radius: 4px;
+    margin:3px 0 40px 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+.dfc-selected-region>div {
+    display: table-row;
+}
+.dfc-selected-region>div>div:first-child {
+    width: 130px;
+    vertical-align: middle;
+    text-align: center;
+}
+.dfc-selected-region>div>div {
+    display: table-cell;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: 1px solid #c0c0c0;
+    vertical-align: middle;
+}
+.dfc-selected-daa {
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    padding: 20px 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+ .dfc-selected-daa>div>div {
+    display: table-cell;
+    vertical-align: middle;
+}
+.dfc-selected-daa>div>div:first-child {
+    width: 90%;
+}
+.btn-primary2 {
+    font-size:11px;
+    float:right !important;
+}
+
+
+
+.selected-region>div {
+    display: table-row;
+}
+
+
+div.dfc-selected-region > div {
+    display: table-row;
+}
+
+.dfc-selected-region > div > div {
+    display: table-cell;
+    padding:10px 20px;
+    font-weight: bold;
+    border: 1px solid #c0c0c0;
+     vertical-align:middle;
+}
+
+
+.dfc-regions{
+    display: table;
+    border-radius: 4px;
+    margin:3px 0 40px 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+
+
+.dfc-regions > div >div>div:first-child {
+  width:120px;
+}
+.dfc-regions> div > div>div{
+    display: table-cell;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: 1px solid #c0c0c0;
+    width: 100%;
+}
+
+.dfc-regions> div >div {
+    
+    display: table-row;
+}
+.dfc-regions> div > div:hover >div {
+    background-color: #f0f0f0;
+}
+
+
+.dfc-regions > div >div>div img {
+  width:60px;
+    height:74px;
+}
+
+.dfc-location>div{
+    display: table;
+    border-radius: 4px;
+    margin:3px 0 40px 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+
+
+.dfc-location > div >div>div:first-child {
+  width:120px;
+}
+.dfc-location> div > div>div{
+    display: table-cell;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: 1px solid #c0c0c0;
+    
+}
+
+.dfc-location> div >div {
+    
+    display: table-row;
+}
+.dfc-location> div > div:hover >div {
+    background-color: #f0f0f0;
+}
+
+
+.dfc-location > div >div>div img {
+  width:60px;
+    height:74px;
+}
+
+/* Use less space when displaying the selecte one  than we use when selecting */
+.dfc-selected-region > div > div img {
+  width:45px;
+    height:56px
+}
+
+.dfc-selected-region >div > div:first-child {
+  width: 130px;
+    vertical-align:middle; 
+    text-align:center;
+}
+
+
+.dfc-countries {
+    display: table;
+    border-radius: 4px;
+    margin:3px 0 40px 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dfc-countries > div {
+    display: table-row;
+}
+
+.dfc-countries > div > div {
+    display: table-cell;
+    padding: 20px 20px 20px 10px;
+    font-weight: bold;
+    border: 1px solid #c0c0c0; 
+    vertical-align:middle;
+}
+
+.dfc-countries > div > div {
+    cursor:pointer;
+}
+
+.dfc-countries > div:hover > div {
+    background-color: #f0f0f0;
+}
+.one-col-list>div>div:first-child {
+    border-top: 0;
+}
+
+
+.one-col-list>div>div>div {
+    border-top: 1px solid #c0c0c0;
+    border: 1px solid #c0c0c0;
+    padding: 10px 16px;
+    cursor: pointer;
+    
+}
+
+
+.one-col-list > div >div>div:hover{
+    background-color: #f0f0f0;
+}
+
+
+.dfc-dup-list >div>div>p>span {
+    display: table-cell;
+    padding: 10px;
+    color: #666;
+    border-top: 1px solid #c0c0c0;
+}
+.dfc-dup-list>div>div{
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+.dfc-dup-list>div>div>p {
+    display: table-row;
+}
+.dfc-dup-list>div>div>p>span:last-child {
+    text-align: right;
+}
+
+.dfc-dup-list {
+    width: 100%;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+}
+
+
+
+
+
+</style>
+-->
+
+<form name="step1">
+   <h3>Community Location</h3>
+
+<!--   <p>
+         <c:DFC_PageSnippets uniqueKey="dfc-apply-country-options" group="dfc_apply" />
+        </p> -->
+<div  ng-show="community.Country__c!=null" style="margin-bottom:20px">
+<label>Where is your community?</label>
+   
+ <div id="country" class="dfc-selected-region" >
+  <div>               
+                    <div  >
+                    
+                    {{community.Country__c}}</div>
+     
+                    <div><button class="btn btn-primary btn-primary2" ng-click="changeCountry()" onclick="{ return false;}">Change</button> </div>  
+  </div>
+                   
+ </div>
+ </div>
+<div  ng-show="community.Country__c==null">
+ <div class="one-col-list">
+            
+               <label class="required">Select the country where your community is located</label>  
+                 <div class="dfc-countries">
+            
+                          <div  data-country="England" ng-click="community.Country__c='England';">
+                              <div>England</div>
+                          </div>
+
+                          <div data-country="Wales" ng-click="community.Country__c='Wales';">
+                              <div>Wales</div>
+                          </div>
+                     
+                  </div>
+   </div>
+
+ </div>
+   <!-- Select whether this community has a fixed location or not -->
+        <span ng-show="community.Country__c!=null"> 
+                
+             <div>
+                <span ng-show="community.Central_Location__c==null && step1badge!=null" class="validation">Please select an option
+                </span>
+             </div>  
+               <label>Does your community have a fixed location in {{community.Country__c}}?</label>
+               <div class="dfc-location" ng-hide="community.Central_Location__c!=null">
+                  <div>
+                    <div ng-click="community.Central_Location__c='Yes'" data-option="Yes"><div>Yes</div></div>
+                    <div ng-click="community.Central_Location__c='No'" data-option="No"> <div>No</div></div> 
+                  </div>
+               </div> 
+               <div id="location" class="dfc-selected-region" ng-show="community.Central_Location__c!=null">
+               <div>
+                <div>  {{community.Central_Location__c}}</div>
+       
+                  <div>    
+                     <button class="btn btn-primary btn-primary2"  ng-click="changeLocation()" onclick="{return false;}" >Change</button>
+                  </div> 
+                </div>
+              </div> 
+        </span>
+    
+ 
+  
+
+<span ng-show="community.Central_Location__c=='No'">
+   
+   <label class="required">Please explain why your community has no fixed location</label>
+     <div>
+         <textarea rows="2" cols="20" maxlength="255" class="form-control textarea" placeholder="Explain why your community has no fixed location, e.g. Online community" ng-model="community.Why_No_Central_Location__c">
+          </textarea>
+           <span ng-show="step1badge!=null &&(community.Why_No_Central_Location__c==null || community.Why_No_Central_Location__c=='')" class="validation">Please enter a value
+    </span>
+      </div>
+    
+  </span> 
+ <span ng-show="community.Central_Location__c=='Yes'">
+  <span ng-show="selectedRegion==null" >
+
+   <label class="required">Select the Region where your community is located</label>
+   <span ng-show="selectedRegion==null && step1badge!=null" class="validation" id="regionerror">Please select a region
+    </span>
+  <div class="dfc-regions" >
+   <div  ng-repeat="r in regions | orderBy :'Name'">
+ 
+        <div ng-show="community.Country__c==r.Country__c" id="{r.Id}" ng-click="regionSelected(r.Id)" onclick="{return false;}">
+        <!--  <div>-->
+          <div ng-hide="community.Country__c=='Wales'">
+
+             <img ng-src="/resource/dfc_images/{{r.Image_name__c}}" style=""   />
+          </div>
+          
+
+         <div style="width: 671px;"> {{r.Name}}</div>
+       <!--  </div>-->
+         </div>
+         
+         
+      
+   </div>
+  </div>
+ </span>
+
+
+ <span ng-show="selectedRegion!=null">
+
+ 
+  <label class="required">Region</label>
+ <div class="dfc-selected-region" id="selectedregion" >
+ <div>
+    <div>
+     <div ng-hide="community.Country__c=='England'">        
+       Region
+    </div>
+    <div ng-show="community.Country__c=='England'">        
+       <img ng-src="/resource/dfc_images/{{selectedRegion.Image_name__c}}" />
+    </div>
+   </div>
+     <div>
+     {{selectedRegion.Name}}
+     <button class="btn btn-primary btn-primary2" ng-click="changeRegion()" onclick="{ return false;}">Change</button> 
+     </div>
+
+ </div>
+ </div>
+ </span>
+
+ <span ng-show="selectedRegion!=null && selectedDaa==null && community.Country__c=='England'">
+ <div class="one-col-list" >
+  
+   <label>If your community is connected to a Local Dementia Action Alliance,  please select it from the list below)</label>
+   
+   <div ng-repeat="a in daa | orderBy :'Name'">
+   
+       <div ng-hide="selectedRegion.Name!=a.Region__c" ng-class="{hideElem:selectedRegion.Name!=a.Region__c}"> 
+          <div id="{a.Id}" ng-click="daaSelected(a.Id)" onclick="{return false;}">
+           
+           <div> {{a.Name}}</div>
+          
+         </div>
+      </div>
+    </div>
+  
+   <p style="margin-top:20px">
+         <c:DFC_PageSnippets uniqueKey="dfc-apply-no-relevant-alliance" group="dfc_apply"/>
+        </p>
+ </div>
+</span>
+      
+<span ng-show="selectedDaa!=null">
+
+ 
+   <label class="required">My Community is linked with this Dementia Action Alliance</label>
+<div class="dfc-selected-daa" id="selecteddaa">
+ <div>
+    <div>  
+   {{selectedDaa.Name}}
+    
+    </div>
+    <div>
+     <button class="btn btn-primary btn-primary2" ng-click="changeDaa()" onclick="{ return false;}">Change</button>
+    </div>
+</div>
+</div>
+ </span>
+        
+<span ng-show="communitiesForDaa!=null && communitiesForDaa.length>0">     
+  <div class=""> 
+           
+              <div class="clearfix " style="padding:10px 6px 10px 6px;">
+              <div class="validation">
+                  Please confirm there is no overlap with these existing communities
+                  </div>
+              </div>
+              
+              <!-- List of Communities already linked to the selected DAA -->
+    
+    <div class="dfc-dup-list">
+    <div>
+    <div ng-repeat="comm in communitiesForDaa">
+     
+        <p>
+       
+          <span style="width: 140px;">{{comm.Name__c}}</span>
+          <span style="width: 437px;">{{comm.Location__c}}</span>
+          <span >{{comm.Status__c}}</span>
+        </p>
+        
+        
+     </div>  
+     </div> 
+    </div>
+              
+             <div class="clearfix" style="padding:10px 6px 10px 6px;">
+                 <div>
+                 <c:DFC_PageSnippets group="dfc_apply" uniqueKey="dfc-apply-overlap"/></div>
+                 <button class="btn btn-primary btn-primary2" ng-click="dupeConfirm()" onclick="return false;" style="margin-right:20px">Confirm no overlap</button>
+              </div>
+              
+           </div><!--End of duplicate confirmation -->
+
+</span>
+</span>
+
+
+ </form>
+
+
+
+
+<!--<script>
+var app = angular.module('myApp', []);
+
+app.controller('myCtrl', function($scope,actionService) {
+     
+    $scope.country= $('#country').text();
+
+
+    actionService.invokeAction(Dfc_RegisterCommunityS1.dfcDraftContext, _webc.getFieldValue('communityId'))
+        .then(function(data){
+          console.log(data.alliances[0]);
+          $scope.alliances= data.alliances;
+          $scope.regions= data.regions;
+          $scope.community = data.community;
+          $scope.selectedRegion=data.community.Region__r;
+          $scope.selectedDaa = data.community.DA_Alliance__r;
+
+          $scope.daa = $scope.alliances;
+          console.log($scope.selectedRegion!=null);
+          
+        })
+        .catch(function(e){
+                console.error(e);
+                $scope.messageClass = 'danger';
+          $scope.message = 'Could not update the review date. Please refresh your screen to try again.';
+      });
+
+    $scope.changeCountry= function() {
+      $scope.community.Country__c= ($scope.community.Country__c=='England'?'Wales':'England');
+      $scope.regions.Country=$scope.community.Country__c;
+      clearSelectedValues();
+
+    };
+
+    $scope.changeLocation= function() {
+       $scope.community.Central_Location__c=($scope.community.Central_Location__c=='Yes'?'No':'Yes')
+       if($scope.community.Central_Location__c=='Yes'){
+        $scope.community.Why_No_Central_Location__c=null;
+       }
+       clearSelectedValues();
+       
+
+    };
+
+    function clearSelectedValues() {
+       $scope.selectedRegion = null;
+       $scope.selectedDaa = null;
+       $scope.communitiesForDaa=null;
+
+    }
+
+    $scope.changeRegion= function() {
+       clearSelectedValues();
+    };
+
+    $scope.changeDaa= function() {
+       $scope.selectedDaa = null;
+       $scope.communitiesForDaa=null;
+
+    };
+    $scope.regionSelected= function(regionId) {
+   
+     console.log(regionId);
+        for(var i = 0 ; i < $scope.regions.length ; i++){
+          if(regionId == $scope.regions[i].Id){
+            $scope.selectedRegion=$scope.regions[i];
+            break;
+          }
+        }
+       
+    };
+
+    $scope.daaSelected= function(daaId) {
+      
+       for(var i = 0 ; i < $scope.alliances.length ; i++){
+          if(daaId == $scope.alliances[i].Id){
+            $scope.selectedDaa=$scope.alliances[i];
+            break;
+          }
+        }
+       actionService.invokeAction(Dfc_RegisterCommunityS1.getCommunitiesForDaa, daaId)
+      .then(function(data){
+        $scope.communitiesForDaa = data;
+
+      })
+        .catch(function(e){
+                console.error(e);
+      });
+      
+
+    };
+
+    $scope.dupeConfirm= function() {
+      console.log($scope.community.Duplicate_Confirmation__c);
+       $scope.community.Duplicate_Confirmation__c = true;
+       $scope.communitiesForDaa=null;
+
+    };
+
+
+
+    $scope.updateCommunity = function(){
+        
+
+        var comm = {};
+        comm.country = $scope.community.Country__c;
+        comm.centralLocation = $scope.community.Central_Location__c;
+        comm.noLocation = $scope.community.Why_No_Central_Location__c;
+        comm.region = ($scope.selectedRegion==null?null:$scope.selectedRegion.Id);
+        comm.Daa =($scope.selectedDaa==null?null:$scope.selectedDaa.Id);
+        comm.Duplicate = $scope.community.Duplicate_Confirmation__c;
+        
+console.log($scope.community.Why_No_Central_Location__c);
+        actionService.invokeAction(Dfc_RegisterCommunityS1.saveCommunity, comm ,_webc.getFieldValue('communityId'))
+        .then(function(data){
+          
+          console.log(data.noLocation);
+          
+        })
+        .catch(function(e){
+                console.error(e);
+                
+      });
+
+
+  };
+      
+   
+});
+</script>-->
+
+ 
+<!--
+  <script type="text/javascript">
+
+  function onChangeCountry(){
+    
+  $('#country').text($('#country').text()=='England'?'Wales':'England');
+  
+  }
+
+  function onChangeCentralLoc(){
+    
+  $('#location').text($('#location').text()=='Yes'?'No':'Yes');
+  
+  }
+$( document ).ready(function() {
+
+
+});
+
+</script> -->
+
+</apex:component>

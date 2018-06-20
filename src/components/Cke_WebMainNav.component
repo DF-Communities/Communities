@@ -1,0 +1,73 @@
+<apex:component layout="none">
+                
+    <apex:attribute description="the url for this page (exc host)" default="" name="pageUrl" required="false" type="String"/>
+    <apex:variable value="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" var="baseUrl"/>
+    
+    <!--style>
+      /* hide mobile version by default */
+      .logo .mobile {
+        display: none;
+      }
+      /* when screen is less than 600px wide
+         show mobile version and hide desktop */
+      @media (max-width: 600px) {
+        .logo .mobile {
+          display: block;
+        }
+        .logo .desktop {
+          display: none;
+        }
+      }
+    </style-->
+
+    <div class="navigation--main navbar navbar-default navbar-static-top">
+        <!--div class="cookie-warning">
+            <div class="container">
+                <div class="row cookie-notice">
+
+                    <nav>
+                        <a href="" class="closer">Close</a>
+                        <button type="button" class="close" data-dismiss="alert"><span class="fa fa-close"></span><span>Close</span></button>
+                    </nav>        
+                    <p>Our site uses <s>cupcakes</s> cookies and continuing implies your consent. <a href="privacy-policy">Click to find out more</a></p>
+            
+                </div>
+            </div>
+        </div-->  
+        
+        <div class="nav-return">
+            <div class="container">
+                <div class="row nav-return"> 
+                    <ul>
+                        <li id="menu-item-998" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-998">
+                            <a id="as-site-return-link" href="http://www.alzheimers.org.uk" itemprop="url"><span itemprop="name">&#60; Alzheimer’s Society website</span></a>
+                        </li>
+                    </ul>      
+                </div>
+            </div>
+        </div> 
+        
+        <div class="menu-container">
+            <div class="container">  
+                <div class="col-md-6 col-sm-6 col-xs-7 logo">  
+                        <a class="navbar-brand hidden-md-logo" href="home"><span>Cupcake Day</span><img src="{!URLFOR($Resource.Cke_Assets, 'img/layout/cc-logo-small.png')}" alt="Logo: Cupcake Day" class="img-responsive mobile" /></a>
+                        <a class="navbar-brand hidden-xs-logo" href="home"><span>Cupcake Day</span><img src="{!URLFOR($Resource.Cke_Assets, 'img/layout/cc-logo-large.png')}" alt="Logo: Cupcake Day" class="img-responsive desktop" /></a>                                  
+                </div>
+                    
+                <div class="col-md-6 col-sm-6 col-xs-5">
+                    <div class="navbar-collapse" id="navbar-ex-collapse">
+                        <nav >
+                            <ul>
+                                <li ><a href="home">Home</a></li>
+                                <li ><a href="request-a-pack">Sign Up</a></li>
+                                <li ><a href="downloads">Downloads</a></li>
+                                <li ><a href="pay-in">Pay in</a></li>
+                            </ul>
+                        </nav>             
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</apex:component>

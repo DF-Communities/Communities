@@ -1,0 +1,10 @@
+<aura:component >
+	
+    <h2> Show User Details</h2>
+    <aura:attribute name="currentUser" type="User" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <p>User lastname: <ui:outputText value="{!v.currentUser.LastName}"/></p>
+    <p>User firstname: <ui:outputText value="{!v.currentUser.FirstName}"/></p>
+    
+</aura:component>

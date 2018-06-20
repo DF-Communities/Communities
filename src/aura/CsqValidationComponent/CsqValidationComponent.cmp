@@ -1,0 +1,30 @@
+<aura:component abstract="true" extensible="true" access="GLOBAL">
+	
+    <aura:attribute name="value" type="String" access="GLOBAL"/>
+    <aura:attribute name="group" type="Object" access="GLOBAL"/>
+    <aura:attribute name="message" type="String" access="GLOBAL"/>
+    <aura:attribute name="hide" type="Boolean" default="false" access="GLOBAL"/>
+    <aura:attribute name="disregard" type="Boolean" default="false" access="GLOBAL"/>
+
+    <aura:attribute name="defaultMessage" type="String" access="GLOBAL" default="Please enter a valid value"/>
+    <aura:attribute name="errorText" type="String" access="GLOBAL"/>
+
+    <aura:attribute name="isValid" type="Boolean" access="GLOBAL"/>
+
+    <aura:attribute name="rendered" type="Boolean" default="false" access="GLOBAL"/>
+    
+    <aura:registerEvent name="validate" type="c:CsqComponentEvent" />
+    <aura:registerEvent name="validationEvent" type="c:CsqValidationEvent" />
+    <aura:registerEvent name="CsqValidationBroadcastEvent" type="c:CsqValidationBroadcastEvent" />
+    <aura:registerEvent name="DfcValidationEvent" type="c:DfcValidationEvent" />
+   
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+
+    <aura:handler event="c:DfcValidate" action="{!c.validate}" /> 
+    <aura:handler event="c:CsqFluxComponentInit" action="{!c.validate}" /> 
+    <aura:handler name="change" value="{!v.value}" action="{!c.validate}" /> 
+    <aura:handler name="change" value="{!v.disregard}" action="{!c.validate}" /> 
+
+    <span class="{!v.hide?'hide':''}">{!v.errorText}</span>
+    
+</aura:component>

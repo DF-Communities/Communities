@@ -1,0 +1,47 @@
+.THIS .dfc-att-list {
+	width:100%;    
+    border: 1px solid #c0c0c0;
+    padding:0;
+   display:table;
+   border-collapse: collapse;
+}
+
+.THIS .dfc-att-list p {
+   display:table-row;
+}
+
+.THIS .dfc-att-list p span {
+   display:table-cell;
+   padding: 8px 10px;
+   border-bottom:1px solid #c0c0c0
+}
+
+.THIS .dfc-att-list p span:last-child {
+	text-align:right;
+}
+
+.THIS .dfc-upload {
+	width:100%;    
+    border: 1px solid #c0c0c0;
+    padding:6px;
+    background-color: white;
+}
+
+.THIS iframe {
+    width:100%;
+    height:40px;
+    border:0;
+}
+
+.THIS button.btn-action {
+    font-size:11px;
+}
+
+.THIS .emsg {
+	color: red;
+    padding:6px 0;
+}
+
+.THIS .emsg:empty {
+    display:none;
+}

@@ -1,0 +1,150 @@
+<aura:component >
+    
+    <aura:attribute name="sessionDetail" type="DF_Event__c"/>
+        <aura:attribute name="sessionTimeDefinitions" type="Object[]"/>
+
+    
+    <!-- Session details panel starts --> 
+    <div class="panel-group" id="accordion">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-alt-heading panel-heading">
+                        <h3 class="panel-title" style="color: white !important;">
+                            Session details for: {!v.sessionDetail.Name}
+                        </h3>
+                    </div>
+                    <div id="collapseSessionDetails" class="panel-collapse collapse in">
+                        
+                        <!-- START Session Detail View -->
+                        <div class="panel-body" style="border-bottom: none;">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <p><strong>Type of session:</strong><br/>
+                                        <span>{!v.sessionDetail.Type_of_session__c}<br/><br/></span></p>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12" id="address">
+                                    <address>
+                                        <strong>Event Location</strong><br/>
+                                        {!v.sessionDetail.Street__c}<br/>
+                                        {!v.sessionDetail.City__c}<br/>                        
+                                        <aura:if isTrue="{!v.sessionDetail.County__c == 'null' || v.sessionDetail.County__c == ''}">
+                                            {!v.sessionDetail.County__c}<br/>
+                                        </aura:if>
+                                        {!v.sessionDetail.Postcode__c}<br/>
+                                    </address>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-6 col-sm-6 col-md-6" style="padding-left: 0px;">
+                                        <label for="hearing-loop-availability">Hearing loop available?</label>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6" style="padding-left: 0px;">
+                                        <div id="hearing-loop-availability">
+                                            <ui:outputText value="{!(v.sessionDetail.Hearing_loop_available__c) ? 'Yes' : 'No'}"/><br></br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-6 col-sm-6 col-md-6" style="padding-left: 0px;">
+                                        <label for="wheelchair-access">Does venue have wheelchair access?</label>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6" style="padding-left: 0px;">
+                                        <div id="wheelchair-access">
+                                            <ui:outputText value="{!(v.sessionDetail.Wheel_Chair_Access__c) ? 'Yes' : 'No'}"/>
+                                            <p><br/></p>
+                                        </div>
+                                    </div>
+                                </div>
+     
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div title="Date">Date</div>
+                                                </th>
+                                                <th>
+                                                    <div title="Perod">Period</div>
+                                                </th>
+                                                <th>
+                                                    <div title="Sign up">Pick Session</div>
+                                                </th>
+                                                <th>
+                                                    <div title="Time">Available Start Times</div>
+                                                </th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.sessionTimeDefinitions}" var="item" indexVar="timeDefIndex">
+                                                <tr>
+                                                    <td data-label="Date">
+                                                        <ui:outputText value="{!item.date}"/><br></br>
+                                                    </td>
+                                                    <td data-label="Period">
+                                                        <ui:outputText value="{!item.period}"/><br></br>
+                                                    </td>
+                                                    <td data-id="{!'timedef-' + timeDefIndex}" style="text-align: center; vertical-align:middle;">
+                                                        
+                                                        <ui:inputCheckbox value="false" 
+                                                                          name="{!timeDefIndex}"
+                                                                          change="{!c.handleConfirmSessionTimings}" 
+                                                                          aura:id="sessionTimingConfirmationBox"/>
+                                                        
+                                                    </td>
+                                                    <td data-label="Available start times" data-id="{!timeDefIndex}">
+                                                        <ui:inputSelect aura:id="available-times" 
+                                                                        class="form-control"
+                                                                        change="{!c.handleTimeSelection}">
+                                                            <aura:iteration items="{!item.timeOptions}" var="startTimeChoice">
+                                                                <ui:inputSelectOption text="{!startTimeChoice}" 
+                                                                                      class="form-control"
+                                                                                      value="{(timeDefIndex==0) ? true : false}"/>
+                                                            </aura:iteration>
+                                                        </ui:inputSelect>
+                                                    </td>
+                                                </tr>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <c:STD_interactiveMap longitude="{!v.sessionDetail.Location_Geographic_Details__Longitude__s}" 
+                                                          latitude="{!v.sessionDetail.Location_Geographic_Details__Latitude__s}"/>
+                                </div>                                                                
+                                
+                                <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 20px;">
+                                    <div class="col-lg-6 col-md-6 col-sm-10 btn-group" onclick="{!c.startSessionSignUpJourney}">
+                                        <a class="btn-primary btn-xs" style="font-size: 14px;">
+                                            Sign up to this Session
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 20px;">
+                                    
+                                    <aura:if isTrue="{!v.errorsOnSubmit}">
+                                        <p class="form-submit-err">Please select the specific date and time that you are able to deliver the Session.
+                                        </p>
+                                    </aura:if>
+                                    
+                                    <div class="hide" aura:id="confirm-success" onclick="{!c.exit}">
+                                        <ui:message title="Thank you!" severity="confirm">
+                                            You have been signed up to host this session.
+                                            An email has been sent to you with all the details
+                                            you will need
+                                        </ui:message>
+                                    </div>
+                                    <aura:if isTrue="{!v.noErrorsOnSubmit}">
+                                        <!--div aura:id="modal-popup"-->
+                                        <c:DF_modalChampSignUpConfirm />
+                                        <!--/div-->
+                                    </aura:if>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>                                
+    <!-- END Session Detail View -->    
+</aura:component>

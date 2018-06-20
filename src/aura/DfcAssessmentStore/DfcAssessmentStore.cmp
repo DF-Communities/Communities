@@ -1,0 +1,5 @@
+<aura:component extends="c:CsqStoreComponent" controller="Dfc_AssessmentStoreController">
+	
+    <aura:attribute name="verifyStatus" type="String[]"/>
+    
+</aura:component>

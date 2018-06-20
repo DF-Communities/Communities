@@ -1,0 +1,71 @@
+.THIS.slds-context-bar{
+    background: #1C1463 !important; 
+    
+    border-bottom:none;
+    border-radius: 4px;
+    font-size: 1.143em;
+    min-height: 50px;
+}
+
+.THIS .buttonstl{
+    color:white;
+    font-weight:bold;
+}
+.THIS .slds-icon--xx-small {
+    width: 1rem;
+    height: 1rem;
+    line-height: 1;
+    fill: white;
+}
+.THIS .slds-icon--xx-small:hover {
+    width: 1rem;
+    height: 1rem;
+    line-height: 1;
+    fill: black;
+}
+.THIS .slds-context-bar__secondary{
+    color:white;
+    font-weight:bold;
+}
+.THIS .slds-context-bar__icon-action:hover {
+    color: #ffffff;
+    background: #0073FF;
+}
+
+.THIS .slds-context-bar__item:hover {
+    color: #ffffff;
+    background: #0073FF;
+}
+
+
+.THIS .slds-dropdown-trigger:hover{
+    color: #ffffff;
+    background: #0073FF;
+}
+
+.THIS .slds-dropdown-trigger:focus{
+    color: #1C1463;
+}
+.THIS .slds-dropdown-trigger:visted{
+    color: #1C1463;
+}
+.THIS .slds-dropdown__item{
+    font-weight:bold;
+    color: #ffffff;
+    background: #0073FF;
+    
+}
+.THIS .slds-dropdown__item:hover{
+    
+    background:#1C1463;
+    
+}
+.THIS .slds-dropdown__item>a {
+    color: #ffffff;
+}
+.THIS .slds-context-bar__item{
+    
+    padding-left: 10px;
+    padding-right: 10px;
+    
+}

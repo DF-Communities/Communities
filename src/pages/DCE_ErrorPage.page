@@ -1,0 +1,28 @@
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_Dashboard_Controller" title="Dementia Connect Portal Error Page" applyHtmlTag="false" applyBodyTag="false">  
+    <html>
+        <head>
+            <c:DCE_CSS />
+            <c:importvisualstrap />  
+        </head>
+        <body>
+            <c:visualstrapblock >
+                <apex:form id="theForm">
+                    <c:DCE_Navbar rendered="{!isLoggedIn}"/>
+                    
+                    <c:DCE_AZLogo />
+                    <c:row >
+                    </c:row>
+                    <c:row >
+                        <c:column type="col-md-4 col-md-offset-4">
+                            <c:panel >
+                                <p>There has been an error with your navigation in the Portal. Please try another link and try again.</p>
+                                <strong>{!$Site.ErrorMessage}</strong><br/>
+                                {!$Site.ErrorDescription}
+                            </c:panel>
+                        </c:column>
+                    </c:row>
+                </apex:form>
+            </c:visualstrapblock>
+        </body>
+    </html>
+</apex:page>

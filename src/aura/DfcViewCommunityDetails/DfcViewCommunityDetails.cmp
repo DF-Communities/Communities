@@ -1,0 +1,63 @@
+<aura:component extends="c:CsqViewComponent">
+    
+    <aura:attribute name="communityData" type="Object" access="GLOBAL"/>
+    <aura:attribute name="county" type="Object" access="GLOBAL"/>
+    
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    
+    <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+    
+    <h3>Community Details</h3>
+
+    <div class="well">
+       
+        <div class="form-group">
+            <label class="required">The name of your Dementia Friendly Community</label>
+            <div>
+                <ui:outputText value="{!v.communityData.Name__c}" class="form-control" /> 
+            </div>
+         
+        </div>
+
+       <aura:if isTrue="{!v.communityData.Central_Location__c=='Yes'}">   
+       
+       <div class="form-group"> 
+       		<label class="required">The County where your Community is located</label>
+            <div>    
+                
+            <ui:outputText value="{!v.county.Name}" class="form-control" /> 
+                    
+           </div>
+      
+        </div>
+        
+       <div class="form-group">
+            <label class="required">Where is your community located</label>
+            <div>
+                <ui:outputTextArea value="{!v.communityData.Location__c}" class="form-control"  /> 
+            </div>
+          
+        </div>
+
+        <div class="form-group"> 
+       		<label class="required">Is this community best described as predominantly</label>
+            <div> 
+            <ui:outputText value="{!v.communityData.Location_Type__c}" class="form-control" /> 
+            </div>   
+      
+        </div>
+
+        </aura:if>
+
+       <div class="form-group">
+            <label for="population" class="required">Approximate Population</label>
+            <div>
+                <ui:outputText value="{!v.communityData.Population__c}"  class="form-control" /> 
+            </div>
+          
+        </div>
+
+    </div>
+
+	
+</aura:component>

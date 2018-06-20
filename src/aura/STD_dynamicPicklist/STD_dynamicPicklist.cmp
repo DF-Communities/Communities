@@ -1,0 +1,55 @@
+<aura:component controller="STD_DynamicLightningUtils">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:method name="getAllParams" action="{!c.validateAndGetParams}"/>
+    
+    <aura:attribute name="useSlds" type="Boolean" default="false"/>
+    <aura:handler event="c:SldsVsCustomStylingEvt" value="{!this}" action="{!c.setStylingFramework}"/>
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    
+    <aura:attribute name="fieldObjectAndFieldApiName" type="String"/>
+    
+    <aura:attribute name="optionValueLabelMapList" type="List" />
+    <aura:attribute name="sObjectApiName" type="String"/>
+    <aura:attribute name="sObjectFieldApiName" type="String"/>
+    <aura:attribute name="value" type="String" 
+                    description="Calling this attribute from the component 
+                                 externally will give the value of the selected option" default=""/>
+    <aura:attribute name="required" type="Boolean" default="false"/>
+    
+    <aura:attribute name="name" type="String" required="true" default="Placeholder name: STD_dynamicPicklist"/>
+    <aura:attribute name="label" type="String" required="true"/>
+    <aura:attribute name="selectedValue" type="String" default="Please select..."/>
+    
+    <aura:registerEvent name="STD_picklistSelectionEvt" type="c.STD_picklistSelectionEvt"/>
+    
+    <aura:if isTrue="{!v.useSlds}">
+        <lightning:select name="{!v.name}" 
+                          label="{!v.label}" 
+                          value="{!v.value}"
+                          onchange="{!c.publishSelection}" 
+                          required="{!v.required}"
+                          onblur="{!c.validateUntouchedPicklist}"
+                          aura:id="requiredInputField">
+            <aura:iteration items="{!v.optionValueLabelMapList}" var="optionKeyValuePair">
+                <ui:inputSelectOption text="{!optionKeyValuePair.label}" label="{!optionKeyValuePair.value}"/>	
+            </aura:iteration>
+        </lightning:select>
+        
+        <aura:set attribute="else">
+            <ui:inputSelect label="{!v.label}" 
+                            value="{!v.value}"
+                          	change="{!c.publishSelection}" 
+                            required="{!v.required}"
+                            class="form-control"
+                            aura:id="requiredInputField">
+                <aura:iteration items="{!v.optionValueLabelMapList}" var="optionKeyValuePair">
+                    <ui:inputSelectOption text="{!optionKeyValuePair.label}" label="{!optionKeyValuePair.value}"/>	
+                </aura:iteration>
+            </ui:inputSelect>
+        </aura:set>
+        
+    </aura:if>
+	
+</aura:component>

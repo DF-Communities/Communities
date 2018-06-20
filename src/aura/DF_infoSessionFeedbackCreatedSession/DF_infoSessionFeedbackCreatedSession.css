@@ -1,0 +1,20 @@
+.THIS .spacer {
+    padding-bottom:25px;
+}
+
+.THIS .chk-label-right {
+    display: inline-block;
+    float: left;
+}
+
+.THIS .chk-label-padding-left {
+    padding-left : 5px;
+}
+
+.THIS .toggle {
+    display: none;
+}
+
+.THIS .uiInputCheckbox {
+    margin-left: 16px;
+}

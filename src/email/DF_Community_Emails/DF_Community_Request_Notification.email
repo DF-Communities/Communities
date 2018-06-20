@@ -1,0 +1,18 @@
+A request to have a Dementia Friendly Community has been submitted for you to review. 
+        
+Community Name : {!DFC_Community__c.Name}
+
+Submitted by         : {!DFC_Community__c.OwnerFullName}
+                                {!DFC_Community__c.OwnerEmail}
+
+Submitted on         : {!DFC_Community__c.CreatedDate}
+    
+Click here to see the details of the Community requesting recognition : 
+{!DFC_Community__c.Link}
+
+Please review the application and set the status to approved to rejected.
+
+thanks
+
+Dementia Friends - Making life better for people with dementia
+http://www.dementiafriends.org.uk

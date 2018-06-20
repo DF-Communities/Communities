@@ -1,0 +1,126 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="WEBChampionSessionResources" action="{!loginRedirect}">
+
+
+<head>
+<style type='text/css'>
+label.fLabel {
+    color: #040507;
+    font-weight: normal !important;
+    text-align: left !important;
+}
+.datefield{
+  font-size: 12px ;
+  color: #040507 ;
+   margin-top:0px;
+  padding:0
+}
+</style>
+</head>
+    <c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+   
+    <c:DF_WEBR_WebHeader showCounter="Y" />
+    <c:DF_WEBR_WebNavbar />    
+
+     <div class="row *.css">
+     <div class="col-sm-12">
+    
+     <div class="row *.css">
+                
+     
+
+      <div class="col-md-9 column col-md-push-3">
+           
+                <div id="message-center"></div> 
+                <div class="intro">
+                    <h1>Session resources</h1>
+                    <div>
+                        <p>Here you can download the resources that we have prepared to help you to run a Friends Information Session, promote a Friends Information Session and general resources you can use.</p>
+                        <p>We will make sure that all of the resources meet our core Dementia Friends Information Sessions standards. We do appreciate your feedback so if you have any comments please let us know your ideas.&nbsp;&nbsp;</p>    
+                    </div>
+                </div>
+       
+     
+                 <ul class="nav nav-tabs" id="tabs" data-tabs="tabs">        
+                        <apex:repeat value="{!sessionCategories}" var="session" >
+                            <li role="presentation" tabindex="{!session.rowNum}">
+                                <a href="#tabs-{!session.rowNum+1}" role="presentation" data-toggle="tab">{!session.Name}</a>
+                            </li>
+                        </apex:repeat>
+                    </ul>
+                    
+                    <div class="tab-content">
+                    <apex:repeat value="{!sessionCategories}" var="session" >                
+                        
+                        <div class="well tab-pane" id="tabs-{!session.rowNum+1}">
+                        
+                            <p><apex:outputText value="{!session.description}" escape="false" /></p>
+
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th><span>Download</span></th>
+                                    </tr>
+                                    <tr>
+                                     
+                                    </tr>
+                                    
+                                </thead>                           
+                                <tbody>
+                                <apex:repeat value="{!sessionResources[session.rowNum]}" var="resource" >                               
+
+                                        <tr>
+                                            <td class="col-md-5">
+                                                <p ><strong><span>{!resource.Name__c}</span></strong> </p>
+                                            </td>
+                                            <td class="col-md-6"><span>{!resource.Description__c}</span>
+                                            
+                                                <apex:outputPanel rendered="{!resource.Date_added__c!=null}">
+                                               <div class="datefield">
+                                                <label class="fLabel" for="dateadded"  > Date updated :</label>                                                
+                                               <apex:outputfield id="dateadded" value="{!resource.Date_added__c}" />
+                                               </div>
+                                                </apex:outputPanel>
+                                              </td>
+                                            <td class="col-md-1"><a href="{!URLFOR($Action.Attachment.Download, att[resource.Id].id)}" class="btn btn-primary" target="_blank"><span>Download</span></a></td>
+                                           
+                                        </tr>
+                                        
+                                </apex:repeat>                       
+                                </tbody>     
+                           </table>
+                        </div>
+
+                    </apex:repeat>
+                    </div>
+                
+                </div>
+
+                <c:DF_WEBC_ChampionNav activeValue="SESSIONRESOURCES" dfcW="{!dfcW}"/>
+          
+    
+     </div>
+     </div>
+     </div>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+  <c:DF_WEBR_WebFooter />
+
+   <script>
+
+   $(document).ready(function() {
+
+    $('#tabs').tab();
+    $('#tabs a:first').tab('show');
+   $('#datefield + p').hide();
+   });
+
+   </script> 
+
+    </div>
+
+</apex:page>

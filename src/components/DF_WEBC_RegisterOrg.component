@@ -1,0 +1,132 @@
+<apex:component controller="DF_WEBC_RegisterOrgAdmin_Controller">
+
+ 
+ <div class="row">
+      <div class="col-md-12"> 
+
+                    <div class="well" id="org-register-form" style="display:none;">
+                                        
+                    <apex:form styleClass="form-horizontal" forceSSL="true" id="long-form">
+                         
+                         <h3>Organisation details</h3>
+
+                            <div class="form-group required">
+                                 <label for="Name" class="control-label col-sm-3 required">Organisation name</label>
+                                 <div class="col-sm-8">
+                                     <input id="orgName"  class="form-control" />
+                                     <span id="orgNameError" class="help-block"></span>
+                                 </div>
+                             </div>
+                             
+                             <div class="form-group required">
+                                 <label for="sector" class="control-label col-sm-3 required">Sector</label>
+                                 <div class="col-sm-8">
+                               
+                                   <select id="sector" name = "sector" class="form-control">
+                                    <option value='NULL'>-- Select one option -- </option>
+                                    <option value='Health & Social Care'>Health &amp; Social Care</option>
+                                    <option value='Local Authority'>Local Authority</option>
+                                    <option value='Government'>Government</option>
+                                    <option value='Public Service'>Public Service</option>
+                                     <option value='Retail'>Retail</option>
+                                     <option value='Finance'>Finance</option>
+                                    <option value='Law'>Law</option>
+                                    <option value='Housing'>Housing</option>
+                                    <option value='Transport'>Transport</option>
+                                    <option value='Arts'>Arts</option>
+                                    <option value='Sport & Leisure'>Sport &amp; Leisure</option>
+                                    <option value='Technology'>Technology</option>
+                                    <option value='Power & Utilities'>Power &amp; Utilities</option>
+                                    <option value='Allied Healthcare Professionals'>Allied Healthcare Professionals</option>
+                                    <option value='Other(please specify)'>Other(please specify)</option>
+                                 </select>
+                                 
+                                  <span id="sectorError" class="help-block"></span>
+                                 
+                                 </div>
+                             </div>
+                             
+                             <div class="form-group" id="sector-other-container">
+                              <label for="sectorOther" class="col-md-3 control-label required" > </label>
+                              <div class="col-md-8">
+                              <label id="sectorOtherLabel">Sector - Other</label>
+                               <apex:inputText id="sectorOther" value="{!sectorOther}" styleClass="form-control" />
+                               <span id="sectorOtherError" class="help-block has-error"></span>
+                              </div>
+                           </div>
+                             
+
+                             
+                             <div class="form-group required">
+                                 <label for="employees" class="col-xs-5 col-md-3 control-label required">Number of employees</label>
+                                 <div class="col-md-8">
+                                 
+                                 <select id="employees" name = "employees" class="form-control">
+                                    <option value='NULL'>-- Select a range -- </option>
+                                    <option value='0-10'>0-10</option>
+                                    <option value='11-250'>11-250</option>
+                                    <option value='251-1000'>251-1001</option>
+                                    <option value='1001-5000'>1001-5000</option>
+                                    <option value='5001-20000'>5001-20000</option>
+                                    <option value='20001+'>20001+</option>
+                                </select>
+                                
+                                <span id="employeesError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="postcode" class="col-md-3 control-label">Postcode</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_orgPostcode" value="{!orgPostCode}" styleClass="form-control" />
+                                     <span id="orgPostCodeError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="street" class="col-md-3 control-label">Building/Street</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_orgStreet" value="{!orgStreet}" styleClass="form-control" />
+                                     <span id="orgStreetError" class="help-block"></span>
+                                 </div>
+                             </div>
+                             
+                             <div class="form-group required">
+                                 <label for="city" class="col-md-3 control-label">City</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_orgCity" value="{!orgCity}" styleClass="form-control" />
+                                     <span id="orgCityError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                            <div class="form-group">
+                                 <label for="county" class="col-md-3 control-label">County</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_orgCounty" value="{!orgCounty}" styleClass="form-control" />
+                                     <span id="orgCountyError" class="help-block"></span>
+                                 </div>
+                             </div> 
+                             
+                             <div class="form-group required">
+                                 <label for="country" class="col-md-3 control-label">Country</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_orgCountry" value="{!orgCountry}" styleClass="form-control" />
+                                     <span id="orgCountryError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="telephone" class="col-md-3 control-label">Contact No</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="orgTelephone" value="{!orgTelephone}" styleClass="form-control" />
+                                      <span id="orgTelephoneError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <hr/> 
+                           </apex:form>
+                           </div>
+                         </div> 
+                          </div>
+        
+</apex:component>

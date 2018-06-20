@@ -1,0 +1,256 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBArticle">
+
+<style>
+.about-detail .main-content, .sessions .main-content, .session-index .main-content {
+width: 470px !important;
+float: left !important;
+padding: 0 45px 0 45px !important;
+}
+
+ .main-content .divider-yellow, #about .main-content .divider {
+width: 470px !important;
+}
+.main-content .get-involved img {
+float: right !important;
+margin: 10px 0 0 10px !important;
+}
+
+.main-content .divider {
+width: 470px !important;
+}
+
+ .main-content .featured ul.logos li {
+list-style: none;
+float: left;
+padding: 0 10px 0 0;
+}
+
+.main-content .promos img {
+float: left !important;
+margin: 0 21px 0 0 !important;
+}
+
+.main-content .promos .dem-friends .content {
+width: auto !important;
+padding: 0 !important;
+float: none !important;
+}
+
+
+.main-content .promos .dem-friends h2 {
+padding: 0 0 0 56px !important;
+font-size: 1.1em !important;
+background: url("{!URLFOR($Resource.imgsrc,'about-dem-friends-heading.jpg')}") no-repeat;
+}
+
+.main-content .promos h2 {
+line-height: 2.5em !important;
+display: inline-block !important;
+margin: 0 !important;
+}
+
+.main-content .promos .dem-champion .content {
+width: auto !important;
+padding: 0 !important;
+float: none !important;
+}
+
+.main-content .promos .dem-champion h2 {
+padding: 0 0 0 66px !important;
+font-size: 1.1em !important;
+background: url("{!URLFOR($Resource.imgsrc,'about-dem-kingdom-heading.jpg')}") no-repeat;
+}
+.main-content .promos .dem-friends {
+overflow: hidden;
+margin: 0 0 64px 0;
+}
+.main-content .get-involved img {
+border-top: solid 3px #4f91cc;
+}
+
+
+
+.main-content .promos img {
+border-top: solid 3px #4f91cc;
+}
+
+</style>
+    
+    <!--  <c:WEBMeta title="Get involved"/> -->
+    <c:WEBMetaNoCSS title="Get involved" />
+    <!-- <c:WEBMeta title="Dementia Friend" /> -->
+    <!-- NEW CSS CODE -->
+    <apex:stylesheet value="{!URLFOR($Resource.WEBCSS,'WEBCSS.css')}" />
+    <!-- END OF NEW CSS CODE -->
+    
+    <body class="">
+    <div id="skip">
+        <a href="#page_content">Skip to Main Content</a>
+    </div>        
+
+    <c:WEBHeader activeValue="GET INVOLVED" />
+    <div id="page_content"></div>
+    
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+    <div id="page_content"></div>
+    <section class="page-content">
+        <section class="about-detail">
+            <div class="wrapper">
+
+                <section class="secondary-navigation">
+                <apex:outputPanel rendered="{!thisPage.Unique_text__c != 'what-is-dementia' && thisPage.Unique_text__c != 'partners'}">
+                    <h3>Friends</h3>
+                        <ul class="navigation">
+                            <li>
+                                <a href="WEBArticle?page=what-is-a-friend">What is a Friend?</a>
+                            </li>
+                            <li>
+                                <a href="WEBArticle?page=friend-am-eligible">Am I eligible?</a>
+                            </li>
+                            <li>
+                                <a href="WEBArticle?page=friend-how-else-can-i-help">How else can I help?</a>
+                            </li>
+                            <li>
+                                <a href="/WEBSession">Find sessions</a>
+                            </li>
+                        </ul>                    
+                    <h3>Champions</h3>
+                    <ul class="navigation">
+                        <li>
+                            <a href="WEBArticle?page=what-is-a-champion">What is a Champion?</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=champions-training">Champions' induction</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=after-the-training">After the induction</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=champion-am-eligible">Am I eligible?</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=what-should-i-consider">What should I consider?</a>
+                        </li>
+                        <li>
+                            <a href="/WEBTraining">Find inductions</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=champion-how-else-can-i-help">How else can I help?</a>
+                        </li>
+                    </ul>                            
+                </apex:outputPanel>
+                </section>
+
+                <section class="main-content">
+<!-- 2014-02-27 : SM : New title code -->
+                    <apex:outputPanel rendered="{!thisPage.Title__c != ''}">
+                        <h1>Get involved</h1>
+                        
+                        
+
+                    <section class="featured">
+                        <header class="header">
+                            <h2>Dementia Friends – creating dementia friendly communities together</h2>
+                        </header>
+                        <div class="snippet snippet-rich_text rte">
+    <p>Dementia Friends is a national initiative that is being run by <a title="Opens in new window" href="http://www.alzheimers.org.uk" class="external" target="_blank">Alzheimer's Society<span> (external link)</span></a>. It's funded by the&nbsp;government, and aims to&nbsp;improve people's understanding of dementia and its effects. Alzheimer's Society is working with lots of volunteers and other organisations to achieve this goal. Because, together, we can create <a title="Opens in new window" href="http://www.alzheimers.org.uk/dementiafriendlycommunities" class="external" target="_blank">dementia friendly communities<span> (external link)</span></a>.</p><p>People with dementia sometimes need a helping hand to go about their daily lives and feel included in their local community. Dementia Friends is giving people an understanding of dementia and the small things that they can do that could make a difference to people living with dementia.</p><p>Dementia Friends is funded by the Cabinet Office and Department of Health.</p>    </div>                        <ul class="logos">
+                            <li><img src="{!URLFOR($Resource.imgsrc,'cabinetoffice-logo.png')}" width="181" height="45" alt="cabinet office" /></li>
+                            <li><img src="{!URLFOR($Resource.imgsrc,'dhlogo.jpg')}" width="127" height="45" alt="department of health" /></li>
+                        </ul>
+                    </section>
+                    <span class="divider-yellow"></span>
+                    <section class="get-involved">
+                        <header class="header">
+                            <h2>How can I get involved?</h2>
+                        </header>
+                        <img src="{!URLFOR($Resource.imgsrc,'about-promo-involve.jpg')}" width="230" height="137" alt="lady with elderly lady" />
+                        <div class="snippet snippet-rich_text rte">
+    <p>You can get involved as a <a title="What is a Dementia Friend?" href="/WEBArticle?page=what-is-a-friend">Dementia Friend </a>or a <a title="What is a Dementia Friends Champion?" href="/WEBArticle?page=what-is-a-champion">Dementia Friends Champion</a>.</p><p>A Dementia Friend learns a little bit more about what it's like to live with dementia and then turns that understanding into action - anyone of any age can be a Dementia Friend.&nbsp;</p><p>A Dementia Friends Champion is a volunteer who encourages others to make a positive difference to people living with dementia in&nbsp;their community. They do this by giving them information about the personal impact of dementia, and what they can do to help.&nbsp;</p><p>It's easy to get involved. Dementia Friends Champions attend induction session, receive support as they need it, and are part of a growing network of people creating dementia friendly communities together.</p><p>There are many <a title="How else you can help" href="/WEBArticle?page=friend-how-else-can-i-help">other ways you can help create a more dementia friendly community</a>.</p>    </div>                    </section>
+                    <span class="divider"></span>
+                    <section class="promos">
+                        <section class="dem-friends">
+                            <img src="{!URLFOR($Resource.imgsrc,'about-promo-friends.jpg')}"  width="160" height="95" alt="lady chatting to elderly lady" />
+                            <div class="content">
+                                <header class="header">
+                                    <h2>Dementia Friends</h2>
+                                </header>
+                                <div class="snippet snippet-rich_text rte">
+    <p>We want there to be one million Dementia Friends by 2015 all using their understanding of dementia to create dementia friendly communities. Every action counts.</p><p>"We go and do the things together that we enjoy and we work on Sue's garden together." Wendy, friend of Sue who is living with dementia</p>    </div>                                <a href="/WEBArticle?page=what-is-a-friend" class="btn btn-primary">What is a Friend?</a>
+                            </div>
+                        </section>
+                        <section class="dem-champion">
+                            <img src="{!URLFOR($Resource.imgsrc,'about-promo-champion.jpg')}"   width="160" height="95" alt="lady with elderly man" />
+                            <div class="content">
+                                <header class="header">
+                                    <h2>Dementia Friends Champions</h2>
+                                </header>
+                                <div class="snippet snippet-rich_text rte">
+    <p>There will be thousands of Dementia Friends Champions leading the Dementia Friends initiative helping to create dementia friendly communities together.&nbsp;&nbsp;</p><p>"Everyone was so passionate about Dementia Friends, and I can't wait to be involved in the work." Dementia Friends Champion, Earle Noel, Buckinghamshire&nbsp;</p>    </div>                                <a href="/WEBArticle?page=what-is-a-champion" class="btn btn-primary">What is a Champion?</a>
+                            </div>
+                        </section>
+                    </section>
+                
+                        
+                        
+                        
+                        
+                        
+                    </apex:outputPanel>
+<!-- End of new title code -->                    
+                </section>
+
+                <section class="secondary-content">
+                <!-- 
+                    <apex:repeat value="{!pageSnippets}" var="snippet">                    
+                        <section class="{!snippet.Page_Snippet__r.CSS_Class__c}">
+                            <header class="header">
+                                <h2>{!snippet.Page_Snippet__r.Name__c}</h2>
+                            </header>
+                            <div class="snippet snippet-rich_text rte">
+                                <p><apex:outputText value="{!snippet.Page_Snippet__r.Body_Text__c}" escape="false" /></p>    
+                            </div>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(snippet.Page_Snippet__r.Link_URL__c))}">
+                                <a class="btn btn-primary" href="{!snippet.Page_Snippet__r.Link_URL__c}">{!snippet.Page_Snippet__r.Link_Title__c}</a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{IF(snippet.Name==pageSnippets[pageSnippets.size()-1].Name, 'TRUE', 'FALSE')}">
+                                <span class="bg"></span>
+                            </apex:outputPanel>
+                        </section>  
+                    </apex:repeat>  
+                    -->
+                    <section class="awareness-session">
+    <header class="header">
+        <h2>Friends' information sessions</h2>
+    </header>
+    <div class="snippet snippet-rich_text rte">
+    <p>Friends' information sessions are run by Dementia Friends Champions to help you understand what it's&nbsp;like to live with dementia and the actions you can take. Search for your nearest information session.</p>    </div>    <a class="btn btn-primary" href="/WEBSession">Find a Session</a>
+</section>                    <section class="dfc-training">
+    <header class="header">
+        <h2>Champions' induction</h2>
+    </header>
+    <div class="snippet snippet-rich_text rte">
+    <p>Our inductions prepares Dementia Friends Champions to help people understand what it's like to live with dementia and the actions they can take in their communities. Search for your nearest inductions.</p>    </div>    <a class="btn btn-primary" href="/WEBTraining">Find Training</a>
+</section>
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </section>           
+            </div>
+        </section>
+    </section>
+    
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:WEBFooter />
+
+    </body>
+
+</apex:page>

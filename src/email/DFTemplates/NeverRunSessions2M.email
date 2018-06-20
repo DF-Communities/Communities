@@ -1,0 +1,73 @@
+<messaging:emailTemplate subject="Need any help volunteering as a Dementia Friends Champion?" recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+I hope you’re doing well. It’s been a couple of months since you took your first steps to becoming a volunteer Dementia Friends Champion. <br/><br/>
+
+I’m getting in touch again to check on your plans for your first Information Session. Sorry if we’ve had other contact since my last email, but you’re receiving this message as there hasn’t yet been a Session planned on your account. The way we can see the great impact you’re having creating Dementia Friends is by logging and reporting each Session you deliver. Log in <a href="https://www.dementiafriends.org.uk/login">here</a> to update your Sessions.<br/><br/>
+
+If you haven’t got started yet I appreciate this could be for many different reasons. As your Dementia Friends Officer I’m here to support you and would love for you to get in touch.  If your situation has changed then let me know.  My direct contact details are at the bottom of this message.<br/><br/>
+
+If you need any help getting started we have lots of resources to support you – via the website, webinars or your First Friend pack. You can also use the Champions Exchange and get support from other volunteer Champions.<br/><br/>
+
+If you’ve not been able to plan any Sessions on the website by next month, I will check in with you again then.<br/><br/>
+
+Every single Dementia Friend makes a difference and you‘ll be playing your part in building dementia-friendly communities by delivering Information Sessions.<br/><br/>
+
+I look forward to hearing from you.<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Regional Support Officer - Dementia Friends<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+{!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+{!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+
+<a href = "http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href ="https://www.facebook.com/DementiaFriends">Facebook</a><br/><br/>
+
+A quick reminder. Please don’t reply directly to this email as it comes from a ‘noreply’ address via our website. My direct contact details are above.<br/><br/>
+
+Email Id:TEREF06
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+I hope you’re doing well. It’s been a couple of months since you took your first steps to becoming a volunteer Dementia Friends Champion. 
+
+I’m getting in touch again to check on your plans for your first Information Session. Sorry if we’ve had other contact since my last email, but you’re receiving this message as there hasn’t yet been a Session planned on your account. The way we can see the great impact you’re having creating Dementia Friends is by logging and reporting each Session you deliver. Log in here to update your Sessions: https://www.dementiafriends.org.uk/login
+
+If you haven’t got started yet I appreciate this could be for many different reasons. As your Dementia Friends Officer I’m here to support you and would love for you to get in touch.  If your situation has changed then let me know.  My direct contact details are at the bottom of this message.
+
+If you need any help getting started we have lots of resources to support you – via the website, webinars or your First Friend pack. You can also use the Champions Exchange and get support from other volunteer Champions. 
+
+If you’ve not been able to plan any Sessions on the website by next month, I will check in with you again then. 
+
+Every single Dementia Friend makes a difference and you‘ll be playing your part in building dementia-friendly communities by delivering Information Sessions.
+
+I look forward to hearing from you.
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Regional Support Officer - Dementia Friends
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}
+{!relatedTo.DF_Region__r.RSO__r.Email}
+{!relatedTo.DF_Region__r.RSO__r.phone}
+
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+
+A quick reminder. Please don’t reply directly to this email as it comes from a ‘noreply’ address via our website. My direct contact details are above.
+
+Email Id:TEREF06
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

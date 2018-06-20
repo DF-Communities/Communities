@@ -1,0 +1,78 @@
+<apex:component >
+    <style>
+        
+        
+        .partnername {
+        line-height: 1.3em; 
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #666;
+        }
+        
+        .partner-row {
+        margin-top:5px;
+        margin-bottom: 8px; 
+        border-bottom: 1px solid white;
+        
+        }
+        
+        .partner-row:last-of-type  {
+        margin-bottom: 0px ; 
+        border-bottom: none ;
+        }
+        
+        
+    </style>
+    <apex:attribute name="dfcW" type="DF_Contact_Wrapper" description="DF Contact Wrapper" required="true"/>
+    
+    
+    <apex:outputPanel layout="none" rendered="{!(dfcW.partners!=null || dfcw.orgLeads != null)}">
+        
+        <div class="row clearfix" >
+            <div class="col-md-12">
+                <div class="well">
+                    <div class="row *.css">
+                        <div class="col-md-12 column">           
+                            <h1>My Partner Organisations</h1>
+                            
+                            <apex:repeat value="{!dfcW.partners}" var="partner">
+                                
+                                <div  class="row partner-row">
+                                    <div class="col-xs-12">
+                                        <a class="btn-primary btn-xs pull-right" href="partner-home?id={!partner.Id}" style="margin-bottom: 5px;">Organisation dashboard</a>
+                                        
+                                        <div class='partnername'> <strong> <apex:outputText value="{!partner.Name}"/> </strong></div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                
+                            </apex:repeat>  
+                            <apex:repeat value="{!dfcW.orgLeads}" var="lead">
+                                
+                                <div  class="row partner-row">
+                                    
+                                    <div class="col-xs-12">
+                                        <a class="btn-primary btn-xs pull-right" href="partner-home?id={!lead.Id}"  style="margin-bottom: 5px;pointer-events: none;cursor: default;box-shadow: none;opacity: .65;">Pending Approval</a>
+                                        
+                                        
+                                        <div class='partnername'> <strong> <apex:outputText value="{!lead.company}"/> </strong></div>
+                                        
+                                        
+                                        
+                                    </div>
+                                </div>
+                                
+                                
+                            </apex:repeat> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+    </apex:outputPanel>
+    
+</apex:component>

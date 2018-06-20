@@ -1,0 +1,57 @@
+<aura:component extends="c:CsqViewComponent"> 
+    
+     <aura:attribute name="status" type="String" access="GLOBAL" default="wait"/>
+     <aura:attribute name="yearEnding" type="Date" access="GLOBAL"/>
+     <aura:attribute name="firstAssessmentDate" type="Date" access="GLOBAL"/>
+     <aura:attribute name="submittedDate" type="Date" access="GLOBAL"/>
+     <aura:attribute name="lastModifiedDate" type="Date" access="GLOBAL"/>
+     <aura:attribute name="lastModifiedName" type="String" access="GLOBAL"/>
+
+     <aura:attribute name="dueDate" type="Date" access="GLOBAL"/>
+     <aura:attribute name="yearNumber" type="Integer" access="GLOBAL"/>
+  
+     <aura:attribute name="questionGroups" type="Object[]" access="GLOBAL"/>
+     <aura:attribute name="showSubmitMessage" type="boolean" default="false" access="GLOBAL"/>
+
+     <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    
+     <c:DfcAssessmentStore change="c.onAssessmentStoreChange"/>
+     <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+
+    <aura:if isTrue="{!v.yearEnding==null}">
+     <h3>Annual Assessment</h3>
+    </aura:if>
+
+
+
+    <aura:if isTrue="{!v.yearEnding!=null}">
+     <h3>Annual Assessment for year ending <ui:outputDateTime value="{!v.yearEnding}" format="d MMM YYYY" /></h3>
+    </aura:if>
+
+ 
+
+    <aura:if isTrue="{!v.status==null}">
+		<p>First Annual Assessment will become available for completion on 
+        <ui:outputDateTime value="{!v.firstAssessmentDate}" format="d MMM YYYY" timezone="Europe/London"/>
+        </p>
+    </aura:if>
+
+    <aura:if isTrue="{!v.status=='Submitted'}">
+
+
+        <c:DfcAssessmentRead questionGroups="{!v.questionGroups}" submittedDate="{!v.submittedDate}" showSubmitMessage="{!v.showSubmitMessage}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.status=='New'||v.status=='Draft'}">
+        <c:DfcAssessmentEdit questionGroups="{!v.questionGroups}" 
+                             dueDate="{!v.dueDate}" 
+                             lastModifiedName="{!v.lastModifiedName}" 
+                             lastModifiedDate="{!v.lastModifiedDate}" 
+                             status="{!v.status}"
+                             viewState="{!v.viewState}"/>
+
+       
+
+    </aura:if>
+
+</aura:component>

@@ -1,0 +1,333 @@
+<apex:page showHeader="false" sidebar="false" controller="CkeHomeHoldingController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+
+<apex:variable value="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" var="baseUrl"/>
+    
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>Cupcake Day: Alzheimer's Society</title>
+    <c:Cke_CommonHead />
+    <link rel="canonical" href="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>   
+    <script src='https://www.google.com/recaptcha/api.js' async='true' defer='true'></script> 
+
+    <script>
+        var u = '{!$User.LastName}';
+        var isEditEnabled={!edtContext.editEnabled};
+    </script>
+
+    <style> 
+        
+         .show-errors input.invalid,
+         .show-errors input.ng-invalid, 
+         .show-errors select.invalid,
+         .show-errors select.ng-invalid {
+           border: 1px solid red;   
+           box-shadow: none;
+        }
+       
+        span.active, 
+        span.invalid {
+            display: inline-block !important;
+        } 
+        
+        .waiting {
+            opacity:0.6;ie9
+        }
+        
+        form .captcha .g-recaptcha { display : block; }
+
+
+    </style>   
+
+
+</head>    
+    
+<body>
+    
+   <c:Cke_CommonBody pageUrl="home"/> 
+   <c:Cke_WebMainNav pageUrl="home"/> 
+
+   <div id="maincontent"> </div>
+    <header class="header">
+        <div class="container">
+            <div class="row">   
+                <!-- HEADER SECTION START -->
+                <div class="col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-6 col-xs-push-6">
+                    <div class="assoc visible-xs-block hidden-sm"><span><c:EdtText group="cke-home-holding" key="header-title" context="{!edtContext}" text="Cupcake Day 2017 is soon coming to an oven near your..."/></span></div>                  
+                    <h1 class="graphic hidden-xs visible-sm-block visible-md-block visible-lg-block"><span>Cupcake day</span></h1>
+                </div>
+                <div class="clearfix"></div>
+                <div class="count col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-12" style="display:none">
+                     <p id="countdown"><c:Cke_CupcakeBanner group="cke-home-holding" key="countdown-banner-text" context="{!edtContext}"/></p>
+                </div>
+                <!-- HEADER SECTION END -->             
+            </div>        
+        </div>        
+    </header>
+
+   <main>   
+        <div class="intro">
+            <article id="intro">   
+                <div class="container m1">
+                    <div class="row">  
+                        <!-- INTRO START -->
+                       
+                            <div class="col-md-12">
+                            
+                                <h2><c:EdtText group="cke-home-holding" key="block-title-1" context="{!edtContext}" text="Cupcake Day 2017 is coming soon to an oven near you…" /></h2>                
+                            </div>
+
+                            <div class="col-sm-12">
+                            <c:EdtText group="cke-home-holding" key="block-text-1" context="{!edtContext}" text="<p>Cupcake Day 2016 may be over, but we&rsquo;re already busy whisking up another delicious day for 2017. Will you rise to the challenge with us? This is your chance to host, bake, buy or just eat cupcakes and help defeat dementia. You can ice your Cupcake Day anyway you like, because on Cupcake Day every cupcake counts!</p>"/>
+                            </div>
+
+                        <!-- INTRO END -->
+                    </div>        
+                </div>                    
+            </article>
+            <div class="marker"><p>Scroll to find out more</p></div>
+        </div>
+        <div class="challenge">
+            <article id="challenge" class="blue-hundreds">
+                    <div class="container">
+                    <!-- CHALLENGE START -->
+                    <div class="row">     
+                    <div class="col-md-12">
+
+
+                            <div class="col-xs-12">                                                    
+                                <h2><c:EdtText group="cke-home-holding" key="register-interest-title" context="{!edtContext}" text="Register your interest for 2017"/></h2>
+
+                            </div>
+
+                            <div class="col-md-6 col-xs-12" ng-app="ckeinterest" ng-controller="RootController" ng-class="{'show-errors':showErrors}">    
+
+                                <!-- CAPTURE FORM -->
+                                <div ng-hide="completed">
+                                <form name="form" novalidate="novalidate" ng-class="{waiting:waiting}">
+
+                                    <fieldset>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="firstname">First name *</label>
+                                            <input type="text" id="firstname" ng-model="data.firstName" name="firstName" ng-required="true" class="form-control" ng-disabled="waiting" ng-pattern="textPattern2" maxlength="40"/>
+                                            <span ng-class="{active:form.firstName.$invalid&&(form.firstName.$touched || showErrors)}" class="ui-state-error message">Please enter your firstname</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="surname">Last name *</label>
+                                            <input type="text" ng-model="data.lastName" id="surname" name="lastName" ng-required="true" class="form-control" ng-disabled="waiting" ng-pattern="textPattern" maxlength="40"/>
+                                            <span ng-class="{active:form.lastName.$invalid&&(form.lastName.$touched|| showErrors)}" class="ui-state-error message">Please enter your last name</span>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="email">Email address *</label>
+                                            <input type="email" name="email" value="" id="email"  class="form-control email" required="true"  ng-model="data.email" ng-class="{invalid:err.emailMismatch}" ng-disabled="waiting" ng-pattern="emailPattern"/>
+                                            <span ng-class="{active:form.email.$invalid&&(form.email.$touched|| showErrors), hidden:err.emailMismatch&&showErrors}" class="ui-state-error message">Please enter a valid email address</span>
+                                        </div>
+
+
+                                         <div class="row captcha">            
+                                            <div class="col-md-12">                    
+                                                <div class="g-recaptcha" data-sitekey="{!captchaSite}"></div>
+                                                <span class="ui-state-error message" ng-class="{active:err.badCaptcha&&showErrors}">Please confirm you are a person </span>
+                                            </div>
+                                         </div>
+
+                                     <div class="row">           
+
+                                     <div class="col-xs-12">   
+                                         <p class="small text-centre col-xs-12"><c:EdtText group="cke-home-holding" key="register-form-ig-text" context="{!edtContext}" text="By submitting this form you agree to Alzheimer&rsquo;s Society contacting you regarding Cupcake Day 2017. We will not use your details for any other purpose unless you give us permission to do so."/></p>
+                                     </div>
+
+                                     <div class="col-md-6 col-md-push-3 col-sm-6 col-sm-push-3 col-xs-12">                   
+
+                                        <span class="wait" ng-show="waiting">PROCESSING REQUEST <img src="{!$Resource.cke_wait_gif}"/></span>
+                                        <button type="submit" name="submit" value="submit" class="btn btn-form" ng-click="submitNotificationRequest()" ng-show="!waiting"><c:EdtText group="cke-home-holding" key="register-form-button-text" context="{!edtContext}" text="Find out more" hideEditPrompt="true"/></button>
+                                        <span class="ui-state-error message" ng-class="{active:alert}">{{alert}}</span>
+
+                                     </div>
+                                     </div>
+
+                                    </fieldset>    
+
+
+                                </form>
+                                </div>   
+
+                                <!-- THANK YOU MESSAGE -->      
+                                <div ng-show="completed">
+
+                                    <h2><c:EdtText group="cke-home-holding" key="form-thankyou-title" context="{!edtContext}" text="Thank you, cupcake!"/></h2>
+                                    <c:EdtText group="cke-home-holding" key="form-thankyou-text" context="{!edtContext}" text='<p>We&rsquo;re so excited that you&rsquo;re keen to join Cupcake Day 2017. We&rsquo;ve sent you an email with more information on this delicious day.</p>
+                                    <p>As soon as Cupcake Day 2017 is ready, we will be in touch with details on how to sign up.'/>
+
+                                </div>
+
+                        </div>    <!-- ng-app -->
+
+                        <div class="col-md-6 col-xs-12">                                
+
+                            <div class="col-xs-12">                                                    
+
+                                <c:EdtText group="cke-home-holding" key="register-your-interest-text" context="{!edtContext}" text='<p><i>“Thank you for helping make cupcake day a scrumptious success! Every crumb you made and every penny you raised really does count.”</i> <br/>– Ruth Jones, Actress, Writer and Cupcaker</p><p>In 2016 more than 25,000 people up and down the country joined in to raise vital funds for Alzheimer&rsquo;s Society. Will you rise to the challenge?</p>
+                                <p>We’re busy in the &lsquo;kitchen&rsquo; measuring, mixing, and baking everything you need to host a delicious day. </p>
+                                <p>Register your interest to find out more about Cupcake Day 2017 and as soon as it&rsquo;s ready to come out of the oven, we&rsquo;ll be in touch.</p>'/>
+
+                            </div>
+
+                       </div>
+    
+                    </div>  
+                    </div>
+
+                    <div class="row" id="video-option">
+
+                        <!--    
+                        <div class="col-md-10 col-md-push-1 embed-responsive embed-responsive-16by9">     
+                            <c:EdtVideo group="cke-home-holding" key="video-1" video-id="ti5R5_ZCLRQ" vars="rel:0,controls:0,showinfo:0" context="{!edtContext}"/>
+                        </div>
+                        -->
+
+
+                        <div class="col-md-10 col-md-push-1 embed-responsive embed-responsive-16by9">
+                        <!-- VIDEO START -->     
+                          <iframe title="Cupcake day video" class="embed-responsive-item" wmode="opaque" src="https://www.youtube-nocookie.com/embed/Bjbl0_S42DY?rel=0&amp;controls=0&amp;showinfo=0&amp;wmode=transparent" allowfullscreen="true"></iframe>
+                        <!-- VIDEO END -->
+                        </div>
+                    </div>
+                    <div class="row gallery" id="image-option" style="display:none">     
+                        <div class="col-md-12 center">    
+                            <img src="{!URLFOR($Resource.Cke_Assets_Desktop, 'img/Desktop_gold_848x600_v1.jpg')}" class="img-responsive" alt="lady enjoying a cupcake" />
+                        </div>
+                    </div>
+                    <!-- CHALLENGE END -->
+                </div>                     
+            </article>
+        </div>
+        <!--div class="video">
+            <div id="video">
+                <div class="container">
+                    <div class="row">
+                    </div>        
+                </div>                     
+            </div>                
+        </div -->        
+       
+        <article class="bring">
+        <div class="container-bt">
+        <div class="yellow">
+        <div class="container">
+            <div class="row">                   
+                <div class="col-xs-12">
+                    <h2><c:EdtText group="cke-home-holding" key="recipes-title" context="{!edtContext}" text="Delicious cupcake recipes"/></h2>
+                    <c:EdtText group="cke-home-holding" key="recipes-text" context="{!edtContext}" text='<p>Some of the UK&rsquo;s favourite celebrities have shared some fabulous recipes with us, so you can get your bake on and start practising. What will you bring?</p>'/>
+                </div>
+            </div>
+            <div class="row">
+                <!-- RECIPES START -->
+                <div class="col-md-3rds col-sm-3rds col-xs-3rds drop-shadow first-recipe">
+                    <div class="thumbnail recipes">
+                    <c:EdtImage group="cke-home-holding" key="recipe-image-1" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/getready/p1.jpg')}"  alt="Salested Caramel Dreams" html-class="img-responsive img-100"/>
+                    <div class="caption">
+                        <p><c:EdtText group="cke-home-holding" key="recipe-text-1" context="{!edtContext}" text="Salted Caramel Dreams"/></p>
+                        <c:EdtDownload group="cke-home-holding" key="recipe-download-1" context="{!edtContext}" link-text="Get Recipe &gt;" html-class="btn btn-primary" 
+                                              href="{!HTMLENCODE(URLFOR($Resource.Cke_Downloads, 'recipe_salted_caramel_dreams.pdf'))}" />
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-3rds col-sm-3rds col-xs-3rds drop-shadow">
+                    <div class="thumbnail recipes">
+                    <c:EdtImage group="cke-home-holding" key="recipe-image-2" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/getready/p2.jpg')}" alt="Pastel Cupcakes" html-class="img-responsive img-100"/>
+                    <div class="caption">
+                        <p><c:EdtText group="cke-home-holding" key="recipe-text-2" context="{!edtContext}" text="Pastel Cupcakes"/>  </p>
+                        <c:EdtDownload group="cke-home-holding" key="recipe-download-2" context="{!edtContext}" link-text="Get Recipe &gt;" html-class="btn btn-primary" 
+                                              href="{!URLFOR($Resource.Cke_Downloads, 'recipe_pastel_cupcakes.pdf')}" />
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-3rds col-sm-3rds col-xs-3rds drop-shadow">
+                    <div class="thumbnail recipes">
+                    <c:EdtImage group="cke-home-holding" key="recipe-image-3" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/getready/p3.jpg')}" alt="Sweeties Cupcakes" html-class="img-responsive img-100"/>
+                    <div class="caption">
+                        <p><c:EdtText group="cke-home-holding" key="recipe-text-3" context="{!edtContext}" text="Sweetie Cupcakes"/></p>
+                        <c:EdtDownload group="cke-home-holding" key="recipe-download-3" context="{!edtContext}" link-text="Get Recipe &gt;" html-class="btn btn-primary" 
+                                              href="{!URLFOR($Resource.Cke_Downloads, 'recipe_sweetie_cupcakes.pdf')}" /> 
+                    </div>
+                    </div>
+                </div>
+                <!-- RECIPES END -->
+            </div>
+        </div>
+        </div>
+        </div>
+        </article>
+
+    </main>
+    
+    <aside>
+    <article class="cake">
+        <div class="container-bt">
+            <div class="green">
+            <div class="container ">
+                <div class="row">    
+                    <!-- SOCIAL START -->
+                    <div class="col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-12 vcenter">
+                    <div class="social-underline">
+                    <h2><c:EdtText group="cke-home-holding" key="block-title-4" context="{!edtContext}" text="Check out the cupcake catwalk"/> </h2>
+                    <c:EdtText group="cke-home-holding" key="block-text-4" context="{!edtContext}" text="<p>Thank you to everyone who took part in Cupcake Day 2016 and showed us your swirls and sprinkles. See everyone&rsquo;s practicing, mixing and piping efforts on our Cupcake Catwalk #CupcakeDay</p>"/>
+
+                    <a href="cupcake-catwalk" class="btn btn-primary"><c:EdtText group="cke-home-holding" key="button-catwalk-link-text" context="{!edtContext}" text="Cupcake Catwalk" hideEditPrompt="true"/> </a>
+
+                    </div>
+
+
+                    <h3>Follow us for cupcake chat</h3>
+                    <div class="inner-row">
+                    <div class="col-md-4 col-sm-6 col-xs-12 xs-center">
+                    <a class="btn btn-social btn-twitter" href="https://twitter.com/alzheimerssoc"><span class="fa fa-twitter"></span>Tweet cake</a>
+                    </div><div class="col-sm-6 col-xs-12 xs-center">
+                    <a class="btn btn-social btn-facebook" href="https://www.facebook.com/alzheimerssocietyuk"><span class="fa fa-facebook"></span>Cakebook</a>
+                    </div></div>
+                    </div><!--        
+                    SOCIAL END
+                     --><div class="col-md-6 col-sm-6 col-xs-12 vcenter"> 
+                        <c:EdtImage group="cke-home-holding" key="block-image-4" src="{!URLFOR($Resource.Cke_Assets, 'img/layout/cake.png')}" alt="instagram cakes" html-class="img-responsive" context="{!edtContext}"/>                        
+                    </div> 
+                    </div>                  
+                </div>
+            </div></div>
+        </div>
+    </article>
+    <article class="green"><div class="container">
+        <!-- DONATION BAR START -->
+        <div class="row"><div class="col-md-9 col-sm-9 vcenter"><h3>Can&rsquo;t host your own Cupcake Day? Make a donation to Alzheimer&rsquo;s Society instead. </h3></div><!-- --><div class="col-md-3 col-sm-3 vcenter"><a href="donate" class="btn-donate">Donate</a></div>
+        </div>        
+        <!-- DONATION BAR END -->
+    </div>         
+    
+    </article></aside>      
+    
+    <c:Cke_CommonFooter />    
+    <c:Cke_CommonScripts />
+    <script src="{!$Resource.cke_home_ie9_fix_js}"></script>     
+
+    <script>
+
+      var baseUrl = '{!baseUrl}';
+      var sessionId = '{!$Api.Session_ID}';
+                  
+      var app = angular.module('ckeinterest', []); 
+      app.constant("Modernizr", Modernizr);
+         
+    </script>         
+
+    <script src="{!$Resource.cke_register_interest_js}"></script>     
+    <script src="{!$Resource.cke_action_service_js}"></script>     
+
+</body>
+
+</html>
+    
+</apex:page>

@@ -1,0 +1,204 @@
+<apex:page controller="CkeCheckoutController" action="{!getCheckoutDetails}" cache="false" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+ 
+<html lang="en"> 
+    
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Cupcake Day: Alzheimer's Society</title>
+
+  <link rel="stylesheet" href="{!$Resource.cke_checkout_css}"/>
+
+  <style> 
+    .prop-img {
+      background-image:url('{!URLFOR($Resource.Cke_Assets_Mobile, 'img/Mobile_hero_pale_yellow.jpg')}') ;
+    }
+    .prop-img.gold {
+      background-image:url('{!URLFOR($Resource.Cke_Assets_Mobile, 'img/Mobile_hero_gold.jpg')}') !important;
+    }
+    .prop-img .assoc {
+      background-image:url('{!URLFOR($Resource.Cke_Assets, 'img/layout/info.png')}') !important;
+    }      
+   .logo {
+      background-image: url('{!$Resource.cke_checkout_sprite_png}');
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio:2) , only screen and (min--moz-device-pixel-ratio:2) , only screen and
+        (min-device-pixel-ratio:2) , only screen and (min-resolution:2dppx) , only screen and (min-resolution:192dpi) {
+     .logo {
+        background-image: url('{!$Resource.cke_checkout_sprite2_png}');
+      }
+    }
+  </style>
+    
+</head>
+<body>
+    
+<div class="xo-checkout-wrapper ng-cloak" ng-app="ckepay" ng-controller="RootController">
+  <div class="outerWrapper GB en" id="outerWrapper">
+	<header role="banner" >
+   	  <div id="header" class="merchantHeader clearfix">
+       	<div class="headerWrapper"> 
+        	<span class="merchantName">Cupcake Day {!paymentType}</span>
+        </div>
+      </div>
+  	</header>
+
+    <div id="wrapper" class="clearfix">
+      <div id="sliding-area" tabindex="-1" aria-disabled="false">
+        <div id="main">
+        
+          <div class="row-fluid paypalHeaderWrapper">
+            <div class="span14 clearfix paypalHeader">
+    
+              <div id="paypalLogo" class="logo">
+                <span class="accessAid">Cupcake Day Pay-in</span>
+              </div>
+    
+            </div>
+          </div>
+          
+          <div id="contents">
+            <div>
+              <div>
+                <div class="xo-review-page-wrapper">
+                  <section class="review" id="memberReview" tabindex="-1" role="presentation">
+                    <div class="accessAid">
+                      <h1 class="alpha">Review your payment</h1>
+                    </div>
+                    <div class="row-fluid justMember">
+                        
+                      <apex:outputPanel rendered="{!errorStatus==null}" layout="block" styleClass="span14 trayInner reviewSections">
+                        
+                        <h4>{!title}</h4>
+                        <p>{!copy}</p>
+
+                        <p style="width: 100%; text-align: center; margin: 30px 0 0 0">
+                          <span>Amount:&nbsp;&nbsp;</span><strong>£{!amount}</strong>
+                        </p>
+    
+                        <div class="proceed">
+                            <span class="btn" ng-click="runPayment()" ng-show="!waiting" role="button" tabindex="0" ng-keyup="onButtonKeyup($event)" style="height:50px">COMPLETE PAYMENT</span>
+                            <span class="btn wait ng-cloak" ng-show="waiting">PROCESSING PAYMENT <img src="{!$Resource.cke_wait_gif}"/></span>
+                             <div ng-class="{active:alert}" class="alert ng-cloak">
+                                 <span style="color:#ed2353;">{{alert}}</span>
+                             </div> 
+                        </div>
+                          
+                      </apex:outputPanel>
+    
+                      <apex:outputPanel rendered="{!errorStatus!=null}" layout="block" styleClass="span14 trayInner reviewSections">
+          
+                        <h4>Ooops, something strange in the mix!</h4>
+                        <p></p>
+
+                        <p style="width: 100%; text-align: center; margin: 30px 0 20px 0">
+                        	{!errorStatus}	
+                        </p>
+    
+                        <div class="proceed">
+                          <div id="button" class="buttons reviewButton">
+                            <input type="button" ng-click="cancel()" value="RETURN TO CUPCAKE DAY" id="confirmButtonTop" class="btn full confirmButton continueButton"/>
+                          </div>
+                        </div>
+                 
+                      </apex:outputPanel>
+    
+                      <div class="span10" feature="propValue">
+                        <div class="props review">
+                          <div class="prop-img" ng-class="{gold:donation}">
+                            <div class="assoc"></div>
+                          </div>
+                        </div>
+                      </div>
+                        
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    
+    </div>
+        
+        
+    <footer>
+    <div class="footer clearfix commonFooter" role="contentinfo">
+        <p id="defaultCancelLink" class="cancelUrl">
+            <a track-link="cancel_and_return_to_merchant" href="{!cancelUrl}" role="button" id="cancelLink">
+                Cancel and return to Cupcake Day 
+            </a>
+        </p>
+
+    </div>
+
+</footer> 
+
+
+</div>
+</div>
+       
+    <c:Cke_CommonScripts /> 
+    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>     
+    
+    <script>
+    var app = angular.module('ckepay', []);
+    app.constant("TOKEN", '{!token}');
+    app.constant("PAYERID", '{!payerId}');
+    app.constant("AMOUNT", '{!amount}');
+    app.constant("PAYTYPE", '{!paymentType}');
+    </script>
+    
+	<script src="{!$Resource.cke_action_service_js}"></script>     
+	<script src="{!$Resource.cke_device_service_js}"></script>     
+    
+  	<script>
+    
+    
+ app.controller('RootController', function($scope, actionService, deviceService, PAYTYPE, TOKEN, PAYERID, AMOUNT) 
+{
+    'use strict';
+    
+    $scope.data = { token:TOKEN, payerId:PAYERID, amount:AMOUNT };
+    $scope.ie9 = window.CKIE9;
+    $scope.waiting = false;
+    $scope.donation = PAYTYPE == 'Donation';
+
+	$scope.runPayment = function()
+    {    
+        $scope.alert = null;
+        
+        $scope.waiting = true;
+        actionService.invokeAction(CkeCheckoutController.createPayment, $scope.data)
+        .then(function(data){
+            window.location.replace(window.CKBASE+($scope.donation?'/donate-thank-you':'/pay-in-thank-you'));  
+         })
+        .catch(function(e){
+            console.error(e);
+            $scope.alert = 'Payment could not be processed';
+            $scope.waiting = false;
+        });
+    }
+    
+    $scope.cancel = function()
+    {
+       window.location.replace(window.CKBASE+($scope.donation?'/donate':'/pay-in'));  
+    }
+    
+    $scope.onButtonKeyup = function(event)
+    {
+        if (event.keyCode==32||event.keyCode==13) $scope.runPayment();
+    }
+  
+ });
+   
+  </script>   
+        
+ </body>     
+</html>
+
+    
+</apex:page>

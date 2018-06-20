@@ -1,0 +1,27 @@
+.THIS {
+    padding:0 10px;
+    margin-top: 24px;
+    width:100%;
+    text-align:center;
+    
+}
+.THIS button {
+    margin: 0 5px;
+    font-size: 12px !important;
+}
+
+.THIS .btn-action {
+	font-size: 12px !important;
+}
+
+.THIS .btn .fa {
+    padding:0 ;
+}
+
+.THIS .btn .fa-chevron-right {
+    padding-left:6px;
+}
+
+.THIS .btn .fa-chevron-left {
+    padding-right:6px;
+}

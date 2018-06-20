@@ -1,0 +1,82 @@
+<apex:component >   
+    <apex:attribute name="showDob" type="Boolean" default="false" description="Bolean that determines if the date of birth fields are shown or not"/>
+    <div class="form-group">
+        <div class="col-xs-12 col-md-12">
+            <label for="title">Title <span style="color: red; font-weight: bold">*</span></label>
+            <select name="titleSelect" id="title" class="form-control" data-ng-init="data.titleSelect = titleValues[0]" data-ng-pattern="'^((?!Please select).)*$'" data-ng-required="true"  data-ng-model="data.titleSelect" data-ng-change="onTitleSelectChange()" data-ng-disabled="waiting" data-ng-blur="quickSave()" data-ng-options="option.name for option in titleValues track by option.id">
+                                                  
+            </select>
+            <div class="other-title" ng-hide="!showOtherTitle">
+                <label for="other-title" class="sr-only">Other title <span style="color: red; font-weight: bold">*</span></label>
+                <input type="text" name="title" value="" id="other-title" class="form-control" data-ng-model="data.title" data-ng-disabled="waiting" data-ng-blur="quickSave()" data-ng-required="data.titleSelect" data-ng-pattern="textPattern"/>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <span data-ng-class="{active:(form.titleSelect.$invalid||form.title.$invalid)&&(showErrors)}" class="ui-state-error message">Please tell us your title</span>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <label for="firstname">First name <span style="color: red; font-weight: bold">*</span></label>
+            <input type="text" id="firstname" data-ng-model="data.firstName" name="firstName" 
+                   data-ng-required="true" class="form-control" data-ng-disabled="waiting" 
+                   data-ng-pattern="textPattern" maxlength="40" data-ng-blur="validateName()"/>
+            <span data-ng-class="{active:form.firstName.$invalid&&(form.firstName.$touched || showErrors)}" class="ui-state-error message">Please enter your first name</span>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <label for="surname">Last name <span style="color: red; font-weight: bold">*</span></label>
+            <input type="text" data-ng-model="data.lastName" id="surname" name="lastName" 
+                   data-ng-required="true" class="form-control" data-ng-disabled="waiting" 
+                   data-ng-pattern="textPattern" maxlength="40" data-ng-blur="validateName()"/>
+            <span data-ng-class="{active:form.lastName.$invalid&&(form.lastName.$touched|| showErrors)}" class="ui-state-error message">Please enter your last name</span>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <label for="email">Email address <span style="color: red; font-weight: bold">*</span></label>
+            <input type="email" name="email" value="" id="email"  class="form-control email" required="true" data-ng-model="data.email" 
+                   data-ng-class="{invalid:err.emailMismatch}" data-ng-change="onEmailChange()" 
+                   data-ng-disabled="waiting" data-ng-blur="quickSave()" data-ng-pattern="emailPattern"/>
+            <span data-ng-class="{active:form.email.$invalid&&(form.email.$touched|| showErrors)}" class="ui-state-error message">Please enter your email</span>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <label for="telephone">Telephone</label>
+            <input type="text" data-ng-model="data.phone" id="telephone" data-ng-pattern="'^0(\\d ?){10}$'" name="telephone" class="form-control" 
+                    data-ng-class="{invalid:err.badPhone}" data-ng-disabled="waiting" data-ng-blur="validatePhone(true,false)"/>
+            <span data-ng-class="{invalid:err.badPhone}" class="ui-state-error message">{{phoneErrMsg}}</span>                            
+        </div> 
+    
+        <apex:outputPanel rendered="{!showDob}">
+            <div class="col-xs-12 col-md-12">
+            <p>Date of birth  <span style="color: red; font-weight: bold">*</span></p>
+            
+
+             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12" style="padding-left:0px;">
+                 <select id="birthDay" data-ng-class="{invalid:err.badDob}" data-ng-disabled="waiting"
+                         ng-model="selectedBirthDay" class="form-control"
+                        ng-options="item.id as item.name for item in birthDayValues">
+                </select>
+             </div>
+             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12" style="padding-left:0px;">
+                <select id="birthMonth" data-ng-class="{invalid:err.badDob}" data-ng-disabled="waiting"
+                        ng-model="selectedBirthMonth" class="form-control" 
+                        ng-options="item.id as item.name for item in birthMonthValues">
+                </select>                                              
+             </div>
+             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding-left:0px;">
+                <select ng-model="selectedBirthYear" data-ng-class="{invalid:err.badDob}" 
+                data-ng-disabled="waiting" class="form-control" 
+                        ng-options="item.id as item.name for item in birthYearValues">
+                </select>                                             
+             </div>
+             <span id="dob-help" ng-hide="!err.badDob" class="ui-state-error message active">{{data.dobText}}</span>
+
+             <span data-ng-class="{invalid:err.badDob}" class="ui-state-error message">{{data.dobAlert}}</span>                            
+             <span id="dob-error" class="ui-state-error message" ng-class="{invalid:err.badDob}" >{{data.dobAlert}}</span>
+                <p>You must be over 16 to host a Cupcake Day event</p>
+            </div>
+          </apex:outputPanel>
+        
+    </div>
+    </apex:component>

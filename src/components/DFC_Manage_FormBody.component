@@ -1,0 +1,44 @@
+<apex:component controller="DFC_CommunityInfoController">
+
+<div class="row">
+   <div class="col-md-2">
+   </div>
+   <div class="col-md-8">
+      <div class="dfc-alert" data-aura-rendered-by="66:0"><span class="cCsqAlert"></span>
+      </div>
+      <div>
+         <div ng-show="showPart1">
+            <c:DFC_Manage_Part1 />
+            <c:DFC_Manage_Navigation uId="Part1" nextAction="showPart2" backAction="hideButton"/>
+         </div>
+         <div ng-show="showPart2">
+            <c:DFC_Manage_Part2 />
+            <c:DFC_Manage_Navigation uId="Part2" nextAction="showPart3" backAction="showPart1"/>
+         </div>
+         <div ng-show="showPart3">
+            <c:DFC_Manage_Part3 />
+            <c:DFC_Manage_Navigation uId="Part3" nextAction="showPart4" backAction="showPart2"/>
+         </div>
+         <div ng-show="showPart4">
+            <c:DFC_Manage_Part4 />
+            <c:DFC_Manage_Navigation uId="Part4" nextAction="showPart5" backAction="showPart3"/>
+         </div>
+         <div ng-show="showPart5">
+            <c:DFC_Manage_Part5 />
+            <c:DFC_Manage_Navigation uId="Part5" nextAction="showPart6" backAction="showPart4"/>
+         </div>
+         <div ng-show="showPart6">
+            <span class="cDfcResourceList"></span>
+            <span class="cDfcResourceList"></span>
+            <span class="cDfcResourceList"></span>
+            <span class="cDfcResourceList"></span>
+            <c:DFC_RegistercommunityS6 status="Active"/>
+            <c:DFC_Manage_Navigation uId="Part6" nextAction="hideButton" backAction="showPart5"/>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-2">
+   </div>
+</div>
+
+</apex:component>

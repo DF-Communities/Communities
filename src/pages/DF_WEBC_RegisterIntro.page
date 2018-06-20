@@ -1,0 +1,73 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="WEBRegister">
+    
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+    
+    <div class="row *.css">
+        <div class="col-md-12">
+
+            <h1>Registration</h1>            
+            <c:DF_WEBC_SocialLinks />
+
+            <p>
+                <apex:outputText value="{!registerText.Body_Text__c}" escape="false"/>
+            </p>
+            
+            <div class="row *.css">
+                <div class="col-sm-4 col-md-4 column">
+                    <div class="well">
+                        <h3>Become a Dementia Friend</h3>
+                        <p><img src="{!URLFOR($Resource.DF_WEBR_Assets,'img/become-a-friend-thumb.jpg')}" class="rounded img-responsive" alt="" /></p>
+                        <h4>How to get started</h4>
+                        <p>Learn more about what it is like to live with dementia and turn that understanding into action.<br/><br/>
+                            <strong>It's really easy to do:</strong>
+                        </p>    
+                        <p>Register for a face-to-face Information Session</p>
+                        <p><a class="btn btn-default" style= "width:87%" href="register-friend">Attend an Information Session</a></p>
+                        <p>Or watch our online video</p>
+                        <p><a class="btn btn-primary" style= "width:87%" href="register-digital-friend">Watch our online video</a><br/><br/></p>
+
+                        
+                     </div>
+                </div>
+                <div class="col-sm-4 col-md-4 column">
+                    <div class="well">
+                        <h3>Volunteer as a Champion</h3>
+                        <p><img src="{!URLFOR($Resource.DF_WEBR_Assets,'img/become-a-champion-thumb.jpg')}" class="rounded img-responsive" alt="" /></p>
+                        <h4>How to get started</h4>
+                        <p>Champions are trained volunteers who encourage people to learn a little bit more about dementia.</p>
+                        <p>Champions run Information Sessions in their community and inspire others to help those living with dementia live well.
+                        </p>
+                        <p><a class="btn btn-primary" href="DF_WEBC_RegisterChampionIntro">Register as a Champion</a></p>
+                    </div>
+                </div>                
+            
+              <div class="col-sm-4 col-md-4 column">
+                <div class="well">
+                 
+                     <h3>Register your Organisation</h3>
+                    <p><img src="{!URLFOR($Resource.DF_WEBR_Assets,'img/GreenfieldsStaff.jpg')}" class="rounded img-responsive" alt="" /></p>
+                     <h4>Get your organisation involved</h4>
+                        <p>
+
+                        If you register your organisation with Dementia Friends, you will get access to resources and information aimed at helping members of your organisation understand dementia and how it may affect a person.
+                        </p>
+                        <p><a class="btn btn-primary" href=" 
+                        /register-partner-admin">Register your Organisation</a></p>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <c:DF_WEBR_WebFooter />
+    </div>
+
+</apex:page>

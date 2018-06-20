@@ -1,0 +1,30 @@
+<aura:component controller="ExchangeHeaderCmpController" implements="forceCommunity:availableForAllPageTypes" access="global" >
+	
+     <aura:attribute name="stub_url" type="Boolean" default="false" access="global"/>
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="footer">
+         <br/>
+    <div class="slds-grid slds-wrap ">
+    <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--2-of-12">
+        <img src="{!$Resource.Alz_logo}" width="133" class="img-responsive" alt="Dementia Friends"/>
+         
+     </div>
+     <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1   slds-large-size--2-of-12">
+           
+       <p class="small">Dementia Friends is an Alzheimer's Society initiative
+       </p>
+      
+      </div> 
+   
+     <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1   slds-large-size--2-of-12">
+        </div>
+      <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--6-of-12">
+   <p class="small">All content © 2017 Alzheimer's Society.<br/>
+    Alzheimer's Society is a registered Charity No. 296645<br/>
+       <a href="http://blog.dementiafriends.org.uk/" class="external" target="_blank" title="Opens in new window">Project blog<span> (external link)</span></a> | <a href="{!v.stub_url +'WEBArticle?page=terms-and-conditions'}">Terms &amp; conditions</a> | <a href="{!v.stub_url+'WEBArticle?page=privacy-policy'}">Privacy policy</a> | <a href="{!v.stub_url+'WEBSiteMap'}">Site map</a></p>
+      </div>
+      </div>
+    </div>
+   
+</aura:component>

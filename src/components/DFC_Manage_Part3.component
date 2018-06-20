@@ -1,0 +1,71 @@
+<apex:component >
+
+<div class="DESKTOP cDfcManageActivities">
+   <div>
+      <div class="clearfix">
+         <button class="btn btn-primary pull-right dfc-new-btn no-print" ng-click="onNewActivityClick()">New activity
+         </button>
+         <h3>Activities</h3>
+      </div>
+      <p>
+         <span class="cDfcSnippet"></span>
+         <span class="cDfcSnippet">
+            Here you can regularly log the activity that your community is&nbsp;undertaking to become dementia-friendly. This activity should be in line with the areas for action you chose to focus on when you applied for recognition but if there are additional areas please add these under focussed areas for action in part 2, before completing here.<br></br>To add an attachment to your activity log, please enter details about the activity and click&nbsp;add after which an option to  a file will appear.<br></br>Please ensure you record against all areas for action you chose to focus on over the year. If you have not met your targets in any given area, please outline the reasons why.<!--render facet: 334:0-->
+         </span>
+      </p>
+      <div class="dfc-activity" ng-show="activityInput.editMode">
+         <!-- START  NEW ACTIVITY -->
+         <div  style="margin-bottom:30px" >
+            <span class="cDfcActivityForm"></span>
+            <div class="DESKTOP cDfcActivityForm">
+               <div class="heading">Add a new activity
+               </div>
+               <button class="btn btn-action pull-right" ng-click="onSaveActivityClick()">Add</button> 
+               <button class="btn btn-action pull-right" ng-click="onClickToggleActivityView()" >Cancel</button>
+               <p>Describe an activity carried out in one of your selected focus areas</p>
+               <span ng-show="activityInput.focusAreaError" class="cCsqValidationComponent cCsqValidateDate">Please select a focus area</span>
+               <label class="hide">Focus Area</label>
+               <div class="clearfix">
+                  <select class="form-control select-focus-area select uiInput uiInputSelect uiInput--default uiInput--select" size="1" ng-disabled="waiting" ng-change="onFocusAreaSelectChange()" ng-model="activityInput.focusAreaSelect" ng-options="option.name for option in actionAreaValues track by option.id" ng-init="activityInput.focusAreaSelect = actionAreaValues[0]">
+                  </select>
+                  <span class="hide cCsqValidationComponent">Please select a focus area</span>
+               </div>
+               <span ng-show="activityInput.titleError" class="cCsqValidationComponent cCsqValidateDate">Please enter a title for the activity</span>
+               <label class="hide">Activity Title</label>
+               <strong>
+               <input class="form-control input uiInput uiInputText uiInput--default uiInput--input" maxlength="200" type="text" aria-describedby="" placeholder="Please enter a title for the activity" ng-model="activityInput.title"/>
+               </strong>
+               <span class="hide cCsqValidationComponent">Please enter a title for the activity</span>
+               <label class="hide">Activity Date(s)</label>
+               <div class="clearfix">
+                  <input class="form-control csq-inline csq-date input uiInput uiInputText uiInput--default uiInput--input" type="text" ng-model="activityInput.startDateUiFormat" ng-disabled="waiting" ng-change="handleDateInput('startDate')" my-datepicker="true" placeholder="DD/MM/YYYY" />
+                  <span class="date-separator">to</span>
+                  <input class="form-control csq-inline csq-date input uiInput uiInputText uiInput--default uiInput--input" type="text" ng-model="activityInput.endDateUiFormat" ng-disabled="waiting" ng-change="handleDateInput('endDate')" my-datepicker="true" placeholder="End date (optional)" />
+                  <span ng-show="activityInput.endDateError" class="cCsqValidationComponent">
+                  The end date must be after the start date
+                  </span>
+                  <span ng-show="activityInput.startDateError" class="cCsqValidationComponent">
+                  Please enter a start date
+                  </span>
+               </div>
+               <span ng-show="activityInput.descriptionError" class="cCsqValidationComponent">
+               Please add a description for this activity
+               </span>
+               <label class="hide">Activity Description</label>
+               <p>
+                  <textarea class="form-control textarea uiInput uiInputTextArea uiInput--default uiInput--textarea" cols="20" rows="4" placeholder="Please describe the activity {{activityInput.descriptionError}}" ng-model="activityInput.description"></textarea>
+               </p>
+            </div>
+         </div>
+      </div>
+      <!-- END NEW ACTIVITY -->
+      <div class="dfc-act" ng-repeat="(key, value) in activities">
+         <div class="dfc-activity">
+            <c:DFC_Manage_Part3_ExistingActivityEdit />
+            <c:DFC_Manage_Part3_ExistingActivityView />
+         </div>
+      </div>
+   </div>
+</div>
+
+</apex:component>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>DF New Attendee on Session notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DF New Attendee On Session HTML</name>
+    <style>none</style>
+    <subject>A new attendee for your Information Session!</subject>
+    <textOnly>Dear {{event.Session_Organiser__r.Name}},
+
+{{contact.First_Name__c}} {{contact.Last_Name__c}} has registered to your Dementia Friends Information Session
+{{event.Name}} on {{event.Event_Date_Time__c}}&quot;/&gt;
+
+You now have {{event.Number_Of_Attendee_Records__c}} registered attendees.
+
+Kind Regards,
+
+Dementia Friends
+
+http://www.dementiafriends.org.uk</textOnly>
+    <type>custom</type>
+</EmailTemplate>

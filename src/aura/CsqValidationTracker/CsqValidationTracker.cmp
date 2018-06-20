@@ -1,0 +1,15 @@
+<aura:component access="GLOBAL">
+	
+    <aura:attribute name="errorCount" type="Integer" default="0"/>
+    <aura:attribute name="errors" type="Object[]" default="[]" access="GLOBAL"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+    <aura:handler name="validationEvent" event="c:CsqValidationEvent" action="c.onValidationEvent" />
+    
+    <aura:method name="validate" action="{!c.validate}" access="GLOBAL">
+	  <aura:attribute name="ret" type="Object" />
+    </aura:method>
+    
+    {!v.body}
+    
+</aura:component>

@@ -1,0 +1,100 @@
+<apex:page showHeader="false" sidebar="false" controller="EdtPageController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+    
+<apex:variable value="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" var="baseUrl"/>    
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>Thank you for your donation – Alzheimer’s Society</title>
+    <c:Cke_CommonHead ogImage="https://alzheimerscommunities--c.eu7.content.force.com/servlet/servlet.ImageServer?id=0150J000004nAUn&oid=00D20000000CwQc"
+        ogDescription="June 14 is Cupcake Day and everyone’s invited. Whether you’re a baking pro, a cake mix cheater or a shop bought lover, organise a Cupcake Day and raise money to support the fight against dementia. cupcakeday.org.uk" 
+        ogUrl="donate-thank-you"
+        ogTitle="Rise against dementia"
+        />
+
+</head>    
+    
+<body class="sub">
+    
+   <c:Cke_CommonBody pageUrl="donate-thank-you" 
+            fbUrl="Donation"
+            fbHome="true"/>
+   <c:Cke_WebMainNav pageUrl="donate-thank-you"/>
+
+    <main>   
+         <div class="white">
+            <article id="form">
+                <div class="container">
+                    <div id="responsive-spacer"></div> 
+                    <div class="row"> 
+                        <div class="col-sm-12 col-xs-12 col-md-12">  
+                            <h2><c:EdtText group="cke-donatethanks" key="intro-title-1" context="{!edtContext}" text="A very big, very heartfelt thank you"/></h2>                
+                        </div>
+                        <div class="col-sm-12 col-xs-12 col-md-12">  
+                            <p class="large"><c:EdtText group="cke-donatethanks" key="intro-text-1" context="{!edtContext}" text="We’ve received your donation and have sent you an email to confirm. On behalf of everyone at Alzheimer’s Society, thank you so much for making a difference to so many people."/></p>          
+                        </div>                         
+                    </div>
+                    <div id="responsive-spacer"></div> 
+                </div>
+                <div id="responsive-spacer"></div>
+            </article>
+        </div>
+          
+        <article class="bring">
+            <div class="container-bt">
+                <div class="white">
+                    <div class="container">                                          
+                        <div class="row"> 
+                            <div class="col-sm-12 col-xs-12 col-md-12">                   
+                                <h2><c:EdtText group="cke-donatethanks" key="intro-title-2" context="{!edtContext}" text="Share Cupcake Day with the world"/></h2>                
+                            </div>
+                            <div class="col-sm-12 col-xs-12 col-md-12">  
+                                <p><c:EdtText group="cke-donatethanks" key="intro-text-2" context="{!edtContext}" text="Help us spread the word about Cupcake Day by sharing #CupcakeDay on social media."/></p>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 xs-center text-right">
+                                <a class="btn btn-social btn-twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Whether%20you%E2%80%99re%20a%20baking%20pro,%20cake%20mix%20cheater%20or%20shop%20bought%20lover,%20host%20a%20%23CupcakeDay%20and%20raise%20money%20for%20%40alzheimerssoc%20ow.ly/dExT309CPG4"><span class="fa fa-twitter"></span> Twitter</a>                   
+                            </div>
+                            <div class="col-sm-6 col-xs-12 xs-center">
+                                <a class="btn btn-social btn-facebook" target="_blank" href="https://www.facebook.com/dialog/feed?app_id={!$Label.CKE_Facebook_App_Id}&amp;display=popup&amp;picture=https://dfdev-dfdev.cs18.force.com{!URLFOR($Resource.Cke_Assets, 'img/other/fb-share-3.jpg')}&amp;description=June%2015%20is%20Cupcake%20Day%20and%20everyone%E2%80%99s%20invited.%20Whether%20you%E2%80%99re%20a%20baking%20pro%2C%20a%20cake%20mix%20cheater%20or%20a%20shop%20bought%20lover%2C%20organise%20a%20Cupcake%20Day%20and%20raise%20money%20to%20support%20the%20fight%20against%20dementia.%20cupcakeday.org.uk&amp;link=http://ow.ly/y6zL309CPDM&amp;redirect_uri=http://ow.ly/y6zL309CPDM" onclick="FBAsync.FBShareOp(); return false;"><span class="fa fa-facebook"></span> Facebook</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </article>
+                
+        <article class="bring">
+                <div class="container-bt">
+                    <div class="white">
+                    <div class="container">  
+                    <div id="responsive-spacer"></div>               
+                    <div class="row">  
+                        <div class="col-md-6">      
+                            <h2><c:EdtText group="cke-donatethanks" key="intro-title-4" context="{!edtContext}" text="Uniting against dementia for Hilary"/></h2>
+                            <p><c:EdtText group="cke-donatethanks" key="intro-text-4" context="{!edtContext}" text="When Hilary failed to recognise a colleague at a work event, she knew something was wrong. It was the latest in a string of worrying, confused moments she’d experienced in recent years.
+                                </br></br>A visit to the GP confirmed her fears – that it was early onset Alzheimer’s. The news was devastating. But with the support of her husband and Alzheimer’s Society, Hilary is determined to live life to the full and make plans while she can.
+                                </br></br>This Cupcake Day, please raise as much money as you can so we can continue to be there for people like Hilary."/>
+                            </p>
+                            
+                        </div>
+                       
+                        <div class="col-md-6 center">    
+                            <img src="{!URLFOR($Resource.Cke_Assets, 'img/forms/moreinfo.jpg')}" alt="Hillary, a dementia sufferer" class="img-responsive" />
+                        </div>
+                    </div>  
+                    </div>                   
+                </div> 
+                </div>                
+            </article>
+              
+    </main>
+    
+     
+
+    <c:Cke_CommonFooter />    
+    <c:Cke_CommonScripts />
+
+</body>
+
+</html>
+    
+</apex:page>

@@ -1,0 +1,114 @@
+<apex:page controller="WEBErrorController" showHeader="false" sidebar="false" standardStylesheets="false" docType="html">
+    
+    <c:DF_WEBR_WebMeta />
+    <div class="container">
+    
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+    
+    <div class="row *.css">
+    <div class="col-md-10 col-md-push-1">
+
+
+    <apex:pageBlock rendered="{!$CurrentPage.parameters.msg==null}">    
+        
+        <div class="well">    
+
+        <p>We are sorry there has been an error or the page you are looking for cannot be found.</p>
+        <p>Please click the back button to continue, fill out our <a href="/WEBContactForm">contact form</a> or call 0845 306 0898 for assistance.</p>
+        
+        </div>
+    
+    </apex:pageBlock>    
+
+
+    <apex:pageBlock rendered="{!$CurrentPage.parameters.msg=='E001'}">    
+        
+        <div class="well">    
+
+        <H4>Sorry, you are already logged in. Please logout before continuing.</H4>
+
+        <p>It appears you are trying to verify an email address while already logged into the web site. </p>
+        <p>Please log out and try again.</p>
+        
+        </div>
+    
+    </apex:pageBlock>    
+
+    <apex:pageBlock rendered="{!$CurrentPage.parameters.msg=='E002'}">    
+        
+        <div class="well">    
+
+        <H4>Sorry, this login account has already been verified</H4>
+
+        <p>It appears you are trying to verify an email address that has already been verified. </p>
+        <p>Please log in to continue.</p>
+        
+        </div>
+    
+    </apex:pageBlock>
+
+    <apex:pageBlock rendered="{!$CurrentPage.parameters.msg=='E003'}">    
+        
+        <div class="well">    
+
+        <H4>Sorry, you are already logged in. Please logout before continuing.</H4>
+
+        <p>It appears you are trying to register a new account while being logged in to the site with an existing account. </p>
+        
+        <p>Please log out if you want to register a new login account. </p>
+        
+        </div>
+    
+    </apex:pageBlock>
+
+
+     <apex:pageBlock rendered="{!$CurrentPage.parameters.msg=='E004'}">    
+        
+        <div class="well">    
+
+        <H4>Sorry, this invite has expired</H4>
+
+        <p>The link you have clicked on links ot an invite that has been removed. Please contact the invitee or register for the site normally. </p>
+        
+        
+        </div>
+    
+    </apex:pageBlock>
+
+
+     <apex:pageBlock rendered="{!$CurrentPage.parameters.msg=='E005'}">    
+        
+        <div class="well">    
+
+        <H4>Sorry, this verification link has expired</H4>
+
+        <p>The verification link you have clicked has expired. You may have a more recent email requesting verification of your email address if you have registered before without verifying your email address. </p>
+        
+        
+        </div>
+    
+    </apex:pageBlock>
+    
+    <apex:pageBlock rendered="{!$CurrentPage.parameters.msg=='E006'}">    
+        
+        <div class="well">    
+
+        <H4>Sorry, this invite has now expired</H4>
+
+        <p>The link you have clicked is no longer active. Please contact the person who invited you to become an organisation administrator to request another invitation. </p>
+        
+        
+        </div>
+    
+    </apex:pageBlock>
+
+
+    </div>
+    </div>
+
+    <c:DF_WEBR_WebFooter />
+   
+    </div>
+
+</apex:page>

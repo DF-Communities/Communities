@@ -1,0 +1,40 @@
+<apex:component controller="WEBChampion">
+    <apex:attribute name="isChampion" description="Is this a Champion ?" type="Boolean" required="false" default="FALSE"/>
+    <apex:attribute name="isConverted" description="Is this a Converted Champion ?" type="Boolean" required="false" default="FALSE"/>  
+    <apex:attribute name="activeValue" description="Which menu is active ?" type="String" required="false" default="DASHBOARD"/>   
+    <apex:attribute name="friendsActions" description="Is this active ?" type="Boolean" required="false" default="FALSE"/>
+    
+    <ul class="navigation">
+        <li class="{!IF(activeValue=='DASHBOARD','active','')}">
+            <a href="/user-home">Dashboard home</a>
+        </li>
+        <li class="{!IF(activeValue=='EDIT','active','')}">
+            <a href="/edit-details">Edit my details</a>
+        </li>
+        <li class="{!IF(activeValue=='PASSWORD','active','')}">
+            <a href="/change-password">Change my password</a>
+        </li>
+        <li class="{!IF(activeValue=='CONVERT','active','')}">
+            <a href="/WEBChampionConvertToFriend">Convert to a Dementia Friend</a>
+        </li>
+    </ul> 
+    <ul class="navigation">
+        <li class="{!IF(activeValue=='CREATESESSION','active','')}">
+            <a class="{!IF(isConverted,'','disabled')}" href="WEBChampionCreateEditSession">Create a session</a>
+        </li>
+        <li class="{!IF(activeValue=='MANAGEMYSESSIONS','active','')}">
+            <a class="{!IF(isConverted,'','disabled')}" href="WEBChampionManageMySessions">Manage my sessions</a>
+        </li>
+        <li class="{!IF(activeValue=='SESSIONFEEDBACK','active','')}">
+            <a class="{!IF(isConverted,'','disabled')}" href="WEBChampionSessionFeedback">Tell us about your sessions</a>
+        </li>
+    </ul>                    
+    <ul class="navigation">
+        <li class="{!IF(activeValue=='SESSIONRESOURCES','active','')}">
+            <a id="menu-sessionResources" class="{!IF(isConverted,'','disabled')}" href="WEBChampionSessionResources">Session resources</a>            
+        </li>
+        <li>
+            <a class="{!IF(friendActionCount > 0, '','disabled')}" href="WEBChampionActionList">Friends actions</a>
+        </li>
+    </ul> 
+</apex:component>

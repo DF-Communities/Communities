@@ -1,0 +1,50 @@
+<apex:component >
+
+<apex:attribute name="activeValue" description="Which menu is active ?" type="String" required="false"/>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+
+            <!-- Collect the nav links for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                  <li class="{!IF(activeValue=='GET INVOLVED','active','')}"><a href="/">Home</a></li>
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Get involved <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li><a href="WEBArticle?page=how-to-get-involved">How to get involved</a></li>
+                          <li><a href="WEBArticle?page=what-is-a-friend">What is a Friend?</a></li>
+                          <li><a href="WEBArticle?page=what-is-a-champion">What is a Champion?</a></li>
+                          <li><a href="WEBArticle?page=about-partner-organisations">Organisations</a></li>
+                          <li><a href="WEBArticle?page=dementia-friendly-communities">Dementia Friendly Communities</a></li>
+                      </ul>
+                  </li>
+                  <li class="{!IF(activeValue=='FAQ','active','')}"><a href="WEBFAQs">FAQs</a></li> 
+                  <li class="{!IF(activeValue=='WHAT IS DEMENTIA','active','')}"><a href="WEBArticle?page=what-is-dementia">What is dementia?</a></li>
+                  <li class="{!IF(activeValue=='NEWS','active','')}"><a href="WEBNews">News &amp; press</a></li>
+                  <li class="{!IF(activeValue=='CONTACT','active','')}"><a href="WEBContactForm">Contact us</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-left" style="left: 50%;">
+               
+                <li style="left: 40%;"><a class="twitter external" href="https://twitter.com/dementiafriends" target="_blank" title="Opens in new window"><i class="fa fa-twitter"></i><span> (external link)</span></a></li>
+                <li style="left: 40%;"><a class="facebook external" href="https://www.facebook.com/DementiaFriends" target="_blank" title="Opens in new window"><i class="fa fa-facebook"></i><span> (external link)</span></a></li>
+                
+              </ul>    
+              </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+</div>
+
+</apex:component>

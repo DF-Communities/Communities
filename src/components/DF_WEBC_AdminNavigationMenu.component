@@ -1,0 +1,62 @@
+<apex:component >
+
+    <apex:attribute name="activeValue" description="Which menu is active ?" type="String" required="false" default=""/>    
+    <apex:attribute name="partnerid" description="Which partner organisation?" type="String" required="false" default="" />    
+    <apex:attribute name="partnerhasActions" description="org has actions" required="false" default="" type="Boolean" />  
+    
+        <div class="col-md-3 col-md-pull-9">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="well">
+        <ul>
+            <li class="{!IF(activeValue=='DASHBOARD','active','')}">
+                <a href="/user-home">Dashboard home</a>
+            </li>
+            
+            <li class="{!IF(activeValue=='PARTNER','active','')}">
+                <a href="/partner-home?Id={!partnerid}">Organisation home</a>
+            </li>
+            
+            <li class="{!IF(activeValue=='MANAGEUSERS','active','')}">
+                <a href="/manage-partner-admins?Id={!partnerid}">Manage Org Administrators</a>
+            </li>
+            <apex:outputPanel layout="none" rendered="{!!partnerhasActions}">
+            <li class="{!IF(activeValue=='ACTIONS','active','')}">
+                <a href="/partner-actions?Id={!partnerid}">Tell us your organisation's actions</a>
+            </li>
+            </apex:outputPanel>
+            
+            <apex:outputPanel layout="none" rendered="{!partnerhasActions}">
+                      
+                        <li class="{!IF(activeValue=='ACTIONS','active','')}">
+                            <a href="/partner-actions?Id={!partnerid}">Edit your organisation's actions</a>
+                        </li>
+                       
+            </apex:outputPanel>
+            
+            <li class="{!IF(activeValue=='RESOURCES','active','')}">
+                <a href="/partner-resources?Id={!partnerid}">Resources</a>
+            </li>
+            
+            <li class="{!IF(activeValue=='OFFLINE','active','')}">
+                <a href="/DF_WEBC_PartnerOfflineSessions?Id={!partnerid}">Log internal system/DVD video views</a>
+            </li>
+            <li class="{!IF(activeValue=='EDIT','active','')}">
+                <a href="/DF_WEBC_EditPartnerDetails?Id={!partnerid}">Edit organisation details</a>
+            </li>
+
+        </ul>    
+        </div>
+        
+       <!--   <div class="well-primary">
+            <h1><apex:outputText value="{!totalFriendCount}" escape="false"/></h1>
+                        <p>Total number of Dementia Friends</p>    
+              
+               
+        </div>-->
+
+
+        </div>
+        </div>
+
+
+</apex:component>

@@ -1,0 +1,18 @@
+Dear {{contact_name}}
+
+Thanks for registering {{organisation_name}}  with Dementia Friends. We are so pleased you want to get involved.
+
+Please now click the link below to verify your registration and log into your account. If the link doesn't work please try copying and pasting it your browser window instead.
+ 
+{{verifyLink}}
+
+Once your email is verified you will be able to login into the site using your user name (shown below) and the password you entered when registering the organisation. 
+
+{{user_name}}
+
+To watch the videos, however, you must be in receipt of your unique organisation code. This code will be sent to you with instructions within five working days of your registration (please note this is not an automated process).
+
+Thanks
+
+Dementia Friends
+dementiafriends.org.uk

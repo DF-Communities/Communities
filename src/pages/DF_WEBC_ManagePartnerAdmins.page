@@ -1,0 +1,281 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_ManagePartnerAdmins_Ctr" action="{!orgAdminLoginRedirect}">
+
+ <c:DF_WEBR_WebMeta />
+    
+<style>
+.well {
+    background: #eeecec;
+    border: 0pt none;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    box-shadow: none;
+    /* border-bottom: solid 4px #ccc; */
+    padding: 1.071em;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top; 
+    border-top: 1px solid #FFFFFF; 
+}
+
+</style>
+ <div class="container">
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+  <c:DF_WEBR_WebNavbar />
+   <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+            
+                <div class="col-md-9 column col-md-push-3">
+                
+                   <h1>Manage Organisation Administrators</h1>
+                 
+                 
+                    
+                     
+                      <apex:form styleClass="form-horizontal" id="manage-admins">
+                        <div><apex:pageMessages /></div>
+                      
+                              
+                                        <table class="table">
+                                         
+                                            <tbody>
+
+                                           
+                                            <apex:repeat value="{!adminlist}" var="admins">
+
+                                                    <tr class="session">
+                                            
+
+                                                    <td class="col-md-10 col-sm-8 col-xs-8 well">
+                                                        
+                                                        <div class="col-md-8"> 
+                                                        <apex:outputpanel rendered="{!(admins.admin.DF_Contact__c)!=NULL}">
+                                                         <label for="name" >Name</label>          
+                                                           <span class="name">{!admins.admin.DF_Contact__r.First_Name__c}&nbsp;{!admins.admin.DF_Contact__r.Last_Name__c}</span>
+                                                        
+                                                        </apex:outputpanel>
+                                                        
+                                                        <apex:outputpanel rendered="{!(admins.admin.DF_Contact__c)==NULL}">
+                                                         <label for="name" >Name</label>          
+                                                           <span class="name">{!admins.admin.Invited_Name__c}</span>
+                                                          </apex:outputpanel>
+                                                        </div>
+                                                       
+                                                         <div class="col-md-8" >
+                                                              
+                                                               <apex:outputpanel rendered="{!(admins.admin.DF_Contact__c)!=NULL}">
+                                                               <label for="email" > Email</label>
+                                                                <span class="email">{!admins.admin.DF_Contact__r.email__c}</span>
+                                                                
+                                                                </apex:outputpanel>
+                                                                
+                                                                <apex:outputpanel rendered="{!(admins.admin.Invited_Email__c)!=NULL}">
+                                                                 <label for="email2" > Email</label>
+                                                                <span class="email2">{!admins.admin.invited_email__c}</span>
+                                                                </apex:outputpanel>
+                                                                
+                                                        </div>
+                                                        <div class="col-md-8"> 
+                                                         <label for="Status" > Status</label>          
+                                                            <span class="status">{!admins.admin.Status__c}</span>
+                                                        </div>
+                                                                 
+
+                                                        <div class="col-md-2 col-sm-8">
+                                                         
+                                                         <apex:inputCheckbox value="{!admins.updatedAdmin}"/>
+                                                         Remove
+                                                        </div>
+          
+                                                     
+                                                    </td>     
+                                                      
+                                                    </tr>    
+                                                   
+                                            </apex:repeat>
+
+                                            </tbody>
+                                        </table>
+                                        
+                                       
+                                       
+                                      <apex:inputHidden value="{!partnerId}" id="partnerId"/>
+                                  
+                                   <div class = "form-group">
+                                     <div class="col-md-6">
+                                     <div class="btn-group"> 
+                                       <apex:commandButton value="Update" onclick="javascript: return confirmRemove();" action="{!SaveAdmin}"  styleClass="btn-primary btn" / >
+                                    </div>
+                                 </div>
+                                 </div>
+                                   
+                                  <!--   </apex:form>-->
+                                     
+                                    
+                         
+                                  <h1>Add Administrators</h1>
+                               
+                                 <div class="well">
+                                   <div class = "form-group required">
+                                      <div class="control-group element-email element-type-text required">   
+                                        <label for="emailAddress" class="control-label col-sm-2 required">Email Address</label>
+                                         
+                                       <div class="col-sm-10">
+                                       <div class="col-sm-8">
+                                          <apex:inputtext value="{!email}" id="emailAddress" styleClass="form-control"/> 
+                                          <span id="emailError" class="help-block"></span>
+                                         
+                                        </div>
+                                         <div class="col-sm-2">
+                                        
+                                         <input type="button" value="Add" id="btn" onclick="callRemoteMethod();" class="btn btn-primary" /> 
+                                       </div>
+                                        </div> 
+                                       </div>
+                                    </div>
+                                    
+                                   
+                                    <div class = "form-group required"  id="name-input"   >
+                                        <div class="control-group element-invitername element-type-text required ">
+                                        
+                                          <label for="invitename" class="control-label col-sm-2 required">Name</label> 
+                                          
+                                          <div class="col-sm-10"> 
+                                          <div class="col-sm-8">
+                                          
+                                          <apex:inputtext value="{!name}"   id="invitename" styleClass="form-control" /> 
+                                            <span id="invitenameError" class="help-block"></span>
+                                          </div>
+                                          </div>
+                                          
+                                         
+                                         
+                                      </div>
+                                     </div>
+                                     
+                                     <div class="form-group">
+                                      <div class="col-sm-8">
+                                      
+                                       <div class="btn-group"> 
+                                      
+                                        <apex:commandButton id="addbtn"  value="Add Admin"  action="{!addAdmin}" styleClass="btn-primary btn" />
+                                        <apex:commandButton id="invitebtn"  value="Invite" onClick="validate();return false;" reRender="none" styleClass="btn-primary btn" />
+                                        <apex:actionFunction action="{!invite}" name="invite" reRender="org-register-form"/>
+                                        <apex:commandButton id="cancelbtn"  value="Cancel"  action="{!cancel}" styleClass="btn-default btn" />
+                                       
+                                       </div>
+                                      </div>
+                                      </div>    
+                                 
+                                     </div>
+                                    
+                               </apex:Form>
+                               
+                              
+                    </div>
+      <c:DF_WEBC_AdminNavigationMenu activeValue="MANAGEUSERS" partnerid="{!partnerId}" partnerhasActions="{!hasActions}"/>   
+     </div>
+   </div>
+ </div>
+
+ 
+ <c:DF_WEBR_WebFooter />
+ </div>
+ <script type="text/javascript">
+
+function confirmRemove(){
+            return window.confirm('This will remove the administrator from accessing the organisation details - OK to continue, Cancel to quit');
+ }
+        
+   
+ function callRemoteMethod() {
+ 
+  $('[id$=emailError]').text('');
+  $('[id$=invitebtn]').hide();
+  $('[id$=addbtn]').hide();
+  $('[id$=cancelbtn]').hide();
+  $('#name-input').hide();
+  
+     console.log('ive been clicked');
+      Visualforce.remoting.Manager.invokeAction (
+                    '{!$RemoteAction.DF_WEBC_ManagePartnerAdmins_Ctr.handleinvites}', 
+                
+                _webc.getFieldValue('emailAddress'),_webc.getFieldValue('partnerId'), 
+                function(response, event) {
+         
+          console.log(response);   
+         if(response.emailError != '')  {
+         
+         $('[id$=emailError]').text(response.emailError);
+         
+         }   
+         
+        
+         if(response.emailError == ''){
+         $('[id$=cancelbtn]').show();
+         if(response.isInvite && response.isUser==false )  {
+         
+          $('#name-input').show();
+          $('[id$=invitebtn]').show();
+         
+         }    
+         
+         else {
+         
+           $('#name-input').hide();                 
+           $('[id$=invitebtn]').hide();
+           $('[id$=addbtn]').show(); 
+           
+         
+         }
+                
+       }         
+     
+     }
+     
+     );
+     
+    }      
+
+ function validate(){
+   
+   var isOk = true;
+  _webc.clearErrors();
+           
+   if (_webc.isNull('invitename')) {
+      
+       _webc.setErrorMessage('invitename',"Please enter name of the inviter");
+         $('[id$=invitenameError]').parent('div').removeClass('has-error');
+         isOk=false;
+   }
+  
+  if(!isOk){
+   
+   return isOk;
+  
+  }else{
+   
+   invite();
+  }
+  return false;
+ }
+ 
+
+   
+ 
+ $(document).ready(function () {
+
+  $('[id$=invitebtn]').hide();
+  $('[id$=addbtn]').hide();
+  $('[id$=cancelbtn]').hide();
+  $('#name-input').hide();
+
+ });
+ 
+
+   
+    </script>
+</apex:page>

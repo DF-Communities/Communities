@@ -1,0 +1,18 @@
+<apex:component layout="none">
+    <article class="donate">
+        <div class="container-bt">
+            <div class="brightpink">
+                <div class="container">
+                    <div class="row">    
+                        <div class="col-xs-12 col-md-8 vcenter">
+                            <h3 class="white-text donate-text">Can&rsquo;t host your own Cupcake Day? Make a donation to Alzheimer&rsquo;s Society instead. </h3>
+                        </div>   
+                        <div class="col-md-3 col-sm-3 vcenter">
+                            <a href="donate" class="btn btn-secondary">Donate</a>
+                        </div>
+                   </div>
+               </div>
+           </div>
+       </div>      
+    </article>
+</apex:component>

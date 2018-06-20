@@ -1,0 +1,13 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+    
+    <html>
+    <body>
+    
+        <h1>Thank You</h1>
+    
+    
+    </body>
+    </html>
+    
+    
+</apex:page>

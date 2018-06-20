@@ -1,0 +1,307 @@
+<apex:component controller="DFC_RegisterCommunityController">
+<style>
+.step,.stepactive{
+    min-height: 120px; 
+    width: 100%;
+    border: 1px solid white;
+  }
+
+  .stepactive {
+    background: #1C1463;
+    border: 0pt none;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    box-shadow: none;
+    display: inline-block;
+    padding: 10px;
+}
+.stepactive p {
+    color: #fff;
+}
+.stepactive h5 {
+    color: #ffcc00;
+}
+
+</style>
+<!--<style>
+
+.nav-buttons {
+    padding:0 10px;
+    margin-top: 24px;
+    width:100%;
+    text-align:center; 
+}
+
+.step,.stepactive{
+    min-height: 120px; 
+    width: 100%;
+    border: 1px solid white;
+  }
+
+  .stepactive {
+    background: #1C1463;
+    border: 0pt none;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    box-shadow: none;
+    display: inline-block;
+    padding: 10px;
+}
+.stepactive p {
+    color: #fff;
+}
+.stepactive h5 {
+    color: #ffcc00;
+}
+
+  .step-container
+{
+    width:100%;
+    padding:0 0 1em 0;
+    margin:0 0 2em 0;
+}
+
+.step-tile
+{ 
+    position:relative;
+    float:left;
+    width:15%;
+    margin: 0 14px 10px 0;
+}
+
+
+.step:hover
+{
+  border: 1px solid #285987;
+}
+
+.step-tile .badge {
+  position:absolute;
+    top:-4px;
+    right:-2px;
+    padding: 5px 7px;
+    background-color: #ce3c39;
+}
+
+.badge {
+ background-color: #ce3c39;
+}
+
+.step-tile .badge.dfc-badge-ok {
+    background-color: #0ca90c ;
+}
+.validation {
+    
+    display: inline-block;
+    color: white;
+    background-color: #ce3c39;
+    margin-right: 8px;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+</style>-->
+<div ng-app="draftApp" >
+  <div ng-controller="draftCtrl">
+    <h1 style='min-height:26px'>Your application for Dementia Friendly Community Recognition</h1>
+    <div class="step-container row" >
+     
+       
+       <div class="step-tile" id="step1" ng-click="step ='step1'" >
+        <div  class="step" id="step1" ng-class="{stepactive :step==='step1'}" >   
+         <apex:form >
+          <apex:inputHidden value="{!ID_Param}" id="communityId"/>
+          </apex:form>
+          <h5>STEP 1</h5>
+           <p class= "help-block" id ="intro-text-step-1" title = "step 1" >
+
+                            
+                           Community Location
+
+            </p> 
+          
+            </div>
+          </div>
+       
+        <div class="step-tile" id="step2" ng-click="step ='step2'">
+          <div class="step" id="step2" ng-class="{stepactive :step==='step2'}" >            
+           <h5>STEP 2</h5>
+           <p class= "help-block" id ="intro-text-step-2" title = "step 2" >
+                            
+                           Community Details
+
+             </p> 
+           
+            
+        </div>
+      </div>
+    
+        <div class="step-tile" id="step3" ng-click="step ='step3'">
+        <div class="step" id="panel-step-3" ng-class="{stepactive :step==='step3'}">                                  
+           <div class="DetailsSectionHeading">
+           <h5>STEP 3</h5>
+           <p class= "help-block" id ="intro-text-step-3" title = "step 3" >
+                            
+                           Community Representatives
+
+             </p> 
+          
+           </div>
+        </div>
+      </div>
+   
+  
+        <div class="step-tile" id="step4" ng-click="step ='step4'">
+        <div class="step" id="panel-step-4" ng-class="{stepactive :step==='step4'}"> 
+
+           <h5>STEP 4</h5>
+           <p class= "help-block" id ="intro-text-step-4" title = "step 4" >
+                            
+                           Areas For Action
+
+             </p> 
+            
+        </div>
+      </div>
+     
+        <div class="step-tile" id="step5" ng-click="step ='step5'">
+        <div class="step" id="panel-step-5" ng-class="{stepactive :step==='step5'}"> 
+            
+            <h5>STEP 5</h5>
+           <p class= "help-block" id ="intro-text-step-5" title = "step 5" >
+                            
+                           Application Status
+
+             </p> 
+             
+        </div>
+      </div>
+
+        <div class="step-tile" id="step6" ng-click="step ='step6'">
+        <div class="step" id="panel-step-6" ng-class="{stepactive :step==='step6'}"> 
+             
+             <h5>HELP</h5>
+           <p class= "help-block" id ="intro-text-step-6" title="HELP" >
+                            
+                           Resources
+
+             </p> 
+             
+        </div>
+      </div>
+      </div>
+ 
+      <span ng-show="errortext!=null" class="validation">{{errortext}}</span>
+  
+  <div class="row *.css">
+  <div class="col-md-12">
+
+  <div class="row *.css">
+   <div class="col-md-2 column">
+   </div>
+   <div class="col-md-8 column"> 
+      <span ng-show="step=='step1'"  id="step1-content" >
+         
+          <c:DFC_ViewCommunityS1 /> 
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="
+                     step ='step2'" style="display:inline-block;margin-right:12px">Next <i class="fa fa-chevron-right"></i></button>
+          </div>
+      </span>
+     
+     <span ng-show="step=='step2'"  id="step1-content" >
+         <div id="contentstep2" >
+          <c:DFC_ViewCommunityS2 /> 
+        
+            <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="step ='step1'"><i class="fa fa-chevron-left" ></i> Back</button>
+                   <button class="btn btn-action" ng-click="step ='step3'">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+       </div>
+      </span>
+
+      <span ng-show="step=='step3'"  id="step1-content" >
+         <div id="contentstep3" >
+           <c:DFC_RegistercommunityS3 /> 
+
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="step ='step2'" ><i class="fa fa-chevron-left" ></i> Back</button>
+                   <button class="btn btn-action" ng-click="step ='step4'">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+      </span>
+
+      <span ng-show="step=='step4'"  id="step1-content" >
+         <div id="contentstep4" >
+          <c:DFC_ViewCommunityS4 /> 
+
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="step ='step3'"><i class="fa fa-chevron-left" ></i> Back</button>
+                   <button class="btn btn-action" ng-click="step ='step5'">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+      </span>
+   
+      <span ng-show="step=='step5'"  id="step1-content" >
+         <div id="contentstep5" >
+          <c:DFC_ViewCommunityS5 />
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="step ='step4'" ><i class="fa fa-chevron-left" ></i> Back</button>
+                   <button class="btn btn-action" ng-click="step ='step6'">Next <i class="fa fa-chevron-right"></i></button>
+            </div> 
+        </div>
+      </span>
+   <span ng-show="step=='step6'"  id="step1-content" >
+         <div id="contentstep6" >
+          <c:DFC_RegistercommunityS6 status="Draft" />
+
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="step ='step5'" ><i class="fa fa-chevron-left" ></i> Back</button>
+                   
+            </div> 
+        </div>
+      </span>
+   </div>
+<div class="col-md-2 column">
+ </div>
+  </div>
+   </div>
+    </div>  
+      
+</div>
+    
+ </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.js"></script>
+    
+
+
+<script type="text/javascript">
+
+     var j$=jQuery.noConflict();
+    function findtab(divId){
+     
+      var tabHash = divId;
+     
+      $(''+'#'+tabHash+'').children().addClass('step-active');
+      console.log('Ready Page Hash - '+tabHash);
+      if(tabHash){
+        $(''+'#'+tabHash+'-content'+'').show();
+      }
+      
+    }
+  $(document).ready(function() {
+     
+     //findtab('step1');
+                        
+    })
+       
+</script>
+
+
+</apex:component>

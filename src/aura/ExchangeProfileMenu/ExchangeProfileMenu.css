@@ -1,0 +1,37 @@
+.THIS .slds-icon--xx-small {
+    width: 1rem;
+    height: 1rem;
+    line-height: 1;
+    fill:#3C3C3C;
+
+}
+
+.THIS .btncontent{
+    color:#3C3C3C;;
+  
+}
+
+.THIS .actionMenu{
+    border: none;
+    border-radius: 0;
+    right: 0;
+    z-index: 1001;
+    text-align: left;
+    font-weight:initial;
+    float: left;
+    width: 160px;
+    
+    left: 50%;
+    
+}
+.THIS .slds-dropdown__item{
+    font-weight:bold;
+    color: #1C1463 !important;
+    background: #0073FF;
+    
+}
+.THIS .slds-dropdown__item:hover{
+     
+    background:#1C1463;
+   
+}

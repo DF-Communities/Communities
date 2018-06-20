@@ -1,0 +1,28 @@
+<apex:component controller="EdtComponentController" layout="none" selfClosing="true">
+
+    <apex:attribute name="group" type="String" required="true" assignTo="{!itemGroup}" description=""/>
+    <apex:attribute name="key" type="String" required="true" assignTo="{!itemKey}" description=""/>
+    <apex:attribute name="context" type="EdtPageContext" required="true" assignTo="{!pageContext}" description=""/>
+    <apex:attribute name="text" type="String" required="true" assignTo="{!itemText1}" description=""/>
+    <apex:attribute name="hideEditPrompt" type="Boolean" required="false" description="show the edit prompt or not" default="false"/>
+
+    <apex:outputPanel rendered="{!context.editEnabled && !hideEditPrompt}" layout="none">
+
+        <edit-text data-key="{!key}" data-group="{!group}" title="{!group} | {!key}">
+
+            <button onclick="alert('{!itemText1}');return false;" class="btn btn-xs text-copy-btn">
+              {!key}
+            </button>
+            <apex:outputText value="{!itemText1}" escape="false"/>                  
+    
+        </edit-text>    
+
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{!!context.editEnabled || hideEditPrompt}" layout="none">
+        
+        <apex:outputText value="{!itemText1}" escape="false"/>    
+    
+    </apex:outputPanel> 
+
+</apex:component>

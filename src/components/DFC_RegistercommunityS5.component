@@ -1,0 +1,39 @@
+<apex:component >
+  <!-- Begin Default Content REMOVE THIS -->
+  <style>
+  .badge {
+ background-color: #ce3c39;
+}
+</style>
+
+      <div ng-show="!haserrors" class="submit-panel">
+            <h3>Please confirm that in submitting this application you agree to the following:</h3>
+      <div class="well">
+           <c:DFC_PageSnippets group="dfc_apply" uniqueKey="dfc-apply-agree-submit"/>
+                <div style="width:100%;text-align:center;margin-top:16px;margin-bottom:20px">
+                 <button  class="btn btn-primary"  ng-click="submitApplication()">Agree and Submit</button>
+                </div>
+              <p class="message"> </p>
+          </div>
+    </div>
+   
+    <div ng-show="haserrors" class="error-panel">
+      <div class="well">
+      
+            <p><strong>Some sections of the form have missing or invalid data</strong></p>
+          
+              <ul style="margin:20px 0">
+                    <div ng-repeat="s in errorlist" style="margin:20px 0">  
+                      <li style="list-style:none;" ng-show="s.errors>0">
+                            <span class="badge">{{s.errors}}</span> 
+                            <span><strong>STEP {{s.index}}</strong>&nbsp;&nbsp;{{s.step}}</span>
+                        </li>    
+                    </div>
+                 </ul>    
+              
+              <p><strong>Please amend the form before submitting.</strong></p>
+         </div>
+      </div>
+
+  
+</apex:component>

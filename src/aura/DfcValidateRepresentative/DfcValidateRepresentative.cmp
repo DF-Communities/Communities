@@ -1,0 +1,8 @@
+<aura:component extends="c:DfcValidationComponent">
+    
+    <aura:set attribute="defaultMessage" value="This user is already a representative of this community"/>
+    
+    <aura:attribute name="representatives" type="Object[]" access="GLOBAL"  description="Existing representatives"/>
+    <aura:attribute name="newRepEmail" type="String" access="GLOBAL" description="Proposed email of new representative"/>
+    
+</aura:component>

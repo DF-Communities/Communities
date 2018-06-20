@@ -1,0 +1,192 @@
+<aura:component implements="c:DF_infoSessionSectionIntf">
+    
+    <aura:handler event="c:SldsVsCustomStylingEvt" action="{!c.handleStylingFramework}"/>
+    <aura:attribute name="useSlds" type="Boolean" default="false"/>
+    <!--aura:registerEvent name="STD_errorEvt" type="c:STD_errorEvt"/>
+    <aura:attribute name="isDebugMode" type="Boolean" default="true"
+                    description="This is set by an application event captured on initialisation"/-->
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:attribute name="auraIdsToValidate" type="Object[]" default="[{auraId: 'requiredInputField', isCustomCmp: false},
+                                                                      {auraId: 'requiredChildComponent', isCustomCmp: true}]"/>
+    
+    <aura:attribute name="dfEvent" type="DF_Event__c" required="true"/>
+    <!--aura:method name="getAllParams" action="{!c.getEnteredValuesMap}"/-->
+    <aura:attribute name="name" type="String" default="DF_infoSessionSectionCmp"/>
+    
+    <aura:attribute name="isSessionPublic" type="Boolean"/>
+    <aura:attribute name="showFindOrg" type="Boolean" default="false"/>
+    <aura:attribute name="contactIsPoAdmin" type="Boolean" default="false"/>
+    <aura:attribute name="publicSessionSearchOnly" type="Boolean" default="false"/>
+    <aura:attribute name="isAlreadyDementiaFriend" type="Boolean" default="true"/>
+    
+    <aura:handler name="STD_yesNoSelectEvt" event="c:STD_yesNoSelectEvt" action="{!c.handleYesNoEvents}"/>
+    
+    <aura:registerEvent name="DF_groupSizeEvt" type="c:DF_groupSizeEvt" />
+    <aura:attribute name="showFindSessionSearch" type="Boolean"/>
+    
+    <aura:attribute name="memberOrgs" type="Object" default="No partner org found"/>
+    
+    <p style="margin-bottom: 0px">You can select up to three date/time preferences for your Session</p>
+    <br/>
+    <p>
+        The date of your session  must be at least 21 days in the future. This allows us enough time to 
+        find a Dementia Friends Champion to deliver the session. A Session cannot be requested further than 6 months in advance.
+    </p>
+
+    <div>
+    <c:STD_dynamicRow name="dynamicRowTimingPref"
+                      useSlds="{!v.useSlds}"
+                      aura:id="requiredChildComponent"/>
+        </div>
+        
+    <div style="visibility:hidden">
+    <ui:outputText value="Breaker" aura:id="requiredInputField"/>
+    </div>
+    
+    <div class="col-lg-12 zero-indent">
+        <div class="form-group required">
+            <label class="col-md-3 control-label required">Title of Session</label>
+            <div class="col-md-8">
+                <div id="Name">
+                <ui:inputText value="{!v.dfEvent.Name}"
+                              label="" 
+                              class="form-control"
+                              blur="{!c.validateFourCharsMin}"
+                              required="true"
+                              aura:id="requiredInputField"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <aura:if isTrue="{!and(v.isAlreadyDementiaFriend,v.contactIsPoAdmin)}">
+        <div class="col-lg-12 zero-indent">    
+            <div class="form-group required">
+                <label class="col-md-3 control-label required">Is this Session for your organisation?</label>
+                <div class="col-md-8">
+                    <c:STD_yesNoSelect name="isSessionForOrgYesNo" 
+                                       label="" 
+                                       showDependentFieldWhenSelected_Option="Yes"
+                                       aura:id="requiredChildComponent"/>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.showFindOrg}">
+        <div class="col-lg-12 zero-indent">
+            <div class="form-group required">
+                <label class="col-md-3 control-label required">Organisations you are a member of</label>
+                <div class="col-md-8">
+                    <ui:inputSelect label="" 
+                                    class="form-control"
+                                    value="{!v.dfEvent.Partner_Organisation__c}"
+                                    change="{!c.validateUntouchedPicklist}"
+                                    aura:id="requiredInputField" >
+                        <ui:inputSelectOption text="" label="Please select..." value="true" />
+                        <aura:iteration items="{!v.memberOrgs}" var="org">
+                            <ui:inputSelectOption text="{!org.Id}" label="{!org.Name}"/>
+                        </aura:iteration>
+                    </ui:inputSelect>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <div class="col-lg-12 zero-indent">
+        <div class="form-group required">
+            <label class="col-md-3 control-label required">Type of Session</label>
+            <div class="col-md-8">
+                <c:STD_dynamicPicklist name="Type_of_session__c" 
+                                       label="" 
+                                       value="{!v.dfEvent.Type_of_session__c}"
+                                       required="true"
+                                       sObjectApiName="DF_Event__c" 
+                                       sObjectFieldApiName="Type_of_session__c"
+                                       aura:id="requiredChildComponent"/>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-12 zero-indent">
+        <div class="form-group required">
+            <label class="col-md-3 control-label required">Public or private?</label>
+            <div class="col-md-8">
+                <div id="Public_Event__c">
+                    <ui:inputSelect value="{!v.dfEvent.Public_Event__c}" 
+                                    label="" 
+                                    change="{!c.sessionVisibility}"
+                                    class="form-control"
+                                    blur="{!c.validateUntouchedPicklist}"
+                                    required="true"
+                                    aura:id="requiredInputField">
+                        <ui:inputSelectOption text="" label="Please select..."/>
+                        <ui:inputSelectOption text="false" label="A private Session for my group"/>
+                        <ui:inputSelectOption text="true" label="Open to members of the public, as well as my group"/>
+                    </ui:inputSelect>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-12 zero-indent">
+        <div class="form-group required">
+            <label class="col-md-3 control-label required">Number of people expected to attend from your group</label>
+            <div class="col-md-8">
+                <div id="Private_Places__c">
+                    <ui:inputNumber value="{!v.dfEvent.Private_Places__c}" 
+                                    label="" 
+                                    focus="{!c.clearError}"
+                                    blur="{!c.assessGroupSizeAndValidate}"
+                                    change="{!c.assessGroupSizeAndValidate}"
+                                    keydown="{!c.revalidateGroupSize}"
+                                    class="form-control"
+                                    maxlength="4"
+                                    format="###"
+                                    required="true"
+                                    aura:id="requiredInputField"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ask how many spaces should be made available to the public for public session -->
+    <aura:if isTrue="{!and(v.isSessionPublic, !v.publicSessionSearchOnly)}"> 
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+        <div class="form-group required">
+            <label class="col-md-3 control-label required">Number of places available to the public</label>
+            <div class="col-md-8">
+                    <div id="Public_Places__c">
+                        <ui:inputNumber value="{!v.dfEvent.Public_Places__c}" 
+                                        label=""
+                                        class="form-control"
+                                        required="true"
+                                        maxlength="4"
+                                        format="###"
+                                        change="{!c.validateNumberWithinRange}"
+                                        aura:id="requiredInputField"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.publicSessionSearchOnly}">
+        <div class="col-lg-12 zero-indent">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="form-submit-err">
+                        <div class="group-size-err">
+                            <p style="color: #a94442;">For group sizes of 10 or fewer please find an existing public Information Session</p>
+                        </div>
+                            <span>
+                                <a class="btn-primary btn" href="/WEBSession">Find a Session</a>
+                            </span>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+</aura:component>

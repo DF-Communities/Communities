@@ -1,0 +1,251 @@
+<apex:component controller="DF_WEBC_ChampionNav_Controller">
+
+<apex:attribute name="activeValue" description="Active Item" required="false" default="" type="String"/>
+<apex:attribute name="dfcW" description="Current DF_Contact Wrapper" required="false" default="" type="DF_Contact_Wrapper"/>
+
+<div class="col-md-3 column col-md-pull-9"> 
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="well">
+
+                       
+                    <ul >
+                       <apex:outputPanel rendered="{!(dfcW.isChampionConverted)|| (dfcW.isChampionProspective)}">  
+                       <li class="{!IF(activeValue=='DASHBOARD','active','')}">
+                            <a href="/user-home">Dashboard home</a>
+                        </li>
+                       </apex:outputPanel>
+                       <apex:outputPanel > 
+                        <li class="{!IF(activeValue=='PUSHMSG','active','')}"><a href="/DF_WEBC_Pushmessages">My Messages</a></li>
+                      </apex:outputPanel>
+
+                       <apex:outputPanel rendered="{!dfcW.hasExchangeAccess}"> 
+                        <li class="{!IF(activeValue=='EXCHANGE','active','')}">
+                            <a href="/{!exchange}" target="_blank">Champions Exchange</a>
+                        </li>
+                        </apex:outputPanel>
+                       <apex:outputPanel rendered="{!dfcW.isChampionConverted}"> 
+                        <li class="{!IF(activeValue=='CREATESESSION','active','')}">
+                            <a href="WEBChampionCreateEditSession">Create a Session</a>
+                        </li>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{! (dfcW.isChampionConverted || dfcW.isChampionRetired || dfcw.isChampionHiatus)}"> 
+                        <li class="{!IF(activeValue=='MANAGEMYSESSIONS','active','')}">
+                            <a href="WEBChampionManageMySessions">Manage my Sessions</a>
+                        </li>
+                        </apex:outputPanel>
+                         <apex:outputPanel rendered="{!dfcW.isChampionConverted}"> 
+                        <li class="{!IF(activeValue=='SESSIONFEEDBACK','active','')}">
+                            <a href="WEBSessionFeedback">Tell us about your Sessions</a>
+                        </li>
+                        </apex:outputPanel>
+                    </ul>   
+                    
+
+                     
+                    <ul>
+                    <apex:outputPanel rendered="{!!dfcW.isChampionConverted}"> 
+                        <li class="inactive">Create a Session</li>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{(!!dfcW.isChampionConverted && !!dfcW.isChampionRetired) }"> 
+                        <li class="inactive">Manage my Sessions</li>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!dfcW.isChampionConverted}"> 
+                        <li class="inactive">Tell us about your Sessions</li>
+                     </apex:outputPanel>
+                    </ul>
+                   
+
+                </div>
+                <div class="well"> 
+                    
+                    <apex:outputPanel rendered="{!dfcW.isChampionConverted}">   
+                    <ul >   
+                        <li class="{!IF(activeValue=='SESSIONRESOURCES','active','')}">
+                            <a href="WEBChampionSessionResources">Session resources</a>
+                        </li>
+                      <!--
+                        <li class="{!IF(activeValue=='FRIENDSACTIONS','active','')}">
+                            <a href="WEBChampionActionList">Friends actions</a>
+                        </li>
+                      -->  
+                     <apex:outputPanel layout="none" rendered="{!dfcW.isChampionConverted}">
+
+                       <apex:outputPanel layout="none" rendered="{!!dfcW.hasActions}">
+                     
+                        <li class="{!IF(activeValue=='EditAction','active','')}">
+                            <a href="/WEBCreateActions">Tell us your actions</a>
+                        </li>
+                        
+                        
+                      
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!dfcW.hasActions}">
+                      
+                        <li class="{!IF(activeValue=='EditAction','active','')}">
+                            <a href="/WEBCreateActions">Edit your actions</a>
+                        </li>
+                       
+                    </apex:outputPanel>
+                   
+                </apex:outputPanel> 
+                <apex:outputPanel >
+                          <li class="{!IF(activeValue=='NewsArchive','active','')}">
+                            <a href="/WEBNewsletterArchives">Newsletter archive</a>
+                        </li>
+                      </apex:outputPanel>
+                    </ul>
+                    </apex:outputPanel> 
+
+                    <apex:outputPanel rendered="{!!dfcW.isChampionConverted}">  
+                    <ul >    
+                        <li class="inactive">Session resources</li>
+                     <!--   <li class="inactive">Friends actions</li>-->
+                        <li class="inactive">
+                            Tell us your actions
+                        </li>
+                        
+                    
+                    
+                          <li class="{!IF(activeValue=='NewsArchive','active','')}">
+                            <a href="/WEBNewsletterArchives">Newsletter archive</a>
+                        </li>
+                     </ul>
+                    </apex:outputPanel>
+                   
+                </div>
+                <div class="well">
+
+                    <apex:outputPanel rendered="{!dfcW.isChampionConverted}">
+                    <ul >   
+                         <li class="{!IF(activeValue=='ORDERBADGES','active','')}">
+                            <a href="/WEBBadgeOrder">Order your Session materials</a>
+                        </li>   
+                    </ul>   
+                    </apex:outputPanel>
+
+                     <apex:outputPanel rendered="{!!dfcW.isChampionConverted}">
+                     <ul >   
+                        <li class="inactive">Order your Session materials</li>
+                     </ul>   
+                    </apex:outputPanel>    
+
+                </div>
+                
+                <div class="well">
+                <ul>
+                    <li>
+                        <a href="/WEBRequestInfoSession">Request a Session</a>
+                    </li>
+                </ul>
+            </div>
+
+              
+                <!-- Current user's list of Dementia Friendly Communities, if any 
+                    <apex:outputPanel rendered="{!dfcW.communities!=null}">
+                      <div class="well">
+                    <ul>   
+                    <apex:repeat value="{!dfcW.communities}" var="comm" id="theRepeat">
+
+                         <li>
+                            <a href="dfc_manage?dfcid={!comm.id}">{!comm.name}</a>
+                        </li>   
+
+                     </apex:repeat>
+
+                    </ul>   
+                     </div>
+                    </apex:outputPanel>
+
+                    -->
+               
+               <apex:outputPanel rendered="{!(dfcW.isChampionConverted)|| (dfcW.isChampionProspective)}">  
+                    <div class="well">
+                   <ul> 
+                    
+                     <apex:outputPanel layout="none" rendered="{!( dfcW.partners==null && dfcw.orgLeads.size<=0)}">  
+                         <li class="{!IF(activeValue=='ORG','active','')}">
+                              <a href="/register-partner">Register your organisation</a>
+                        </li> 
+                     </apex:outputPanel> 
+                      
+                     <apex:outputPanel layout="none" rendered="{!dfcW.partners!=null && dfcw.orgLeads.size<=0}">
+                     
+                        <li class="{!IF(activeValue=='ORG','active','')}">
+                              <a href="/register-partner">Register another organisation</a>
+                        </li> 
+                                              
+                    </apex:outputPanel>  
+               
+                    
+                  <apex:outputPanel layout="none" rendered="{!(dfcW.partners!=null && dfcW.partners.size==1 &&  dfcw.orgLeads.size==0)}">
+                     
+                        <li class="{!IF(activeValue=='ORG','active','')}">
+                              <a href="/partner-home?id={!dfcW.partners[0].Id}">Manage my organisation</a>
+                        </li> 
+                      
+                    </apex:outputPanel> 
+                     <apex:outputPanel layout="none" rendered="{!(dfcW.partners!=null && dfcW.partners.size>1) ||( dfcw.orgLeads.size>0 ) }">
+                     
+                        <li class="{!IF(activeValue=='ORG','active','')}">
+                              <a href="/DF_WEBC_ManageOrganisations">Manage my organisations</a>
+                        </li> 
+                      
+                    </apex:outputPanel> 
+                    </ul>    
+                    </div>
+                   </apex:outputPanel> 
+               
+               <!--  
+
+                <div class="well-primary">
+                    <h1><apex:outputText value="{!totalFriendCount}"/></h1>
+                    <p>Total Number of Dementia Friends</p>
+                </div>  -->
+
+                <div class="well">
+
+                    <h3>My details</h3>
+                    <p class="small"><strong>Name:</strong><br/>
+                        {!dfcW.dfc.Title__c + ' ' + dfcW.dfc.First_Name__c + ' ' + dfcW.dfc.Last_Name__c}
+                    </p>
+                    <p class="small"><strong>Postcode:</strong><br/>
+                        {!dfcW.dfc.Postcode__c}
+                    </p>
+                    <p class="small"><strong>Telephone:</strong><br/>
+                        {!dfcW.dfc.Contact_Number__c}
+                    </p>
+                    <p class="small"><strong>Email:</strong><br/>
+                        {!dfcW.dfc.Email__c}
+                    </p>
+                
+                </div>
+            
+
+                <div class="well">
+                    <ul >    
+
+                        <li class="{!IF(activeValue=='EDIT','active','')}">
+                            <a href="/edit-details">Edit my details</a>
+                        </li>
+                        <li class="{!IF(activeValue=='PASSWORD','active','')}">
+                            <a href="/change-password">Change my password</a>
+                        </li>
+                      
+                         <apex:outputPanel rendered="{!dfcW.isChampionProspective}">
+                      
+                        <li class="{!IF(activeValue=='CONVERT','active','')}">
+                            <a href="/WEBChampionConvertToFriend">Convert to a Dementia Friend</a>
+                        </li>
+                       
+                        </apex:outputPanel>
+                      </ul>
+                </div>
+            	
+                
+            </div>
+        </div>
+</div>
+
+</apex:component>

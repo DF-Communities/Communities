@@ -1,0 +1,56 @@
+<apex:component >
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <meta name="keywords" content="Dementia,Alzheimers,Dementia Friends" />
+    <meta name="description" content="Become a Dementia Friend. Learn more about what it is like to live with dementia and turn that understanding into action." />
+    
+
+    <!-- IE8 Needs these files referenced locally to prevent cross origin errors -->
+
+    <!-- <apex:stylesheet value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>          
+         <apex:includeScript value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"/>
+    -->  
+      <meta property="og:title"   content=" this is basic" />
+     <meta property="og:description"   content=" this is description" />
+    
+    
+    <apex:stylesheet value="{!$Resource.DF_Bootstrap_css}"/>
+   
+    
+    <apex:stylesheet value="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>    
+<!--    <apex:stylesheet value="{!URLFOR($Resource.DF_WEBR_Assets, 'css/style.css')}"/>-->
+    <apex:stylesheet value="/resource/DF_CSS_Stylesheet"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.DF_WEBR_Assets, 'js/respond.min.js')}"/>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <apex:includeScript value="//code.jquery.com/jquery-1.10.2.min.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.DF_WEBR_Assets, 'js/bootstrap.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.DF_WEBR_Assets, 'js/scripts.js')}"/>
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{!URLFOR($Resource.DF_WEBR_Assets, 'img/apple-touch-icon-144-precomposed.png')}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{!URLFOR($Resource.DF_WEBR_Assets, 'img/apple-touch-icon-114-precomposed.png')}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{!URLFOR($Resource.DF_WEBR_Assets, 'img/apple-touch-icon-72-precomposed.png')}"/>
+    <link rel="apple-touch-icon-precomposed" href="{!URLFOR($Resource.DF_WEBR_Assets, 'img/apple-touch-icon-57-precomposed.png')}"/>
+    <link rel="shortcut icon" href="{!URLFOR($Resource.DF_WEBR_Assets, 'img/favicon.png')}"/>
+  
+
+    <c:WEBC_Utils_js />
+ 
+    <apex:stylesheet value="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"/>
+    <apex:includeScript value="//code.jquery.com/ui/1.10.2/jquery-ui.js"/>
+    <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"/>
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WP9HW4"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <apex:includeScript value="//tracking.hivecloud.net/client-scripts/dementiafriends.min.js"/>
+
+</apex:component>

@@ -1,0 +1,23 @@
+<apex:component >
+  <fieldset>
+        <div class="form-group">
+            <p>Please <strong>contact me by:</strong><br></br></p>
+            <div class="checkbox">
+              <label><input type="checkbox" name="as-optin" value="1" data-ng-model="data.optinEmail" data-ng-disabled="waiting" data-ng-change="quickSave()"/>Email</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="sms-optin" value="1" data-ng-model="data.optinSms" data-ng-disabled="waiting" data-ng-blur="quickSave()"/>Text Message</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="phone-optin" value="1" data-ng-model="data.optinPhone" data-ng-disabled="waiting" data-ng-blur="quickSave()"/>Telephone</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" name="social-optin" value="1" data-ng-model="data.optinSocial" data-ng-disabled="waiting" data-ng-blur="quickSave()"/>Social Media</label>
+            </div>
+            <p>Please <strong>do not contact me by:</strong></p>
+            <div class="checkbox">
+              <label><input type="checkbox" name="post-optout" value="1" data-ng-model="data.optoutPost" data-ng-disabled="waiting" data-ng-blur="quickSave()"/>Post</label>
+            </div>
+        </div>
+</fieldset> 
+</apex:component>

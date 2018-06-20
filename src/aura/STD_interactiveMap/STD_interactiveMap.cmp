@@ -1,0 +1,13 @@
+<aura:component >
+    
+    <aura:attribute name="map" type="Object"/>
+    <aura:attribute name="longitude" type="Decimal"/>
+    <aura:attribute name="latitude" type="Decimal"/>
+    
+    <ltng:require styles="/resource/Maps_Lightning/leaflet.css"
+                  scripts="/resource/Maps_Lightning/leaflet.js"
+				  afterScriptsLoaded="{!c.jsLoaded}" />
+
+    <div id="map"></div>              
+	
+</aura:component>

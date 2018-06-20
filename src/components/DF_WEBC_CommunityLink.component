@@ -1,0 +1,123 @@
+<apex:component >
+
+<!--  Display a list of Dementia Friendly Communities the current user is linked with -->
+
+<apex:attribute name="dfcW" type="DF_Contact_Wrapper" description="DF Contact Wrapper" required="true"/>
+
+<style>
+
+.dfc {
+  line-height: 1.3em; 
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #666;
+  }
+
+
+.dfc-description {
+  line-height: 1.3em; 
+  font-size: 1.23em;
+  margin-top:5px;
+}
+
+.community-row {
+  margin-top:5px;
+  margin-bottom: 8px; 
+  border-bottom: 1px solid white;
+
+}
+
+.community-row:last-of-type  {
+   margin-bottom: 0px ; 
+   border-bottom: none ;
+}
+</style>
+
+
+
+
+
+
+  <apex:outputPanel layout="none" rendered="{!dfcW.communities!=null}">
+  <div class="row clearfix" >
+  <div class="col-md-12">
+
+
+    <div style="margin-bottom:25px">
+        <h3>My Dementia Friendly {!IF(dfcW.communities.size==1, 'Community', 'Communities')} </h3>
+
+        <div class="well">
+
+
+        <apex:repeat value="{!dfcW.communities}" var="comm" >
+
+                  <div class="row" >   
+
+                      <div class="col-xs-12"> 
+
+                         
+                            <!-- If status is Draft or New go to Apply form and button should say Continue Editing -->
+                                <apex:outputPanel rendered="{!comm.Status__c=='Draft'||comm.Status__c=='New'}"><!-- Button -->
+                                      <a href="dfc_apply_app?dfcid={!comm.Id}&go=1" class="nowrap btn-primary btn-xs pull-right">Continue Editing</a>  
+                                </apex:outputPanel> 
+
+
+                                <apex:outputPanel rendered="{!comm.Status__c=='Requested'}">
+                                      <a href="dfc_view_app?dfcid={!comm.Id}" class="nowrap btn-primary btn-xs pull-right"> View Application</a>
+                                </apex:outputPanel> 
+
+                                <apex:outputPanel rendered="{!comm.Status__c=='Active'}">
+                                      <a href="dfc_manage_app?dfcid={!comm.Id}" class="nowrap btn-primary btn-xs pull-right">Manage</a>
+                                </apex:outputPanel>  
+
+    
+                                <div class='dfc'>{!IF(comm.Name__c=='',comm.Name,'')} {!comm.Name__c}</div>
+
+                        </div>          
+                    </div>    
+
+                  <div  class="{!IF(dfcW.communities.size==1, 'row', 'row community-row')}">   
+
+                               <div class="col-xs-12"> 
+
+                                      <apex:outputPanel rendered="{!comm.Status__c=='Draft'||comm.Status__c=='New'}"><!-- Button -->
+                                            <p class='dfc-description'>This draft application was created on
+                                                 <apex:outputText value=" {0,date,EEEE d MMM, yyyy }"><apex:param value="{!comm.CreatedDate}"/></apex:outputText>
+                                            </p>
+                                       </apex:outputPanel> 
+
+                                       <apex:outputPanel rendered="{!comm.Status__c=='Requested'}">
+
+                                              <p class='dfc-description'>This application was submitted on
+                                             <apex:outputText value=" {0,date,EEEE d MMM, yyyy}"><apex:param value="{!comm.Date_Submitted__c}"/></apex:outputText>
+                                             and will be reviewed by the Dementia Friendly Communities Team within 14 days working days.
+                                               </p>
+
+                                      </apex:outputPanel> 
+
+                                      <apex:outputPanel rendered="{!comm.Status__c=='Active'}">
+
+                                         <p></p>
+
+                                      </apex:outputPanel> 
+                                                                      
+                               </div>   
+
+                  </div>      
+            
+            
+            </apex:repeat>
+                       
+           </div>                 
+                     
+        </div>
+
+      </div>
+
+
+</div>
+
+
+</apex:outputPanel>
+
+</apex:component>

@@ -1,0 +1,485 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="DF_WEBC_RegisterPartner_Controller" action="{!loginRedirect}">>
+
+
+<apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+ 
+    <c:DF_WEBR_WebMeta />
+    
+      <div class="container">
+       <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+       <div class="row *.css">
+    
+         <div class="col-md-12">
+            <div class="row *.css">
+            
+              <div class="col-md-9 column col-md-push-3">
+              
+              
+                <div id="message-center"></div>  
+
+                    <h1>Register an Organisation with Dementia Friends</h1>  
+                                                  
+                        <apex:form styleClass="form-horizontal" forceSSL="true" id="long-form">
+                  <!--    <form class="form-horizontal" id="friend-options-title">   -->
+                         <div class="form-horizontal" id="friend-options-title">
+                        <h3>Where is the organisation based ?</h3>
+
+                         <div class="form-group">
+                         <div class="col-sm-8">
+                         <select class="form-control" id="friendoptionsselect">
+                            <option value='0'>Where is the organisation based ?</option>
+                            <option value='1'>England</option>
+                            <option value='2'>Guernsey, Isle of Man</option>
+                            <option value='3'>Wales</option>
+                            <option value='4'>Northern Ireland</option>
+                            <option value='5'>Scotland</option>
+                            <option value='99'>Outside the UK</option>
+                        </select>
+                        </div>
+                        </div>
+
+                       <!--   </form> -->
+                       </div>
+                         <div id ="friend-options-texts">                   
+                           
+                            <span id ="friend-options-text-4">
+                            
+                                The way we deliver Dementia Friends in Northern Ireland is a bit different to the rest of the UK. Contact our local Dementia Friendly Communities team or one of our local offices in Northern Ireland to find out what dementia friendly activity is taking place and how you can get involved. <a href="https://www.alzheimers.org.uk/homepage/169/our_local_offices?_ga=2.104295171.2028168748.1499268053-618002818.1423848131">Click here for more information</a> 
+                           
+                            </span>                        
+
+                            
+                            <span id ="friend-options-text-5">
+
+                            
+                                The Dementia Friends programme in Scotland is managed by Alzheimer Scotland. Find out how you can get involved by visiting <a href="http://www.dementiafriendsscotland.org/">their website</a>
+
+                           
+                            </span>                        
+
+
+                            <span id ="friend-options-text-99">
+                            
+                                 We can only register Champions in the United Kingdom. See <a href="WEBArticle?page=friend-how-else-can-i-help"> here</a> for more information about how you may be able to help people with dementia where you live.
+                           
+                            </span>                        
+                            <br/><br/>
+
+                        </div>
+                    
+                    
+   
+    
+
+                    <div id="intro-text-container">                   
+                       
+                        <p class= "help-block" id ="intro-text-step-1" title = "step 1" style="display:none">
+                            
+                           Register your organisation with Dementia Friends to gain access to helpful resources and videos you can use to make your organisation more Dementia Friendly. To find out more about how we use your personal information please take a look at our supporter <a href="https://www.dementiafriends.org.uk/WEBArticle?page=privacy-policy#.WwhNmO4vyUl">privacy statement</a>. 
+
+                        </p>
+                                            
+                    </div>
+                 
+              
+                    <div class="well" id="org-register-form" style="display:none;">
+                                        
+                <!--      <apex:form styleClass="form-horizontal" forceSSL="true" id="long-form">-->
+                         
+                         <h3>Organisation details</h3>
+
+                            <div class="form-group required">
+                                 <label for="Name" class="control-label col-sm-3 required">Organisation name</label>
+                                 <div class="col-sm-8">
+                                     <apex:inputtext id="orgName" value="{!orgName}" styleClass="form-control" />
+                                     <span id="orgNameError" class="help-block"></span>
+                                 
+                                 </div>
+                             </div>
+                             
+                             <div class="form-group required">
+                                 <label for="sector" class="control-label col-sm-3 required">Sector</label>
+                                 <div class="col-sm-8">
+                                  <apex:outputPanel id="selectedSector">
+                                  <div  style="display:none;">
+                                     {!sector}
+                                     </div>
+
+                                  </apex:outputPanel>
+                                <apex:actionFunction name="setSector" reRender="selectedSector">
+
+                                    <apex:param name="x" value="x" assignTo="{!sector}"/>
+
+                                 </apex:actionFunction>
+                                   <select onchange="setSector(this.value)" id="sector" name = "sector" class="form-control">
+                                    <option value='NULL'>-- Select one option -- </option>
+                                    <option value='Health & Social Care'>Health &amp; Social Care</option>
+                                    <option value='Local Authority'>Local Authority</option>
+                                    <option value='Government'>Government</option>
+                                    <option value='Public Service'>Public Service</option>
+                                     <option value='Retail'>Retail</option>
+                                     <option value='Finance'>Finance</option>
+                                    <option value='Law'>Law</option>
+                                    <option value='Housing'>Housing</option>
+                                    <option value='Transport'>Transport</option>
+                                    <option value='Arts'>Arts</option>
+                                    <option value='Sport & Leisure'>Sport &amp; Leisure</option>
+                                    <option value='Technology'>Technology</option>
+                                    <option value='Power & Utilities'>Power &amp; Utilities</option>
+                                    <option value='Allied Healthcare Professionals'>Allied Healthcare Professionals</option>
+                                    <option value='Other(please specify)'>Other(please specify)</option>
+                                 </select>
+                                 
+                                  <span id="sectorError" class="help-block"></span>
+                                 
+                                 </div>
+                             </div>
+                             
+                             <div class="form-group" id="sector-other-container">
+                              <label for="sectorOther" class="col-md-3 control-label required" >  </label>
+                              <div class="col-md-8">
+                              <label id="sectorOtherLabel">Sector - Other</label>
+                               <apex:inputText id="sectorOther" value="{!sectorOther}" styleClass="form-control" />
+                               
+                               <span id="sectorOtherError" class="help-block has-error"></span>
+                              </div>
+                           </div>
+
+                             
+                             <div class="form-group required">
+                                 <label for="employees" class="control-label col-xs-5 col-md-3 required">Number of employees</label>
+                                 <div class="col-md-8">
+                                <apex:outputPanel id="selectedValue">
+                                  <div  style="display:none;">
+                                     {!employees}
+                                     </div>
+
+                                  </apex:outputPanel>
+                                <apex:actionFunction name="setValue" reRender="selectedValue">
+
+                                    <apex:param name="x" value="x" assignTo="{!employees}"/>
+
+                                 </apex:actionFunction>
+                                 
+                                 <select onchange="setValue(this.value)" id="employees" name = "employees" class="form-control">
+                                    <option value='NULL'>-- Select a range -- </option>
+                                    <option value='0-10'>0-10</option>
+                                    <option value='11-250'>11-250</option>
+                                    <option value='251-1000'>251-1001</option>
+                                    <option value='1001-5000'>1001-5000</option>
+                                    <option value='5001-20000'>5001-20000</option>
+                                    <option value='20001+'>20001+</option>
+                                </select>
+                                
+                                <span id="employeesError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="postcode" class="col-md-3 control-label">Postcode</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_postcode" value="{!orgPostCode}" styleClass="form-control" />
+                                     <span id="orgPostCodeError" value="orgPostCodeError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="street" class="col-md-3 control-label">Building/Street</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_street" value="{!orgStreet}" styleClass="form-control" />
+                                     <span id="orgStreetError" class="help-block"></span>
+                                 </div>
+                             </div>
+                             
+                             <div class="form-group required">
+                                 <label for="city" class="col-md-3 control-label">City</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_city" value="{!orgCity}" styleClass="form-control" />
+                                     <span id="orgCityError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                            <div class="form-group">
+                                 <label for="county" class="col-md-3 control-label">County</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_county" value="{!orgCounty}" styleClass="form-control" />
+                                     <span id="orgCountyError" class="help-block"></span>
+                                 </div>
+                             </div> 
+                             
+                             <div class="form-group required">
+                                 <label for="country" class="col-md-3 control-label">Country</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_country" value="{!orgCountry}" styleClass="form-control" />
+                                     <span id="orgCountryError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="telephone" class="col-md-3 control-label">Contact number</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="orgTelephone" value="{!orgTelephone}" styleClass="form-control" />
+                                      <span id="orgTelephoneError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <hr/> 
+                          
+                           <div class="form-group">
+                           <div class="col-sm-8">
+                             <div class="btn-toolbar">
+                                <apex:commandButton id="save-org-form" value="Register" onclick="return validateForm ();" styleClass="btn-primary btn"/>
+                                <apex:commandButton id="cancel" value="Cancel" action="{!cancel}" styleClass="btn btn-default"/>
+                                <apex:actionFunction action="{!Register}" name="Register" reRender="org-register-form"/>
+                             </div>
+                             </div>
+                            </div> 
+                            
+                        </div>
+                           </apex:form>
+                           
+                         
+                    <!--<c:DF_WEBC_RegisterOrg />-->
+                 
+             
+                 <div id="success-message" style="display:none" class="well">   
+                                                   
+                       <h3> Thanks for registering your organisation </h3>                               
+                       <p> We’ll send you a email once we verified details.</p>
+
+                   </div>
+                   
+                
+                   
+               </div>
+              <c:DF_WEBC_FriendNav dfcW="{!dfcW}" rendered="{!Not(isChampion)}" />               
+              <c:DF_WEBC_ChampionNav dfcW="{!dfcW}"  rendered="{!isChampion}"/>
+               </div>
+       
+     </div>
+    </div>
+  
+    
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+
+    <!--  PostcodeAnywhere code -->    
+   
+    <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"></script>
+
+    <script type="text/javascript">
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+    </script>                       
+    
+
+    <script type="text/javascript">
+        
+           
+          $('[id$=sector]').change(
+          function () {
+
+            
+            
+            if ( $('[id$=sector]').val().indexOf("please specify")>-1)  { 
+
+                $('#sector-other-container').show();
+                document.getElementById('sectorOtherLabel').innerHTML = 'please specify';
+
+            } else {
+
+                $('#sector-other-container').hide();
+                $('#sector-other-container input').val("");
+            }
+
+        
+
+        });
+           
+           
+         $('#friend-options-select').val('0');
+            $('#friendoptionsselect').change(
+               
+                function() {
+
+                    var country = $(this).val();                                        
+                    
+                    // England, Guernsey, Wales
+                    if ( country=='1'|| country == '2' || country == '3' ){ 
+
+                         $('[id^=friend-options-text]').hide();
+                         $('#intro-text-container').show(); 
+                         $('#intro-text-step-1').fadeIn();
+                         $('#org-register-form').fadeIn();
+                         $('[id$=save-org-form]').fadeIn();
+                        
+                    }
+
+                    // People from Northern Ireland, Scotland or outside the UK cannot register as Friends
+                    if ( country=='0'|| country=='4'|| country == '5' || country == '99'  ){ 
+                        
+                        $('[id^=intro-text-]').hide();   
+                        $('#org-register-form').hide();
+                        $('[id$=save-org-form]').hide();
+                        $('[id^=friend-options-text-]').hide();                  
+                        $('[id^=friend-options-text-]').hide();                  
+                        $('#friend-options-texts').show(); 
+                        $('#friend-options-text-'+country).fadeIn();  
+                        
+                    }            
+                           
+
+            });      
+            
+            
+       
+                
+            
+             function validateForm () {
+                
+                 var isOK = true;
+                  _webc.clearErrors();
+           
+                
+                if (_webc.isNull('orgName')) {
+                    _webc.setErrorMessage('orgName', "** Please enter Organisation Name");
+                    isOK = false;
+                }
+
+                
+                if (_webc.isNull('sector') || _webc.getFieldValue('sector')=='NULL') {
+                    _webc.setErrorMessage('sector', "** Please enter Sector ");
+                    isOK = false;
+                }
+           
+                if (_webc.isNull('employees') || _webc.getFieldValue('employees')=='NULL' ) {
+                    _webc.setErrorMessage('employees', "** Please enter number of employees");
+                    isOK = false;
+                }
+               
+                
+               if (_webc.isNull('df_pca_postcode')) {
+                    _webc.setErrorMessage('orgPostCode', "Please enter a postcode");
+                    isOK = false;
+                }
+                 
+                if (_webc.isNull('df_pca_street')) {
+                    _webc.setErrorMessage('orgStreet', "Please enter the building/street address");
+                    isOK = false;
+                } 
+                
+                if (_webc.isNull('df_pca_city') && _webc.isNull('df_pca_county')) {
+                    _webc.setErrorMessage('orgCity', "Please enter the city or county");
+                    isOK = false;
+                }
+                
+                
+                var addcOk = false;
+                addcOk = _webc.getFieldValue('df_pca_country') == 'England' ? true : addcOk; 
+                addcOk = _webc.getFieldValue('df_pca_country') == 'Guernsey' ? true : addcOk;
+                addcOk = _webc.getFieldValue('df_pca_country') == 'Isle of Man' ? true : addcOk;
+                addcOk = _webc.getFieldValue('df_pca_country') == 'Wales' ? true : addcOk; 
+                   
+                if ( !addcOk ) {
+               
+                  _webc.setErrorMessage('orgCountry', "Sorry. We can only register Organisations in England, Wales, Guernsey and Isle of Man.");
+                   isOK = false;
+                   
+                }
+
+                
+                if (_webc.isNull('orgTelephone')) {
+                    _webc.setErrorMessage('orgTelephone', "Please enter a phone number");
+                    isOK = false;
+                } 
+                
+                if(!_webc.isValidPhone('orgTelephone')) {
+                
+                    _webc.setErrorMessage('orgTelephone', "Please enter your contact number in correct format");
+                   isOK = false;
+                }          
+               /* Return false */ 
+              if(!isOK ){ 
+             // $('[id^=friend-options]').hide();  
+              
+              return isOK ; 
+               
+               }
+              else{
+               Register();
+            
+               }        
+               return false;
+                       
+            }; 
+            
+              
+       function saveForm(){ 
+
+            _webc.clearErrors();
+            if ( !validateForm() ) {
+            $('[id^=friend-options]').hide(); 
+                return false;
+            }
+
+           else  {
+         
+              Register();
+             }
+           
+
+       } 
+       
+         $('[id$=orgName]').keyup(function() {
+      
+                Visualforce.remoting.Manager.invokeAction (
+                    '{!$RemoteAction.DF_WEBC_RegisterPartner_Controller.isExistingOrg}', 
+                _webc.getFieldValue('orgName'), 
+                _webc.isExistingOrg
+
+
+         );
+        
+       });
+        
+        _webc.isExistingOrg = function(response, event) {
+         console.log('enter is existing org'+response);
+        if ( response) {
+
+            _webc.setErrorMessage('orgName', 'Organisation is already registered. Please contact your administrator or programmepartnerships@alzheimers.org.uk for more information.');
+            $('[id$=save-org-form]').hide();
+          
+            return; 
+
+        }
+        else {
+            _webc.clearErrors('orgName');                   
+            $('[id$=save-org-form]').show();                    
+        }
+
+    };
+
+         
+   
+        $(document).ready(function() {
+        
+          
+       
+         $('[id^=friend-options-text]').hide();
+         $('#friend-options-text-4').hide();
+         $('#friend-options-text-5').hide();
+         $('#friend-options-text-99').hide();  
+        $('[id$=sector-other-container]').hide();
+        
+       
+        
+        });
+        
+    </script>
+
+   
+
+
+</apex:page>

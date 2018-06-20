@@ -1,0 +1,58 @@
+<messaging:emailTemplate subject="Dementia Connect - Service Review Digest" recipientType="User" relatedToType="DCE_ServiceAmend__c">
+	<messaging:plainTextEmailBody >
+Dear {!recipient.FirstName},
+		
+Thank you for promoting your services suitable for people affected by dementia on Dementia Connect. To ensure that people searching for services have up-to-date information we request that service providers periodically review their services which have been publicly listed on Dementia Connect. This email digest is being sent to you as a reminder and lists services that were last reviewed over 10 months ago. Any services which have not been reviewed in 12 months will be removed from the Dementia Connect online directory.
+
+Please review the services below and review/update as necessary.
+				
+It's easy to review a service. Simply log-in to the portal, view a Service, and check that all of the details are correct. Either edit the service to update it (and submit your changes for approval), or click the "Reviewed" button if all details are correct.
+
+The "Last Reviewed" date will then be updated to today's date.
+				
+With thanks,
+The Dementia Connect Team
+	</messaging:plainTextEmailBody>
+	<messaging:htmlEmailBody >
+		<html>
+			<style>
+				body{font-family: "FS Albert", Arial, "sans-serif"; size: 12pt;}
+				
+				table {
+	            	border-collapse: collapse;
+	            	text-align: left;
+	            	width:100%;
+	            }
+	            
+	            th {
+	            	background-color: rgb(91,172,38);
+    				color: white;
+	            }
+	            
+	            td th {
+	            	border-bottom: 1px solid #ddd;
+	            }
+	            
+	            
+			</style>
+			<body>
+				<p>Dear {!recipient.FirstName},</p>
+				<P>Thank you for promoting your services suitable for people affected by dementia on Dementia Connect. 
+				To ensure that people searching for services have up-to-date information we request that service providers
+				periodically review their services which have been publicly listed on Dementia Connect. This email digest
+				is being sent to you as a reminder and lists services that were last reviewed over 10 months ago. 
+				Any services which have not been reviewed in 12 months will be removed from the Dementia Connect online directory.</p>
+				<p>Please review the services below and review/update as necessary.</p>
+				
+				<c:DCE_EmailServiceDigest userId="{!recipient.id}"/>
+				
+				<p>It's easy to review a service. Simply log-in to the portal, view a Service, and check that all of the details are correct. Either edit the service to update it 
+				(and submit your changes for approval), or click the "Reviewed" button if all details are correct.</p>
+				<p>The "Last Reviewed" date will then be updated to today's date.</p>
+				
+				<p>With thanks,<br/>
+				The Dementia Connect Team</p>
+			</body>
+		</html>
+	</messaging:htmlEmailBody>
+</messaging:emailTemplate>

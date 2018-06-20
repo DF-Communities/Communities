@@ -1,0 +1,185 @@
+<aura:component controller="ExchangeDFCDetailController" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+	<aura:attribute name="recordId" type="String" access="global"/>
+    <aura:attribute name="dfcon" type="DF_Contact__c" default="{'sobjectType': 'DF_Contact__c'}"  access="global" />
+    <aura:attribute name="runningUser" type="String" access="global" />
+    <aura:attribute name="edit" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="champsince" type="string" default="" access="global"/>
+    <aura:attribute name="selectoptions" type="string[]" default="" access="global"/>
+    <aura:attribute name="hasDFCon" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="optIn" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="user" type="User" default="{'sobjectType': 'User'}"  access="global" />
+    <aura:attribute name="interests" type="String" access="global" />
+     <aura:attribute name="uname" type="String" default="" access="global"/>
+    <aura:attribute name="uemail" type="String" access="global"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+   
+  <!--test edit-->
+
+   
+<aura:renderif isTrue="{!and(v.hasDFCon,v.optIn)}">
+    <aura:renderif isTrue="{!v.edit}">
+
+    <ui:button label="Edit" press="{!c.editpage}" aura:id="editBtn" class="slds-button slds-button--brand"/> 
+    <ui:button label="Save" aura:id="saveBtn"  press="{!c.save}" class="slds-hide slds-button slds-button--brand"/>
+    <ui:button label="Cancel" press="{!c.canceledit}" aura:id="cancelBtn" class="slds-hide slds-button slds-button--neutral"/> 
+      <br/>
+        <br/>
+       <aura:set attribute="else">
+
+       <ui:button label="Edit" press="{!c.editpage}" class="slds-hide slds-button slds-button--brand"/> 
+   
+    </aura:set>
+
+</aura:renderif>
+ 
+    <div aura:id="box">
+            
+        
+    <div class="slds-form--stacked">
+      <div class="slds-panel">
+        <div class="slds-panel__section">
+	     <div class="slds-form-element slds-size--1-of-2">
+         <label class="slds-form-element__label" for="text-input-01">Interests</label>
+  			 <div class="slds-form-element__icon slds-align-middle" onmouseenter="{!c.display}" onmouseleave="{!c.displayOut}" >
+                <button class="slds-button slds-button slds-button--icon" aria-describedby="help" title="Help" >
+              
+                  <lightning:icon class="slds-icon slds-icon--x-small slds-icon-text-default" iconName="utility:info_alt" size="xx-small" alternativeText="Open topic menu" />
+                 <span class="slds-assistive-text">Help</span>
+                 </button>
+               </div>
+                     
+           <div class="slds-picklist slds-form-element__control ">
+               <ui:inputSelect class="dynamic" multiple="true" aura:id="InputSelectDynamic" value="{!v.dfcon.Interests__c}" />
+               
+  			</div>
+            
+            
+        </div>
+       <div class="slds-popover slds-popover--tooltip slds-nubbin--bottom-left toggle" role="tooltip" id="help"  aura:id="tooltip" style="position:absolute;top:650px;left:300px;">
+        <div class="slds-popover__body slds-text-longform">Press hold Ctrl on your keyboard and mouse click to select multiple interests</div>
+      </div>
+
+  
+   <!--
+       <div class="slds-form-element">
+           
+             <aura:iteration items="{!v.selectoptions}" var="options">
+                         <ui:inputCheckbox label="{!options}" value="{!options}"/>
+             </aura:iteration>
+
+        </div>-->
+        <br/>
+       <div class="slds-form-element">
+        <label class="slds-form-element__label" for="text-input-02">Other interests</label>
+  			<div class="slds-form-element__control">
+
+                <ui:inputTextArea aura:id="otherin"
+            	class="textAr"
+            	value="{!v.dfcon.Other_Interests__c}"
+            	placeholder="{!v.dfcon.Other_Interests__c}"
+        		maxlength="1000"
+                />
+  			</div>
+	   </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="text-input-03">About me</label>
+  			<div class="slds-form-element__control">
+
+                <ui:inputTextArea aura:id="aboutme"
+            	class="textAr"
+            	value="{!v.dfcon.About_me__c}"
+            	placeholder="{!v.dfcon.About_me__c}"
+        		maxlength="1000"/>
+  			</div>
+	   </div>
+       <div class="slds-form-element">
+        
+        </div>
+           <br />
+       
+       </div>
+        </div>
+        </div>
+    </div>
+<!-- -->
+  <div aura:id="viewRecord" class="viewDetails">
+   <div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
+    <div class="slds-panel__section">
+             
+     <aura:renderif isTrue="{!v.edit}">        
+      <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+        <span class="slds-form-element__label">Email</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static">{!v.user.Email}</span>
+        </div>
+      </div>
+        <aura:set attribute="else">
+
+            <div class="slds-hide"> </div>
+   
+       </aura:set>
+        </aura:renderif>
+      
+      <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+        <span class="slds-form-element__label">About me</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static"><ui:outputTextArea value="{!v.dfcon.About_me__c}"/></span>
+        </div>
+      </div>
+        
+      
+      <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+        <span class="slds-form-element__label">County</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static">{!v.dfcon.County__c}</span>
+        </div>
+      </div>
+        
+       <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+        <span class="slds-form-element__label">Interests</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static interests">{!v.interests}</span>
+        </div>
+      </div>
+        
+       <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+        <span class="slds-form-element__label">Other interests</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static"><ui:outputTextArea class="otherInOut" value="{!v.dfcon.Other_Interests__c}"/></span>
+        </div>
+      </div>
+      <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+        <span class="slds-form-element__label">Number of completed Sessions</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static">{!v.dfcon.Total_No_of_Completed_Info_Sessions__c}</span>
+        </div>
+      </div>
+        
+       <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+        <span class="slds-form-element__label">Number of Friends made</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static">{!v.dfcon.Total_No_of_Friends_Created__c}</span>
+        </div>
+      </div>
+        
+           <div class="slds-form-element slds-hint-parent slds-has-divider--bottom">
+        <span class="slds-form-element__label">Champion since</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static">{!v.champsince}</span>
+        </div>
+      </div>
+     </div>
+   </div>   
+  
+ </div> 
+  <aura:set attribute="else">
+        <div class="slds-hide" >
+      
+      
+       </div>
+ 
+     
+    </aura:set>
+  </aura:renderif> 
+</aura:component>

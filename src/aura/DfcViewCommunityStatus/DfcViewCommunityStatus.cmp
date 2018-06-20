@@ -1,0 +1,24 @@
+<aura:component extends="c:CsqViewComponent">
+    
+    <aura:attribute name="communityData" type="Object" access="GLOBAL"/>
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+
+    <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+    
+    
+        <div >
+   
+            <h3>Application Status</h3>
+            
+            <p style="font-size:16px">
+            The application was submitted for Dementia Friendly Community Recognition on  
+            <ui:outputDateTime value="{!v.communityData.Date_Submitted__c}" 
+            format="EEEE D MMM, YYYY HH:mm" timezone="Europe/London"/>. 
+            </p>
+
+           <p>
+               <c:DfcSnippet group="dfc_view" key="dfc-view-status"/>
+           </p>
+    	</div>  
+	
+</aura:component>

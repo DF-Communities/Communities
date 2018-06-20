@@ -1,0 +1,8 @@
+<aura:event type="COMPONENT" access="GLOBAL">
+    
+   <aura:attribute name="key" type="String"/>
+   <aura:attribute name="group" type="Object"/>
+   <aura:attribute name="valid" type="Boolean"/>
+   <aura:attribute name="message" type="String"/>
+   
+</aura:event>

@@ -1,0 +1,13 @@
+<aura:component extends="c:STD_datePicker">
+
+    <aura:attribute name="disabled" type="Boolean" default="false" description="This disables the datepicker if required"/>
+    <aura:handler name="change" value="{!v.disabled}" action="{!c.disableDateInput}"/> 
+    
+    <input type="text" 
+           id="{!'datepicker' + v.name}"
+           class="form-control mob-datepick"
+           disabled="true"
+           required="{!v.required}"
+           aura:id="dateField"/> 
+    
+</aura:component>

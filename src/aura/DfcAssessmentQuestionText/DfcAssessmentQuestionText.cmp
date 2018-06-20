@@ -1,0 +1,13 @@
+<aura:component >
+	
+    <aura:attribute name="question" type="Object" access="GLOBAL"/>
+    <aura:attribute name="captureExtraInfo" type="boolean"/>
+
+    <label class="required question-text">{!v.question.Question_Text__c}</label>
+
+    <div> 
+       <ui:inputTextArea value="{!v.question.Entered_Answer__c}" class="form-control" updateOn="keyup"/>
+    </div>
+    <c:CsqValidateRequired value="{!v.question.Entered_Answer__c}" message="Please enter an answer"/>
+        
+</aura:component>

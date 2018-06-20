@@ -1,0 +1,5 @@
+<aura:component extends="c:DfcValidationComponent">
+	
+    <aura:set attribute="defaultMessage" value="Please enter a valid email address"/>
+
+</aura:component>

@@ -1,0 +1,6 @@
+<apex:page controller="WEBRobotsController" showHeader="false" contentType="text/plain" cache="false">
+   User-Agent: *
+   Allow: /
+
+   Sitemap: {!siteurl}WEBSiteMapXML
+</apex:page>

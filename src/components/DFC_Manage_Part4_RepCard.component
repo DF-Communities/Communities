@@ -1,0 +1,16 @@
+<apex:component >
+
+<div class="user-card" ng-repeat="rep in allReps track by rep.email">
+   <button class="btn btn-primary" ng-show="isCurentUsersRepCard(rep.id)" ng-attr-id="rep.id" style="float:right" ng-click="removeRepresentative(rep.id)" >Remove</button>
+   <div>
+      <label>Name</label><span class="form-control uiOutputText" ng-bind="rep.fullname" ></span>
+   </div>
+   <div>
+      <label>Email Address</label><span class="form-control uiOutputText" ng-bind="rep.email"></span>
+   </div>
+   <div>
+      <label>Status</label><span class="form-control uiOutputText" ng-bind="rep.status"></span>
+   </div>
+</div>
+
+</apex:component>

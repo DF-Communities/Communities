@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Publish timing preference selections to the dfEvent instance">
+    <aura:attribute name="fieldApiName" type="String"/>
+    <aura:attribute name="fieldValueStr" type="String"/>
+    <aura:attribute name="fieldValueDate" type="Date"/>
+</aura:event>

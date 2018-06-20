@@ -1,0 +1,18 @@
+<apex:page controller="WEBSitemapController" showHeader="false" contentType="text/xml" cache="false">
+    <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        <apex:repeat id="pagerepeat" var="page" value="{!pageList}">
+            <url>
+                <loc>{!HTMLENCODE(page.pageURL)}</loc>
+                <lastmod>{!(TEXT(YEAR(DATEVALUE(page.thePage.LastModifiedDate))) & "-" & IF(LEN(TEXT(MONTH(DATEVALUE(page.thePage.LastModifiedDate))))==2,TEXT(MONTH(DATEVALUE(page.thePage.LastModifiedDate))),"0" & TEXT(MONTH(DATEVALUE(page.thePage.LastModifiedDate)))) & "-" & IF(LEN(TEXT(DAY(DATEVALUE(page.thePage.LastModifiedDate))))==2,TEXT(DAY(DATEVALUE(page.thePage.LastModifiedDate))),"0" & TEXT(DAY(DATEVALUE(page.thePage.LastModifiedDate)))))}</lastmod>
+                <priority>0.5</priority>
+            </url>
+        </apex:repeat>
+        <apex:repeat id="newsrepeat" var="news" value="{!newsList}">
+            <url>
+                <loc>{!HTMLENCODE(news.newsURL)}</loc>
+                <lastmod>{!(TEXT(YEAR(DATEVALUE(news.theNews.LastModifiedDate))) & "-" & IF(LEN(TEXT(MONTH(DATEVALUE(news.theNews.LastModifiedDate))))==2,TEXT(MONTH(DATEVALUE(news.theNews.LastModifiedDate))),"0" & TEXT(MONTH(DATEVALUE(news.theNews.LastModifiedDate)))) & "-" & IF(LEN(TEXT(DAY(DATEVALUE(news.theNews.LastModifiedDate))))==2,TEXT(DAY(DATEVALUE(news.theNews.LastModifiedDate))),"0" & TEXT(DAY(DATEVALUE(news.theNews.LastModifiedDate)))))}</lastmod>
+                <priority>0.5</priority>
+            </url>
+        </apex:repeat>
+    </urlset>
+</apex:page>

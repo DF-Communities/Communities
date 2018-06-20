@@ -1,0 +1,40 @@
+<apex:component >
+
+<div style="margin-bottom:30px">
+   <span class="cDfcActivityForm"></span>
+   <div class="DESKTOP cDfcActivityForm" ng-show="value.editMode">
+      <button class="btn btn-action pull-right" ng-click="onSaveActivityClick(activityInput.activityId)">Save</button> 
+      <button class="btn btn-action pull-right" ng-click="onClickToggleActivityView(activityInput.activityId)" >Cancel</button>
+      <div class="clearfix">
+         <select class="form-control select-focus-area select uiInput uiInputSelect uiInput--default uiInput--select" size="1" ng-disabled="waiting" ng-change="onFocusAreaSelectChange()" ng-model="activityInput.focusAreaSelect" ng-options="option.name for option in actionAreaValues track by option.id" ng-init="actionAreaValues[1]">
+         </select>
+         <span ng-show="activityInput.focusAreaError" class="cCsqValidationComponent cCsqValidateDate">
+         Please select a focus area
+         </span>
+      </div>
+      <label class="hide">Activity Title</label><strong>
+      <input class="form-control input uiInput uiInputText uiInput--default uiInput--input" maxlength="200" type="text" aria-describedby="" placeholder="Please enter a title for the activity" ng-model="activityInput.title"/></strong>
+      <span ng-show="activityInput.titleError" class="cCsqValidationComponent">Please enter a title for the activity</span>
+      <label class="hide">Activity Date(s)</label>
+      <div class="clearfix">
+         <span ng-show="activityInput.startDateError" class="cCsqValidationComponent">
+         Please enter a start date
+         </span>
+         <input class="form-control csq-inline csq-date input uiInput uiInputText uiInput--default uiInput--input" type="text" ng-model="activityInput.startDateUiFormat" ng-disabled="false" ng-change="handleDateInput('startDate')" my-datepicker="true" placeholder="DD/MM/YYYY" />
+         <span class="date-separator">to</span>
+         <input class="form-control csq-inline csq-date input uiInput uiInputText uiInput--default uiInput--input" type="text" ng-model="activityInput.endDateUiFormat" ng-disabled="false" ng-change="handleDateInput('endDate')" my-datepicker="true" placeholder="DD/MM/YYYY" />
+         <span ng-show="activityInput.endDateError" class="cCsqValidationComponent">
+         The end date must be after the start date
+         </span>
+      </div>
+      <span ng-show="activityInput.descriptionError" class="cCsqValidationComponent">
+      Please add a description for this activity
+      </span>
+      <label class="hide">Activity Description</label>
+      <p>
+         <textarea class="form-control textarea uiInput uiInputTextArea uiInput--default uiInput--textarea" cols="20" rows="4" aria-describedby="" placeholder="Please describe the activity" ng-model="activityInput.description"></textarea>
+      </p>
+   </div>
+</div>  
+   
+</apex:component>

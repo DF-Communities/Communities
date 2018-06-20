@@ -1,0 +1,1 @@
+<aura:event type="COMPONENT" description="Register a store with the containing flux component"/>

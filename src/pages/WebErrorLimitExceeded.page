@@ -1,0 +1,4 @@
+<apex:page controller="WEBErrorController" showHeader="false" sidebar="false" standardStylesheets="false" docType="html" action="{!recordErrorLimitExceeded}">
+    <apex:composition template="WebErrorTemplate">
+    </apex:composition>
+</apex:page>

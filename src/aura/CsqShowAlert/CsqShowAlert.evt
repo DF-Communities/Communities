@@ -1,0 +1,6 @@
+<aura:event type="APPLICATION" description="Event template" access="GLOBAL">
+    
+    <aura:attribute name="message" type="String" access="GLOBAL"/>
+    <aura:attribute name="handled" type="Boolean" default="false" access="GLOBAL"/>
+    
+</aura:event>

@@ -1,0 +1,33 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_ManageOrganisations_Controller" action="{!loginRedirect}">
+
+ <c:DF_WEBR_WebMeta />
+
+
+ <div class="container">
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+         
+
+   
+
+        
+      <div class="row *.css">
+                          
+        <div class="col-md-9 column col-md-push-3">            
+        
+           <div id="message-center"></div>          
+           
+           <c:DF_WEBC_PartnerDashboardLink dfcW="{!dfcW}" rendered="{!(dfcW.partners!=null || dfcw.orgLeads.size>0)}"/>   
+      
+      </div>
+      <c:DF_WEBC_FriendNav dfcW="{!dfcW}" rendered="{!Not(isChampion)}" />               
+      <c:DF_WEBC_ChampionNav dfcW="{!dfcW}"  rendered="{!isChampion}"/>
+              
+    </div>
+   
+    <c:DF_WEBR_WebFooter />
+    
+    </div>
+
+
+</apex:page>

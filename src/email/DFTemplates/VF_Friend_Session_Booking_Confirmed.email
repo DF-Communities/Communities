@@ -1,0 +1,57 @@
+<messaging:emailTemplate subject="Your Dementia Friends session booking confirmed" recipientType="Contact" relatedToType="DF_EventAttendee__c">
+<messaging:htmlEmailBody >
+<!-- <img src="{!URLFOR($Resource.img, 'img/f/logo.png')}" height="103" width="259" alt="Dementia Friends" /> -->
+<apex:image id="Logo" value="https://c.eu0.content.force.com/servlet/servlet.ImageServer?id=01520000001HfE1&oid=00D20000000CwQc" height="103" width="259"/>
+<br/>
+Dear {!relatedTo.DF_Contact__r.First_Name__c} {!relatedTo.DF_Contact__r.Last_Name__c},
+<br/><br/>
+Thank you for booking a place on the following Dementia Friends Information Session:
+<br/><br/>
+Session date: - {!relatedTo.DF_Event__r.Event_Date_Time__c}<br/>
+Session location: 
+{!relatedTo.DF_Event__r.Location__c}<br/>
+{!relatedTo.DF_Event__r.Street__c}<br/>
+{!relatedTo.DF_Event__r.City__c}<br/>
+{!relatedTo.DF_Event__r.Postcode__c}<br/>
+{!relatedTo.DF_Event__r.County__c}
+<br/><br/>
+To view up to date details of the Session, please <a href="{!$Label.DF_Email_Stub_Url}WEBSessionDetails?Id={!relatedTo.DF_Event__r.Id}">click here</a>
+<br/><br/>
+At the Information Session you will learn a little more about what it is like to live with dementia and some of the small actions you can take to help those living with dementia in your community. The Session will be delivered by one our trained volunteer Dementia Friends Champions. The interactive and informative Session will last approximately forty-five minutes to one hour. 
+<br/><br/>
+We hope you enjoy the Session.
+<br/><br/>
+Kind regards,
+<br/><br/>
+The Dementia Friends team
+<br/><br/>
+0300 222 5855
+<br/>
+<a href="http://www.dementiafriends.org.uk">dementiafriends.org.uk</a>
+<br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a>
+<br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a>
+
+</messaging:htmlEmailBody>
+
+<messaging:plainTextEmailBody >
+Dear {!relatedTo.DF_Contact__r.First_Name__c} {!relatedTo.DF_Contact__r.Last_Name__c},
+
+Thank you for booking a place on the following Dementia Friends Information Session:
+
+Session date: - {!relatedTo.DF_Event__r.Event_Date_Time__c}
+Session location: - {!relatedTo.DF_Event__r.Location__c}
+
+At the Information Session you will learn a little more about what it is like to live with dementia and some of the small actions you can take to help those living with dementia in your community. The Session will be delivered by one our trained volunteer Dementia Friends Champions. The interactive and informative Session will last approximately forty-five minutes to one hour. 
+
+Kind regards,
+
+The Dementia Friends team
+
+0300 222 5855
+dementiafriends.org.uk
+facebook.com/DementiaFriends
+twitter.com/DementiaFriends
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,35 @@
+<apex:component controller="DF_WEBC_FootballTeamSelection_Controller">
+
+<div id="football-team-container" style="display:none">
+
+<hr/>         
+
+ <div class="form-group required">
+   <h3>#TeamDementiaFriends</h3>
+   
+   <label for="footballTeam" class="col-md-3 control-label" style="visibility:hidden"></label>
+   <div class="col-md-8">
+
+   <p>Do you support a professional football team? We’re running a campaign to get more football clubs signed up to Dementia Friends. You can help your team get to the top of the Dementia Friends league table by telling us which football club you support.</p>
+                   
+      <select size="1" id="footballTeam" class="form-control single-select" name="footballTeam">
+
+			<option value="NULL">Select...</option>
+       		<apex:repeat value="{!footballTeams}" var="option" >
+            
+            	<option value="{!option.value}">{!option.label}</option>            
+
+            </apex:repeat>	
+
+       </select>
+       <span id="footballTeamError" class="help-block has-error"></span>
+   
+   </div>
+   
+ </div>
+
+ </div>
+
+<hr/>
+
+</apex:component>

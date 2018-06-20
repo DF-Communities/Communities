@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="This event is used to update the max rows count on each dynamic row">
+    <aura:attribute name="newTotalNoRows" description="The new number of rows to set all dynamic row entries to" type="Integer" default="0"/>
+    <aura:attribute name="isInit" description="If true, this prevents the total row count from imcreasing" type="Boolean" default="false"/>
+</aura:event>

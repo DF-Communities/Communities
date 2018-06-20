@@ -1,0 +1,407 @@
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_ServiceEditController" id="thePage" title="{!service.Name} - View - Dementia Connect" applyHtmlTag="false" applyBodyTag="false"> <!-- action="{!loginRedirect}" -->
+    <html>
+        <head>
+            <c:DCE_CSS />
+            <c:importvisualstrap />
+        </head>
+        <body>
+            <c:visualstrapblock >
+                <apex:form id="theForm">
+                    <c:DCE_Navbar />
+                    <c:row >
+                        <c:column type="col-md-1"/>
+                        <c:column type="col-md-10">
+                            
+                            <apex:outputpanel layout="none" rendered="{!OR(displayPageMessage,ISNULL(service))}">
+                                <apex:outputPanel layout="block" styleClass="alert {!pageMessageType}">
+                                    <apex:outputText value="{!pageMessage}" escape="false"/>
+                                </apex:outputPanel>
+                            </apex:outputpanel>
+                            
+                            <c:panel rendered="{!NOT(ISNULL(service))}">
+                                <c:row >
+                                    
+                                    <c:column type="col-sm-12 hidden-md hidden-lg">
+		                            	<p class="help-block text-center">The information on this page appears on the Dementia Connect Online Directory, which will be available to anyone using it on our website or approved third party websites, except where otherwise indicated (marked with<span class="private">Private</span>). The information may also be used by Alzheimer’s Society staff and volunteers for signposting or to contact you about your service or the activities of your organisation. <i>If you have any edits in progress on this service, they will not be shown here.</i></p>
+		                            </c:column>
+                                    
+                                    <c:column type="col-md-3">
+                                        <h3>
+                                            {!service.Name}
+                                        </h3>
+                                    </c:column>
+                                    <c:column type="col-md-3 col-sm-4">
+                                        <c:panel title="Status">{!service.service_status__c}</c:panel>
+                                    </c:column>
+                                    <c:column type="col-md-3 col-sm-4">
+                                        <c:panel title="Last Reviewed"><apex:outputfield value="{!service.LastReviewed__c}"/></c:panel>
+                                    </c:column>
+                                    <c:column type="col-md-3 col-sm-4">
+                                        <apex:outputLink styleClass="btn btn-primary" value="{!URLFOR($Page.DCE_Dashboard)}" ><c:glyph icon="home" html-aria-hidden="true"/><span class="sr-only">Home</span></apex:outputLink>
+                                        <apex:outputLink styleClass="btn btn-primary" value="{!URLFOR($Page.DCE_ServiceEdit,null,[aid=service.id])}"><c:glyph icon="edit" html-aria-hidden="true"/>&nbsp;Edit</apex:outputLink>
+                                        <apex:commandlink styleClass="btn btn-primary" action="{!cloneRecord}"><c:glyph icon="duplicate" html-aria-hidden="true"/>&nbsp;Clone</apex:commandLink>
+                                        <apex:commandlink styleClass="btn btn-success" onclick="return false;" html-data-toggle="modal" html-data-target="#reviewedModal"><c:glyph icon="ok" html-aria-hidden="true"/>&nbsp;Mark as reviewed</apex:commandlink>
+                                    </c:column>  
+                                
+                                	<c:column type="col-md-12 hidden-sm hidden-xs">
+		                            	<p class="help-block text-center">The information on this page appears on the Dementia Connect Online Directory, which will be available to anyone using it on our website or approved third party websites, except where otherwise indicated (marked with<span class="private">Private</span>). The information may also be used by Alzheimer’s Society staff and volunteers for signposting or to contact you about your service or the activities of your organisation. <i>If you have any edits in progress on this service, they will not be shown here.</i></p>
+		                            </c:column>
+                                
+                                </c:row>
+                                
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active" id="tabOne"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Basic Info&nbsp;<span ></span></a></li>
+                                    <li role="presentation" id="tabThree"><a href="#Description" aria-controls="Description" role="tab" data-toggle="tab">Further Info&nbsp;<span ></span></a></li>
+                                </ul>
+                                    
+                                    
+                                <div class="tab-content" id="tabContents">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home" style="padding-top:1.5em;">
+                                        <c:panel title="Basic Info">
+                                            <c:formblock alignment="horizontal" style="margin-top:5px;padding:10px">
+                                                <c:row >
+                                                    
+                                                    <c:column type="col-md-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Name.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Name}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                    
+                                                    <c:column type="col-md-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.ServiceOwner__c.Label}</dt>
+                                                        	<dd><span class="not-active"><apex:outputfield styleClass="not-active" value="{!service.ServiceOwner__c}"/></span></dd>
+                                                        <!--<dd><apex:outputtext value="{!service.ServiceOwner__r.Name}"/></dd>-->
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                </c:row>
+                                                <c:row >
+                                                
+                                                    <c:column type="col-md-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.service_type__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.service_type__c}"/></dd>
+                                                        </dl>
+                                                        
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Where_does_this_service_operate__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Where_does_this_service_operate__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                    <c:column type="col-md-6">
+											    	
+											    		<c:column type="col-lg-12">
+										    				<dl class="dl-horizontal">
+				                                                <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Advertising_Start_Date__c.Label}</dt>
+				                                                <dd><apex:outputfield value="{!service.Advertising_Start_Date__c}"/></dd>
+				                                            </dl>
+										    			</c:column>
+										    			
+										    			<c:column type="col-lg-12">
+										    				<dl class="dl-horizontal">
+				                                                <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Advertising_end_date__c.Label}</dt>
+				                                                <dd><apex:outputfield value="{!service.Advertising_end_date__c}"/></dd>
+				                                            </dl>
+										    			</c:column>
+										    			
+										    			<apex:outputpanel layout="none" rendered="{!service.service_status__c != 'Pending'}">
+											    			<c:column type="col-lg-12">
+											    				<dl class="dl-horizontal">
+					                                                <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.service_closedate__c.Label}</dt>
+					                                                <dd><apex:outputfield value="{!service.service_closedate__c}"/></dd>
+					                                            </dl>
+											    			</c:column>
+											    		</apex:outputpanel>
+										    		
+										    		</c:column>
+                                                    
+                                                </c:row>
+                                                <c:row >
+                                                    <c:column type="col-md-6">
+                                                        <c:row >
+                                                            <c:column type="col-md-12">
+                                                                <dl class="dl-horizontal">
+                                                                <dt>Address</dt>
+                                                                <dd><apex:outputfield value="{!service.service_street__c}"/></dd>
+                                                                <dd>{!service.service_city__c}</dd>
+                                                                <dd>{!service.service_county__c}</dd>
+                                                                <dd>{!service.service_postcode__c}</dd>
+                                                                <dd>{!service.service_country__c}</dd>
+                                                            </dl>
+                                                            </c:column>
+                                                        </c:row>
+                                                    </c:column>
+                                                    
+                                                    <c:column type="col-md-6">
+                                                        <c:row >
+                                                            <c:column type="col-md-12">
+                                                                <dl class="dl-horizontal">
+                                                                    <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.service_email__c.Label}</dt>
+                                                                    <dd><apex:outputfield value="{!service.service_email__c}"/></dd>
+                                                                </dl>
+                                                                
+                                                                <dl class="dl-horizontal">
+                                                                    <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.service_telephone__c.Label}</dt>
+                                                                    <dd><apex:outputfield value="{!service.service_telephone__c}"/></dd>
+                                                                </dl>
+                                                                
+                                                                <dl class="dl-horizontal">
+                                                                    <dt>
+                                                                        {!$ObjectType.DCE_ServiceAmend__c.fields.Secondary_telephone_number__c.Label}
+                                                                        <span class="private">Private</span>
+                                                                    </dt>
+                                                                    <dd><apex:outputfield value="{!service.Secondary_telephone_number__c}"/></dd>
+                                                                </dl>
+                                                            </c:column>
+                                                        </c:row>
+                                                        
+                                                    </c:column>
+                                                </c:row>
+                                            </c:formblock>
+                                        </c:panel>
+                                        <div class="panel panel-default" id="openingTimesSection">
+									        <apex:outputPanel layout="block" styleClass="panel-heading">
+									            <h3 class="panel-title">Opening Times<span class="private">Private</span></h3>
+									        </apex:outputPanel>
+									        <div class="panel-body">
+                                       			<apex:outputpanel layout="none" id="openingOptions1" rendered="{!OR(NOT(ISNULL(service.Recurrence__c)), NOT(ISNULL(service.Days__c)), NOT(ISNULL(service.Start_time_Hours__c)), NOT(ISNULL(service.End_time_Hours__c)))}">
+	                                                <h4><small>For services with a regularly repeating timetable</small></h4>
+	                                                <c:row style="margin-top:1em;">
+														<c:column type="col-md-6">
+															<c:row >
+																<dl class="dl-horizontal">
+					                                                <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Recurrence__c.Label}</dt>
+					                                                <dd><apex:outputfield value="{!service.Recurrence__c}"/></dd>
+					                                            </dl>
+															</c:row>
+															<c:row >
+																<dl class="dl-horizontal">
+					                                                <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Days__c.Label}</dt>
+					                                                <dd><apex:outputfield value="{!service.Days__c}"/></dd>
+					                                            </dl>
+															</c:row>
+														</c:column>
+														<c:column type="col-md-6">
+															<c:row >
+																<dl class="dl-horizontal">
+	                                                                <dt>Start time (Hour)</dt>
+	                                                                <dd>{!service.Start_time_Hours__c} : {!service.Start_time_Minutes__c}</dd>
+	                                                            </dl>
+															</c:row>
+															<c:row >
+																<dl class="dl-horizontal">
+	                                                               <dt>End time (Hour)</dt>
+	                                                               <dd>{!service.End_time_Hours__c} : {!service.End_time_Minutes__c}</dd>
+	                                                        	</dl>
+															</c:row>
+														</c:column>
+													</c:row>
+	                                            </apex:outputpanel>
+	                                            <apex:outputpanel layout="none" id="openingOptions2" rendered="{!AND(NOT(ISNULL(service.Opening_times_Other__c)))}">
+	                                                <h4><small>For services with a non-standard timetable</small></h4>
+	                                                <c:row style="margin-top:1em;margin-bottom:1.5em;">
+	                                                    <c:column type="col-md-12">
+	                                                        <dl class="dl-horizontal">
+	                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Opening_times_Other__c.Label}</dt>
+	                                                            <dd><apex:outputfield value="{!service.Opening_times_Other__c}"/></dd>
+	                                                        </dl>
+	                                                    </c:column>
+	                                                </c:row>
+	                                            </apex:outputpanel>
+	                                            <apex:outputpanel layout="none" id="openingOptions3" rendered="{!AND(NOT(ISNULL(service.Further_contact_requirements__c)))}">
+	                                                <h4><small>For services which require contact</small></h4>
+	                                                <c:row style="margin-top:1em;">
+	                                                    <c:column type="col-md-12">
+	                                                        <dl class="dl-horizontal">
+	                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Further_contact_requirements__c.Label}</dt>
+	                                                            <dd><apex:outputfield value="{!service.Further_contact_requirements__c}"/></dd>
+	                                                        </dl>
+	                                                    </c:column>
+	                                                </c:row>
+	                                            </apex:outputpanel>
+											</div>
+                                        </div>
+                                        <c:panel title="Basic Description">
+                                            <c:formblock alignment="horizontal" style="margin-top:5px;padding:10px">
+                                                <c:row >
+                                                    <c:column type="col-md-12">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.service_description__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.service_description__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                </c:row>
+                                                
+                                                <c:row >
+                                                    
+                                                    <c:column type="col-md-12">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Service_Criteria__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Service_Criteria__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                
+                                                </c:row>
+                                                
+                                                <c:row >
+                                                    
+                                                    <c:column type="col-md-12">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Reach__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Reach__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                
+                                                </c:row>
+                                                
+                                            </c:formblock>
+                                            
+                                        </c:panel>
+                                    </div>
+                                    
+                                    <div role="tabpanel" class="tab-pane fade" id="Description" style="padding-top:1.5em;">
+                                        <c:panel title="Further Info">
+                                            <c:formblock alignment="horizontal" style="margin-top:5px;padding:10px">
+                                                <c:row >
+                                                    <c:column type="col-md-6">
+                                                        <dl class="dl-horizontal">
+                                                            
+                                                            <dt>
+                                                            	{!$ObjectType.DCE_ServiceAmend__c.fields.Primary_Contact_External__c.Label}<br/>
+                                                            	<span class="private">Private</span>
+                                                            </dt>
+                                                            <dd><apex:outputfield value="{!service.Primary_Contact_External__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                    <c:column type="col-md-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.service_website__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.service_website__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                </c:row>
+                                                
+                                                <c:row >
+                                                    
+                                                    <c:column type="col-md-12">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Funder_restriction__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Funder_restriction__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                    <c:column type="col-md-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.National_Service__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.National_Service__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                    <c:column type="col-md-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Referral_only__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Referral_only__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                
+                                                    <c:column type="col-md-12">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>
+                                                            	{!$ObjectType.DCE_ServiceAmend__c.fields.Getting_There__c.Label}<br/>
+                                                            	<span class="private">Private</span>
+                                                            </dt>
+                                                            <dd><apex:outputfield value="{!service.Getting_There__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                </c:row>
+                                                
+                                                <c:row >
+                                                    
+                                                    <c:column type="col-md-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>
+                                                            	{!$ObjectType.DCE_ServiceAmend__c.fields.Price__c.Label}<br/>
+                                                            	<span class="private">Private</span>
+                                                           	</dt>
+                                                            <dd><apex:outputfield value="{!service.Price__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                
+                                                </c:row>
+                                                <c:row >
+                                                    
+                                                    <c:column type="col-lg-3 col-sm-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Parking__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Parking__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                    <c:column type="col-lg-3 col-sm-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Refreshments__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Refreshments__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                    <c:column type="col-lg-3 col-sm-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Toilet_Facilities__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Toilet_Facilities__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                    
+                                                    <c:column type="col-lg-3 col-sm-6">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>{!$ObjectType.DCE_ServiceAmend__c.fields.Accessibility__c.Label}</dt>
+                                                            <dd><apex:outputfield value="{!service.Accessibility__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                </c:row>
+                                                <c:row >
+                                                    
+                                                    <c:column type="col-md-12">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>
+                                                            	{!$ObjectType.DCE_ServiceAmend__c.fields.Additional_Information__c.Label}<br/>
+                                                            	<span class="private">Private</span>
+                                                            </dt>
+                                                            <dd><apex:outputfield value="{!service.Additional_Information__c}"/></dd>
+                                                        </dl>
+                                                    </c:column>
+                                                </c:row>
+                                            </c:formblock>
+                                        </c:panel>
+                                    </div>
+                                </div>
+                            </c:panel>
+                        
+                                
+                        
+                        </c:column>
+                        <c:column type="col-md-1"/>
+                    </c:row>
+                    <c:modal title="Confirm" id="reviewedModal" html-role="dialog" html-aria-labelledby="confirmReview">
+                        <div class="modal-dialog" role="document">
+                            <div class="modalText">
+                                <p class="lead" id="confirmReview">Confirm service review</p>
+                                <p>By confirming that you have reviewed this service, you are confirming that all details on this service are correct.</p>
+                                <p>This service's "Last Reviewed" date will be updated to today.</p>
+                            </div>
+                            <span>
+                                <apex:commandButton value="Cancel" styleClass="btn-cancel" html-data-dismiss="modal"/>&nbsp;
+                                <apex:commandButton value="Confirm" action="{!reviewed}" html-data-dismiss="modal" rerender="theForm" styleClass="btn-success"/>
+                            </span>
+                        </div>
+                    </c:modal>
+                </apex:form>
+            </c:visualstrapblock>
+        </body>
+    </html>
+</apex:page>

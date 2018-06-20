@@ -1,0 +1,50 @@
+<apex:component >
+
+<div class="DESKTOP cDfcManageRepresentatives" >
+
+    <div>
+        <h3 >Community Representatives</h3>
+        <p ><span class="cDfcSnippet" ></span><span class="cDfcSnippet"><p>Please identify below any additional persons taking responsibility for managing this dementia-friendly community. This should be the individual(s) responsible for logging on and updating activity and completing the annual assessment requirements. This person/people will have access to edit this application until submission and will have access to manage the community on this website once approved in order to log activity. <b>NB:</b> we recommend that you have no more than&nbsp;two representatives for each community account.</p><!--render facet: 413:0--></span>
+        </p>
+
+        <c:DFC_Manage_Part4_RepCard />
+
+        <div class="user-card clearfix" role="form">
+        
+            <div class="add-rep">
+                <label>Email Address</label>
+
+                <input class="form-control input uiInput uiInputText uiInput--default uiInput--input" maxlength="100" type="email" placeholder="Add representative by email address" data-aura-rendered-by="425:0" ng-model="repInput.email" ng-disabled="repInput.showInvitation"/>
+                <button class="btn btn-primary" ng-click="onClickAddRepEmail()" ng-show="!repInput.showInvitation" ng-disabled="repInput.email==''">Add</button>
+                <span ng-show="repInput.addRepErrMessage != ''" class="cCsqValidationComponent cCsqValidateDate">
+                    {{repInput.addRepErrMessage}}     
+                </span>
+
+            </div>
+
+            <div ng-show="repInput.showInvitation">
+                <label>Name</label>
+
+                <input class="form-control input uiInput uiInputText uiInput--default uiInput--input" maxlength="100" type="text" aria-describedby="" placeholder="Enter the name of the person being invited" ng-model="repInput.name"/>
+
+            </div>
+
+            <div class="add-rep-text" data-aura-rendered-by="447:0">
+
+            </div>
+            <span ng-show="repInput.inviteRepErrMessage != ''" class="cCsqValidationComponent cCsqValidateDate" >
+                {{repInput.inviteRepErrMessage}}     
+            </span>
+            <div class="btn-group pull-right" ng-show="repInput.showInvitation">
+                <button class="btn btn-action" ng-click="onClickSendRepInvitation()">Invite</button>
+                &nbsp;
+                <button class="btn btn-action" ng-show="repInput.showInvitation" ng-click="onClickCancelInviteRep()">Cancel</button>
+
+            </div><span class="cCsqAlert"></span>
+
+        </div>
+
+    </div>
+
+</div>
+</apex:component>

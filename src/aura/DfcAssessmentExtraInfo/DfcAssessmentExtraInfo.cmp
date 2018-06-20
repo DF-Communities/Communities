@@ -1,0 +1,17 @@
+<aura:component >
+
+  <aura:attribute name="question" type="Object" access="GLOBAL"/>
+
+  <aura:attribute name="extraRequired" type="Boolean" access="GLOBAL"/>
+   <aura:attribute name="IE9" type="boolean" access="GLOBAL"/>
+  
+  <aura:handler name="init" value="{!this}" action="c.init"/>
+  <aura:handler name="change" value="{!v.question}" action="c.onAnswerChange"/>
+
+  <div class="{!v.extraRequired?'':'hide'}">
+     <label class="{!v.IE9?'':'hide'}" style="margin-top:10px">Please give further explanation</label> 
+    <ui:inputTextArea value="{!v.question.Extra_Information__c}" class="form-control further-information" updateOn="keyup" placeholder="Please give further explanation"/>
+  </div>
+  <c:CsqValidateRequired value="{!v.question.Extra_Information__c}" disregard="{! !v.extraRequired||!v.question.Capture_Extra_Required__c}" />
+
+</aura:component>

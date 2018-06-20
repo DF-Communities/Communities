@@ -1,0 +1,33 @@
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_NewOrgRequestController" title="Access Request Received - Dementia Connect" applyHtmlTag="false" applyBodyTag="false">  
+	<html>
+		<head>
+			<c:DCE_CSS />
+			<c:importvisualstrap />
+		</head>
+		<body>
+			<c:visualstrapblock >
+				<apex:form >
+					<c:row >
+						<c:column type="col-md-1"/>
+						<c:column type="col-md-10">
+							<c:panel >
+							<!--<c:row >
+									<c:column type="col-sm-4 hidden-xs">
+										<apex:image id="AZLogo" value="{!$Resource.DCE_AZLogo_Full}" width="100%" style="display:block;margin-left:auto;margin-right:auto;margin-top:2em;margin-bottom:2em;" alt="Alzheimers Society Logo"/>
+									</c:column>
+									<c:column type="col-ms-8">-->
+										<div class="sectionHeading">Thank you for submitting your request</div>
+										<br/><br/>
+										<p>The Dementia Connect team will review your request and will contact you with any questions they may have.</p>
+										<p>If you have any questions regarding your submission, please contact the Dementia Connect team on 020 7423 1043 or <a href="mailto:enquiries.dementiaconnect@alzheimers.org.uk?Subject=Dementia%20Connect%20portal%20query" target="_top">email us</a>.</p>
+								<!--</c:column>
+								</c:row>-->
+							</c:panel>
+						</c:column>
+						<c:column type="col-md-1"/>
+					</c:row>
+				</apex:form>
+			</c:visualstrapblock>
+		</body>
+	</html>
+</apex:page>

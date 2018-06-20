@@ -1,0 +1,1 @@
+<apex:page showHeader="false" sidebar="false" action="{!doAction}" controller="DF_WEBC_User_Home_Redirect_Controller"></apex:page>

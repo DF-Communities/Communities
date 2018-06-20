@@ -1,0 +1,38 @@
+<apex:component >
+    <apex:attribute name="question" description="" type="String" required="false" default=""   />
+    <apex:attribute name="otherText" type="String" description=""/>
+    <apex:attribute name="extraRequired" type="Boolean" description=""/>
+    <label class="required question-text">{{question.Question_Text__c}}</label>
+    
+    <div class="option-list">
+
+    <div ng-repeat="opt in question.Options__c" for="{{name}}" >
+      <label class="radioLabel">
+   
+       
+               <input type="radio" ng-model="question.Entered_Answer__c"   ng-value="opt"  id="{{opt}}" ng-change="question.Other_Selected__c=false;" ></input> 
+                {{opt}}    
+             
+        </label>
+     </div>
+
+     <div ng-show="question.Include_Other__c">
+     <label class="radioLabel dfc-other">
+    
+       <input type="radio" id="other"  ng-model="question.Entered_Answer__c" ng-value="question.otherText"
+       ng-change="question.Other_Selected__c=question.otherText!=null" />
+       <span ng-hide="question.Other_Selected__c || (question.otherText==question.Entered_Answer__c)">{{question.Other_Option_Label__c}}
+       </span> 
+        <span ng-show="question.Other_Selected__c || (question.otherText==question.Entered_Answer__c)" >
+       <input placeholder="please specify" ng-model="question.Entered_Answer__c"  ng-change="question.radioSelected.radioOption=question.Entered_Answer__c;question.otherText=question.Entered_Answer__c;"/>
+      </span>
+     </label><br/>
+     </div>
+    
+     <span ng-show="isSubmit && question.Entered_Answer__c==null" class="validation">Please select an option</span>
+ 
+     <c:DFC_AssessmentExtraInfo question="{{question}}"/>
+
+    </div>   
+    
+</apex:component>

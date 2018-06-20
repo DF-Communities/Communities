@@ -1,0 +1,58 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBChampion" action="{!loginRedirect}">
+    
+<c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+   
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />    
+
+     <div class="row clearfix">
+     <div class="col-sm-12">
+    
+     <div class="row clearfix">
+                
+     
+
+        <div class="col-md-9 column col-md-push-3">
+
+            <div class="well">           
+            <div id="message-center"></div>                    
+            <h1>Convert to a Dementia Friend</h1>
+
+            <h2>Are you sure you want to change?</h2>
+
+            
+                    <h3>What's involved in being a Friend?</h3>
+                
+               
+                    <div class="snippet snippet-rich_text rte">
+                        <ul class="status">
+                            <li>Live in England or Wales</li>
+                            <li>Be of any age</li>
+                            <li>Attend a Dementia Friends Information Session close to where you live, lasting about one hour</li>
+                            <li>Do something practical to help people living with dementia in your community</li>
+                            <li>Post your Dementia Friends action on the Dementia Friends website</li>
+                        </ul> 
+                    </div>        
+                    <apex:form >
+                        <apex:commandButton id="submit-button" value="Convert to Dementia Friend" styleClass="btn btn-primary" action="{!convertBackToFriend}" />
+                        <a class="arrow" href="/WEBArticle?page=what-is-a-friend">What is a Friend?</a>
+                    </apex:form>        
+                    
+        </div>
+        </div>
+
+        <c:DF_WEBC_ChampionNav activeValue="CONVERT" dfcW="{!dfcW}"/>
+                
+        </div>
+        </div>
+        </div>
+   
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+
+</apex:page>

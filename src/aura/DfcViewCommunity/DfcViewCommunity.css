@@ -1,0 +1,26 @@
+.THIS .nav-buttons {
+    padding:0 10px;
+    margin-top: 24px;
+    width:100%;
+    text-align:center; 
+}
+.THIS .nav-buttons button {
+    margin: 0 13px;
+}
+
+.THIS .fa-chevron-right {
+    padding-left:1em;
+}
+
+.THIS .fa-chevron-left {
+    padding-right:1em;
+}
+
+.THIS .noSelect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

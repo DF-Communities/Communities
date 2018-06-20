@@ -1,0 +1,33 @@
+<aura:component >
+    
+    <aura:attribute name="isNewMember" type="Boolean"/>
+    <aura:registerEvent name="DF_subsequentSessionEvt" type="c:DF_subsequentSessionEvt"/>
+        
+    <p class="collapse-setting">Thank you for submitting your request.</p>
+    
+    <aura:if isTrue="{!v.isNewMember}">
+            <p>You will receive a verification email with a link to verify your account. You must verify your account. 
+                Your Session request will not proceed until you have done this.</p>
+    </aura:if>
+    
+    <aura:if isTrue="{!!v.isNewMember}">
+        <p class="collapse-setting">Click the button below to submit another Session request for a different date/time.</p>
+    </aura:if>
+        <p class="collapse-setting">What happens next?</p>        
+        <ul class="collapse-setting">
+            <li>The team will review your request and, if approved, it will be sent out to Champions in the area to allow them to volunteer to deliver the Session. You will be notified when this happens.</li>
+            <li>If your request hasn’t been matched with a Champion 7 days prior to the Session date, the request will be closed and you will be notified. You can then submit another request with a later date if you wish.</li>
+            <li>You can login to your account and edit your request at any time – unless a Champion has already signed up to deliver it, in which case please liaise with the Champion directly.</li>
+        </ul>
+    
+    <aura:if isTrue="{!v.isNewMember}">
+            <p style="padding-below:15px;">Check your email for your verification link.</p>
+            
+            <aura:set attribute="else">
+                <div class="collapse-setting">
+                    <a class="btn-primary btn" onclick="{!c.handleSubsequentSessionRequest}">Request another Session</a>
+                </div>
+            </aura:set>
+    </aura:if>
+    
+</aura:component>

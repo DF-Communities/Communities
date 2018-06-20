@@ -1,0 +1,5 @@
+<aura:component extends="c:CsqStoreComponent" extensible="true" abstract="true" access="GLOBAL">
+	
+    <aura:attribute name="defs" type="Aura.Component[]"/>
+    
+</aura:component>

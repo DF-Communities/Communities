@@ -1,0 +1,20 @@
+<aura:component >
+    
+    <aura:attribute name="question" type="Object" access="GLOBAL"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+    
+    <label class="required question-text">{!v.question.Question_Text__c}</label>
+    <div class="option-list"> 
+      <aura:iteration items="{!v.question.Options__c}" var="opt">
+         <label class="radioLabel">
+            <ui:inputCheckbox text="{!opt}" change="c.onChange"/>
+            {!opt}
+         </label>   
+      </aura:iteration>
+    </div>   
+    <c:CsqValidateRequired value="{!v.question.Entered_Answer__c}" message="Please select at least one option"/>
+
+    <c:DfcAssessmentExtraInfo question="{!v.question}"/>
+
+</aura:component>

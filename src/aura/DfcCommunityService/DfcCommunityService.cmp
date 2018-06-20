@@ -1,0 +1,7 @@
+<aura:component extends="c:serviceComponent" controller="Dfc_CommunityServiceController">
+	
+    <c:repositoryService aura:id="repositoryService"/>
+    <c:CsqPromiseService aura:id="promiseService"/>
+    <c:CsqLodashService aura:id="lodashService"/>
+    
+</aura:component>

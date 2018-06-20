@@ -1,0 +1,70 @@
+<messaging:emailTemplate subject="Dementia Friends - Need any help planning Information Sessions?" recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+How are you? I’ve noticed you’ve not logged any Information Sessions in the past six months, so I wanted to get in touch to see if you needed any help to start running them again?
+<br/><br/>
+I’m aware your last Session was a little while ago now and there may be many various reasons why you haven’t been able to record another.  As your Dementia Friends Officer I’m here to support you and would love for you to get in touch.  If your situation has changed then let me know.  My direct contact details are at the bottom of this message.
+<br/><br/>
+Remember there are lots of resources at your disposal – from getting inspiration from the Champions Exchange, participating in one of our webinars or connecting with the different Session resources and tools on your dashboard.
+<br/><br/>
+<b>If you’ve been running Sessions recently</b>, then you’ve received this because they haven’t been logged on the Dementia Friends website.  To rectify this, please take a moment to log your past Sessions on the website – you can find a guide on the “Session Resources” page or I can talk you through the process if you get stuck.
+<br/><br/>
+I completely understand that life can be busy, so let me know if your plans have changed, if you feel differently about volunteering or if you need to take a break. As your Dementia Friends Officer you can find my contact details at the bottom of this email. I’m sorry if you’ve been in touch since the last message – remember you are receiving this as there hasn’t been any activity on your account for a while.
+<br/><br/>
+Thank you for making such a big difference so far, and I look forward to supporting you with your next Session. I’ll send you another message in a couple of months if there hasn’t been any further activity on your account.
+<br/><br/>
+Best wishes,<br/>
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Regional Support Officer - Dementia Friends<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+{!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+{!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+
+<a href= "http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a><br/><br/>
+
+This email has come from a ‘noreply’ address via our website. My direct contact details are above, so feel free to get in touch.
+<br/><br/>
+Email Id:TEREF13
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+How are you? I’ve noticed you’ve not logged any Information Sessions in the past six months, so I wanted to get in touch to see if you needed any help to start running them again?
+
+I’m aware your last Session was a little while ago now and there may be many various reasons why you haven’t been able to record another.  As your Dementia Friends Officer I’m here to support you and would love for you to get in touch.  If your situation has changed then let me know.  My direct contact details are at the bottom of this message.
+
+Remember there are lots of resources at your disposal – from getting inspiration from the Champions Exchange, participating in one of our webinars or connecting with the different Session resources and tools on your dashboard.
+
+If you’ve been running Sessions recently, then you’ve received this because they haven’t been logged on the Dementia Friends website.  To rectify this, please take a moment to log your past Sessions on the website – you can find a guide on the “Session Resources” page or I can talk you through the process if you get stuck.
+
+I completely understand that life can be busy, so let me know if your plans have changed, if you feel differently about volunteering or if you need to take a break. As your Dementia Friends Officer you can find my contact details at the bottom of this email. I’m sorry if you’ve been in touch since the last message – remember you are receiving this as there hasn’t been any activity on your account for a while.
+
+Thank you for making such a big difference so far, and I look forward to supporting you with your next Session. I’ll send you another message in a couple of months if there hasn’t been any further activity on your account.
+
+Best wishes,
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Regional Support Officer - Dementia Friends
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}
+{!relatedTo.DF_Region__r.RSO__r.Email}
+{!relatedTo.DF_Region__r.RSO__r.phone}
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+
+This email has come from a ‘noreply’ address via our website. My direct contact details are above, so feel free to get in touch.
+
+Email Id:TEREF13
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

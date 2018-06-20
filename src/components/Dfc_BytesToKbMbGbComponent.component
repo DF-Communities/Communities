@@ -1,0 +1,22 @@
+<apex:component controller="Dfc_BytesToKbMbGbComponentController">
+
+			  <apex:attribute name="componentValue1" 
+							  description="Number to convert to Kb Mb Gb sizes" 
+							  type="String" 
+							  required="required" 
+							  assignTo="{!fileSize}"/>
+
+			  <apex:attribute name="componentValue2" 
+							  description="Content Type" 
+							  type="String" 
+							  required="required" 
+							  assignTo="{!fileType}"/>	
+
+				<apex:attribute name="componentValue3" 
+							  description="Content Type" 
+							  type="String" 
+							  required="required" 
+							  assignTo="{!fileName}"/>({!fileSize})   
+	
+
+</apex:component>

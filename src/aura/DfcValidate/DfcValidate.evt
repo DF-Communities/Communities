@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="When fired will cause all validation components to perform theie validation" >
+    
+    <aura:attribute name="group" type="Object"/>
+    
+</aura:event>

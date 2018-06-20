@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Action to make a specific view visible">
+    
+    <aura:attribute name="viewId" type="String"/>
+    
+</aura:event>

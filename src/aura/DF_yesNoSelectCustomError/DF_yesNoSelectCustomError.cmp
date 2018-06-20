@@ -1,0 +1,28 @@
+<aura:component extends="c:STD_yesNoSelect">
+	
+    <aura:handler name="DF_yesNoErrorEvt" event="c:DF_yesNoErrorEvt" action="{!c.handleCustomError}" includeFacets="true" phase="bubble"/>
+    
+    <aura:attribute name="useSlds" type="Boolean" default="false" description="This value will be taken from the application event when the app first loads"/>
+    <aura:attribute name="sldsOverride" type="Boolean" description="If this optional attribute is set then the boolean value will override the value of attribtue 'useSlds'"/>
+    <aura:handler event="c:SldsVsCustomStylingEvt" value="{!this}" action="{!c.setStylingFramework}"/>
+    <aura:registerEvent name="STD_yesNoSelectEvt" type="c:STD_yesNoSelectEvt" />
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    
+    <aura:method name="getAllParams" action="{!c.validateAndGetParams}"/>
+    <!--aura:handler name="init" value="{!this}" action="{!c.doInit}"/-->
+    <!--aura:handler event="c:sldsVsCustomStylingEvt" action="{!c.setStyleFramework}"/>
+    <aura:attribute name="useSlds" type="Boolean" default=""/-->
+    <aura:attribute name="value" type="String" default="Please select..."/>
+    <aura:attribute name="uiCompatValue" type="String" default="Please select..."/>
+
+    
+    <aura:attribute name="name" required="yes" type="String" default="Placeholder: YesNo Selection"/>
+    <aura:attribute name="label" required="yes" type="String" default="Yes/No"/>
+    <aura:attribute name="showDependentFieldWhenSelected_Option" type="String" default="false"/>
+    <aura:attribute name="required" type="Boolean" default="false"/>
+    <aura:attribute name="returnSelectionAsBoolean" type="Boolean" default="false"/>
+    
+    
+    
+</aura:component>

@@ -1,0 +1,219 @@
+<apex:page showHeader="false" sidebar="false" controller="CkePackRequestController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false" cache="false" expires="604800">
+   <apex:variable value="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" var="baseUrl"/>
+   <html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+      <head> 
+         <c:Cke_CommonHead />
+         <c:Cke_WebMainNav pageUrl="request-a-pack"/>
+         <title>Sign up to Cupcake Day – Alzheimer’s Society</title>
+         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+         
+             <style> 
+                .show-errors input.invalid,
+                .show-errors input.ng-invalid, 
+                .show-errors select.invalid,
+                .show-errors select.ng-invalid {
+                border: 1px solid red;   
+                box-shadow: none;
+                }
+                span.active, 
+                span.invalid {
+                display: inline-block !important;
+                } 
+                .waiting {
+                opacity:0.6;ie9
+                }
+                .navigation--main {
+                z-index: 999999;
+                }   
+            
+        </style>
+         
+      </head>
+      
+      <body class="sub">
+         <c:Cke_CommonBody pageUrl="request-a-pack" inclFbookShare="false"/>
+         <!--c:Cke_WebMainNav pageUrl="request-a-pack"/-->
+         <main ng-app="ckepack" ng-controller="RootController" ng-class="{'show-errors':showErrors}" ng-cloak="ng-cloak">
+            <div class="form">
+               <article id="form" >
+                  <div class="container">
+                     <div id="responsive-spacer"></div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           <h2>
+                              <c:EdtText group="cke-packrequest" key="intro-title-1" context="{!edtContext}" text="Sign up to host a Cupcake Day"/>
+                           </h2>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12 spacer">
+                           <p>
+                              <c:EdtText group="cke-packrequest" key="intro-text-1a" context="{!edtContext}" text="Ready to start fundraising to beat dementia? Fill in the form below to order your fundraising kit."/>
+                           </p>
+                           <p>
+                              <c:EdtText group="cke-packrequest" key="intl-message" context="{!edtContext}" text='Not in the UK? You can still take part. Email us at <a href="mailto:cupcakeday@alzheimers.org.uk">cupcakeday@alzheimers.org.uk</a> and we’ll email you a fundraising kit.'/>
+                           </p>
+                        </div>
+                        <input type="hidden" id="refererUrl" data-ng-model="data.referrerHeader" ng-init="data.refererHeader='{!refererHeaderUrl}'"/>
+                     </div>
+                  </div>
+                  <form name="form" novalidate="novalidate" ng-class="{waiting:waiting}">
+                     <article class="bring">
+                        <div class="container-bt">
+                           <div class="white">
+                              <div class="container">
+                                 <div class="row">
+                                    <div class="col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
+                                       <p>
+                                          <c:EdtText group="cke-packrequest" key="intro-text-1b" context="{!edtContext}" text='<div contenteditable>Fields marked <span style="color: red; font-weight: bold">*</span> are required</div>'/>
+                                       </p>
+                                       <h2>
+                                          <c:EdtText group="cke-packrequest" key="intro-title-2" context="{!edtContext}" text="About you"/>
+                                       </h2>
+                                       <fieldset>
+                                          <div class="form-group">
+
+                                             <div class="col-xs-12">
+                                                <label for="location">Where are you holding your Cupcake Day?</label>
+                                                 
+                                                <select name="locationSelect" id="location" class="form-control" ng-required="false" ng-model="data.locationSelect" 
+                                                ng-init="data.locationSelect = locationValues[0]" data-ng-pattern="'^((?!Please select).)*$'" 
+                                                ng-change="onLocationSelectChange()" ng-disabled="waiting" ng-blur="quickSave()" 
+                                                ng-options="option.name for option in locationValues">
+                                                </select>
+                                             </div>
+                                             <div class="col-md-12 col-sm-12 col-xs-12" ng-show="isLocationWork">
+                                                 <input type="text" name="company-name" placeholder="Company name" 
+                                                 data-ng-model="data.companyName" class="form-control" maxlength="60"/> 
+                                                 <!--span>
+                                                    <i class="fas fa-question-circle tooltiptext red-tooltip" data-toggle="tooltip" data-placement="right" title="{!companyTooltip}"></i>    
+                                                 </span-->
+                                                 <p>{!companyTooltip}</p>
+                                             </div>
+                                             
+                                          </div>
+                                          <c:Cke_PersonalDetails showDob="true"/>
+                                       </fieldset>
+                                       
+                                       <div class="clearfix"></div>
+                                       <div class="col-md-4 col-md-push-4 col-sm-6 col-sm-push-3 col-xs-12"><hr class="blue"/></div>                                        
+                                       <div class="clearfix"></div>
+                                       
+                                        <div class="col-lg-7 col-md-7 col-sm-10 col-xs-10" style="padding-left:0px">
+                                            <h2>Your address {{ie9?'(enter postcode)':''}}</h2>
+                                        </div>
+                                        
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <fieldset>
+                                                <c:Cke_AddressFinder />
+                                                <div class="col-md-12 col-sm-12 col-xs-12" ng-show="{active:form.postcode.$invalid&&(form.postcode.$touched || showErrors)}">
+                                                    <span ng-class="{active:form.postcode.$invalid&&(form.postcode.$touched || showErrors)}" class="ui-state-error message">Invalid UK post code or foreign postcode entered. Unfortunately we're unable to send Fundraising Kits abroad. Please email cupcakeday@alzheimers.org.uk and we will email you a Fundraising Kit.</span>                                                                                                                           
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                       
+                                       <div class="clearfix"></div>
+                                       <div class="col-md-4 col-md-push-4 col-sm-6 col-sm-push-3 col-xs-12"><hr class="blue"/></div>                                        
+                                       <div class="clearfix"></div>
+                                        <div class="col-lg-10 col-md-11 col-sm-10 col-xs-10" style="padding-left:0px">
+                                            <h2>
+                                                <c:EdtText group="cke-payment" key="intro-title-3" context="{!edtContext}" text="Connection to dementia"/>
+                                            </h2>
+                                        </div>
+                                        <!--div class="col-lg-2 col-md-1 col-sm-2 col-xs-2">
+                                            <i class="fas fa-question-circle tooltiptext red-tooltip" data-toggle="tooltip" data-placement="right" title="{!proximityTooltip}"></i>    
+                                        </div-->
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div style="padding-bottom:20px">
+                                                <p>{!proximityTooltip}</p>
+                                            </div>
+                                            <fieldset>
+                                                <c:Cke_ProximityQuestions />
+                                            </fieldset>
+                                        </div>
+                                       
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-4 col-md-push-4 col-sm-6 col-sm-push-3 col-xs-12"><hr class="blue"/></div>                                        
+                                        <div class="clearfix"></div>
+                                        
+                                        <div class="col-lg-10 col-md-11 col-sm-10 col-xs-10" style="padding-left:0px">
+                                            <h2>
+                                                <c:EdtText group="cke-packrequest" key="intro-title-4" context="{!edtContext}" text="How can we contact you?"/>
+                                            </h2>
+                                        </div>
+                                        <!--div class="col-lg-2 col-md-1 col-sm-2 col-xs-2">
+                                            <i class="fas fa-question-circle tooltiptext red-tooltip" data-toggle="tooltip" data-placement="right" title="{!proximityTooltip}"></i>    
+                                        </div-->
+                                        
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <fieldset>
+                                                <c:EdtText group="cke-packrequest" key="intro-text-4a" context="{!edtContext}" text="We&#x2019;d love to stay in touch with news on future Cupcake Days and everything we&#x2019;re doing to lead the fight against dementia; from fundraising, campaigning, services and research to volunteering. We may also contact you to ask for feedback about your experience.<br/><br/>"/>
+                                                <c:EdtText group="cke-packrequest" key="intro-text-4b" context="{!edtContext}" text='We will never sell your details to third parties. Find out more about how we use your personal information in our <a href="https://www.alzheimers.org.uk/legal-information/personal-data#content-start" target="_blank">privacy policy</a>.<br/><br/>'/>
+                                                <c:EdtText group="cke-packrequest" key="intro-text-4c" context="{!edtContext}" text='You change what you receive from us at any time. Just call Customer Care on 0330 333 0804.<br/><br/>'/>                                                
+                                                <c:Cke_OptInContactOptions />
+                                                <c:EdtText group="cke-packrequest" key="intro-text-4d" context="{!edtContext}" text='By signing up to Cupcake Day you are agreeing to our <a href="terms-and-conditions" target="_blank"><strong>terms and conditions</strong></a>.'/>
+                                            </fieldset>
+                                        </div>
+                                     </div>
+                                 </div>
+                                 <div class="row center" style="padding-bottom:0px;">
+                                    <div class="col-md-4 col-md-push-4 col-sm-6 col-sm-push-3 col-xs-12">
+                                       <button type="submit" name="submit" value="submit" class="btn btn-primary btn-signup" ng-click="submitPackRequest()" ng-show="!waiting">
+                                          <c:EdtText group="cke-packrequest" key="submit-button-text" context="{!edtContext}" text="Sign up now" hideEditPrompt="true"/>
+                                       </button>
+                                       <span class="btn btn-form wait data-ng-cloak" data-ng-show="waiting">Processing request <img src="{!$Resource.cke_wait_gif}"/></span>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                       <span class="ui-state-error message body" ng-class="{active:alert}">{{alert}}</span>
+                                    </div>
+                                 </div>
+                                 <div id="responsive-spacer"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </article>
+                  </form>
+               </article>
+            </div>
+         </main>
+         <c:Cke_CommonFooter />
+         <c:Cke_CommonScripts />
+          
+          <link rel="stylesheet" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=HP48-DU78-YK99-MZ87"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>   
+         <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=HP48-DU78-YK99-MZ87"></script>
+         <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+         <script>
+            var baseUrl = '{!baseUrl}';
+            var sessionId = '{!$Api.Session_ID}';
+            var id ='{!$CurrentPage.parameters.id}';
+            //var dateVar = Modernizr.inputtypes.date;
+            
+            $('#testTip').on('click',function(event){alert('clicked tooltip')});
+            
+                
+            if (typeof Sarissa!='undefined'&&Sarissa.originalXMLHttpRequest) pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+                 
+             // Include Home Nation in the return object    
+             var pcafields = [
+                   { element: "addressfinder", field: "" }, 
+                   { element: "country", field: "{HomeNation}" }, 
+             ];
+            
+             var pcaoptions = { key:"JC46-CM31-FG25-ZB91", countries: { codesList: "GBR" }, culture:"en_GB" }
+             var pcacontrol = new pca.Address(pcafields, pcaoptions);
+             pcacontrol.listen("load", function(){pcacontrol.setCountry("GBR");});
+             
+             var app = angular.module('ckepack', []);
+             
+             
+             //app.constant("Modernizr", Modernizr);
+                
+         </script>  
+         <script src="{!$Resource.cke_requests_js}"></script>     
+         <script src="{!$Resource.cke_action_service_js}"></script>      
+      </body>
+   </html>
+</apex:page>

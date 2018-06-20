@@ -1,0 +1,25 @@
+<aura:component >
+	
+    <aura:attribute name="communityState" type="String"  access="GLOBAL"/>
+    <aura:attribute name="resources" type="Object[]"  access="GLOBAL"/>
+    
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    
+    <c:DfcResourceStore change="c.onResourceStoreChange"/>
+    <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+    
+    <h3>Help and Resources</h3> 
+    
+    <p>  <c:DfcSnippet group="dfc_help" key="dfc-resources-intro"/> </p>
+    
+    <div>
+      <aura:iteration items="{!v.resources}" var="res">
+        <div class="dfc-res">
+          <h4>{!res.Title__c}</h4>
+          <div><aura:unescapedHtml value="{!res.Description__c}"/></div>
+          <a href="{!res.file.downloadLink}" target="_blank">Download ({!res.file.lengthString})</a>  
+        </div>
+     </aura:iteration>
+    </div>
+    
+</aura:component>

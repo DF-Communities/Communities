@@ -1,0 +1,17 @@
+<apex:component controller="DF_Mail_PopulateCourseDetails" access="global">
+
+<apex:attribute type="ID" name="ToID"  description="the DF Contact ID" assignTo="{!dfcontactID}" />
+{!CourseDetails.DF_Event__r.Street__c}
+{!CourseDetails.DF_Event__r.City__c}
+{!CourseDetails.DF_Event__r.County__c}
+{!CourseDetails.DF_Event__r.Postcode__c}
+
+
+<apex:outputText label="Event Date" value="{0,date,dd MMMM yyyy  'between' HH:mm,'Europe/London'}">
+<apex:param value="{!CourseDetails.DF_Event__r.Event_Date_Time__c+offset}"/>
+</apex:outputText> and <apex:outputText label="Event Date" value="{0,date, HH:mm}">
+<apex:param value="{!CourseDetails.DF_Event__r.Event_End_Date_Time__c+offset}"/>
+</apex:outputText>
+
+
+</apex:component>

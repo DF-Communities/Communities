@@ -1,0 +1,39 @@
+.THIS.step-container
+{
+    width:100%;
+    padding:0 0 1em 0;
+    margin:0 0 2em 0;
+}
+
+.THIS .step-tile
+{ 
+    position:relative;
+    float:left;
+    width:15%;
+    margin: 0 14px 10px 0;
+}
+
+.THIS .step,
+.THIS .step-active
+{
+    min-height: 120px;
+    width:100%;
+    border: 1px solid white;
+}
+
+.THIS .step:hover
+{
+  border: 1px solid #285987;
+}
+
+.THIS .step-tile .badge {
+	position:absolute;
+    top:-4px;
+    right:-2px;
+    padding: 5px 7px;
+    background-color: #CE3C39;
+}
+
+.THIS .step-tile .badge.dfc-badge-ok {
+    background-color: #0CA90C;
+}

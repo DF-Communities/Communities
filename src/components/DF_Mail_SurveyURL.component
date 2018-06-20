@@ -1,0 +1,12 @@
+<apex:component controller="DF_Mail_PopulateSurveyURL" access="global">
+
+    <apex:attribute type="ID" name="ToID"  description="the DF Contact ID" assignTo="{!dfcontactID}" />
+       
+   
+    
+   <apex:outputText value="{!Attendees.DF_Event__r.RSO__r.Survey_URL__c}"/>
+  
+   
+   
+
+</apex:component>

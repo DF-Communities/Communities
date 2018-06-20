@@ -1,0 +1,87 @@
+<apex:component controller="DF_EventsCommonController">
+    <apex:attribute name="isRequestedSession" type="Boolean" description="" assignTo="{!isRequestedInfoSession}" required="true"/>
+    <apex:attribute name="events" type="DF_Event__c[]" description="" assignTo="{!dfEvents}" required="true"/>
+    <apex:attribute name="dfContactId" type="String" description="" assignTo="{!dfcId}" required="true"/>
+    <apex:attribute name="forceCountOnLoad" type="Boolean" description="" assignTo="{!showListing}" required="true"/>
+    <apex:attribute name="isChampion" type="Boolean" description="" assignTo="{!isChamp}" required="true"/>
+	
+    <apex:outputPanel layout="none" rendered="{!OR(isChampion, AND(!isChampion, events.size >0))}" >
+    <div class="col-md-12 column">
+        
+        <h4>{!IF(isRequestedInfoSession,"Requested ","")} Sessions awaiting reporting</h4>
+        
+        <apex:outputPanel rendered="{!IF(noEvents>0,'true','false')}" >
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    
+                    <tbody>
+                        
+                        <apex:repeat value="{!dfEvents}" var="event">
+                                                        
+                            <tr class="">                        
+                                
+                                <td class="col-xs-12 single-cell">
+                                    
+                                    <div class="col-md-4 col-sm-12 col-xs-12">   
+                                        <strong><apex:outputField value="{!event.Event_Date_Time__c}"/></strong>
+                                    </div>
+                                    
+                                    <div class="col-lg-5 col-md-5 col-sm-7-sm hidden-xs">           
+                                        <span class="col-xs-12 col-md-4">Location:</span>
+                                        <span class="col-xs-12 col-md-8"><strong>{!event.City__c}</strong>, <strong>{!event.Postcode__c}</strong></span>
+                                        
+                                        <span class="col-xs-12 col-md-4">Link:</span>
+                                        <span class="col-xs-12 col-md-8"><a href="WEBSessionDetails?id={!event.Id}" target="_blank" title="Opens in new window">
+                                            {!event.Name}
+                                            </a></span>
+                                        
+                                    </div>           
+                                    
+                                    <apex:outputPanel rendered="{!event.Event_Status__c == 'Completed' && 
+                                                                ((event.Session_Requester__c == dfcId && !event.Host_Feedback_Submitted__c)
+                                                                ||(event.Session_Requester__c != dfcId && !event.Champion_Feedback_Submitted__c))}">
+                                        <div class="col-lg-3 col-md-3 col-sm-10 hidden-xs btn-group">
+                                            <a class="btn-primary btn-xs" href="WEBSessionFeedback?eventId={!event.Id}">Tell us how the Session went</a>
+                                        </div>
+                                    </apex:outputPanel>
+                                    
+                                    <div class="hidden-md hidden-lg hidden-sm col-xs-12">           
+                                        <strong>{!event.City__c}</strong>, <strong>{!event.Postcode__c}</strong><br/>                                                
+                                        <a href="WEBSessionDetails?id={!event.Id}" style="overflow-wrap: break-word;" 
+                                           target="_blank" title="Opens in new window">
+                                            {!event.Name}
+                                        </a><br/>
+                                    </div>       
+                                    
+                                    <apex:outputPanel rendered="{!(event.Session_Requester__c = dfcId && event.Host_Feedback_Submitted__c = true)
+                                                                ||(event.Session_Organiser__c = dfcId && event.Champion_Feedback_Submitted__c = true)}">
+                                        <div class="hidden-lg hidden-md hidden-sm col-xs-12">
+                                            <a class="btn-primary btn-xs fdback-done" href="#">Session feedback submitted</a>
+                                        </div>
+                                    </apex:outputPanel> 
+                                    
+                                    <apex:outputPanel rendered="{!(event.Session_Requester__c = dfcId && event.Host_Feedback_Submitted__c = false)
+                                                                ||(event.Session_Organiser__c = dfcId && event.Champion_Feedback_Submitted__c = false)}">
+                                        <div class="hidden-lg hidden-md hidden-sm col-xs-12" style="margin-top:15px;">
+                                            <a class="btn-primary btn-xs" href="WEBSessionFeedback?eventId={!event.Id}">Tell us how the Session went</a>
+                                        </div>
+                                    </apex:outputPanel>
+                                    
+                                </td>
+                                
+                            </tr> 
+                            
+                        </apex:repeat>                                
+                        
+                    </tbody>
+                </table>
+            </div>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!IF(noEvents<1,'true','false')}" >
+            <div class="alert alert-info"> You have no Sessions requiring reporting. </div>
+        </apex:outputPanel>
+        
+    </div> 
+    </apex:outputPanel>
+</apex:component>

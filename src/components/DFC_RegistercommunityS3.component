@@ -1,0 +1,81 @@
+<apex:component >
+ <style type="text/css">
+ @media (max-width: 767px) {
+ .user-card {
+    padding: 15px 10px 10px 10px;    
+  }
+
+  
+
+.user-card label {
+    display: block;
+    margin: 8px 0 2px 0;
+}
+
+
+.user-card input[type="text"] {
+    margin-bottom:4px;
+    width: 100%;
+} 
+}
+ </style>
+
+ 
+  <h3>Community Representatives</h3>
+
+
+  <p>
+   <c:DFC_PageSnippets uniqueKey="dfc-apply-representatives-intro" group="dfc_apply"/>
+   </p>
+  <div ng-repeat="rp in reps">
+   <div class="user-card" ng-class="{hide :repRemoved===true}">
+    <span ng-hide="community.Status__c=='Requested'">  
+    
+    <button ng-show="currentContact!=rp.Dfc" style="float:right" id="{rp.Id}" class="btn btn-primary" ng-click="handleDelete(rp.Id); repRemoved=true"  >Remove</button>
+    </span>
+                <div><label>Name</label><span >{{rp.Name}}</span></div>
+                <div><label>Email Address</label><span >{{rp.Email}}</span></div>
+                <div><label>Status</label><span >{{rp.Role}}</span></div>
+      
+      </div>
+     </div>
+   
+  <span ng-hide="community.Status__c=='Requested'">
+    <form name="adduser" novalidate="novalidate">
+     <div class="user-card clearfix" >
+    
+               <div class="add-rep">
+                   <label>Email Address</label>
+                   <input type="text" class="form-control" id="emailAddress" ng-model="inviteemail" placeholder="Add another representative by email address"  ng-keyup="newRepText=null;invitename='';isInvite=false;invitenameerror=false;"  maxlength="100"/>
+                   <button  class="btn btn-primary" ng-hide="isInvite"  id="btn" ng-click="handleReps()" onclick="return false;" ng-disabled="inviteemail==null || inviteemail==''">Add</button>
+                   
+              
+               <div ng-show="isInvite && inviteemail!=''" class ="form-group required" id="name-input">
+                   <label>Name</label>
+                   <input  type="text" class="form-control" id="nameinput"  maxlength="100" ng-model="invitename" placeholder="Enter the name of the person being invited "/>
+                    <span ng-show="invitenameerror" class="validation">Please enter the name of the invited representative </span>
+                </div>
+                <div>
+                <span id="rep-exist" ng-show="newRepText!=null && inviteemail!='' " class="add-rep-text">
+                  {{newRepText}}
+                </span>
+                </div>
+                <div id="rep-text" ng-show="isInvite && inviteemail!=''" class="add-rep-text">
+
+                    <p>There is no registered user with this email address but you can add the user's name and invite them to register</p>
+                </div>
+                <div class="btn-group pull-right" role="group"  aria-label="Invite Options" ng-show="isInvite">
+                    <button class="btn btn-primary" id="invitebtn" ng-click="handleInvites()" onclick="return false;">Invite</button>&nbsp;
+                    <button class="btn btn-action" id="cancelbtn" ng-click="handleCancel()" onclick="return false;">Cancel</button>
+                </div>    
+                </div>
+          </div>
+      </form>
+    </span>
+
+
+
+
+
+
+</apex:component>

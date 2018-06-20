@@ -1,0 +1,134 @@
+<apex:page showHeader="false" sidebar="false" controller="LightningUtils" action="{!getLightningHostUrl}"> 
+    <head> 
+        <c:DF_WEBR_WebMeta /> 
+        <script>
+        function a() {console.log('mouseout working');}
+        </script>
+    </head> 
+    
+    <style> span {
+        color: #a94442;
+    }
+    
+    </style> <style> .df-background {
+        background-color: #F4F4F4; 
+    }
+    
+    html {
+        background-color: #F4F4F4;
+    }
+    
+    #street1-error,
+    #city-error,
+    #postcode-error {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        color: rgb(115, 115, 115);
+    }
+    
+    p[id$='error'] {
+        margin-top: 5px !important;
+        margin-bottom: 10px !important;
+        color: #a94442 !important;
+        font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+        line-height: 1.429em;
+        font-size: 14px;
+    }
+    
+    .has-error .form-control {
+        border-color: #a94442;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    }
+    
+    input:invalid {
+        border-color: #a94442;
+    }
+    
+    .pca .pcanotification.pcaerror {
+        top: 10px !important;
+    }
+    
+    pcatext pcanotification pcafade {
+    	display:none;
+    }
+    
+    .pcavisible {
+        display:none;
+    }
+    
+    ul.videoOptions {
+        list-style-type: none;
+    }
+    
+    ul.videoOptions li {
+        list-style-image: none;
+    }
+    
+    .ui-dialog .ui-dialog-content {
+        font-family: arial;
+    }
+    
+    @media (min-width: 30em) {
+        .slds-form--inline .slds-form-element,
+        .slds-form--inline .slds-form-element__control,
+        .slds-form--inline .slds-form-element__label {
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 0;
+        }
+    }
+    
+    @media (min-width: 30em) {
+        .slds-form--inline .slds-form-element {
+            margin-right: .5rem;
+        }
+    }
+    
+    span.required {
+        color: #a94442;
+    }
+    
+    .control-label {
+        padding-left: 0px;
+    }
+    
+    .fLabel {
+        padding-left: 0px;
+        font-weight: 700;
+    }
+    
+    .zero-indent {
+        padding-left: 0px;
+        margin-bottom: 18px;
+    }
+    
+    </style> 
+    
+    <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=re97-ug16-rb84-cd62"></script> 
+    <link rel="stylesheet" type="text/css" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=re97-ug16-rb84-cd62" /> 
+        <div class="row df-background">
+            <div class="col-md-12"> 
+                <div class="row"> 
+                    <div class="col-md-8 column"> 
+                        <c:StandardAddressEntryBlock ltngCmpOriginUrl="{!ltngCmpOriginUrl}"/> 
+                    </div> 
+                 </div> 
+             </div> 
+        </div> 
+    
+   <script> 
+                                                        
+    	window.addEventListener("message", function(event) {
+
+            var lexOrigin='https://' + '{!ltngCmpOriginUrl}';
+            if (event.origin !==lexOrigin) {
+                // Not the expected origin: reject message!
+                return;
+            }
+            // Handle message
+            var addressIsValid=doValidation(false); // Method in component
+        }
+    	, false);
+	</script> 
+</apex:page>

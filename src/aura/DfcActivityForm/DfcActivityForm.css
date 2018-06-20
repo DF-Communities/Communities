@@ -1,0 +1,77 @@
+.THIS .cCsqValidationComponent {
+    margin: 0px 8px 10px 0;
+}
+
+.THIS input::-moz-placeholder {
+	font-size:14px;
+    font-weight:normal;
+}
+
+.THIS input:-ms-input-placeholder {
+	font-size:14px;
+    font-weight:normal;
+}
+
+.THIS input::-webkit-input-placeholder {  
+	font-size:14px;
+    font-weight:normal;
+}
+
+.THIS input {
+    padding:6px !important;
+    height:auto !important;
+    margin-bottom: 8px;
+    border: 1px solid #c0c0c0;
+}
+
+.THIS textarea {
+    max-width:100%;
+}
+
+.THIS .heading {
+    display:inline-block;
+    font-size: 20px;
+    padding-bottom:10px;
+}
+
+.THIS.PHONE .heading {
+    font-size: 16px;
+    padding-bottom:6px;
+}
+
+.THIS .dfc-activity {
+    margin-bottom:18px !important;
+}
+
+.THIS label {
+    color: #666;
+    margin-bottom:2px;
+}
+
+.THIS DESKTOP select {
+	padding-top:10px !important;
+    width: 74%;  
+    border: 1px solid #c0c0c0;
+    color: #330000;
+    margin-bottom:8px;
+}
+
+.THIS .select-focus-area {
+    width:73%;
+    height:33px !important;
+    margin-top:0px;
+    margin-bottom:8px;
+}
+
+.THIS.PHONE select {
+    width: 100%;
+}
+
+.THIS .date-separator {
+    padding: 0px 10px 0px 10px;
+}
+
+.THIS .csq-date  {
+    width: 14em;
+    display:inline;
+}

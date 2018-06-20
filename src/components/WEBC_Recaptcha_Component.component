@@ -1,0 +1,40 @@
+<apex:component controller="WEBC_RecaptchaHandler">
+
+
+     <!-- reCAPTCHA CODE -->
+     <script type="text/javascript">
+         var RecaptchaOptions = {"theme":"white","lang":"en"};
+     </script>
+
+     <div class="form-group required">
+         
+         <label for="recaptcha_response_field" class="control-label col-md-3">
+         Type the characters you see in the picture
+         </label>
+
+         <div class="form-group col-md-8">
+         <!-- reCAPTCHA verification 
+              Source: https://developers.google.com/recaptcha/docs/display -->
+
+         <script type="text/javascript"
+             src="//www.google.com/recaptcha/api/challenge?k={!publicKey}">
+         </script>
+
+         <noscript>
+             <iframe src="//www.google.com/recaptcha/api/noscript?k={!publicKey}"
+             height="300" width="500" frameborder="0"></iframe><br/>
+             <textarea name="recaptcha_challenge_field" rows="3" cols="40" class="form-control"></textarea>
+             <!-- <apex:inputText value="{!response}"/> -->
+             <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+         </noscript>
+
+         <!-- end reCAPTCHA verification -->
+         <span id ="reCAPTCHAError" value="" class="help-block"></span>
+
+         </div>
+
+     </div>
+     <!-- END OF reCAPTCHA CODE -->
+
+
+</apex:component>

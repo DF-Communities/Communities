@@ -1,0 +1,322 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="DF_WEBC_EditPartnerDetailsController" action="{!loginRedirect}">
+
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+    
+    <c:DF_WEBR_WebMeta />
+    <style>
+
+    .form-group .radio input { margin-left : 0px; }
+    .form-group .radio td { padding-right : 10px; }
+    .datepicker.dropdown-menu { background : #ccc;}
+    .form-inline .select-group label { padding-left : 0px;}
+    .form-inline .select-group { margin-right: 25px ;}
+    
+    
+    label.fLabel { 
+    padding: padding-left: 0px;
+    padding-bottom: 10px;
+    display: inline-block;max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    padding-left: 0px
+    }
+
+   .checkbox td label{
+      padding-left: 0px;
+    
+    }
+
+    </style>
+    
+     <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+
+   
+
+    <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+                
+    
+              <div class="col-md-9 column col-md-push-3">
+              
+              
+                <div id="message-center"></div> 
+
+               
+                
+                
+                    <h1>Edit organisation details</h1>
+                
+               
+                 <div class="well" id="org-register-form" >
+                                        
+                     <apex:form styleClass="form-horizontal" forceSSL="true" id="long-form">
+                         
+                         
+                            <div class="form-group required">
+                                 <label for="Name" class="control-label col-sm-3 required">Organisation name</label>
+                                 <div class="col-sm-8">
+                                     <apex:inputtext id="orgName" value="{!partner.Name}" styleClass="form-control" />
+                                     <span id="orgNameError" class="help-block"></span>
+                                 
+                                 </div>
+                             </div>
+                             <div class="form-group required">  
+                        <div class="control-group element-sector element-type-select required">
+                            <label for="title" class="control-label col-sm-3 required">Sector</label>
+                            <div class="col-sm-8">
+                                <apex:selectList value="{!sector}" size="1" id="sector" styleClass="form-control">
+                                    <apex:selectOptions value="{!sectorList}"/>
+                                </apex:selectList>
+                                <span id="sectorError" class="help-block"></span>
+                            </div>
+
+                        </div>
+                        </div>
+
+                             
+                            
+                             
+                             <div class="form-group " id="sector-other-container">
+                              <label for="sectorOther" class="col-md-3 control-label required" >  </label>
+                              <div class="col-md-8">
+                              <label id="sectorOtherLabel">Sector - Other</label>
+                               <apex:inputText id="sectorOther" value="{!sectorOther}" styleClass="form-control" />
+                               
+                               <span id="sectorOtherError" class="help-block has-error"></span>
+                              </div>
+                           </div>
+
+                             
+                         <div class="form-group required">  
+                            <div class="control-group element-employee element-type-select required">
+                            <label for="title" class="control-label col-sm-3 required">No of employees</label>
+                            <div class="col-sm-8">
+                                <apex:selectList value="{!employees}" size="1" id="employees" styleClass="form-control">
+                                    <apex:selectOptions value="{!empnoList}"/>
+                                </apex:selectList>
+                                <span id="employeesError" class="help-block"></span>
+                            </div>
+
+                        </div>
+                        </div>
+
+                             <div class="form-group required">
+                                 <label for="postcode" class="col-md-3 control-label">Postcode</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_postcode" value="{!postcode}" styleClass="form-control" />
+                                     <span id="orgPostCodeError" value="orgPostCodeError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="street" class="col-md-3 control-label">Building/Street</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_street" value="{!street}" styleClass="form-control" />
+                                     <span id="orgStreetError" class="help-block"></span>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                                 <label for="street" class="col-md-3 control-label">County</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_county" value="{!county}" styleClass="form-control" />
+                                     <span id="orgStreetError" class="help-block"></span>
+                                 </div>
+                             </div>
+                             
+                             <div class="form-group required">
+                                 <label for="city" class="col-md-3 control-label">City</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_city" value="{!city}" styleClass="form-control" />
+                                     <span id="orgCityError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             
+                             
+                             <div class="form-group required">
+                                 <label for="country" class="col-md-3 control-label">Country</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_country" value="{!country}" styleClass="form-control" />
+                                     <span id="orgCountryError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="telephone" class="col-md-3 control-label">Contact number</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="orgTelephone" value="{!phone}" styleClass="form-control" />
+                                      <span id="orgTelephoneError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <hr/> 
+                          
+                           <div class="form-group">
+                           <div class="col-sm-8">
+                             <div class="btn-toolbar">
+                                <apex:commandButton id="save-org-form" value="Save Changes" onclick="return validateForm ();"  styleClass="btn-primary btn"/>
+                                <apex:commandButton id="cancel" value="Cancel" action="{!cancel}" styleClass="btn btn-default"/>
+                                 <apex:actionFunction action="{!saveDetails}" name="saveDetails" reRender="org-register-form"/>
+                              
+                             </div>
+                             </div>
+                            </div>                                                    
+                           </apex:form>          
+              </div>
+            </div>
+
+            <c:DF_WEBC_AdminNavigationMenu activeValue="EDIT" partnerid="{!partnerId}"/>
+
+          </div>
+        </div>
+      </div>
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:DF_WEBR_WebFooter />
+
+   </div>
+
+    <apex:includeScript value="//services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"/>
+    
+    
+    <script type="text/javascript">
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+    </script>
+
+    
+    <script>
+
+
+
+         $('[id$=sector]').change(
+          function () {
+
+                       
+            if ( $('[id$=sector]').val().indexOf("please specify")>-1)  { 
+
+                $('#sector-other-container').show();
+                document.getElementById('sectorOtherLabel').innerHTML = 'please specify';
+
+            } else {
+
+                $('#sector-other-container').hide();
+                $('#sector-other-container input').val("");
+            }
+
+        
+
+        });
+
+
+             function validateForm () {
+                
+                 var isOK = true;
+                  _webc.clearErrors();
+           
+                
+                if (_webc.isNull('orgName')) {
+                    _webc.setErrorMessage('orgName', "** Please enter Organisation Name");
+                    isOK = false;
+                }
+                
+                if (_webc.isNull('sector') || _webc.getFieldValue('sector')=='NULL') {
+                    _webc.setErrorMessage('sector', "** Please enter Sector ");
+                    isOK = false;
+                }
+                if ( $('[id$=sector]').val().indexOf("please specify")>-1 && _webc.isNull('sectorOther') )  {
+
+
+                   _webc.setErrorMessage('sectorOther', "** Please enter Sector ");
+                    isOK = false;
+                }
+           
+                if (_webc.isNull('employees') || _webc.getFieldValue('employees')=='NULL' ) {
+                    _webc.setErrorMessage('employees', "** Please enter number of employees");
+                    isOK = false;
+                }
+               
+                
+               if (_webc.isNull('df_pca_postcode')) {
+                    _webc.setErrorMessage('orgPostCode', "Please enter a postcode");
+                    isOK = false;
+                }
+                 
+                if (_webc.isNull('df_pca_street')) {
+                    _webc.setErrorMessage('orgStreet', "Please enter the building/street address");
+                    isOK = false;
+                } 
+                
+                if (_webc.isNull('df_pca_city') && _webc.isNull('df_pca_county')) {
+                    _webc.setErrorMessage('orgCity', "Please enter the city or county");
+                    isOK = false;
+                }
+                
+                
+                
+                var addcOk = false;
+                addcOk = _webc.getFieldValue('df_pca_country') == 'England' ? true : addcOk; 
+                addcOk = _webc.getFieldValue('df_pca_country') == 'Guernsey' ? true : addcOk;
+                addcOk = _webc.getFieldValue('df_pca_country') == 'Isle of Man' ? true : addcOk;
+                addcOk = _webc.getFieldValue('df_pca_country') == 'Wales' ? true : addcOk; 
+                   
+                if ( !addcOk ) {
+               
+                  _webc.setErrorMessage('orgCountry', "Sorry. We can only register Organisations in England, Wales, Guernsey and Isle of Man.");
+                   isOK = false;
+                   
+                }
+
+                
+                if (_webc.isNull('orgTelephone')) {
+                    _webc.setErrorMessage('orgTelephone', "Please enter a phone number");
+                    isOK = false;
+                } 
+                
+                if(!_webc.isValidPhone('orgTelephone')) {
+                
+                    _webc.setErrorMessage('orgTelephone', "Please enter your contact number in correct format");
+                   isOK = false;
+                }          
+               /* Return false */ 
+              if(!isOK ){ 
+             // $('[id^=friend-options]').hide();  
+              
+              return isOK ; 
+               
+               }
+              else{
+               saveDetails();
+            
+               }        
+               return false;
+                       
+            }; 
+
+       $(document).ready(function() {
+
+
+        if ( $('[id$=sector]').val().indexOf("please specify")>-1)  { 
+
+                $('#sector-other-container').show();
+                document.getElementById('sectorOtherLabel').innerHTML = 'please specify';
+               document.getElementById('sectorOtherLabel').innerHTML.required = true;
+
+            } else {
+
+                $('#sector-other-container').hide();
+                $('#sector-other-container input').val("");
+            }
+           
+            
+       });
+
+    </script>
+
+
+</apex:page>

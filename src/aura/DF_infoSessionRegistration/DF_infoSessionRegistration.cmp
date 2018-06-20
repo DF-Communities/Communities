@@ -1,0 +1,134 @@
+<aura:component >
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:attribute name="auraIdsToValidate" type="Object[]" default="[{auraId: 'requiredInputField', isCustomCmp: false},
+                                                                      {auraId: 'requiredChildComponent', isCustomCmp: true}]"/>
+    
+    <aura:attribute name="dfEvent" type="DF_Contact__c" required="true"/>
+    <aura:method name="getAllParams" action="{!c.validateAndGetParams}"/>
+    <aura:attribute name="name" type="String" default="dfc_infoSessionRegistrationCmp"/>
+    <aura:attribute name="noInsurance" type="Boolean" default="false"/>
+    <aura:attribute name="isHealthSafetyPersonKnown" type="Boolean" default="true"/>
+    
+    <aura:registerEvent name="DF_yesNoErrorEvt" type="c:DF_yesNoErrorEvt"/>
+    <aura:handler name="STD_yesNoSelectEvt" 
+                  event="c:STD_yesNoSelectEvt" 
+                  action="{!c.handleYesNoSelection}"/>
+    
+    <aura:registerEvent name="DF_thirdPartySafetyMarshalInfo" type="c:DF_thirdPartySafetyMarshalInfo"/>
+    <aura:attribute name="validMarshalName" type="Boolean" default="false"/>
+    <aura:attribute name="validMarshalNum" type="Boolean" default="false"/>
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+        <div class="form-group">
+            <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">Will you be the contact person on the day to explain the fire evacuation and general housekeeping procedures to the Dementia Friends Champion? <span style="font-weight: bold;color:#a94442;">*</span></label>
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+                <c:STD_yesNoSelect name="Session_Requester_is_Safety_Marshal__c"
+                                   label="" 
+                                   showDependentFieldWhenSelected_Option="No" 
+                                   value="{!v.dfEvent.Session_Requester_is_Safety_Marshal__c}"
+                                   required="true"
+                                   aura:id="requiredChildComponent"/>
+            </div>
+        </div>
+    </div>
+    
+    <aura:if isTrue="{!!v.isHealthSafetyPersonKnown}">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+            <div class="form-group required">
+                <label class="col-md-3 control-label required">Please enter the name of this person</label>
+                <div class="col-md-8">
+                    <div id="Safety_Marshal_Name__c">
+                        <ui:inputText label=""
+                                      value="{!v.dfEvent.Safety_Marshal_Name__c}"
+                                      required="true"
+                                      blur="{!c.validateOtherSafetyMarshalName}"
+                                      class="form-control"
+                                      aura:id="requiredInputField"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+            <div class="form-group required">
+                <label class="col-md-3 control-label required">Please enter the contact number of this person</label>
+                <div class="col-md-8">
+                    <div id="Safety_Marshal_Contact_Number__c">
+                        <ui:inputPhone label="" 
+                                       value="{!v.dfEvent.Safety_Marshal_Contact_Number__c}"
+                                       maxlength="13"  
+                                       required="true"
+                                       blur="{!c.validateOtherSafetyMarshalNum}"
+                                       class="form-control"
+                                       aura:id="requiredInputField"/>
+                    </div> <!-- pattern="(^07[0-9]{9})|(^01[0-9]{9})|(^01[0-9]{8})[ \t]+$"-->
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+        <div class="form-group">
+            <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">Does the venue have public liability insurance? <span style="font-weight: bold;color:#a94442;">*</span></label>
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+                <c:STD_yesNoSelect name="Venue_has_Public_Liability_Insurance__c"
+                                   label="" 
+                                   value="{!v.dfEvent.Venue_has_Public_Liability_Insurance__c }"
+                                   showDependentFieldWhenSelected_Option="No"
+                                   required="true"
+                                   aura:id="requiredChildComponent"/> 
+            </div>
+        </div>
+    </div>
+    
+    <aura:if isTrue="{!v.noInsurance}">
+        <p class="error-msg">For the safety of our volunteers and attendees, venues must have public liability insurance. 
+            Please choose another venue or contact DementiaFriends@alzheimers.org.uk to discuss it further.</p>
+    </aura:if>
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+        <div class="form-group required">
+            <label class="col-md-3 control-label required">Hearing loop available?</label>
+            <div class="col-md-8">
+                <c:STD_yesNoSelect name="Hearing_loop_available__c"
+                                   label="" 
+                                   value="{!v.dfEvent.Hearing_loop_available__c}"
+                                   returnSelectionAsBoolean="true"
+                                   required="true"
+                                   aura:id="requiredChildComponent"/> 
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+        <div class="form-group required">
+            <label class="col-md-3 control-label required">Wheelchair accessible?</label>
+            <div class="col-md-8">
+                <c:STD_yesNoSelect name="Wheel_Chair_Access__c"
+                                   label="" 
+                                   value="{!v.dfEvent.Wheel_Chair_Access__c}"
+                                   returnSelectionAsBoolean="true"
+                                   required="true"
+                                   aura:id="requiredChildComponent"/>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">
+        <div class="form-group">
+            <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-indent">Is there anything else the Champion who delivers the Session may need to be aware of? E.g., history of the group, photography, ages of any children or young people</label>
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+                <ui:inputTextArea value="{!v.dfEvent.Further_request_details__c}"
+                                  label=""
+                                  resizable="false"
+                                  rows="3"
+                                  class="form-control"/>
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

@@ -1,0 +1,107 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_NewsletterArchivesController" action="{!loginRedirect}">
+
+
+
+    <c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+   
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />    
+
+     <div class="row *.css">
+     <div class="col-sm-12">
+    
+     <div class="row *.css">
+                
+     
+
+      <div class="col-md-9 column col-md-push-3">
+           
+                <div id="message-center"></div> 
+                <div class="intro">
+                    <h1>Newsletter Archive</h1>
+                    <apex:outputPanel rendered="{!isRestricted}">
+                    <div>
+                        <p>Here you can download and read past editions of the monthly Dementia Friends newsletter</p>
+                        <p>If you would like to receive this newsletter via email, click ‘Edit my details’ on the left hand side, check your email address is correct and tick the box that says ‘Newsletter signup’.&nbsp;&nbsp;</p>    
+                    </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!isRestricted}">
+                    <div>
+                        <p>Here you can download and read past editions of the monthly Dementia Friends and Champions newsletters.</p>
+                         <p>If you would like to receive these newsletters via email, click ‘Edit my details’ on the left hand side, check your email address is correct and tick the box that says ‘Newsletter signup’.</p>   
+                    </div>
+                    </apex:outputPanel>
+                </div>
+       
+     
+                 <ul class="nav nav-tabs" id="tabs" data-tabs="tabs">        
+                        <apex:repeat value="{!newsletterCategories}" var="news" >
+                            <li role="presentation" tabindex="{!news.rowNum}">
+                                <a href="#tabs-{!news.rowNum+1}" role="presentation" data-toggle="tab">{!news.Name}</a>
+                            </li>
+                        </apex:repeat>
+                    </ul>
+                    
+                    <div class="tab-content">
+                    <apex:repeat value="{!newsletterCategories}" var="news" >                
+                        
+                        <div class="well tab-pane" id="tabs-{!news.rowNum+1}">
+                        
+                            <p><apex:outputText value="{!news.description}" escape="false" /></p>
+
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Details</th>
+                                        <th>File Size</th>
+                                        <th><span>Download</span></th>
+                                    </tr>
+                                </thead>                           
+                                <tbody>
+                                <apex:repeat value="{!newsletterArchives[news.rowNum]}" var="archive" >                               
+
+                                        <tr>
+                                            <td>
+                                                <p><strong>{!archive.Name__c}</strong></p>
+                                            </td>
+                                            <td><span>{!CEILING(att[archive.Id].BodyLength/1024)}</span>KB</td>
+                                            <td><a href="{!URLFOR($Action.Attachment.Download, att[archive.Id].id)}" class="btn btn-primary"><span>Download</span></a></td>
+                                        </tr>
+                                </apex:repeat>                       
+                                </tbody>     
+                           </table>
+                        </div>
+
+                    </apex:repeat>
+                    </div>
+                
+                </div>
+
+               <c:DF_WEBC_ChampionNav activeValue="NewsArchive" dfcW="{!dfcW}" rendered="{!isChampion}"/>
+               <c:DF_WEBC_FriendNav activeValue="NewsArchive" dfcW="{!dfcW}" rendered="{!Not(isChampion)}"/>
+          
+    
+     </div>
+     </div>
+     </div>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+  <c:DF_WEBR_WebFooter />
+
+   <script>
+
+   $(document).ready(function() {
+
+    $('#tabs').tab();
+    $('#tabs a:first').tab('show');
+
+   });
+
+   </script> 
+
+    </div>
+
+</apex:page>

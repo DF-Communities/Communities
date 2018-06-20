@@ -1,0 +1,92 @@
+<apex:component >                      
+    <div class="form-group radio-line pay-line">
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px">
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <label><input type="radio" name="paymentMethod" value="visa" data-ng-model="data.paymentMethod" data-ng-change="onPaymentMethodChange()" data-ng-required="true" data-ng-disabled="waiting"/><span class="graphic visa"><span>Visa</span></span></label>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <label><input type="radio" name="paymentMethod" value="mastercard" data-ng-model="data.paymentMethod" data-ng-change="onPaymentMethodChange()" data-ng-required="true" data-ng-disabled="waiting"/><span class="graphic mc"><span>Mastercard</span></span></label>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <label><input type="radio" name="paymentMethod" value="paypal" data-ng-model="data.paymentMethod" data-ng-change="onPaymentMethodChange()" data-ng-required="true" data-ng-disabled="waiting"/><span class="graphic pp"><span>Paypal</span></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12" style="padding-left:0"><span class="ui-state-error message" data-ng-class="{active:form.paymentMethod.$invalid&&showErrors}">Please select a payment method</span></div>                          
+    
+   <div data-ng-show="isCardPayment()" ng-cloak="ng-cloak">
+   <div id="card-shade">
+    <div class="form-group">
+        <label for="cardNumber">Card number <span style="color: red; font-weight: bold">*</span></label>
+        <input type="text" name="cardNumber" id="cardNumber" data-ng-model="data.cardNumber" data-ng-required="isCardPayment()" data-ng-change="onCardNumberChange()" data-ng-class="{'invalid':err.cardError}" data-ng-blur="onCardNumberBlur()" placeholder="Spaces permitted" class="form-control" autocomplete="cc-number" x-autocompletetype="cc-number" data-ng-disabled="waiting"/>
+        <span>12-19 digits, spaces are allowed</span>
+        <span class="active ui-state-error message data-ng-cloak" style="margin: 4px 0;" data-ng-show="showErrors">{{err.cardError}}</span>
+        <span data-ng-class="{active:form.cardNumber.$invalid&&showErrors}" class="ui-state-error message" data-ng-show="!showErrors||!err.cardError">Please enter the long number from the card</span>
+    </div>                      
+    <div class="form-group row inner-row">
+        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px;">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                <label>Expires&nbsp;<span style="color: red; font-weight: bold">*</span></label>
+                <select class="form-control" id="cardExpirationMonth" aria-label="card expiration month" name="expiryMonth" data-ng-model="data.expiryMonth" data-ng-init="data.expiryMonth='MM'" data-ng-change="onExpiryChange()" data-ng-class="{'invalid':err.badExpiry}" data-ng-required="isCardPayment()">
+                    <option value="MM" default="default" selected="selected">MM</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                 </select>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                <label aria-hidden="true">&nbsp;</label>
+                <select class="form-control" id="cardExpirationYear" aria-label="card expiration year" name="expiryYear" data-ng-model="data.expiryYear" data-ng-init="data.expiryYear='YYYY'" data-ng-change="onExpiryChange()" data-ng-class="{'invalid':err.badExpiry}" data-ng-required="isCardPayment()">
+                    <option value="YYYY" default="default" selected="selected">YYYY</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                 </select>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px">
+                <span>Typically on the front of the card</span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 ">
+                <span class="ui-state-error message" data-ng-class="{active:(form.expiryMonth.$invalid||form.expiryYear.$invalid||err.badExpiry)&&showErrors}">Please enter valid expiration</span>
+            </div>                             
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div>
+                <label for="cvv2">Security code <span style="color: red; font-weight: bold">*</span></label>
+                <input type="text" name="cvv" data-ng-model="data.cvv" id="cvv2" data-ng-required="isCardPayment()" data-ng-pattern="'^\\d{3}$'" pattern="[0-9]*" class="form-control" maxlength="3" data-ng-disabled="waiting"/>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px">
+                <span>3-4 digit code, typically on the back of the card</span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><span class="ui-state-error message" data-ng-class="{active:form.cvv.$invalid&&showErrors}">Please enter the CVC code</span></div>  
+        </div>
+                                      
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 20px;">
+            <label for="cardholder">Cardholder name <span style="color: red; font-weight: bold">*</span></label>
+            <input type="text" name="cardholderName" id="cardholder" data-ng-model="data.cardholderName" 
+                   data-ng-required="isCardPayment()" maxlength="100" class="form-control"
+                   utocomplete="cc-name" x-autocompletetype="cc-full-name" data-ng-disabled="waiting"/>
+            <span>Your name exactly as it appears on the front of the card</span>
+            <span data-ng-class="{active:form.cardholderName.$invalid&&showErrors}" class="ui-state-error message">Please enter the cardholder name</span>                                                   
+        </div>
+    </div>
+    </div>
+   </div>
+</apex:component>

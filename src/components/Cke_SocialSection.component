@@ -1,0 +1,44 @@
+<apex:component controller="EdtPageController">
+<article class="bring">
+           <div class="container-bt">
+              <div class="white">
+                 <div class="container ">
+                    <div id="responsive-spacer"></div>
+                    <div class="row">
+                       <!-- SOCIAL START -->
+                       <div class="col-xs-12">
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                             <div class="social">
+                                <h2>
+                                   <c:EdtText group="cke-home" key="block-title-4" context="{!edtContext}" text="#CupcakeDay"/>
+                                </h2>
+                                <c:EdtText group="cke-home" key="block-text-4" context="{!edtContext}" text='<p>On 15 June, people up and down the country in their thousands will be baking, buying and eating to turn up the heat on dementia – while having a ridiculous amount of fun.</p>
+                                   <p>Together, let’s cook up a social media storm. Share your Cupcake Day with the world using #CupcakeDay and see what everyone else is getting up to.</p>'/>
+                             </div>
+                             <div class="row flex">
+                                <div class="col-md-12 col-sm-12 col-xs-12 xs-center">
+                                   <a class="btn btn-social btn-twitter" href="https://twitter.com/intent/tweet?text=Whether%20you%E2%80%99re%20a%20baking%20pro,%20cake%20mix%20cheater%20or%20shop%20bought%20lover,%20host%20a%20%23CupcakeDay%20and%20raise%20money%20for%20%40alzheimerssoc%20ow.ly/XCAZ309CPmx"><span class="fa fa-twitter"></span>Unite on Twitter</a>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 xs-center">
+                                   <!-- Additional class btn removed from first in the list-->
+                                   <a class="btn btn-social btn-facebook" href="https://www.facebook.com/dialog/feed?app_id={!$Label.CKE_Facebook_App_Id}&amp;display=popup&amp;picture=https://dfdev-dfdev.cs18.force.com{!URLFOR($Resource.Cke_Assets, 'img/other/fb-share-1.jpg')};description=June%2015%20is%20Cupcake%20Day%20and%20everyone%E2%80%99s%20invited.%20Whether%20you%E2%80%99re%20a%20baking%20pro%2C%20a%20cake%20mix%20cheater%20or%20a%20shop%20bought%20lover%2C%20organise%20a%20Cupcake%20Day%20and%20raise%20money%20to%20support%20the%20fight%20against%20dementia.%20cupcakeday.org.uk;link=http://ow.ly/4SVX309CPgp&amp;redirect_uri=http://ow.ly/4SVX309CPgp" onclick="FBAsync.FBShareOp(); return false;"><span class="fa fa-facebook"></span>Unite on Facebook</a>
+                                </div>
+                             </div>
+                          </div>
+                          <!--SOCIAL END-->
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                             <c:EdtImage group="cke-home" key="block-image-4" src="{!URLFOR($Resource.Cke_Assets, 'img/other/cake.png')}" alt="instagram cakes" html-class="img-responsive" context="{!edtContext}"/>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="center device-hidden">
+                       <script src="//assets.juicer.io/embed.js" type="text/javascript"></script>
+                       <!-- Uncomment to get juicers styling -->
+                       <!--link href="//assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" /-->
+                       <ul class="juicer-feed" data-feed-id="cupcake" data-per="4"></ul>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </article>
+</apex:component>

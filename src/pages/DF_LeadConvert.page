@@ -1,0 +1,59 @@
+<apex:page standardController="lead" tabStyle="Lead"  docType="html" standardStylesheets="false" extensions="DF_LeadConvert_Controller"  >
+
+<apex:form >
+        
+      <apex:pageBlock mode="edit" >       
+
+        <apex:pageblockbuttons >
+
+          <apex:commandbutton value="Convert" action="{!ConvertLead}"  /> 
+
+          <apex:commandbutton value="Cancel" action="{!cancel}"/>               
+
+        </apex:pageblockbuttons>    
+             
+        <apex:pageMessages />
+        
+        <apex:pageblocksection id="LeadConvertPBS" title="Convert Lead">
+
+         <apex:pageBlockSectionItem >
+
+            <apex:outputLabel value=" Record Owner" for="Record Owner"/>
+
+            <apex:outputField value="{!Lead.OwnerID}" id="recOwner"/>
+
+          </apex:pageBlockSectionItem>
+
+          <apex:pageBlockSectionItem >
+
+            <apex:outputLabel for="Account Name">Account Name</apex:outputLabel>
+
+             <apex:outputField id="company" value="{!Lead.Company}" />
+
+          </apex:pageBlockSectionItem>
+           
+          <apex:pageBlockSectionItem >
+           <apex:outputLabel for="orgcode"> Partner Code</apex:outputLabel>
+            <apex:outputPanel id="inputorg" styleClass="requiredInput" layout="block">
+             <apex:outputPanel styleClass="requiredBlock" layout="block"/>           
+              <apex:inputtext id="partnercode" value="{!partnercode}" maxlength="50" />
+           </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+          
+         </apex:pageblocksection>
+
+
+        </apex:pageBlock>
+        <apex:outPutField id="code" value="{!lead.Partner_code__c}" rendered="False" style="display:none;" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+         
+         
+        <script type="text/javascript">
+     
+        
+        </script>
+
+    </apex:form>
+ 
+
+</apex:page>

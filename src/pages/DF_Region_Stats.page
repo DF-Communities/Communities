@@ -1,0 +1,83 @@
+<apex:page standardController="DF_Region__c" 
+            extensions="DF_RegionStats_Controller" 
+            readOnly="true" 
+            deferLastCommandUntilReady="true" 
+            wizard="true" >
+
+
+   <style>
+         .bPageBlock {
+                    background-color: white !important;
+         }
+   </style>
+
+  <apex:pageBlock id="Detail" >
+
+      
+      <apex:pageBlockSection columns="2">
+
+      <apex:pageBlockSectionItem helpText="Number of Dementia Friend Champions supported.">
+          <apex:outputLabel >Current Converted Champions</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Total_No_of_Champions_Created}" />
+          </apex:outputText>
+      </apex:pageBlockSectionItem>
+    
+      <apex:pageBlockSectionItem helpText="Total number of completed info sessions by supported champions.">
+          <apex:outputLabel >Completed Info Sessions</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Total_No_of_Completed_Info_Sessions}" />
+          </apex:outputText>
+      </apex:pageBlockSectionItem>
+  
+
+      <apex:pageBlockSectionItem helpText="Total number of Dementia Friends created for completed sessions by supported champions." >
+          <apex:outputLabel >Number of Friends Created by these Champions</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Total_No_of_Friends_Created}" />
+          </apex:outputText>
+      </apex:pageBlockSectionItem>
+
+      <apex:pageBlockSectionItem helpText="Total number of available info sessions by supported champions.">
+          <apex:outputLabel >Currently Available Info Sessions</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Total_No_of_Available_Info_Sessions}" />
+          </apex:outputText>
+      </apex:pageBlockSectionItem>
+
+    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+    
+    <apex:pageBlockSectionItem helpText="Total number of cancelled info sessions by supported champions.">
+          <apex:outputLabel >Cancelled Info Sessions</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Total_No_of_Cancelled_Info_Sessions}" />
+          </apex:outputText>
+      </apex:pageBlockSectionItem>
+          
+    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+    
+      <apex:pageBlockSectionItem helpText="The Number of Completed Public Sessions by supported champions.">
+          <apex:outputLabel >Public Sessions Run</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Number_of_Public_Sessions_Run}" />
+          </apex:outputText> 
+      </apex:pageBlockSectionItem>
+
+    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+
+    <apex:pageBlockSectionItem helpText="The Number of Completed Private Sessions by supported champions." >
+          <apex:outputLabel >Private Sessions Run</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Number_of_Private_Sessions_Run}" />
+          </apex:outputText>     
+    </apex:pageBlockSectionItem>
+   </apex:pageBlockSection>
+
+      <apex:pageBlockSection columns="1">
+        <p><i> Statistics on this page represent current converted Champions. All the stats represent cumulative totals, for all time, for those Champions activities only. Friends and Sessions created/run by Champions who have since retired or converted back to Friends are not included in the counts. </i></p>
+      </apex:pageBlockSection>
+
+
+  </apex:pageBlock>
+
+</apex:page>

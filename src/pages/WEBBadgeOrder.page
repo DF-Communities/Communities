@@ -1,0 +1,335 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBBadgeOrder" action="{!loginRedirect}">
+  
+ <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />    
+    
+   <c:DF_WEBR_WebMeta />
+ 
+
+  <div class="container">
+   <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+    
+    
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+  <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+                
+                
+                
+
+                <div class="col-md-9 column col-md-push-3">
+                
+   
+           
+                <div id="message-center">
+                    <apex:outputPanel rendered="{!IF(ISBLANK(messageArea),FALSE,TRUE)}" >
+                        <div class="alert {!messageAreaClass}">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {!messageArea}        
+                        </div>
+                    </apex:outputPanel>                 
+                </div> 
+
+            <div class="intro">
+            <h1>Order Session materials</h1>
+                <div class="snippet snippet-rich_text rte">
+                <p>Select from the options below and enter your address details to order the materials you need to deliver Information Sessions. 
+
+              Please note: we have limited budget to print and post out bingo sheets and broken sentences handouts. Please print these items yourself if possible.
+              </p>
+                </div>
+            </div>
+            <!-- Name & Address Information -->
+            <!-- FORM GOES IN HERE -->
+              <apex:form styleClass="form-horizontal" forceSSL="true" id="orderForm">
+                    
+                     <apex:outputPanel rendered="{!LEN(standardErrorMsg)>0}">
+                       <p><apex:outputText value="{!standardErrorMsg}" styleClass="form-inerror-message alert"/></p>
+                    </apex:outputPanel>
+
+                    <div class="form-group required ">
+                        <Label for="addressCounty" class="col-sm-3 control-label required"> Materials</Label>
+                        <div class="col-sm-8">
+                          <span id="selectionError" class="help-block has-error"></span>
+                         <div class="row *.css">
+                           <div class="col-sm-6">
+                           <label for="badges">
+                            <apex:inputCheckbox value="{!actionCards}" id="badges" onclick="clearError('selection');" selected="true"/> Badges &amp; Action cards (pack of 50)
+                            </label>
+                            </div>
+                             <div class="col-sm-6">
+                             </div>
+                         </div>
+                         
+                         <span id="orderQuantityError" class="help-block has-error"></span>
+                         <div class="row *.css">
+                         
+                           <div class="col-sm-6">
+                               <label><input type="checkbox" id="bingo" name="bingo" onclick="clearError('selection');"> Bingo sheet handout</input></label>
+                         </div>
+                          <div class="col-sm-6">
+                         <apex:selectlist size="1" value="{!bingoSheets}" id="bingoSheets" onChange="clearError('bingoSheets');clearError('orderQuantity');" styleClass="form-control">   
+                             
+
+                                 <apex:selectoptions value="{!MaterialsAmounts}" /> 
+                                  
+                             </apex:selectlist> 
+                            <span id="bingoSheetsError" class="help-block has-error"></span>
+                          </div>
+
+                        </div>
+                         <div class="row *.css">
+                           <div class="col-sm-6">
+                            <label><input type="checkbox" id="broken" name="broken" onclick="clearError('selection');"> Broken sentences handout</input ></label>
+                           </div>
+                            <div class="col-sm-6">
+                             <apex:selectlist size="1" value="{!brokenSentences}" id="brokenSentences" onChange="clearError('brokenSentences');clearError('orderQuantity');" styleClass="form-control">   
+                             
+                                 <apex:selectoptions value="{!MaterialsAmounts}"/> 
+                                  
+                             </apex:selectlist>
+                             <span id="brokenSentencesError" class="help-block has-error"></span>
+                            </div>
+
+                          </div>
+                          <p>Please note you cannot order more than a combined total of 50 bingo sheets and broken sentences.</p>
+                           
+                       </div>
+
+                             
+                    </div>
+
+                    <div class="form-group required">
+                        <Label for="firstName"  class="col-sm-3 control-label required"> First name </Label>
+                    <div class="col-sm-8">
+                        <apex:inputText onkeyup="clearError('firstName');" value="{!firstName}" id="firstName" styleClass="form-control"/>
+                        <span id="firstNameError" class="help-block has-error"></span>
+                      
+                    </div>
+                    </div>
+                    <div class="form-group required">
+                        <Label for="lastName"  class="col-sm-3 control-label required"> Last name </Label>
+                        <div class="col-sm-8">
+                            <apex:inputText onkeyup="clearError('lastName');" value="{!lastName}" id="lastName" styleClass="form-control"/>
+                            <span id="lastNameError" class="help-block has-error"></span>
+
+                                                  
+                        </div>
+                    </div>
+                    <!-- Address fields -->
+                    <div class="form-group required">
+                        <Label for="addressPostcode" class="col-sm-3 control-label required"> Postcode</Label>
+                        <div class="col-sm-3">
+                            <apex:inputText onkeyup="clearError('df_pca_postcode');" value="{!addressPostcode}" id="df_pca_postcode" styleClass=" form-control"/>
+                         
+                            <span id="df_pca_postcodeError" class="help-block has-error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group required ">
+                        <Label for="address1"  class="col-sm-3 control-label required"> Address 1</Label>
+                        <div class="col-sm-8">
+                            <apex:inputText onkeyup="clearError('df_pca_street');" value="{!addressStreet}" id="df_pca_street" styleClass=" form-control"/>
+                            <span id="df_pca_streetError" class="help-block has-error"></span>
+                        </div>
+                    </div>
+                     <div class="form-group optional">
+                        <Label for="address2"  class="col-sm-3 control-label optional"> Address 2</Label>
+                        <div class="col-sm-8"><apex:inputText value="{!addressStreet2}" id="address2" styleClass=" form-control"/></div>
+                    </div>
+                    <div class="form-group required ">
+                        <Label for="addressCity"  class="col-sm-3 control-label required"> Town / City</Label>
+                        <div class="col-sm-8">
+                            <apex:inputText onkeyup="clearError('df_pca_city');" value="{!addressCity}" id="df_pca_city" styleClass=" form-control"/>
+                             <span id="df_pca_cityError" class="help-block has-error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <Label for="addressCounty" class="col-sm-3 control-label required"> County</Label>
+                        <div class="col-sm-8">
+                            <apex:inputText onkeyup="clearError('df_pca_county');" value="{!addressCounty}" id="df_pca_county" styleClass=" form-control"/>
+                          <span id="df_pca_countyError" class="help-block has-error"></span>
+                        </div>
+                    </div>
+
+                    
+                    
+                    <div class="button-set">
+                        <apex:commandButton value="Submit" onclick="return validateForm ();" styleClass="btn btn-primary"/>
+                            <apex:actionFunction action="{!submitBadgeClaim}" name="submitBadgeClaim" reRender="org-register-form"/>
+                    </div>
+                    <br/>
+                    <div class="row-fluid">
+                    <div class="dash-mod-header">
+                        <h3>Previous Orders</h3>
+                    </div>
+                    <apex:outputPanel rendered="{!badgeClaims.size<=0}">        
+                        <p>You have no previous orders.</p>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!badgeClaims.size>0}">
+                    <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Date Ordered</th>
+                            <th>Order details</th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                    <apex:repeat value="{!badgeClaims}" var="claim">
+                    <tr class="">                        
+                        <td>{!claim.claimName}</td>                        
+                        <td>{!claim.claimAddress}</td>                        
+                        <td>{!claim.claimDate}</td>
+                        <td><apex:outputtext value="{!SUBSTITUTE(JSENCODE(claim.claimOrder), '\\n', '<br/>')}" escape="false"/> </td>         
+                    </tr>
+                    </apex:repeat>
+                    </tbody>
+                    </table>
+                    </apex:outputPanel>
+                    </div>
+               
+                </apex:form>
+            <!-- End of Name & Address Information -->
+            </div>
+
+            <c:DF_WEBC_ChampionNav activeValue="" dfcW="{!dfcW}"/>
+            
+           </div>
+           
+          </div>
+        
+        </div>
+   
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+   <c:DF_WEBR_WebFooter />
+
+  </div>
+   <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    function clearError(fieldId){
+
+        _webc.clearError(fieldId);
+    };
+
+     function validateForm () {
+             
+                 var isOK = true;
+                  _webc.clearErrors();
+                  var emptyMsg='Value is required and can\'t be empty';
+                
+                if (
+                  document.getElementById('{!$Component.orderForm.badges}').checked==false && document.getElementById('bingo').checked==false &&  document.getElementById('broken').checked==false) {
+                       console.log('error');
+                    _webc.setErrorMessage('selection', "** Please select at least one option");
+                       isOK = false;
+                   
+                }
+
+                 if (document.getElementById('bingo').checked==true && _webc.isNull('bingoSheets')){
+
+                   _webc.setErrorMessage('bingoSheets', "** Please enter quantity");
+                   isOK = false;
+                 }
+                 if (document.getElementById('bingo').checked==true && document.getElementById('broken').checked==true &&
+                 (parseInt($('[id$=brokenSentences]').val())+parseInt($('[id$=bingoSheets]').val()))>50){
+                     
+
+                   _webc.setErrorMessage('orderQuantity', "** You cannot order more than a combined total of 50 bingo sheets and broken sentences. Please adjust quantities to a total of 50 or fewer.");
+                   isOK = false;
+                 }
+                 
+                  if (document.getElementById('broken').checked==true && _webc.isNull('brokenSentences')){
+
+                   _webc.setErrorMessage('brokenSentences', "** Please enter quantity");
+                   isOK = false;
+                 }
+                 if (_webc.isNull('firstName')){
+
+                   _webc.setErrorMessage('firstName', emptyMsg);
+                   isOK = false;
+                 }
+                 if (_webc.isNull('lastName')){
+
+                   _webc.setErrorMessage('lastName', emptyMsg);
+                   isOK = false;
+                 }
+                 if (_webc.isNull('df_pca_postcode')){
+
+                   _webc.setErrorMessage('df_pca_postcode', emptyMsg);
+                   isOK = false;
+                 }
+                 if (_webc.isNull('df_pca_street')){
+
+                   _webc.setErrorMessage('df_pca_street', emptyMsg);
+                   isOK = false;
+                 }
+                 if (_webc.isNull('df_pca_city')){
+
+                   _webc.setErrorMessage('df_pca_city', emptyMsg);
+                   isOK = false;
+                 }
+                 if (_webc.isNull('df_pca_county')){
+
+                   _webc.setErrorMessage('df_pca_county', emptyMsg);
+                   isOK = false;
+                 }
+                if(!isOK ){ 
+             // $('[id^=friend-options]').hide();  
+              
+              return isOK ; 
+               
+               }
+               else{
+
+               submitBadgeClaim();
+
+               }
+                  
+               return false;
+               
+                       
+            }; 
+            
+              
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+
+          $( document ).ready(function() {
+
+                   
+                
+        
+           
+                    
+            $('[id$=brokenSentences]').hide();
+            $('[id$=bingoSheets]').hide();
+
+                $('[name="bingo"]').on('change', function() {
+                  
+                document.getElementById('{!$Component.orderForm.bingoSheets}').value='';
+                  $('[id$=bingoSheets]').toggle(this.checked);
+                  $('[id$=bingoSheetsError]').toggle(this.checked);
+                  
+
+                 
+                }).change();
+
+                $('[name="broken"]').on('change', function() {
+                document.getElementById('{!$Component.orderForm.brokenSentences}').value='';
+                  $('[id$=brokenSentences]').toggle(this.checked);
+                  $('[id$=brokenSentencesError]').toggle(this.checked);
+                }).change();
+
+
+            
+           });
+    </script>
+
+
+</apex:page>

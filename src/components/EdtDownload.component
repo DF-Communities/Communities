@@ -1,0 +1,42 @@
+<apex:component controller="EdtComponentController" layout="none" selfClosing="true">
+    
+    <apex:attribute name="group" type="String" required="true" assignTo="{!itemGroup}" description=""/>
+    <apex:attribute name="key" type="String" required="true" assignTo="{!itemKey}" description=""/>
+    <apex:attribute name="context" type="EdtPageContext" required="true" assignTo="{!pageContext}" description=""/>
+    <apex:attribute name="link-text" type="String" required="true" assignTo="{!itemText1}" description=""/>
+    <apex:attribute name="href" type="String" required="true" assignTo="{!itemValue1}" description=""/>
+    <apex:attribute name="alt" type="String" required="false" assignTo="{!itemValue2}" description=""/>
+    <apex:attribute name="html-class" type="String" required="false" assignTo="{!htmlClass}" description=""/>
+    <apex:attribute name="html-style" type="String" required="false" assignTo="{!htmlStyle}" description=""/>
+    
+    <apex:outputPanel rendered="{!context.editEnabled}" layout="none">
+
+      <edit-download data-key="{!key}" data-group="{!group}" title="{!group} | {!key}">
+
+
+        <apex:outputPanel layout="none" rendered="{!!hasAttachment}"> 
+            <a href="{!itemValue1}" class="{!htmlClass}" style="{!htmlStyle}" target="_blank"><apex:outputText value="{!itemText1}" escape="false"/></a>
+        </apex:outputPanel>
+        
+        <apex:outputPanel layout="none" rendered="{!hasAttachment}"> 
+            <a href="{!URLFOR($Action.Attachment.Download, itemAttachmentId)}" class="{!htmlClass}" style="{!htmlStyle}" target="_blank"><apex:outputText value="{!itemText1}" escape="false"/></a>
+        </apex:outputPanel>
+
+      </edit-download>
+
+    </apex:outputPanel>          
+
+    <apex:outputPanel rendered="{!!context.editEnabled}" layout="none">
+
+        <apex:outputPanel layout="none" rendered="{!!hasAttachment}"> 
+            <a href="{!itemValue1}" class="{!htmlClass}" style="{!htmlStyle}" target="_blank"><apex:outputText value="{!itemText1}" escape="false"/></a>
+        </apex:outputPanel>
+        
+        <apex:outputPanel layout="none" rendered="{!hasAttachment}"> 
+            <a href="{!URLFOR($Action.Attachment.Download, itemAttachmentId)}" class="{!htmlClass}" style="{!htmlStyle}" target="_blank"><apex:outputText value="{!itemText1}" escape="false"/></a>
+        </apex:outputPanel>
+
+    </apex:outputPanel>    
+
+
+</apex:component>

@@ -1,0 +1,148 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="DF_WEBC_PushMessages" action="{!loginRedirect}">
+    <c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+   
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />    
+
+     <div class="row *.css">
+     <div class="col-sm-12">
+    
+     <div class="row *.css">
+                
+      <div class="col-md-9 column col-md-push-3">
+                 
+                    <div class="table-responsive">
+                    
+                        <h4>My messages</h4>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                         <table class="table table-bordered table-striped table-hover">
+                           <tbody>
+                                                          
+
+                                <apex:repeat value="{!champMessages}" var="msg">
+                                
+                                    <tr class="" id="{!rowNum}">                        
+                                    
+                                            <td class="col-md-10 col-sm-8 col-xs-8 single-cell" align="left">
+
+                                            <div class="col-md-9 col-sm-12 col-xs-12" style="vertical-align: middle;">   
+                                                <strong> 
+                                                    <apex:outputText value="{!msg.Title__c}"></apex:outputText>
+                                                </strong>
+                                            
+                                            <br/>                     
+                                                      
+                                              <apex:outputText value="{!msg.Message__c}"></apex:outputText>  
+
+                                            </div>
+                                                    
+                                           
+                                            <div id="{!msg.Id}" class="col-md-3 col-sm-12 col-xs-12 btn-group" style="vertical-align: middle;">
+                                            <br/>
+
+                                            <apex:outputPanel rendered="{!msg.Button_link__c!=null}">
+                                        
+                                                <a id="btn1{!rowNum}" class="btn-primary btn-xs"
+                                                   href="{!msg.Button_link__c}" target="_blank">{!msg.Button_title__c}</a>
+                                                                                           
+                                                
+                                           
+                                              </apex:outputPanel>
+
+                                               
+                                            
+                                                <a id="btn2{!rowNum}" class="btn-primary btn-xs" onclick ="deletemessages(this.id);" >Dismiss</a>
+                                            
+                                            
+                                           
+                                            </div>
+                                            
+                                           
+
+                                                                    
+                                        </td>
+
+                                    </tr> 
+                                  <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                                 
+                                </apex:repeat>                                
+                                 <apex:outputText id="count" value="{!champMessages.size}" style="display:none" />
+                            </tbody>
+                        </table>
+                        <apex:outputPanel rendered="{!champMessages.size<=0}">
+                        <div id="no-messages"  >   
+                                                   
+                                                      
+                       <p> You have no new messages</p>
+
+                       </div>
+                       </apex:outputPanel>
+                       <div id="nomessages" style="display:none;"  >   
+                                                   
+                                                      
+                       <p> You have no new messages</p>
+
+                       </div>
+                        </div>
+                      </div>  
+                      
+                     
+
+                    <c:DF_WEBC_ChampionNav activeValue="PUSHMSG" dfcW="{!dfcW}"/>
+              </div>
+        </div>
+    </div>
+   
+
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+     
+     function deletemessages(element){
+        var param = $("[id$='"+element+"']").closest("div").attr('id');
+        console.log('param'+element);
+        Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.DF_WEBC_PushMessages.deleteMessage}', 
+                
+                param,
+                function (result, event) {
+                // callback logic
+               
+               if (event.status) {
+                
+                $("[id$='"+element+"']").closest("tr").remove();
+                var text = $('[id$=count]').text().replace(/[^0-9]/gi, '');
+                var number = parseInt(text);
+                var c=number;
+                var d= c-1;
+                var text = $('[id$=count]').text($('[id$=count]').text().replace(c,d));
+               if(d==0){
+                $('[id$=nomessages]').show();
+                 } 
+
+                }
+                
+
+               },
+               {escape: true}
+
+           );
+        
+     }
+
+        
+          $(document).ready(function () {
+
+
+            
+
+     });
+
+    </script>
+</apex:page>

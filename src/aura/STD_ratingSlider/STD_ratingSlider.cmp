@@ -1,0 +1,81 @@
+<aura:component >
+    
+    <aura:attribute name="correspondingFieldApiName" type="String"/>
+    <aura:attribute name="afterScriptsIsRun" type="Boolean" default="false"/>
+    <aura:attribute name="value" type="String"/>
+    <aura:attribute name="subjectOfFeedback" type="String"/>
+    <!--aura:registerEvent name="std_ratingSelectionPubEvt" type="c:std_ratingSelectionPubEvt"/-->
+    
+    <ltng:require styles="{!$Resource.DF_bootstrap_slider + '/css/bootstrap-slider.min.css'}"
+                  scripts="{!$Resource.DF_bootstrap_slider + '/bootstrap-slider.min.js'}"
+                  afterScriptsLoaded="{!c.initiateRatingSlider}" />
+    
+    <aura:if isTrue="true">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left:0px">       
+            <p><strong><br/>How would you rate your host?</strong></p>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left:15px" onclick="{!c.handleSelectedRating}">       
+            <input id="{!'rating-slider-' + v.subjectOfFeedback}" type="text"
+                   data-provide="slider"
+                   data-slider-ticks="[1, 2, 3, 4, 5]"
+                   data-slider-ticks-labels='["Terrible", "Poor", "OK", "Good", "Excellent"]'
+                   data-slider-min="1"
+                   data-slider-max="5"
+                   data-slider-step="1"
+                   data-slider-value="3"
+                   data-slider-tooltip="hide"/>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left:15px">       
+            <p><br/></p>
+        </div>
+        
+        <aura:set attribute="else">
+            
+            <div class="slds-path">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">                            
+                        <div class="slds-path__scroller" role="application">
+                            <div class="slds-path__scroller_inner">
+                                <ul class="slds-path__nav" role="tablist">
+                                    <li class="slds-path__item slds-is-incomplete" role="presentation">
+                                        <a aria-controls="path-content-1" aria-expanded="false" aria-selected="false" 
+                                           class="slds-path__link" href="javascript:void(0);" 
+                                           id="path-1" role="tab" tabindex="-1"
+                                           >
+                                            
+                                            <span class="slds-path__title" id="Terrible" onclick="{!c.handleSelectedRating}">Terrible</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-path__item slds-is-incomplete" role="presentation">
+                                        <a aria-controls="path-content-2" aria-expanded="false" aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-2" role="tab" tabindex="-1">
+                                            
+                                            <span class="slds-path__title" id="Poor" onclick="{!c.handleSelectedRating}">Poor</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-path__item slds-is-incomplete" role="presentation">
+                                        <a aria-controls="path-content-3" aria-expanded="false" aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-3" role="tab" tabindex="-1">
+                                            
+                                            <span class="slds-path__title" id="OK" onclick="{!c.handleSelectedRating}">OK</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-path__item slds-is-incomplete" role="presentation">
+                                        <a aria-controls="path-content-4" aria-expanded="false" aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-4" role="tab" tabindex="-1">
+                                            
+                                            <span class="slds-path__title" id="Good" onclick="{!c.handleSelectedRating}">Good</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-path__item slds-is-won slds-is-incomplete" role="presentation">
+                                        <a aria-controls="path-content-5" aria-expanded="false" aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-5" role="tab" tabindex="0">
+                                            
+                                            <span class="slds-path__title" id="Excellent" onclick="{!c.handleSelectedRating}">Excellent</span>
+                                        </a>
+                                    </li>
+                                </ul>                                      
+                            </div>
+                        </div>
+                    </div>                            
+                </div>                        
+            </div>
+        </aura:set>
+    </aura:if>
+</aura:component>

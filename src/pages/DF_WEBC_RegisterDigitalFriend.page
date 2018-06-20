@@ -1,0 +1,301 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_RegisterFriend_Controller">
+
+  <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+     
+    <div class="row"> 
+    <div class="col-sm-12">
+
+                <h1>Register to become a Dementia Friend</h1>
+
+                <div class="step-container row">
+                    <div class="col-sm-2 col-sm-2 column">
+                        <div class="step-active" id="panel-step-1">
+                            <h5>STEP 1</h5>
+                            <p>Tell us where you live<br/><br/></p>
+                        </div>
+                    </div> 
+
+                    <div class="col-sm-2 col-sm-2 column">
+                        <div class="step" id="panel-step-2">
+                            <h5>STEP 2</h5>
+                            <p>Provide your name and email address</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-2 column">
+                        <div class="step" id="panel-step-3">
+                            <h5>STEP 3</h5>
+                            <p>Watch the video
+                                <br/>
+                                <br/>
+                                <br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-2 column">
+                        <div class="step" id="panel-step-4">
+                            <h5>STEP 4</h5>
+                            <p>Fill in your address details
+                                <br/>
+                                <br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-2 column">
+                        <div class="step" id="panel-step-5">
+                            <h5>STEP 5</h5>
+                            <p>Verify your account by email
+                                <br/>
+                                <br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-2 column">
+                        <div class="step" id="panel-step-6">
+                            <h5>STEP 6</h5>
+                            <p>Receive your Dementia Friends pack</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-11">
+                <div class="row">
+                    <div class="col-sm-8 column">
+                        <form class="form-horizontal" id="friend-options-title">
+                            <h3>Where do you live?</h3>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="friend-options-select">
+                                        <option value="0">Where do you live?</option>
+                                        <option value="1">England</option>
+                                        <option value="2">Guernsey, Isle of Man</option>
+                                        <option value="3">Wales</option>
+                                        <option value="4">Northern Ireland</option>
+                                        <option value="5">Scotland</option>
+                                        <option value="99">Outside the UK</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+
+                        <p style = "display:none" class= "help-block" id ="intro-text-step-1">
+                            Enter your details and watch the video to become a Dementia Friend. Then enter your address to get your FREE Little Book of Friendship - full of more helpful tips and ideas - and your Dementia Friend badge. To find out more about how we use your personal information please take a look at our supporter <a href="https://www.dementiafriends.org.uk/WEBArticle?page=privacy-policy#.WwhNmO4vyUl">privacy statement</a>.               
+                        </p>       
+
+                        <p style = "display:none" class= "help-block" id ="intro-text-step-2" title="step 2">
+                            <strong>Thanks for registering.</strong>.  Now watch the video to become a Dementia Friend. When the video is finished you will be able to enter your address so we can send your FREE pack, including our Little Book of Friendship - full of more helpful tips and ideas - and your Dementia Friends badge.
+                        </p>
+                       
+                         <p style = "display:none" class= "help-block" id ="intro-text-step-3" title = "step 3">
+                            <strong>Congratulations on becoming a Dementia Friend.</strong>.  Enter your address and we will send your FREE pack, including our Little Book of Friendship - full of more helpful tips and ideas - and your Dementia Friends badge.
+                         </p>
+                         
+                         
+
+                        <span style = "display:none" id="friend-options-texts" >                   
+
+                            <p style = "display:none" class= "help-block" id ="friend-options-text-1"></p>
+                            
+                            <p style = "display:none" class= "help-block" id ="friend-options-text-2">
+                            
+                               We can only send the Little Book of Friendship to Friends living in England at the moment. If you would like to learn about being a Dementia Friend, sign up for a Face to Face session with one of your local champions. Register using the form below and you'll be able to search for a session near you.                                
+                           
+                            </p>                        
+
+                            <p style = "display:none" class= "help-block" id ="friend-options-text-3">
+                            
+                               We can only send the Little Book of Friendship to Friends living in England at the moment. If you would like to learn about being a Dementia Friend, sign up for a Face to Face session with one of your local champions. Register using the form below and you'll be able to search for a session near you.                                
+                           
+                            </p>                        
+
+                            <p style = "display:none" class= "help-block" id ="friend-options-text-4">
+                            
+                                The way we deliver Dementia Friends in Northern Ireland is a bit different to the rest of the UK. Contact our local Dementia Friendly Communities team or one of our local offices in Northern Ireland to find out what dementia friendly activity is taking place and how you can get involved. <a href="https://www.alzheimers.org.uk/homepage/169/our_local_offices?_ga=2.104295171.2028168748.1499268053-618002818.1423848131">Click here for more information</a> 
+                           
+                            </p>                        
+
+                            
+                            <p style = "display:none" class= "help-block" id ="friend-options-text-5">
+
+                            
+                                The Dementia Friends programme in Scotland is managed by Alzheimer Scotland. Find out how you can get involved by visiting <a href="http://www.dementiafriendsscotland.org/">their website</a>
+
+                           
+                            </p>                        
+
+
+                            <p style = "display:none" class= "help-block" id ="friend-options-text-99">
+                            
+                                 We can only register Friends in the United Kingdom. See <a href="WEBArticle?page=friend-how-else-can-i-help"> here</a> for more information about how you may be able to help people with dementia where you live.
+                           
+                            </p>                       
+
+                        <br/>
+                        </span>
+                        
+
+                        <div class="well" id="short-form-container" style="display:none">
+                            <apex:form styleClass="form-horizontal" id="short-form">
+                                <h3>Your details</h3>
+                                <div class="form-group required">
+                                    <label for="firstName" class="col-sm-3 control-label">First name</label>
+                                    <div class="col-sm-8">
+                                        <apex:inputText value="{!firstName}" styleClass="form-control" id="firstName_short" />
+                                        <div id="firstName_shortError" class="help-block"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="lastName" class="col-sm-3 control-label">Last name</label>
+                                    <div class="col-sm-8">
+                                        <apex:inputText value="{!lastName}" styleClass="form-control" id="lastName_short" />
+                                        <div id="lastName_shortError" class="help-block"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group required">
+                                    <label for="email" class="col-sm-3 control-label">Email address</label>
+                                    <div class="col-sm-8">
+                                        <apex:inputText value="{!emailAddress}" styleClass="form-control" id="emailAddress_short" html-autocapitalize="off"/>
+                                        <div id="emailAddress_shortError" class="help-block"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="email2" class="col-sm-3 control-label">Confirm email address</label>
+                                    <div class="col-sm-8">
+
+                                        <apex:inputText value="{!emailAddress2}" styleClass="form-control" id="emailAddress2_short" html-autocapitalize="off"/>
+                                        <div id="emailAddress2_shortError" class="help-block"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lastName" class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-8">
+                                        <p style="padding-left: 0px;">We&#x2019;d love to stay in touch with you about Dementia Friends and everything Alzheimer&#x2019;s Society is doing; from fundraising, campaigning, services and research to volunteering.<br/><br/>
+                                            It&#x2019;s totally up to you &#x2013; you can update what you get at any time and we will never sell your details to third parties. We will use your details to keep you up to date about your role as a Champion. To find out more about how we use your personal information please take a look at our supporter <a href="https://www.dementiafriends.org.uk/WEBArticle?page=privacy-policy#.WwhNmO4vyUl">privacy statement</a>. </p>
+                                    </div>
+                                </div>    
+                                
+                                <div class="form-group">
+                                    <label for="emailPref_short" class="col-sm-3 control-label">I'd like to receive updates by email</label>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" id="emailPref_short"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                
+                                <!--div class="form-group">
+                                    <div class="col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <apex:inputCheckbox value="{!newsLetter}" id="newsletter_short" /> Sign up to Dementia Friends e-newsletter and further communications from Alzheimer's Society
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div-->
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                    <input type="submit" class="btn btn-primary" id="save-short-form" value="Next" name="save-short-form"/>
+                                    </div>
+                                </div>
+
+                                <div class="has-error">    
+                                    <div id="shortServerError" class="help-block"></div>
+                                </div>    
+
+                            </apex:form>
+                        </div>
+                    </div>
+                    <!-- End First Block -->
+
+                <div class="col-sm-4 column"></div>
+                </div>
+
+                <div class="row" id = "video-container" style="display:none">
+                    <div class="col-sm-8 column">
+
+                        <div class="embed-responsive embed-responsive-16by9">
+    
+                            <div id="player" style="display:none" class="embed-responsive-item"></div>
+                            <div id="final-player-image" style="display:none"><img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/video-end-image.jpg')}" alt="Thanks for watching the video" style="width:80%;height:80%"/></div>
+                            
+                       
+
+                        </div>
+                        
+                        
+                        <br/><br/>
+
+                    </div>
+                    <div class="col-sm-4 column">
+                    </div>
+                </div>
+                
+                <p class= "help-block" style="display:none" id ="bsl-video" >
+                          <a class="btn-primary" href="https://youtu.be/qut1FiQfcrI" onclick="$('#standard-video').fadeIn();$('#bsl-video').hide();return false;" id="bslLink"> Watch this video in British Sign Language</a>
+                </p>
+                <p class= "help-block" style="display:none" id ="standard-video" >
+                          <a class="btn-primary" href="https://youtu.be/qut1FiQfcrI" onclick="$('#standard-video').hide();$('#bsl-video').fadeIn();return false;" id="standardLink"> Watch the original video</a>
+                </p>
+                <!-- End Video Container -->
+
+                <div class="row">
+                <div class="col-sm-8 column">
+
+                         <c:DF_WEBC_RegisterLongForm />
+
+
+                        <div id="success-message" style="display:none" class="well">   
+                                                   
+                           <h3> Thanks for registering as a Dementia Friend </h3>                               
+                           <p> We’ve sent you a confirmation email to confirm login.  Just click the link and you will be logged into the site.</p>
+
+                        </div>
+
+                </div>
+
+
+                 <div class="col-sm-4 column"></div>
+                
+                </div>
+        
+        </div>        
+        </div>
+        <!-- End 12 Wide Col -->
+        
+        <c:DF_WEBR_WebFooter />
+
+    </div>
+    <!-- End Page Container -->
+    
+    <!--  PostcodeAnywhere code -->    
+    <script type="text/javascript" src="//services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"></script>
+     <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
+     
+    <script type="text/javascript">
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+    </script>   
+    
+    <c:DF_WEBC_RegisterDigitalFriend_js />
+    
+    <script type="text/javascript">
+
+        $(document).ready(function() {  
+         
+            _webc.RegisterDigitalFriend_init();                     
+        });
+
+    </script>
+
+</apex:page>

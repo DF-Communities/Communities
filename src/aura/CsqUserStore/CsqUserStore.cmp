@@ -1,0 +1,4 @@
+<aura:component extends="c:CsqStoreComponent" controller="CsqUserStoreController">
+	
+    
+</aura:component>

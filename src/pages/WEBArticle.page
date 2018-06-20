@@ -1,0 +1,107 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBArticle">
+    <style type='text/css'>
+    b>span>span{
+      color: #1C1463 !important;
+    }
+    </style>
+    <!-- meta data, CSS, JS  -->
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+
+    <!-- Logo, Signin, Newsletter Subscribe -->
+    <c:DF_WEBR_WebHeader />
+
+
+    <!-- Primary - Horizontal navigtion -->
+    <c:DF_WEBR_WebNavbar activeValue="{!thisPage.Active_Menu__c}"/>
+
+    <!-- Two col page body, 9 cols for main content, 4 cols for LH navigation-->
+    <div class="row *.css">
+        <div class="col-md-12">                
+        <div class="row *.css">
+        
+          
+                <div class="col-md-9 col-md-push-3 col-lg-push-3" >
+
+                <c:DF_WEBR_Breadcrumb thisPage="{!thisPage}"/>
+
+                <div class="col-md-8 column">
+
+                    <h1><apex:outputText value="{!thisPage.Title__c}"/></h1>
+
+                    <c:DF_WEBC_SocialLinks />
+                   
+                    <apex:repeat value="{!pageSections}" var="section">
+                    
+                        <apex:outputPanel rendered="{!section.Display_Order__c != '1' || thisPage.Unique_text__c = 'about'}">                    
+                            <h2>{!section.Heading__c}</h2>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(section.Intro_Paragraph__c))}">
+                            <p><apex:outputText value="{!section.Intro_Paragraph__c}" escape="false"/></p>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(section.Body_Text__c))}">
+                            <p><apex:outputText value="{!section.Body_Text__c}" escape="false"/></p>                    
+                        </apex:outputPanel>
+                    
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(section.Link_URL__c))}">
+                           <a class="btn btn-primary" href="{!section.Link_URL__c}">{!section.Link_Title__c}</a>
+                        </apex:outputPanel>
+
+                        <hr/>
+                    
+                    </apex:repeat>
+                    
+                
+                    
+                <!-- Dementia Friendly Community Info - if any -->
+                <c:DF_WEBR_DFCResources rendered="{!thisPage.Unique_text__c='dementia-friendly-communities'}"/>  
+
+                <!-- Dementia Friendly Community Public Listing - if any -->
+                <c:Dfc_CommunityListing rendered="{!thisPage.Unique_text__c='dfc-public-listing'}"/> 
+                
+                </div>
+                
+
+
+                <!-- START Sidebar -->
+                <div class="col-md-4 column">
+                    <!-- Snippet Links for ths page -->
+                    <apex:repeat value="{!pageSnippets}" var="snippet">                    
+                    
+                        <div class="sidebar-block">
+                            <h3><apex:outputText value="{!snippet.Page_Snippet__r.Name__c}"/></h3>
+                            <p><apex:outputText value="{!snippet.Page_Snippet__r.Body_Text__c}" escape="false" /></p>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(snippet.Page_Snippet__r.Link_URL__c))}">
+                                <p>
+                                <a class="btn btn-primary" href="{!snippet.Page_Snippet__r.Link_URL__c}">{!snippet.Page_Snippet__r.Link_Title__c}</a>
+                                </p>
+                            </apex:outputPanel>
+                        </div>                
+
+                    </apex:repeat>    
+                </div>
+
+                </div>
+
+                <!-- Standard left hand side bar links -->
+                <div class="col-md-3 column col-md-pull-9 col-lg-pull-9">
+
+                    <c:DF_WEBC_Nav_FCO activePage="{!thisPage.Unique_text__c}"/>
+
+                </div>
+
+
+        </div>
+        </div>
+    </div>
+    
+    
+    <c:DF_WEBR_WebFooter />
+
+  </div>
+
+</apex:page>

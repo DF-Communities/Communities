@@ -1,0 +1,11 @@
+<aura:component extensible="true" abstract="true">
+
+    <aura:attribute name="viewId" type="String"/>
+    <aura:attribute name="viewStore" type="Object"/>
+    <aura:attribute name="viewDefs" type="Object[]"/>
+    <aura:attribute name="viewState" type="Object"/>
+    <aura:handler event="c:CsqStoreChanged" action="c.onStoreChanged"/>
+
+    <div class="{!$Browser.formFactor}">{!v.body}</div>
+    
+</aura:component>

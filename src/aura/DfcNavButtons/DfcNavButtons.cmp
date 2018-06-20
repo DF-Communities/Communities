@@ -1,0 +1,13 @@
+<aura:component >
+    
+   <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+
+   <aura:attribute name="backButton" type="Boolean" access="GLOBAL" default="true"/>
+   <aura:attribute name="nextButton" type="Boolean" access="GLOBAL" default="true"/>
+
+   <div class="nav-buttons no-print">
+       <c:CsqActionButton class="{!v.backButton?'btn btn-action':'hide'}" onclick="{!c.prevView}"><i class="fa fa-chevron-left"></i>Back</c:CsqActionButton>
+       <c:CsqActionButton class="{!v.nextButton?'btn btn-action':'hide'}" onclick="{!c.nextView}">Next<i class="fa fa-chevron-right"></i></c:CsqActionButton>
+    </div>
+    
+</aura:component>

@@ -1,0 +1,244 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" 
+            controller="DF_WEBC_RegisterCommunityAdmin_Ctl" 
+            title="Register for the Dementia Friendly Community Recognition Process" 
+            action="{!handleInvite}">
+
+    <apex:variable value="{!ISBLANK($CurrentPage.parameters.invite)==FALSE}" var="isInvite"/>   
+
+    <c:DF_WEBR_WebMeta />
+
+    <style>
+
+    .step-container div {
+        min-height : 125px;
+    }
+
+    </style>
+
+    <div class="container">
+
+    <!-- Display the header with the Dementia Friendly Communities logo -->
+    <c:DF_WEBR_WebHeader logoPrefix="dfc"/>
+   
+    <c:DF_WEBR_WebNavbar />
+
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+     
+    <div class="row">
+        
+        <div class="col-md-12" id="standard-registration" style="display:none">
+
+            <h1>Get your Community recognised as a Dementia Friendly Community</h1>  
+
+            <div class="step-container row">
+            
+            <div class="col-sm-2 col-md-2 column">
+                <div class="step-active" id="panel-step-1">
+                    <h5>STEP 1</h5>
+                    <p>Tell us where your Community is</p>
+                </div>
+            </div> 
+
+            <div class="col-sm-2 col-md-2 column">
+                <div class="step" id="panel-step-2">
+                    <h5>STEP 2</h5>
+                    <p>Register your personal details</p>
+                </div>
+            </div>
+
+            <div class="col-sm-2 col-md-2 column" >
+                <div class="step" id="panel-step-3" style="display:none">
+                    <h5>STEP 3</h5>
+                    <p>Verify your account by email
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-sm-2 col-md-2 column" >
+                <div class="step" id="panel-step-4" style="display:none">
+                    <h5>STEP 4</h5>
+                    <p>Apply for Community recognition</p>
+                </div>
+            </div>
+
+                </div>
+
+       </div>
+    
+       <div class="col-md-12" id="invite-registration" style="display:none">
+
+                <h1>Help get your community recognised as Dementia Friendly</h1>          
+
+                <p class= "help-block" id ="intro-text-step-invite" title = "step 1" style="width:80%;display:none">
+                    
+                    {!invite.CreatedBy.FirstName} {!invite.CreatedBy.LastName} has invited you to help get your Community recognised as Dementia Friendly. Please enter your details and set up your account. Once you have set up your account you will be logged in and directed to the form where you can start helping with the recognition process. 
+
+                </p>
+
+
+       </div>        
+
+
+    </div>         
+
+    <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8 column">
+
+                  
+                        <div id="friend-options">
+
+                        <form class="form-horizontal">
+                        
+                            <h3 id = "standard-header" style="display:none">Where is your Community?</h3>
+
+                            <div class="form-group" id="country-select-container" style="display:none">
+                                <div class="col-sm-6">
+                                
+                                     <select id="community-country-select" class="form-control">
+                                        <option value='0'>Where is your Community?</option>
+                                        <option value='1'>England</option>
+                                        <option value='2'>Guernsey, Isle of Man</option>
+                                        <option value='3'>Wales</option>
+                                        <option value='4'>Northern Ireland</option>
+                                        <option value='5'>Scotland</option>
+                                        <option value='99'>Outside the UK</option>
+                                    </select>
+                                
+                                </div>
+                            </div>
+                        
+                        </form>
+
+                         <div id="friend-options-texts">   
+
+                            <!-- Wales 
+                            <p class= "help-block" id ="friend-options-text-3" style="display:none">
+                                If your community is in Wales, please apply for Dementia Friendly Community recognition on the <a href="http://www.alzheimers.org.uk/site/scripts/documents_info.php?documentID=2136" target="_blank">Alzheimer’s Society website</a>.
+                            </p>                        
+                        -->
+
+                            <!-- Guernsey -->
+                            <p class= "help-block" id ="friend-options-text-2" style="display:none">
+                                 We can only register Dementia Friendly Communities in England and Wales. See <a href="WEBArticle?page=friend-how-else-can-i-help"> here</a> for more information about how you may be able to help people with dementia where you live.
+                            </p>                                             
+
+
+                            <!-- Northern Ireland -->
+                            <p class= "help-block" id ="friend-options-text-4" style="display:none">
+                                If your community is in Northern Ireland, please apply for Dementia Friendly Community recognition on the <a href="https://www.alzheimers.org.uk/info/20115/making_your_community_more_dementia-friendly/341/how_to_become_a_recognised_dementia-friendly_community" target="_blank">Alzheimer’s Society website</a>. 
+                            </p>                        
+
+                            
+
+                            <!-- Scotland -->
+                            <p class= "help-block" id ="friend-options-text-5" style="display:none">
+                                The Dementia Friendly Communities programme in Scotland is managed by Alzheimer Scotland. Find out how you can get involved by <a href="http://www.alzscot.org/" target="_blank">visiting their website</a>.
+                           
+                            </p>                        
+
+
+                             <!-- Outside of UK -->
+                                <p class= "help-block" id ="friend-options-text-99" style="display:none">
+                                 We can only register Dementia Friendly Communities in England and Wales. See <a href="WEBArticle?page=friend-how-else-can-i-help"> here</a> for more information about how you may be able to help people with dementia where you live.
+                            </p>                       
+
+
+                        </div>
+
+                    </div>    
+
+                    <div id="intro-text-container">                   
+                       
+                        <p class= "help-block" id ="intro-text-step-1" title = "step 1" style="display:none">
+                            
+                            Please register to start the process of getting your Community recognised as a Dementia Friendly Community. Once you have registered and verified your email, you will be able to enter the details of your Community and start the recognition process. 
+
+                        </p>
+
+                                            
+                    </div>
+
+                    <c:DF_WEBC_RegisterLongForm />  
+                 
+                   <!-- Successful Message -->
+                
+                   <div id="success-message" style="display:none" class="well">   
+                                                   
+                       <h3> Verify your email address by clinking the link we sent you</h3>                               
+                       <p> Thanks for registering. We’ve sent you a confirmation email to verify your email.  Click the link in the email to continue the process of getting your Community recognised as a Dementia Friendly Community.</p>
+
+                   </div>
+                   
+                   <!-- Already Registered Message -->
+                
+                   <div id="existing-user-message" style="display:none" class="well">   
+                                                   
+                       <h3> You have already registered your account. </h3>                               
+                       <p> You have already registered your account. Please login to continue</p>
+
+                   </div>
+
+
+               </div>
+
+                <!-- START Sidebar -->
+                <div class="col-md-4 column">
+
+                 <apex:outputPanel id="already-registered" rendered="{!!isLoggedIn && !isInvite}" >
+                            <h3>Already Registered ?</h3>
+                            <p>If you are already a registered user on this website click here to sign in and apply for Dementia Friendly Community recognition</p>
+                            <p>
+                                <a class="btn btn-primary" href="/dfc_apply_app">Apply for Recognition</a>
+                                </p>     
+                                
+                 </apex:outputPanel>
+
+                </div>
+
+           </div>
+
+
+       </div>
+   </div>    
+    
+
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+    
+    
+    <!--  PostcodeAnywhere code -->    
+    <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"></script>
+
+    <script type="text/javascript">
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+
+
+            document.getElementById("alz-footer-link").className = 'hide';    
+            document.getElementById("newsletter-subscribe").className = 'hide'; 
+          
+            document.getElementById("dfc-logo").style.marginBottom = '8px';
+    </script>
+
+
+    <c:DF_WEBC_RegisterCommunityAdmin_js />
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            _webc.inviteId = '{!inviteData.id}';
+            _webc.inviteEmail = '{!inviteData.email}';
+            _webc.inviteName = '{!inviteData.name}';
+
+            _webc.RegisterCommunityAdmin_init();
+
+        });
+
+    </script>
+
+
+</apex:page>

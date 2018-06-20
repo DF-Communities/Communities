@@ -1,0 +1,276 @@
+<apex:page controller="Dfc_ApplyController" 
+            showHeader="false" 
+            standardStylesheets="false" 
+            sidebar="false" 
+            applyBodyTag="false"  applyHtmlTag="false" 
+            docType="html-5.0" >
+<html>
+<head> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/> 
+
+    <title>Recognition Process for Dementia Friendly Communities</title>
+    <apex:includeLightning />
+
+    <c:DF_WEBR_WebMeta />
+    
+    <link rel="icon" href="{!URLFOR($Resource.DF_WEBR_Assets, 'img/favicon.png')}"/>
+<!-- -->    
+<style>
+.message p { font-size:16px; } 
+.message ul {
+   list-style-type: none;
+   padding: 0;
+   margin: 0;    
+}
+
+.message li  {
+    background-image: url('/resource/DF_WEBR_Assets/img/flower-icon.png');
+    background-repeat: no-repeat;
+    background-position: 0px 3px;
+    padding: 4px 0 6px 32px;
+    list-style: none;  
+    font-size: 15px;
+    min-height: 26px;
+    margin-bottom:2px;
+}
+
+#dfc-intro {
+  width:100%;
+}
+
+.alert-extra {
+  font-size:16px;
+  text-align: center;
+}
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+
+    a[href]:after {
+    content: none !important;
+    }
+}
+
+/* Phones:  */
+@media (max-width: 767px) {
+  .breadcrumb {display:none;}
+  .header {padding-bottom: .5em;}
+  h1 { font-size:24px; }
+}
+      
+/* CSS3 animations like @keyframes are supported in IE starting with version 10 
+    - so not supported in IE9 */       
+@keyframes spin {
+    to { transform: rotate(1turn); }
+}
+
+#dfc-loading, .dfc-loading {
+    display:none;  
+    width:100%;
+    text-align:center;
+    padding-top:8em;
+}
+        
+div:empty + #dfc-loading {
+    display:block ;
+}
+
+.dfc-progress {
+  display:inline-block;
+  width: 124px;
+  height: 124px;
+  background-image: url('/resource/dfc_images/dfc_loading.gif');
+  background-repeat: no-repeat;
+}
+    
+.button-spacer { margin-bottom:10px }
+    
+</style>
+
+</head>
+
+<body>
+  <div class="container">
+    <c:DF_WEBR_WebHeader logoPrefix="dfc"/>
+    <c:DF_WEBR_WebNavbar />
+
+    <div class="row">
+      <div class="col-md-12" id="main-area" style="min-height:calc(100vh - 350px)">
+
+        <ol class="breadcrumb no-print" style="margin-bottom:13px;">
+            <li><a href="/">Home </a></li>
+            <li><a href="/user-home">My Dashboard </a></li>
+            <li>Dementia Friendly Community Recognition Process</li>
+        </ol>   
+
+        <div id="dfc-intro"> 
+                        
+           <div class="row">
+    
+           <div class="col-md-2" ></div>
+           <div class="col-md-8">
+               
+                <h1>Apply for Dementia Friendly Community Recognition</h1>
+               
+
+                 <apex:outputPanel >
+       
+                    <div>
+                                    <!-- Intro text from Snippet -->
+                        <apex:outputText value="{!introText}" escape="false" styleClass="message" rendered="{!draftCommunityCount<3}"/>
+
+                        <apex:outputPanel rendered="{!communityCount>0}" > 
+
+                          <div class="alert alert-warning alert-extra" style="margin-top:10px">
+                              <p>{!IF(draftCommunityCount<3,communitiesExistMessage,'')}</p>
+                              <p>{!IF(draftCommunityCount>2,'You have reached the maximum number of applications pending approval. You can apply again when your current applications have been approved by the Dementia Friendly Communities team.','')}</p>
+                          </div>
+
+                      </apex:outputPanel>
+
+                        <p style="width:100%; text-align:center; margin-top:10px;">
+
+                            <button onclick="DFC.redirectToDashboard()"  class="{!IF(draftCommunityCount==0,'hide','btn btn-action button-spacer')}" style="margin-right:10px;">View My Communities</button>
+
+
+                            <button id="dfc-apply-button" onclick="DFC.apply()" disabled="true" class="{!IF(draftCommunityCount>2,'hide','btn btn-action button-spacer')}">
+                            {!IF(communityCount==0,'Apply','New Application')}
+                            </button>
+                        </p>
+                        
+                    </div>
+              
+                </apex:outputPanel>
+
+           </div>
+          <div class="col-md-2" ></div> 
+               
+          </div><!-- End row -->
+     </div> <!-- End dfc-intro -->
+          
+     <!-- Lightning component container -->
+     <div id="dfc" style="border 1px solid black"></div>
+
+        <!-- Display spinner while page is loading -->
+        <div id="dfc-loading" class="hide">
+          <div class="dfc-progress"></div>
+        </div>
+        
+      </div>
+    </div>
+
+          
+     <c:DF_WEBR_WebFooter />
+      
+    <script>
+          // If qs param go=1, we have come from the 'Continue Editing' button on the Dashboard and want to go stright into editing the form
+
+                    /* Workaround for IE repaint bug related to spinner */
+          var timer = setInterval(function(){
+             if (document.getElementById("dfc").children.length==0) return;
+             hideElement("dfc-loading");    
+             clearInterval(timer);
+          },300);
+
+          if (!window.console) window.console = { log:function(){}, warn:function(){}, error:function(){} };
+
+          hideElement("alz-footer-link");    
+          hideElement("newsletter-subscribe");
+
+          var goParameter= '{!$CurrentPage.parameters.go}';
+          if (goParameter=='1') {  hideElement("dfc-intro"); } 
+          var country = '{!$CurrentPage.parameters.country}';
+
+
+          DFC = {};
+
+          DFC.apply = function()
+          {
+              hideElement("dfc-intro");                                       // Hide the introduction messages
+
+              var dfcid   = '{!$CurrentPage.parameters.dfcid}';               // Query string parameter with community oid
+           
+              if (dfcid=='') {
+                   dfcid = createNewCommunity(country);
+              } else {
+                
+                $Lightning.createComponent('c:DfcRegisterCommunity', { 'country' : country}, 'dfc', function(cmp) {
+                      console.log('Component created');
+                });
+
+            }
+          }
+
+
+          DFC.redirectToDashboard = function() 
+          { 
+                window.location.replace('user-home');
+          };
+          
+          $Lightning.use('c:DfcLoader', function(){
+
+             function log(level, message, error)
+             {
+                if (error) level = "ERROR";
+                if (level=='INFO') console.log(level+':'+message);
+                else if (level=='WARN') console.warn(level+':'+message);
+                else console.error(level+':'+message);
+                if (error) console.error(error);
+             }
+              $A.logger.subscribe("INFO", log);
+              $A.logger.subscribe("ERROR", log);
+              $A.logger.subscribe("ASSERT", log);
+              $A.logger.subscribe("WARNING", log);
+
+              var applyButton = document.getElementById("dfc-apply-button");
+              if (applyButton) applyButton.disabled = false;
+
+              // Come from Dashboard and Draft Appliction in progress
+              if (goParameter=='1')
+                DFC.apply();
+          });
+    
+          // Come from Dashboard and Draft Appliction in progress
+          if (goParameter=='1')
+            document.getElementById("dfc-loading").className = '';
+
+          Visualforce.remoting.timeout = 120000; // Set timeout at page level
+
+          // Create a new community
+          function createNewCommunity() {
+
+              Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.Dfc_ApplyController.createNewCommunity}',
+                handleResult
+              );
+          };
+
+          function handleResult(result, event) { 
+                console.log('event.status='+event.status);
+                var url = 'dfc_apply?dfcid='+result+'&go=1&country='+country;
+                window.location.replace(url);
+          };
+
+ 
+
+          // Utility function to hide a DOM element if it exists
+          function hideElement(elementName)
+          {
+                if (document.getElementById(elementName)) {
+                       document.getElementById(elementName).className = 'hide';
+                }
+          };   
+
+
+    </script>
+    </div>
+</body>
+</html>
+
+
+</apex:page>

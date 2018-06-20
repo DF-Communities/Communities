@@ -1,0 +1,347 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="DF_WEBC_RegisterAdmin_Controller">
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+     
+    <div class="row">
+    <div class="col-md-12"> 
+
+                    <h1>Register an Organisation with Dementia Friends</h1>                                    
+                    <div class="step-container row">
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step-active" id="panel-step-1">
+                                <h5>STEP 1</h5>
+                                <p>Tell us where you are<br/><br/></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step" id="panel-step-2">
+                                <h5>STEP 2</h5>
+                                <p>Complete the registration form<br/><br/></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step" id="panel-step-3">
+                                <h5>STEP 3</h5>
+                                <p>Verify your account by email<br/>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step" id="panel-step-4">
+                                <h5>STEP 4</h5>
+                                <p>Get your organisation code</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step" id="panel-step-5">
+                                <h5>STEP 5</h5>
+                                <p>Share the videos with your organisation</p>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        </div>
+                  
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8 column">
+                        <form class="form-horizontal" id="friend-options-title">
+
+                        <h3>Where is the organisation based ?</h3>
+
+                         <div class="form-group">
+                         <div class="col-sm-8">
+                         <select class="form-control" id="friend-options-select">
+                            <option value='0'>Where is the organisation based ?</option>
+                            <option value='1'>England</option>
+                            <option value='2'>Guernsey, Isle of Man</option>
+                            <option value='3'>Wales</option>
+                            <option value='4'>Northern Ireland</option>
+                            <option value='5'>Scotland</option>
+                            <option value='99'>Outside the UK</option>
+                        </select>
+                        </div>
+                        </div>
+
+                        </form>
+
+                         <div>                   
+                            
+                            <span id ="friend-options-text-1">
+                                Register your organisation with Dementia Friends to gain access to helpful resources and videos you can use to make your organisation more Dementia Friendly
+                           
+                            </span>                        
+        
+                            <span id ="friend-options-text-2">
+                            
+                                Register your organisation with Dementia Friends to gain access to helpful resources and videos you can use to make your organisation more Dementia Friendly                            
+                           
+                            </span>                        
+
+                            <span id ="friend-options-text-3">
+                            
+                                Register your organisation with Dementia Friends to gain access to helpful resources and videos you can use to make your organisation more Dementia Friendly    
+                           
+                            </span>                        
+
+                            <span id ="friend-options-text-4">
+                            
+                                The way we deliver Dementia Friends in Northern Ireland is a bit different to the rest of the UK. Contact our local Dementia Friendly Communities team or one of our local offices in Northern Ireland to find out what dementia friendly activity is taking place and how you can get involved. <a href="http://www.alzheimers.org.uk/site/scripts/documents.php?categoryID=200140">Click here for more information</a> 
+                           
+                            </span>                        
+
+                            
+                            <span id ="friend-options-text-5">
+
+                            
+                                The Dementia Friends programme in Scotland is managed by Alzheimer Scotland. Find out how you can get involved by visiting <a href="http://www.dementiafriendsscotland.org/">their website</a>
+
+                           
+                            </span>                        
+
+
+                            <span id ="friend-options-text-99">
+                            
+                                 We can only register Champions in the United Kingdom. See <a href="WEBArticle?page=friend-how-else-can-i-help"> here</a> for more information about how you may be able to help people with dementia where you live.
+                           
+                            </span>                     
+                            <br/><br/>
+
+                        </div>
+                    
+
+                    <div class="well" id="long-register-form" style="display:none;">
+                                        
+                    <apex:form styleClass="form-horizontal" forceSSL="true" id="long-form">
+                         
+                         <h3>Organisation details</h3>
+
+                            <div class="form-group required">
+                                 <label for="Name" class="control-label col-sm-3 required">Organisation name</label>
+                                 <div class="col-sm-8">
+                                     <apex:inputText id="orgName" value="{!orgName}" styleClass="form-control" />
+                                     <span id="orgNameError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+
+                            <!-- Removed to simplify the process 
+                            <div class="control-group element-firstName element-type-text required">
+                                 <label for="Name" class="control-label required">Organisation email domain</label>
+                                 <div class="controls">
+                                    <label for="password" class="small-help" style="margin-left:20px;">e.g. "alzheimers.org.uk". (This will be part of your user name)</label>
+                                     <apex:inputText id="emailDomain" value="{!emailDomain}" styleClass=" input-text input" style="width:90%"/>
+                                     <span style="float:left;margin-right:5px">@</span>
+                                     <span id="emailDomainError" class="text-error"></span>
+                                 </div>
+                             </div>
+                             -->
+                             
+                             <div class="form-group required">
+                                 <label for="employees" class="control-label col-sm-3 required">Number of employees</label>
+                                 <div class="col-sm-8">
+                                 
+                                 <select id="employees" name = "employees" class="form-control">
+                                    <option value='NULL'>-- Select a range -- </option>
+                                    <option value='less than 10'>less than 10</option>
+                                    <option value='less than 100'>less than 100</option>
+                                    <option value='less than 250'>less than 250</option>
+                                    <option value='more than 250'>more than 250</option>
+                                </select>
+                                
+                                <span id="employeesError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="postcode" class="col-md-3 control-label">Postcode</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_postcode" value="{!postCode}" styleClass="form-control" />
+                                     <span id="postCodeError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="street" class="col-md-3 control-label">Building/Street</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_street" value="{!street}" styleClass="form-control" />
+                                     <span id="streetError" class="help-block"></span>
+                                 </div>
+                             </div>
+                             
+                             <div class="form-group required">
+                                 <label for="city" class="col-md-3 control-label">City</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_city" value="{!city}" styleClass="form-control" />
+                                     <span id="cityError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                            <div class="form-group required">
+                                 <label for="county" class="col-md-3 control-label">County</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_county" value="{!county}" styleClass="form-control" />
+                                     <span id="countyError" class="help-block"></span>
+                                 </div>
+                             </div> 
+                             
+                             <div class="form-group required">
+                                 <label for="country" class="col-md-3 control-label">Country</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="df_pca_country" value="{!country}" styleClass="form-control" />
+                                     <span id="countryError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="telephone" class="col-md-3 control-label">Contact number</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="telephone" value="{!telephone}" styleClass="form-control" />
+                                     <span id="telephoneError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <hr/>   
+
+                             <h3>Your details</h3>
+                             
+                             <div class="form-group required">
+                                 <label for="firstName" class="col-md-3 control-label">First name</label>
+                                 <div class="col-md-8">
+                                     <apex:inputText id="firstName" value="{!firstName}" styleClass="form-control" />
+                                     <span id="firstNameError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="lastName" class="col-md-3 control-label">Last name</label>
+                                 <div class="col-md-8">
+                                    <apex:inputText id="lastName" value="{!lastName}" styleClass="form-control" />
+                                     <span id="lastNameError" class="help-block"></span>
+                                 </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="email" class="col-md-3 control-label">Email address</label>
+                                 <div class="col-md-8">
+                                      <apex:inputText id="emailAddress" value="{!emailAddress}" styleClass="form-control" />
+                                      <span id="emailAddressError" class="help-block"></span>
+                                </div>
+                             </div>
+                             
+                             <div class="form-group required">
+                                 <label for="email" class="col-md-3 control-label">Confirm Email address</label>
+                                 <div class="col-md-8">
+                                      <apex:inputText id="emailAddress2" value="{!emailAddress2}" styleClass="form-control" />
+                                      <span id="emailAddressError2" class="help-block"></span>
+                                </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="email" class="col-md-3 control-label">Your user name</label>
+                                 <div class="col-md-8">
+                                      <small>You will use this to login to the web site</small>  
+                                      <apex:inputText id="userName" value="{!userName}" styleClass="form-control" />
+                                      <span id="userNameError" class="help-block"></span>
+                                </div>
+                             </div>
+
+                             <div class="form-group required">
+                                 <label for="password" class="col-md-3 control-label">
+                                    Password                                    
+                                    </label>
+                                 <div class="col-md-8">
+                                     <small>Minimum 8 characters with numbers and letters</small>
+                                     <apex:inputSecret id="password" value="{!password}" styleClass="form-control" />
+                                     <span id="passwordError" class="help-block"></span>
+                                 </div>
+                             </div>
+                             <div class="form-group required">
+                                 <label for="password2" class="col-md-3 control-label">Re-enter password</label>
+                                 <div class="col-md-8">
+                                     <apex:inputSecret id="password2" value="{!password2}" styleClass="form-control" />
+                                     <span id="password2Error" class="help-block"></span>
+                                 </div>
+                             </div>
+                         
+                        <hr/>     
+                        
+                        <c:DF_WEBC_Recaptcha2 />
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <div class="checkbox">
+                                  <label for="newsletter">
+                                      <apex:inputCheckbox value="{!newsLetter}" id="newsletter"/>Sign up to Dementia Friends e-newsletter and further communications from Alzheimer's Society
+                                  </label>                           
+                               </div>
+                           </div>
+                        </div>                          
+                        
+                         <div class="form-group">
+                            <div class="col-md-10">
+                                <input id="save-long-form" type="submit" name="save-long-form" value="Register" class=" btn btn-primary"/>                         
+                            </div>
+                          </div>  
+
+                          <div class="has-error">
+                            <div id="longServerError" class="help-block"></div>   
+                          </div>  
+
+                    </apex:form>
+
+            </div>
+
+              <!-- Successful Message -->
+            
+               <div class="well" id="success-message" style="display:none">   
+                                               
+                   <h2> Thanks for registering your organisation with Dementia Friends  </h2>                               
+                   <p> We've sent an email to the email address you entered to to confirm the details of your registration. Just click the link and you will be logged into the site. </p>
+                              
+              </div>                      
+
+            </div>
+            <div class="col-md-4 column"></div>
+        
+        </div>
+      </div>
+    </div>
+
+    
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+
+    <!--  PostcodeAnywhere code -->    
+    <apex:includeScript value="//services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"/>
+    <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
+
+    <script type="text/javascript">
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+    </script>
+    
+
+    <c:DF_WEBC_RegisterAdmin_js />
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+           _webc.RegisterAdmin_init();
+        });
+        
+    </script>
+
+
+
+</apex:page>

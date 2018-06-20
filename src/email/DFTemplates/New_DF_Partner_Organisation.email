@@ -1,0 +1,48 @@
+<span style="font-family: arial;">
+Hi {{contact_name}},<br/><br/>
+Thank you for registering a Dementia Friends account for {{partner_name}}.<br/><br/>
+You will be pleased to know that you are moments away from being able to watch our online videos for organisations and accessing lots of other useful resources.<br/><br/>
+<b>Important information:</b>
+<br/>
+<ul>
+<li>You will be the main point of contact for  {{partner_name}}  (if you want to change this, or to add colleagues, please email us with details, making sure to include your unique organisation code)</li>
+
+<li>On your Dementia Friends Organisation Dashboard, you can track the amount of people in {{partner_name}} who have become Dementia Friends.</li>
+
+<li>As the Organisation Administrator, you can request badges and action cards for your staff by emailing us with the following information: 1: Name of organisation, 2: Address to send badges to 3: Number of Dementia Friends created 4: Number of required badges and action cards.</li>
+
+</ul>
+
+<b>Log in details:</b>
+<br/>
+<ul>
+<li>To log into your account, please click <a href="https://www.dementiafriends.org.uk/WEBLogin">here</a> and enter the email address and password you set up on registering. </li>
+
+<li>Your organisation code is <b>{{partner_code}}</b>. This is a unique code that can be distributed to your colleagues to enable them to access the Dementia Friends videos. They do not need your log in details. </li>
+
+<li>Colleagues should click <a href="https://www.dementiafriends.org.uk/DF_WEBC_PartnerVideos?page=videos-for-organisations"> here</a> and when prompted enter your code, the number of new people watching at that time, and the postcode from where they are watching.</li>
+
+<li>Important: we do not take names, just numbers, but feel free to keep a log of names if you wish.</li>
+
+</ul>
+
+<b>Additional information:</b>
+<br/>
+<ul>
+
+<li>Did you know you can also link up staff who are Dementia Friends Champions to your account. (Please email us the Champion's email addresses and your code if you wish to do so)</li>
+
+</ul>
+
+<b>Queries:</b>
+<br/>
+<ul>
+
+<li>Email <a href="mailto:programmepartnerships@alzheimers.org.uk"> programmepartnerships@alzheimers.org.uk</a></li>
+
+</ul>
+
+Good luck with your rollout of Dementia Friends,<br/><br/>
+
+The Programme Partnerships Team
+</span>

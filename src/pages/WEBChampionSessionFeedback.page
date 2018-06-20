@@ -1,0 +1,221 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="HTML-5.0" controller="WEBChampionSessionFeedback" action="{!loginRedirect}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
+    <script>
+        function confirmCancel(){
+            return window.confirm('This will mark this session as cancelled - OK to continue, Cancel to quit');
+        }
+        
+        function checkForZero(){
+         
+            var whichVal = $("input[id$='numberOfAttendees']" ).val();
+            if (whichVal == ''){ whichVal = '0';}
+            var numOfAttendees = parseInt(whichVal);
+            if (numOfAttendees < 1){
+           
+                $('#jq_dialog').dialog({
+                    title: 'Incorrect Number of Attendees',
+                    modal: true,
+                    resizable: false,
+                    width: 500,
+                    maxHeight: 400,
+                    closeText: 'fechar',
+                    show: 'fade',
+                    hide: 'fade',
+                    dialogClass: 'main-dialog-class'
+                });
+                //alert('You must report an attendance at a session of 1 or higher. If the session did not happen please click the ‘Cancel Session’ button');
+                return false;
+            }else {
+                return true;
+            }
+        }
+        
+        function  showPartnerList(){
+       
+       if($('[id$=partnerSession]').is(':checked')==true){
+         $('#partnername').show();       
+         
+       }
+        else{
+           $('#partnername').hide();   
+           
+          }
+       }
+  
+    </script>
+    <script>
+      
+     $(document).ready(function () {
+    showPartnerList();
+    
+     });
+        
+    </script>
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+   
+    <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+                
+    
+            <div class="col-md-9 column col-md-push-3">
+             
+                <div id="message-center">
+                    <apex:outputPanel rendered="{!IF(ISBLANK(messageArea),FALSE,TRUE)}" >
+                        <div class="alert {!messageAreaClass}">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {!messageArea}        
+                        </div>
+                    </apex:outputPanel>
+                </div>
+                <apex:outputPanel rendered="{!thereAreNoSessions}">
+                    <div class="intro">
+                        <h1>You have no completed Sessions.</h1>
+                        <p>Take look at the <a href="WebChampionSessionResources">Information Session resources</a> area to help you get started .</p>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!NOT(thereAreNoSessions)}">
+                   
+                        <h1>Tell us about your Session</h1>
+                       <div class="well">  
+                          <apex:form styleClass="form-horizontal" forceSSL="true" >
+
+                            <div class="form-group">
+                                <div class="control-group element-name element-type-text required">
+                                    <apex:outputPanel rendered="{!IF(sessionListSize == 0 ,'TRUE','FALSE')}" >
+                                    
+                                        <label for="name" class="control-label col-sm-2">Session Name</label>
+                                        <div class="col-sm-8">
+                                            <apex:outputText id="name" value="{!event.Name}" />
+                                            <p class="help-block" style="display: none">The name of the Session. Please include information here to help with SEO (e.g. town name)</p>
+                                            
+                                        </div>
+                                        
+                                    </apex:outputPanel>
+                                   
+                                   
+                                    <apex:outputPanel rendered="{!IF(sessionListSize > 0 ,'TRUE','FALSE')}" >
+                                        <label for="name" class="control-label col-sm-2 required">Session Name</label>
+                                        <div class="col-sm-8">
+                                            <apex:selectList value="{!selectedSession}" size="1" styleClass="form-control" >
+                                                <apex:selectOptions value="{!sessionList}" />
+                                            </apex:selectList>
+                                        </div>
+                                        
+                                    </apex:outputPanel>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="control-group element-numberOfAttendees element-type-text optional">
+                                
+                                  <label for="numberOfAttendees" class="control-label col-sm-2 required">Number of Friends created</label>
+                                   <div class="col-sm-8">
+                                        <apex:inputText id="numberOfAttendees" value="{!noOfAttendees}" styleClass=" input-text input" />
+                                   </div>                                   
+                                </div>
+                               </div>
+                               <apex:outPutPanel rendered="{!isOrgAdmin || isOrgChampion}">
+                               <div class="form-group" >
+                               <div class="control-group element-orgSession element-type-checkbox required">
+                               <div class="col-sm-10">
+                               <apex:outputPanel layout="none" rendered="{!partnerListSize>0}">
+                    			<label for="orgSession" class="control-label">
+                    			
+                      				<apex:inputCheckbox onClick="{showPartnerList();}" id="partnerSession" value="{!ispartnerSession}"  styleClass="input-checkbox input"/>
+                      				 
+                      					Did you deliver the session to members of the organisation that you work for?</label>
+                     			</apex:outputPanel>   
+                     			</div>
+                     			</div>	
+                				</div>
+                				
+                				<div class="form-group" id="partnername">
+                                <div class="control-group element-partnername element-type-text required">
+                                 
+                                        <label for="name" class="control-label col-sm-2 required">Partner Organisation</label>
+                                        <div class="col-sm-8">
+                                            <apex:selectList id="partnerselect" value="{!selectedPartner}" size="1" styleClass="form-control" >
+                                                <apex:selectOptions value="{!partnerList}" />
+                                            </apex:selectList>
+                                            <apex:outputText value="{!partnerError}" rendered="{!LEN(partnerError)>0}" styleClass="help-block"/>
+                                             <apex:outputPanel rendered="{!LEN(partnerError)<0}">
+                                             <p class="help-block" >Please let us know if you have moved organisation.</p>
+                                            </apex:outputPanel>
+                                        
+                                        </div>
+                                     
+                                    </div>
+                                </div>
+                                </apex:outPutPanel>
+
+                                <div class="form-group">
+                                <div class="control-group element-comments element-type-textarea optional"><label for="comments" class="control-label col-sm-2 optional">Comments</label>
+                                   <div class="col-sm-8">
+                                        <apex:inputTextarea id="comments" value="{!sessionComments}" rows="3" styleClass="  form-control-textarea input" cols="60" html-maxlength="500" />
+                                        <p class="help-block">Please note comments are limited to 500 characters.</p>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-10 radio">
+                                <div class="control-group element-comments element-type-textarea optional">
+                                    <p styleClass="help-block"><i>*Note: You must report an attendance at a Session of 1 or higher. If the Session did not happen please click the ‘Cancel Session’ button</i></p>
+                                </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                    <apex:commandButton id="save" onclick="javascript: return checkForZero();" action="{!save}" value="Save changes" styleClass="btn-primary btn" />
+                                    <a href="WEBChampion" class="btn">Cancel</a>
+                                    </div>
+                                    
+                                    <div class="col-sm-6 pull-right">                                    
+
+                                    <apex:outputPanel layout="none" rendered="{!event.Event_Status__c!='Cancelled'}">
+                                    <div class="col-sm-6">
+                                    <p>If your Session did not take place, please cancel here : </p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <apex:commandLink onclick="javascript: return confirmCancel();" value="Cancel Session" action="{!cancelSession}" styleClass="btn-primary btn"/>
+                                    </div>    
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!event.Event_Status__c=='Cancelled'}">
+                                        <p><strong>This Session has been cancelled</strong></p>
+                                    </apex:outputPanel>
+
+                                    </div>
+
+
+                                </div>        
+
+                        </apex:form>
+                        </div>
+                     
+                </apex:outputPanel>              
+            
+        </div>
+
+        <c:DF_WEBC_ChampionNav activeValue="" dfcW="{!dfcW}"/>
+               
+            </div>
+        </div>
+    </div>
+ <div id="jq_dialog" style="display:none">You must report an attendance of 1 or higher at a Session. If the Session did not happen please click the ‘Cancel Session’ button.</div>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+
+  <c:DF_WEBR_WebFooter />
+
+  </div>
+    
+   
+   
+</apex:page>

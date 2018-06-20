@@ -1,0 +1,40 @@
+<aura:component >
+	
+    <aura:attribute name="selected" type="Integer" default="1"/>
+    <aura:attribute name="steps" type="Object[]"/>
+    <aura:attribute name="_steps" type="Object[]" access="GLOBAL"/>
+    <aura:attribute name="validation" type="Boolean" default="true"/>
+
+    <aura:registerEvent name="setStep" type="c:DfcSetStep"/>
+    
+    <aura:handler event="c:DfcValidationChange" action="{!c.onValidationChange}"/>
+    
+    <c:CsqLodashService aura:id="lodashService" />
+    
+    <div class="step-container clearfix">
+        
+        <div style="margin: auto; width:96%">
+
+        <aura:iteration items="{!v._steps}" var="step" indexVar="index">
+        
+          <div class="step-tile" onclick="{!c.clickHandler}" data-index="{!index+1}">
+        	<div class="{!(index+1==v.selected?'step-active':'step')}">
+          		<h5>{!step.title}</h5>
+          		<p>{!step.label}</p>
+          		<aura:if isTrue="{!v.validation}">
+              		<!-- Validation errors -->
+                    <span class="{!and(step.pristine==false, step.errors.length>0)?'badge':'hide'}">{!step.errors.length}</span>
+                    <!-- No validation errors -->
+                    <span class="{!and(step.pristine==false, step.errors.length==0)?'badge dfc-badge-ok':'hide'}">&#10003;</span>
+                </aura:if>
+
+        	</div>
+     	  </div>
+            
+        </aura:iteration>
+            
+        </div>    
+	        
+    </div>
+    
+</aura:component>

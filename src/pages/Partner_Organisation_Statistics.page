@@ -1,0 +1,31 @@
+<apex:page standardController="Partner_Organisation__c" 
+            extensions="Partner_OrganisationStatistics" 
+            readOnly="true" 
+            deferLastCommandUntilReady="true" 
+            wizard="true" >
+  <!-- Calculate Partner Organisation Statistics dynamically and show on the page -->
+  <!-- Mike Tinson 31 March 2014 -->
+   <style>
+         .bPageBlock {
+                    background-color: white !important;
+         }
+   </style>
+  <apex:pageBlock id="Detail" >
+  <apex:pageBlockSection columns="2">
+      <apex:pageBlockSectionItem >
+          <apex:outputLabel >Number of Champions Identified</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Number_of_Champions_Identified}" />
+          </apex:outputText>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+          <apex:outputLabel >Number Of Friends Created</apex:outputLabel>
+          <apex:outputText value="{0, number, ###,###,###,##0}">
+              <apex:param value="{!Total_No_of_Friends_Created}" />
+          </apex:outputText>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+  </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

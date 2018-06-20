@@ -1,0 +1,294 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="WEBTraining" applyBodyTag="false" applyHtmlTag="false">
+    <!-- Google Maps functionality -->
+    <html>
+<head>
+ <meta property="og:title"   content="I'm attending a #DementiaFriends Champions Induction – why not come along?" />
+ <meta property="og:description"   content="I'm attending a #DementiaFriends Champions Induction – why not come along?" />
+    <script type="text/javascript" src="https://www.google.com/jsapi?sensor=false"/>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"/>
+    
+    <script type="text/javascript"> 
+    //google.load("maps","2");
+            
+    $(document).ready(function() {
+   
+      var map;
+      var marker;
+      var mapOptions = {
+        zoom: 15,
+      };
+      
+      var geocoder = new google.maps.Geocoder();
+      var address = "{!selectedEvent.street}, " + "{!selectedEvent.theEvent.City__c}, " + "{!selectedEvent.theEvent.Postcode__c}";
+      
+      var infowindow = new google.maps.InfoWindow({
+        content: "<b>{!selectedEvent.theEvent.Name}</b>"
+      });
+      
+      geocoder.geocode( { address: address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK && results.length) {
+          if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+          
+            //create map
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+          
+            //center map
+            map.setCenter(results[0].geometry.location);
+            
+            //create marker
+            marker = new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: map,
+                title: "{!selectedEvent.theEvent.Name}"
+            });
+            
+            //add listeners
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.open(map,marker);
+            });
+            google.maps.event.addListener(infowindow, 'closeclick', function() {
+              map.setCenter(marker.getPosition()); 
+            });
+            
+          }
+          
+        } else {
+          $('#map').css({'height' : '15px'});
+          $('#map').html("Oops! {!selectedEvent.theEvent.Name}'s address could not be found, please make sure the address is correct.");
+          resizeIframe();
+        }
+      });
+        
+      //map = new google.maps.Map(document.getElementById('map'),mapOptions);
+
+      $('form[data-once="true"]').submit( function(event) {             
+          
+        $(this).submit( function() {
+            return false;
+        });
+      
+      });
+
+    });
+    
+    </script>
+     
+    <style>
+    #map {
+      font-family: Arial;
+      font-size:12px;
+      line-height:normal !important;
+      background:transparent;
+      height : 450px;
+      width : 100%;
+    }
+    </style>
+</head>
+<body>
+<!-- END of Google Maps functionality -->
+
+  <c:DF_WEBR_WebMeta />
+ <div class="container">
+  <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar activeValue=""/>
+    
+ 
+    
+    
+    <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+                <div class="col-md-9 column">
+                          
+                                <ul class="breadcrumb">
+                                   <li class="item"><a href="WEBHome">Home</a></li>
+                                   <li class="item"><a href="WebArticle?page=how-to-get-involved">Get involved</a></li>
+                                   <li class="item"><a href="WebTraining">Find Inductions</a></li>
+                                   <li class="item"><apex:outputtext value="{!selectedEvent.theEvent.Name}" /></li>
+                                </ul>
+                   
+                     <h1>{!selectedEvent.theEvent.Name}</h1>
+                      <div class="alert alert-success" >
+                       Invite people to book this Champions Induction 
+                       <br/> <br/>
+                       <c:DF_WEBC_SocialLinks displaytext="I’m attending a #DementiaFriends Champions Induction – why not come along?"/>
+                        
+                      </div>
+                    <h4>Session held by <strong>{!selectedEvent.theEvent.Session_Organiser__r.Name}</strong> </h4>
+
+                      <!--c:DF_WEBC_SocialLinks />-->
+                        
+                        <p>
+                        {!selectedEvent.theEvent.Event_Description__c}
+                        </p>
+                        <p>
+                          <div id="map"></div>
+                        </p>
+                </div>
+                <div class="sidebar col-md-3 column">
+                    <!-- Session details panel starts --> 
+                    <div class="panel-group" id="accordion">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-alt-heading panel-heading">
+                                        <h3 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSessionDetails">
+                                        Session details
+                                        </a>
+                                        </h3>
+                                    </div>
+                                    <div id="collapseSessionDetails" class="panel-collapse collapse in">
+                                        <!-- Panel content starts-->
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <p><strong>Session availability:</strong><br/>
+                                                    
+                                                     <apex:outputPanel rendered="{!selectedEvent.theEvent.Event_Status__c=='Available'}" layout="none">
+                                                      <div class="available-highlight">
+                                                          <apex:outputtext value="{!selectedEvent.theEvent.Event_Status__c}"/>
+                                                      </div>                                                    
+                                                      </apex:outputPanel>
+
+                                                      <apex:outputPanel rendered="{!selectedEvent.theEvent.Event_Status__c!='Available'}" layout="none">
+                                                      <div class="unavailable-highlight">
+                                                          <apex:outputtext value="{!selectedEvent.theEvent.Event_Status__c}"/>
+                                                      </div>
+                                                      </apex:outputPanel>
+
+                                                    </p>
+                                                    <p><strong>Date:</strong><br/>
+                                                    {!selectedEvent.eventDay}{!selectedEvent.eventMonth}</p>
+                                                    <p><strong>Start time:</strong><br/>
+                                                       <span>{!selectedEvent.eventHour}
+                                                          <span>{!selectedEvent.eventMin}</span>
+                                                       </span>
+                                                    </p>
+                                                    
+                                                    <p><strong>End time:</strong><br/>
+                                                       <span>{!selectedEvent.eventEndHour}
+                                                                <span>{!selectedEvent.eventEndMin}</span>
+                                                       </span>
+                                                    
+                                                    </p>
+                                                    <p><strong>Spaces left:</strong><br/>
+                                                    <span>{!placesLeft}</span></p>
+                                                    
+                                                    <p><strong>Wheelchair accessible:</strong><br/>
+                                                    <span>{!selectedEvent.wheelchairAccess}</span></p>
+                                                    <div id="address">
+                                                    <p><strong>Address:</strong>
+                                                     
+                                                     <address>
+                                                         <strong>{!selectedEvent.theEvent.Location__c}</strong><br/>
+                                                         {!selectedEvent.theEvent.Street__c}<br/>
+                                                         {!selectedEvent.theEvent.City__c}<br/>                        
+                                                         {!selectedEvent.theEvent.County__c}<br/>
+                                                         {!selectedEvent.theEvent.Postcode__c}<br/>
+                                                     </address>
+                                                     </p>
+                                                  </div>
+                                                  <div class="booking-container">
+                                                  <apex:outputPanel rendered="{!!isLoggedIn}">
+                                                      <p>
+                                                      You must register or <a href="WEBLogin">sign in</a> as a <a href="WEBArticle?page=what-is-a-champion">Dementia Friends Champion</a> before you can <a href="WEBRegisterChampion">register</a> your interest in a Champions' induction.
+                                                     <!-- Please <a href="WEBLogin">sign in</a> or <a href="WEBRegisterFriend">register</a> before you book a session.-->
+                                                      </p>
+                                                  </apex:outputPanel>
+                                                  
+                                                  
+                                                  <apex:outputPanel rendered="{!isLoggedIn && isChampion}">
+                                                  <apex:form html-data-once="true">
+                                                      <p>
+                                                      <!-- <a href="/champion/training/register/id/3915" class="book-session btn btn-primary btn-large">Book your session</a> -->
+                                                      <apex:commandButton value="Register for an induction" styleClass="book-session btn btn-primary btn-large" action="{!bookOnSession}" rendered="{!!isAlreadyBooked && !hasOtherBooking && !eventClosed}"/>
+                                                      </p>
+                                                      <p>
+                                                      <apex:commandButton value="Unregister for an induction" styleClass="unbook-session btn btn-large" action="{!removeFromSession}" rendered="{!isAlreadyBooked && !hasOtherBooking}"/>
+                                                      </p>
+                                                      <apex:outputPanel rendered="{!hasOtherBooking}">
+                                                      <p>
+                                                      You must unregister from your previous session before you can register onto this session.<br/>
+                                                      <a href="/WEBChampion">My Sessions</a>
+                                                      </p>
+                                                      </apex:outputPanel>
+                                                      <apex:outputPanel rendered="{!eventClosed}">
+                                                      <p>
+                                                      This session is no longer available for booking.  Please search for another session.
+                                                      </p>
+                                                      </apex:outputPanel>
+                                                  </apex:form>
+                                                  </apex:outputPanel>
+                                              </div>
+                       </div>
+                      </div>
+                    </div>
+                 <!-- Panel content ends-->
+              </div>
+            </div>
+         </div>
+       </div>
+     </div>
+                    <!-- Session details panel ends -->
+                    <!-- Friends panel starts --> 
+                    <div class="panel-group" id="accordion">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFriends">
+                                        Champions
+                                        </a>
+                                        </h3>
+                                    </div>
+                                    <div id="collapseFriends" class="panel-collapse collapse in">
+                                        <!-- Panel content starts-->
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <ul>
+                                                       <li>
+                                                            <a href="WEBArticle?page=what-is-a-champion">What is a Champion?</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="WEBArticle?page=Champions-training">Champion's induction</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="WEBArticle?page=after-the-training">After the induction</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="WEBArticle?page=champion-am-eligible">Am I eligible?</a>
+                                                        </li>
+                                                       <li>
+                                                            <a href="WEBArticle?page=what-should-i-consider">What should I consider?</a>
+                                                        </li>
+                                                        <li ><!--class="active"-->
+                                                            <a href="WEBTraining">Find inductions</a>
+                                                        </li>
+                                                         <li>
+                                                            <a href="WEBArticle?page=champion-how-else-can-i-help">How else can I help?</a>
+                                                        </li>
+                                                     </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Panel content ends-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Friends panel ends -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+ <c:DF_WEBR_WebFooter />
+ </div>
+ </body>
+ </html>
+</apex:page>

@@ -1,0 +1,143 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBManageMySessions" action="{!loginRedirect}">
+    
+    <style>
+        
+        .fdback-submit-content {
+        font-size: 12px;
+        font-weight: bold !important;
+        margin-top: auto;
+        margin-bottom: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        }
+        
+        .fdback-submit-box {
+        background: #DEE0E2 !important;
+        border-radius: 5px !important;
+        margin-top: 8px;
+        display: block;
+        width: 120px;
+        margin-left: 15px;
+        }
+        
+        .fdback-done {
+        background: #DEE0E2 !important;
+        color: #ffff !important;
+        }
+        .fdback-done:hover {
+        background: #DEE0E2 !important;
+        color: #ffff !important;
+        }
+        
+        
+    </style>
+    
+    <c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+        
+        <c:DF_WEBR_WebHeader showCounter="Y"/>
+        <c:DF_WEBR_WebNavbar />    
+        
+        <div class="row *.css">
+            <div class="col-sm-12">
+                
+                <div class="row *.css">
+                    
+                    <div class="col-md-9 column col-md-push-3">
+                        <apex:outputPanel rendered="{!infoSessionUpdated}">
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span>
+                                </button>
+                                Your session details were updated successfully.            
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!sessionDropped}"> 
+                            <div id="dropped-session-confirm" class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                                </button>
+                                You have been removed from the Information Session
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <div class="col-sm-12" style="margin-right:15px;">
+                            <c:DF_EventAnchorSet showRequestedAnchors="{!hasRequestedSessions}"/>
+                        </div>
+                        
+                        <div class="row *.css">
+                            <div class="col-md-12 column">           
+                                <h1>Sessions I am delivering </h1>
+                            </div>    
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  column">   
+                                <apex:outputPanel rendered="{!!(isChampionRetired || isChampionHiatus)}">   
+                                    <a class="btn btn-primary pull-right" href="/WEBChampionCreateEditSession?isReqSession=false"><i class="fa fa-plus"></i> Add new Session</a>
+                                </apex:outputPanel>
+                            </div>  
+                        </div>
+                        <div class="row *.css">
+                            <div class="col-md-12 column">
+                                <apex:outputPanel rendered="{!(noOfFriends!=null || noOfFriends!='')}">
+                                    <div class="alert alert-success">
+                                        Well done!  Why not share the number of Dementia Friends you’ve made? 
+                                        <br/><br/>
+                                        <c:DF_WEBC_SocialLinks displaytext="I’ve created {!noOfFriends} new #DementiaFriends – why not join them at bit.ly/DFriends"/>
+                                    </div>      
+                                </apex:outputPanel>
+                            </div>
+                        </div>
+                        
+                        <!-- START Created Events Tables -->
+                        <div class="row *.css">
+                            <a name="created-feedback"></a>
+                            <c:DF_EventsAwaitingFeedbackListing isRequestedSession="false" isChampion="{!isChampion}" events="{!createdEventsRequiringFeedback}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>   
+                        </div>
+                        
+                        <div class="row *.css">
+                            <a name="created-upcoming"></a>
+                            <c:DF_UpcomingEventsListing isRequestedSession="false" events="{!upcomingCreatedEvents}" dfContactId="{!currentDfc.Id}" 
+                                                        defaultSessionOrganiser="{!placeholderOrganiserId}" isChampion="{!isChampion}" forceCountOnLoad="true"/>   
+                        </div>
+                        
+                        <div class="row *.css">
+                            <a name="created-past"></a>
+                            <c:DF_PastEventsListing isRequestedSession="false" isChampion="{!isChampion}" events="{!pastCreatedEvents}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>  
+                        </div>
+                        <!-- END Created Events Tables -->
+                        
+                        <!-- START Requested Events Tables -->
+                        <apex:outputPanel rendered="{!hasRequestedSessions}">
+                        <div class="row *.css">
+                            <div class="col-md-6 column">           
+                                <h1>Sessions I have requested </h1>
+                            </div>
+                            <a name="requested-feedback"></a>
+                            <c:DF_EventsAwaitingFeedbackListing isRequestedSession="true" isChampion="{!isChampion}" events="{!requestedEventsRequiringFeedback}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>   
+                        </div>
+                        
+                        <div class="row *.css">
+                            <a name="requested-upcoming"></a>
+                            <c:DF_UpcomingEventsListing isRequestedSession="true" events="{!upcomingRequestedEvents}" dfContactId="{!currentDfc.Id}" 
+                                                        defaultSessionOrganiser="{!placeholderOrganiserId}"  isChampion="{!isChampion}" forceCountOnLoad="true"/>   
+                        </div>
+                        
+                        <div class="row *.css">
+                            <a name="requested-past"></a>
+                            <c:DF_PastEventsListing isRequestedSession="true" isChampion="{!isChampion}" events="{!pastRequestedEvents}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>  
+                        </div>
+                        </apex:outputPanel>
+                        <!-- END Requested Events Tables -->
+                        
+                    </div>
+                    
+                    <c:DF_WEBC_ChampionNav activeValue="MANAGEMYSESSIONS" dfcW="{!dfcW}"/>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <c:DF_WEBR_WebFooter />
+        
+    </div>
+    
+</apex:page>

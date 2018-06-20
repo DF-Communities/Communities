@@ -1,0 +1,418 @@
+<apex:component controller="DFC_RegisterCommunityController">
+<style>
+.step,.stepactive{
+    min-height: 120px; 
+    width: 100%;
+    border: 1px solid white;
+  }
+
+  .stepactive {
+    background: #1C1463 ;
+    border: 0pt none;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    box-shadow: none;
+    display: inline-block;
+    padding: 10px;
+}
+.stepactive p {
+    color: #fff;
+}
+.stepactive h5 {
+    color: #FFDE00;
+}
+
+</style>
+<!--
+<style>
+  
+label.required:after {
+    content: " *";
+    color: #bc2220;
+}
+.radioinputlabel{
+display: inline-block;
+    margin-right: 4px;
+    font-weight: 500;
+    margin-right: 18px;
+    margin-left: 0;
+}
+.nav-buttons {
+    padding:0 10px;
+    margin-top: 24px;
+    width:100%;
+    text-align:center; 
+}
+
+.step,.stepactive{
+    min-height: 120px; 
+    width: 100%;
+    border: 1px solid white;
+  }
+
+  .stepactive {
+    background: #1C1463 ;
+    border: 0pt none;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    box-shadow: none;
+    display: inline-block;
+    padding: 10px;
+}
+.stepactive p {
+    color: #fff;
+}
+.stepactive h5 {
+    color: #FFDE00;
+}
+
+  .step-container
+{
+    width:100%;
+    padding:0 0 1em 0;
+    margin:0 0 2em 0;
+}
+
+.step-tile
+{ 
+    position:relative;
+    float:left;
+    width:15%;
+    margin: 0 14px 10px 0;
+}
+
+
+.step:hover
+{
+  border: 1px solid #285987;
+}
+
+.step-tile .badge {
+  position:absolute;
+    top:-4px;
+    right:-2px;
+    padding: 5px 7px;
+    background-color: #ce3c39;
+}
+
+.badge {
+ background-color: #ce3c39;
+}
+
+.step-tile .badge.dfc-badge-ok {
+    background-color: #0ca90c ;
+}
+span.validation {
+    
+    display: inline-block;
+    color: white;
+    background-color: #ce3c39;
+    margin-right: 8px;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+.validation {
+    
+    display: inline-block;
+    color: white;
+    background-color: #ce3c39;
+    margin-right: 8px;
+    margin-top: 8px;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+.hide{
+  display: none;
+}
+.inputText {
+    height: 42px;
+}
+.select{
+    font-size: 15px!important;
+    height: 42px!important;
+
+}
+.user-card {
+    background-color: #eeecec;
+    border: 1px solid #a5a5a5;
+    border-radius: 4px;
+    margin: 10px 0px 20px 0;
+    padding: 15px 10px 10px 30px;
+}
+.user-card .form-control {
+    display: inline-block;
+    width: 60%;
+    margin: 0 0 4px 0;
+}
+
+.PHONE .user-card {
+    padding: 15px 10px 10px 10px;    
+}
+
+.user-card label {
+    display: inline-block;
+    width: 9em;
+}
+
+.PHONE .user-card label {
+    display: block;
+    margin: 8px 0 2px 0;
+}
+
+.user-card input[type="text"] {
+    display: inline-block;
+    margin-top:4px;
+    width: 55%;
+}
+
+.PHONE .user-card input[type="text"] {
+    margin-bottom:4px;
+    width: 100%;
+}
+
+.add-rep button {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.add-rep-text {
+    display: inline-block;
+    margin:10px 0;
+}
+
+.add-rep-text:empty {
+    display: none;
+}
+
+
+.user-card button {
+    display:inline-block;
+    margin-right:10px;
+  font-size:11px;
+}
+
+
+</style>
+-->
+
+<div ng-app="draftApp" >
+  <div ng-controller="draftCtrl">
+  <apex:form >
+<apex:inputHidden value="{!ID_Param}" id="communityId"/> 
+</apex:form>
+   <h1>Apply for Dementia Friendly Community Recognition</h1>
+    <div class="step-container row" id="steps" >
+     
+       
+       <div class="step-tile" id="step1" ng-click="step ='step1'; updateCommunity('step1')" >
+        <div  class="step" id="step1" ng-class="{stepactive :step==='step1'}" >   
+        
+          <h5>STEP 1</h5>
+           <p class= "help-block" id ="intro-text-step-1" title = "step 1" >
+
+                            
+                           Community Location
+
+            </p> 
+            
+            <span ng-show="step1badge>0" class ="badge">{{step1badge}}</span>
+
+           <span ng-show="step1badge==0" class ="badge dfc-badge-ok">&#10003;</span>
+
+          
+            </div>
+          </div>
+       
+        <div class="step-tile" id="step2" ng-click="updateCommunity('step2');initVal('step1');">
+          <div class="step" id="step2" ng-class="{stepactive :step==='step2'}" >            
+           <h5>STEP 2</h5>
+           <p class= "help-block" id ="intro-text-step-2" title = "step 2" >
+                            
+                           Community Details
+
+             </p> 
+            <span ng-show="step2badge>0" class ="badge">{{step2badge}}</span>
+
+           <span ng-show="step2badge==0" class ="badge dfc-badge-ok">&#10003;</span>
+            
+        </div>
+      </div>
+    
+        <div class="step-tile" id="step3" ng-click="updateCommunity('step3');initVal('step2');">
+        <div class="step" id="step3" ng-class="{stepactive :step==='step3'}">                                  
+           <div class="DetailsSectionHeading">
+           <h5>STEP 3</h5>
+           <p class= "help-block" id ="intro-text-step-3" title = "step 3" >
+                            
+                           Community Representatives
+
+             </p> 
+            <span ng-show="step3badge>0" class ="badge">{{step3badge}}</span>
+
+           <span ng-show="step3badge==0" class ="badge dfc-badge-ok">&#10003;</span>
+           </div>
+        </div>
+      </div>
+   
+  
+        <div class="step-tile" id="step4" ng-click="updateCommunity('step4');initVal('step3');">
+        <div class="step" id="step4" ng-class="{stepactive :step==='step4'}"> 
+
+           <h5>STEP 4</h5>
+           <p class= "help-block" id ="intro-text-step-4" title = "step 4" >
+                            
+                           Areas For Action
+
+             </p> 
+            <span ng-show="step4badge>0" class ="badge">{{step4badge}}</span>
+
+           <span ng-show="step4badge==0" class ="badge dfc-badge-ok">&#10003;</span>
+            
+        </div>
+      </div>
+     
+        <div class="step-tile" id="step5" ng-click="updateCommunity('step5');initVal('step4');isActionSelected()==false?haserrors=true:haserrors;">
+        <div class="step" id="step5" ng-class="{stepactive :step==='step5'}"> 
+            
+            <h5>STEP 5</h5>
+           <p class= "help-block" id ="intro-text-step-5" title = "step 5" >
+                            
+                           Submit your application
+
+             </p> 
+             
+        </div>
+      </div>
+
+        <div class="step-tile" id="step6" ng-click="updateCommunity('step6')">
+        <div class="step" id="step6" ng-class="{stepactive :step==='step6'}"> 
+             
+             <h5>HELP</h5>
+           <p class= "help-block" id ="intro-text-step-6" title="HELP" >
+                            
+                           Resources
+
+             </p> 
+             
+        </div>
+      </div>
+      </div>
+<div class="row *.css">
+  <div class="col-md-12">
+
+  <div class="row *.css">
+   <div class="col-md-2 column">
+   </div>
+   
+   <div class="col-md-8 column"> 
+      <span ng-show="errortext!=null|| errortext.length>0" class="validation">{{errortext}}</span>
+  
+
+
+      <span ng-show="step=='step1'"  id="step1-content" >
+         
+          <c:DFC_RegisterCommunityS1 /> 
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="
+                     updateCommunity('step2');initVal('step1');" style="display:inline-block;margin-right:12px">Next <i class="fa fa-chevron-right"></i></button>
+          </div>
+      </span>
+     <span ng-show="step=='step2'"  id="step1-content" >
+         <div id="contentstep2" >
+          <c:DFC_RegisterCommunityS2 /> 
+        
+            <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="updateCommunity('step1');initVal('step1');"><i class="fa fa-chevron-left" ></i> Back</button>
+                   <button class="btn btn-action" ng-click="updateCommunity('step3'); initVal('step2');">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+       </div>
+      </span>
+
+      <span ng-show="step=='step3'"  id="step1-content" >
+         <div id="contentstep3" >
+          <c:DFC_RegistercommunityS3 /> 
+
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="updateCommunity('step2');initVal('step2');" ><i class="fa fa-chevron-left" ></i> Back</button>
+                   <button class="btn btn-action" ng-click="step ='step4';initVal('step3');">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+      </span>
+
+      <span ng-show="step=='step4'"  id="step1-content" >
+         <div id="contentstep4" >
+          <c:DFC_RegistercommunityS4 /> 
+
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="updateCommunity('step3');initVal('step3');"><i class="fa fa-chevron-left" ></i> Back</button>
+                   <button class="btn btn-action" ng-click="initVal('step4');updateCommunity('step5');initVal('step4');isActionSelected()==false?haserrors=true:0;">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+      </span>
+      <span ng-show="step=='step5'"  id="step1-content" >
+         <div id="contentstep5" >
+          <c:DFC_RegistercommunityS5 />
+
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="updateCommunity('step4');initVal('step4')" ><i class="fa fa-chevron-left" ></i> Back</button>
+                   <button class="btn btn-action" ng-click="initVal('step5');isActionSelected()==false?step4badge==1:0;updateCommunity('step6');">Next <i class="fa fa-chevron-right"></i></button>
+            </div> 
+        </div>
+      </span>
+
+      <span ng-show="step=='step6'"  id="step1-content" >
+         <div id="contentstep6" >
+          <c:DFC_RegistercommunityS6 status="Draft"/>
+
+          <div class="nav-buttons">
+                     <button class="btn btn-action" ng-click="updateCommunity('step5');initVal('step5');" ><i class="fa fa-chevron-left" ></i> Back</button>
+                   
+            </div> 
+        </div>
+      </span>
+     </div>
+<div class="col-md-2 column">
+ </div>
+  </div>
+   </div>
+    </div>
+      
+</div>
+    
+ </div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.js"></script>
+    
+
+
+<script type="text/javascript">
+
+     var j$=jQuery.noConflict();
+    function findtab(divId){
+     
+      var tabHash = divId;
+     
+      $(''+'#'+tabHash+'').children().addClass('step-active');
+      console.log('Ready Page Hash - '+tabHash);
+      if(tabHash){
+        $(''+'#'+tabHash+'-content'+'').show();
+      }
+      
+    }
+  $(document).ready(function() {
+     
+    
+                        
+    })
+       
+</script>
+
+
+</apex:component>

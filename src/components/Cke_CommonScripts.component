@@ -1,0 +1,11 @@
+<apex:component layout="none">
+ 
+    <script type="text/javascript" src="{!URLFOR($Resource.Cke_Assets, 'js/bootstrap.min.js')}"></script>    
+
+    <script>
+      window.CKBASE = "{! IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl) }";
+      if (!window.console) window.console = { log:function(){}, warn:function(){}, error:function(){} };
+    </script>
+    
+    
+</apex:component>

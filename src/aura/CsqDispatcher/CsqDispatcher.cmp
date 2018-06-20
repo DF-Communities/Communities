@@ -1,0 +1,24 @@
+<aura:component access="GLOBAL" extensible="true" abstract="false">
+
+  <aura:attribute name="instance" type="Object"/>
+  <aura:attribute name="stores" type="Object[]"/>
+    
+  <aura:method name="register" action="{!c.register}" access="PUBLIC">
+      <aura:attribute name="store" type="Object" />
+  </aura:method>
+    
+  <aura:method name="dispatch" action="{!c.dispatch}" access="PUBLIC">
+      <aura:attribute name="action" type="Object" />
+      <aura:attribute name="source" type="Aura.Component" />
+  </aura:method>
+    
+  <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+
+  <aura:registerEvent name="storeChanged" type="c:CsqStoreChanged"/>  
+  <aura:registerEvent name="CsqActionBegin" type="c:CsqActionBegin"/>  
+  <aura:registerEvent name="CsqActionComplete" type="c:CsqActionComplete"/>  
+    
+  <c:CsqLodashService aura:id="lodashService"/>
+  <c:CsqPromiseService aura:id="promiseService"/>
+    
+</aura:component>

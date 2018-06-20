@@ -1,0 +1,155 @@
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_LoginPage_Controller" title="Dementia Connect Portal Login" applyHtmlTag="false" applyBodyTag="false">  
+    <html>
+        <head>
+            <c:DCE_CSS />
+            <c:importvisualstrap />
+            
+            <script>
+                function confirmLogin(){
+                    
+                    var hasError = false;
+                    
+                    var emailError = checkFilledIn('UserName', 'userError', 'email address');
+                    var pwError = +checkFilledIn('Password', 'passwordError', 'password');
+                    
+                    hasError = emailError || pwError;
+                    
+                    if(!hasError){
+                        JSLogin();
+                    }
+                
+                }
+                
+                function checkFilledIn(elementId, errorId, fieldName){
+                    
+                    if($("[id*='"+elementId+"']").val() == ''){
+                        $("[id*='"+elementId+"']").closest("div.form-group").addClass("has-error");
+                        $("[id*='"+errorId+"']").text("Please enter valid "+fieldName);
+                        return true;
+                    }
+                    
+                    return false;
+                }
+                
+                
+                function resetConfirm() {
+                
+                    //console.log('Clicked');
+                    
+                    var hasError = false;
+                    
+                    var emailValue = $("[id*='passwordResetInput']").val();
+                    
+                    //console.log('Email value - '+emailValue);
+                    
+                    if(!validateEmail(emailValue) || emailValue == '') {
+                        $("[id*='passwordResetInput']").closest("div.form-group").addClass("has-error");
+                        $("[id*='resetError']").text("Please enter valid email address");
+                        hasError = true;
+                    }
+                    
+                    if(!hasError){
+                        //alert('Resetting for - '+emailValue);
+                        JSResetPassword(emailValue);
+                        
+                        $("[id*='passwordResetModal']").modal('hide');
+                        $("[id*='javascriptAlertText']").text("An email has been sent with details of how to re-set your password. If the email does not arrive, please check your email address and try again.");
+                        $("[id*='javascriptAlert']").show('fast');
+                    }
+                    
+                };
+                
+                function validateEmail($email) {
+                    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                    return emailReg.test( $email );
+                }
+                
+                function noenter(ev)  {
+                    if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+                        confirmLogin();
+                        return false;
+                    }
+                }
+            </script>
+            
+        </head>
+        <body>
+            
+            <c:visualstrapblock >
+                <apex:form forceSSL="true" id="theForm">
+                    <apex:actionFunction action="{!resetPassword}" name="JSResetPassword" rerender="theLogo">
+                        <apex:param name="firstParam" assignTo="{!userNameForReset}" value="" />
+                    </apex:actionFunction>
+                    <apex:actionFunction action="{!login}" name="JSLogin"/>
+                    <!-- Password reset - confirmation modal -->
+                    
+                    <c:modal title="Confirm" id="passwordResetModal" html-role="dialog" html-aria-labelledby="passwordReset">
+                        <div class="modal-dialog" role="document">
+                            <c:row >
+                            
+                                <c:column type="col-xs-10"> <!-- col-xs-offset-1 -->
+                            
+                                    <p class="lead" id="passwordReset">Reset your password?</p>
+                                    
+                                    <p>Please provide your email address. We will send you an email with instructions on how to reset your password.</p>
+                            
+                                    <c:formgroup id="passwordResetInputFormGroup">
+                                        <apex:outputLabel styleclass="control-label">Email address</apex:outputLabel>
+                                        <apex:inputText styleClass="form-control" id="passwordResetInput" html-placeholder="Email address">{!userNameForReset}</apex:inputText>                                      
+                                        <span class="help-block" id="resetError"></span>
+                                    </c:formgroup>
+                                </c:column>
+                            </c:row>
+                            
+                               
+                            <span>
+                                <apex:commandButton value="Cancel" styleClass="btn-primary" html-data-dismiss="modal" />&nbsp;
+                                <apex:commandButton value="Confirm" id="passwordResetConfirm" onclick="resetConfirm();return false;" styleClass="btn-success"/>
+                            </span>
+                        </div>
+                    </c:modal>
+                    
+                    <!-- Page content -->
+                    
+                    <c:DCE_AZLogo id="theLogo"/>
+                    <c:row >
+                    </c:row>
+                    <c:row >
+                        <c:column type="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
+                            <c:panel >
+                                <apex:outputpanel layout="none" rendered="{!displayPageMessage}">
+                                    <apex:outputPanel layout="block" styleClass="alert {!pageMessageType}">
+                                        <apex:outputText value="{!pageMessage}" escape="false"/>
+                                    </apex:outputPanel>
+                                </apex:outputpanel>
+                                <div class="alert alert-success fade in" role="alert" id="javascriptAlert" style="display:none;">
+                                    <span id="javascriptAlertText"></span>
+                                </div>
+                                <c:formblock alignment="horizontal" style="margin-top:5px;padding:10px">
+                                    <c:formgroup >
+                                        <apex:outputLabel for="UserName">Email address</apex:outputLabel>
+                                        <apex:inputText id="UserName" value="{!emailAddress}" styleClass="form-control" onkeypress="return noenter(event);"/> <!-- required="true" -->
+                                        <span class="help-block" id="userError"></span>
+                                    </c:formgroup> 
+                                    <c:formgroup >
+                                        <apex:outputLabel for="Password">Password</apex:outputLabel>
+                                        <apex:inputSecret id="Password" value="{!Password}" styleClass="form-control" onkeypress="return noenter(event);"/> <!-- required="true" -->
+                                        <span class="help-block" id="passwordError"></span>
+                                    </c:formgroup>
+                                    <c:formgroup >
+                                        <apex:commandButton value="Login" onclick="confirmLogin();return false;" styleClass="btn btn-success btn-md center-block" style="width:200px"/>
+                                    </c:formgroup>
+                                </c:formblock>
+                                <apex:outputLink value="{!URLFOR($Page.DCE_newOrgRequest)}" styleClass="pull-left">Not a member?</apex:outputLink>
+                                <apex:outputLink onclick="return false;" html-data-toggle="modal" html-data-target="#passwordResetModal" styleClass="pull-right">Forgotten your password?</apex:outputLink>
+                            </c:panel>
+                            <!--[if lte IE 8]>
+								<p><b>Please note:</b> This browser is not supported by the Dementia Connect Portal. You may find your experience is improved by upgrading your browser.
+							<![endif]-->
+                        </c:column>
+                    </c:row>
+                </apex:form>
+            </c:visualstrapblock>
+        </body>
+    </html>
+</apex:page>

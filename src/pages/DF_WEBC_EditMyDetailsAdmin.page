@@ -1,0 +1,142 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBC_EditMyDetailsAdmin_Controller">
+    
+<apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+<apex:includeScript value="//services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"/>
+    
+    <c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="row clearfix">
+                
+    
+              <div class="col-md-9 column col-md-push-3">
+              <div id="message-center"></div>              
+              <h1>Edit my details</h1>
+
+              <apex:form styleClass="form-horizontal" forceSSL="true">              
+
+             <apex:outputPanel rendered="{!LEN(standardErrorMsg)>0}">
+               <p><apex:outputText value="{!standardErrorMsg}" styleClass="form-inerror-message alert"/></p>
+             </apex:outputPanel>
+
+             <div class="well">
+
+                        <h3>Personal details</h3>                        
+
+                        <div class="form-group">                        
+                            <label for="userName" class="control-label col-sm-3 col-sm-3">User Name</label>
+                            <div class="col-sm-9">
+                                <small>This is not editable</small>
+                                <apex:outputText id="userName" value="{!displayUserName}" styleClass=" form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group required">
+                            <label for="email" class="control-label col-sm-3 required">Email address</label>
+                            <div class="col-sm-9">
+                                <apex:inputText id="email" value="{!contact.Email}" styleClass=" form-control" />
+                                <apex:outputText value="{!emailError}" rendered="{!LEN(emailError)>0}" styleClass="help-block"/>
+                            </div>
+                        </div>
+
+                        <!--
+                        <div class="form-group required">
+                            <label for="title" class="control-label col-sm-3 required">Title</label>
+                            <div class="col-sm-9">
+                                <apex:selectList value="{!contact.Title}" size="1" id="title" styleClass="form-control">
+                                    <apex:selectOptions value="{!titleList}"/>
+                                </apex:selectList>
+                            </div>
+                        </div>
+                        -->
+                        
+                        <div class="form-group required {!IF(LEN(firstNameError)>0,'has-error','')}">
+                            <label for="firstName" class="control-label col-sm-3 required">First name</label>
+                            <div class="col-sm-9">
+                                <apex:inputText id="firstName" value="{!contact.FirstName}" styleClass=" form-control" />
+                                <apex:outputText value="{!firstNameError}" rendered="{!LEN(firstNameError)>0}" styleClass="help-block"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group required {!IF(LEN(lastNameError)>0,'has-error','')}">
+                            <label for="lastName" class="control-label col-sm-3 required">Last name</label>
+                            <div class="col-sm-9">
+                                <apex:inputText id="lastName" value="{!contact.LastName}" styleClass=" form-control" />
+                                <apex:outputText value="{!lastNameError}" rendered="{!LEN(lastNameError)>0}" styleClass="help-block"/>
+                            </div>
+                        </div>
+                        
+                    </div>                        
+                        
+                        <div class="well">      
+                        <h3>Business details</h3>   
+
+                        <div class="form-group">
+                            <label for="postcode" class="control-label col-sm-3">Organisation Name</label>
+                            <div class="col-sm-6">
+                                <apex:inputText value="{!account.Name}" styleClass=" form-control" id="orgname" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postcode" class="control-label col-sm-3">Post Code</label>
+                            <div class="col-sm-6">
+                                <apex:inputText value="{!account.ShippingPostalcode}" styleClass=" form-control" id="df_pca_postcode" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address1" class="control-label col-sm-3 optional">Address</label>
+                            <div class="col-sm-9">
+                                <apex:inputText value="{!account.ShippingStreet}" styleClass=" form-control" id="df_pca_street"/>
+                            </div>
+                        </div>
+                                                
+                        <div class="form-group">
+                            <label for="townCity" class="control-label col-sm-3 optional">Town / City</label>
+                            <div class="col-sm-9">
+                                <apex:inputText value="{!account.ShippingCity}" styleClass=" form-control" id="df_pca_city"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="county" class="control-label col-sm-3 optional">County</label>
+                            <div class="col-sm-9">
+                                <apex:inputText value="{!account.ShippingState}" styleClass=" form-control" id="df_pca_county"/>
+                            </div>
+                        </div>
+                        
+                        </div>
+                        
+                         <div class="btn-toolbar">   
+                            
+                            <apex:commandButton id="save" action="{!saveUserDetails}" value="Save changes" styleClass="btn-primary input-submit btn" />
+                            
+                            <a href="/user-home" class="btn">Cancel</a>
+                        </div>
+                        
+                
+                </apex:form>                
+
+            </div>
+
+            <c:DF_WEBC_AdminNavigationMenu activeValue="EDIT"/>
+
+            </div>
+            </div>
+            </div>
+          
+    <c:DF_WEBR_WebFooter />
+
+   </div>
+
+            
+
+</apex:page>

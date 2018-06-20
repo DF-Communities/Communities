@@ -1,0 +1,41 @@
+.THIS.hidden-field {
+    visibility: hidden;
+    height:0px;
+}
+
+.THIS table>tr>td {
+    padding-right: 100px;
+}
+
+.THIS .distributed-blocks {
+    table-layout: fixed;
+}
+
+.THIS ul {
+    display: table;
+    table-layout: fixed;
+}
+
+.THIS .no-pad > .form-control {
+    padding-left:0px;;
+}
+
+.THIS span {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+@media (max-width: 652px) {
+    .THIS li {
+       display: inline;
+       padding-right: 15px;
+        list-style-image: none;
+    }
+}
+
+@media (min-width: 653px) {
+    .THIS li {
+    	display: table-row;
+        list-style-image: none;
+    }
+}

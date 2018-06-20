@@ -1,0 +1,5 @@
+<aura:component extends="c:CsqValidationComponent">
+   
+  <aura:set attribute="defaultMessage" value="Please enter a value"/>
+    
+</aura:component>

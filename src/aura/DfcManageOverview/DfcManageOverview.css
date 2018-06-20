@@ -1,0 +1,65 @@
+.THIS .dfc-container {
+    width:100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px; 
+}
+
+
+/* Override bootstrap height for form-control here as we are in read mode and want to show all the text */
+.THIS .uiOutputTextArea {
+    height: auto !important;
+    min-height:3em;
+}
+
+/*
+.THIS .dfc-tabular {
+    display: table;
+    width:100%;
+}
+
+.THIS .dfc-tabular > p {
+    display: table-row;
+    line-height:1.8em;
+}
+
+.THIS .dfc-tabular > p > span {
+    display: table-cell;
+    padding:6px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.THIS .dfc-tabular > p:first-child > span {
+    border-top: 0;
+
+}
+
+.THIS .dfc-tabular > p > span:first-child {
+    width:1px;
+    white-space: nowrap;
+    font-weight: 700;
+    padding-left: 15px;
+}
+
+.THIS .dfc-tabular.dfc-right > p > span:last-child {
+    text-align: right;
+}
+
+*/
+
+.THIS .dfc-col2 {
+    width:100%;
+}
+
+.THIS .dfc-col2 > div {
+    float:left;
+    width:50%
+}
+
+.THIS .dfc-col2 > div:first-child > div {
+    margin-right:4px;
+}
+
+.THIS .dfc-container.w60 {
+    width:60%
+}

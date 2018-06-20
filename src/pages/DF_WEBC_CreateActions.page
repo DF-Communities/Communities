@@ -1,0 +1,93 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="DF_WEBC_CreateActions" action="{!loginRedirect}">
+ 
+ <style>
+
+  .checkBoxTable label { display: inline;} 
+
+ </style>   
+
+
+ <c:DF_WEBR_WebMeta />
+
+
+ <div class="container">
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+         
+
+    <c:DF_WEBC_FriendVideo />
+
+        
+        <div class="row *.css">
+                          
+        <div class="col-md-9 column col-md-push-3">            
+        
+           <div id="message-center"></div>          
+           
+           <h1>Tell us about your action</h1>
+           <div>
+            <p> Dementia Friends is about turning understanding into action.
+                We’d like to know what you are going to do as a result of becoming a 
+                Dementia Friend or Dementia Friends Champion – every 
+                action you take makes a difference.<br/><br/>
+                Please tell us your actions after you have attended an Information Session or Champions induction.<br/><br/>
+                Please select from the list below. You can choose more than one action and/or tell us about a personal action.
+            </p>
+   
+           </div>
+         <div class="well">
+      
+           <apex:form >
+             <div class="form-group">
+         
+        
+                         <apex:selectcheckboxes layout="pageDirection" value="{!Actionname}" id="stactions" styleClass="checkBoxTable">   
+                             
+                            <apex:selectoptions value="{!actionnames}"/> 
+                                  
+                        </apex:selectcheckboxes> 
+                        
+                    
+              </div>
+               <div class="form-group required">
+                   <label for="name" >Carry out a personal action</label>
+                        
+                   <apex:inputTextarea id="name" value="{!action5}" styleClass="form-control" />
+                   
+                    <p class="help-block">Describe the personal action you are going to take. E.g. ‘Encourage my brother to become a Dementia Friend'</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="public" class="control-label">
+                      <apex:inputCheckbox id="public" value="{!publicCheckbox}"/>
+                      Public Action</label>
+                     <p class="help-block">Tick this box if you are happy for your personal action to be displayed on our website</p>
+                </div>
+        
+                <div class="form-group">
+                     <apex:commandButton id="save" value="Save changes" styleClass="btn-primary btn" action="{!saveactions}" />
+                     <apex:commandButton id="cancel" value="Cancel" styleClass="btn btn-default" action="{!cancel}" />
+                 </div>     
+
+            </apex:form>
+
+        </div>  
+    
+    </div>    
+
+     <c:DF_WEBC_FriendNav activeValue="EditAction" dfcW="{!dfcW}" rendered="{!Not(isChampion)}" />               
+     <c:DF_WEBC_ChampionNav activeValue="EditAction" dfcW="{!dfcW}"  rendered="{!isChampion}"/>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+     <script type="text/javascript">
+ 
+     //$('[Id="j_id0:j_id66:j_id68:j_id69:j_id70:4"]').hide();
+     </script>
+
+    <c:DF_WEBR_WebFooter />
+    
+    </div>
+ 
+
+</apex:page>

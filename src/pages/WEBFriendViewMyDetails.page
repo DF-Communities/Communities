@@ -1,0 +1,103 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBFriendEditMyDetails">
+    
+    <c:DF_WEBR_WebMeta />
+    
+    
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="row clearfix">
+                
+                
+              <div class="col-md-9 column col-md-push-3">
+                <div id="message-center"></div>                    
+                
+                    <h1>Edit my details</h1>
+                
+
+                
+                <div class="alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Your password was successfully changed.            
+                </div>                    
+              
+                    <h1>My details</h1>
+                    
+                        <a class="btn btn-primary" href="/edit-details">Edit</a>
+                        <a class="btn btn-primary" href="/change-password">Change my password</a>
+                    
+               <div class="well">
+               <div class="table-responsive">
+                <table  class="table">
+                 
+                    <tr>
+                          <th>Title</th>
+                   
+                                      
+                     <td> {!dfContactRecord.Title__c}</td>
+                    
+                    </tr>
+                        
+                           
+                    <tr>
+                        <th>First name</th>
+                        <td>{!dfContactRecord.First_Name__c}</td>
+                    </tr>        
+                    <tr>
+                        <th>Last name</th>
+                        <td>{!dfContactRecord.Last_Name__c}</td>
+                    </tr>        
+                    <tr>
+                        <th>Email</th>
+                        <td>{!dfContactRecord.Email__c}</td>
+                    </tr>        
+                    <tr>
+                        <th>Address</th>
+                        <td>{!dfContactRecord.Street__c}</td>
+                    </tr>               
+                    <tr>
+                        <th>Town City</th>
+                        <td>{!dfContactRecord.City__c}</td>
+                    </tr>        
+                    <tr>
+                        <th>County</th>
+                        <td>{!dfContactRecord.County__c}</td>
+                    </tr>        
+                    <tr>
+                        <th>Postcode</th>
+                        <td>{!dfContactRecord.Postcode__c}</td>
+                    </tr>        
+                    <tr>
+                        <th>Telephone</th>
+                        <td>{!dfContactRecord.Contact_Number__c}</td>
+                    </tr>        
+                    <tr>
+                        <th>Newsletter</th>
+                        <td><span class="crud-widget-binarytostring crud-widget-binarytostring-no" >{!IF(dfContactRecord.Newsletters__c,'Yes','No')}</span></td>
+                    </tr>
+                </table>                
+               </div>         
+             </div> 
+          
+        </div>
+
+        <c:DF_WEBC_FriendNav activeValue="EDIT" dfcW="{!dfcW}"/>
+
+       </div>
+     </div>
+    </div>
+    
+    
+
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:DF_WEBR_WebFooter />
+
+   </div>
+
+</apex:page>

@@ -1,0 +1,77 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false" controller="CkeFAQsController">
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>About Cupcake Day: Alzheimer's Society</title>
+    <c:Cke_CommonHead ogUrl="faqs"/>
+
+</head>    
+    
+<body class="sub">
+    
+   <c:Cke_CommonBody pageUrl="faqs"/>
+   <c:Cke_WebMainNav pageUrl="faqs"/>
+   <c:Cke_WebBanner bannerClass="subsidiary"/>
+
+   
+ <!-- YOUR CONTENT GOES AFTER HERE -->
+     <main>  
+            <div class="faqs">
+            <article id="faqs">
+                <div class="container">
+                    <div class="row">  
+                        <div class="col-xs-12">
+                            <h1 class="center"><u><c:EdtText group="cke-faqs" key="intro-title-1" context="{!edtContext}" text="Cupcake clarity"/></u></h1>    
+                            <p><c:EdtText group="cke-faqs" key="intro-text-1a" context="{!edtContext}" text="Cupcake Day is as simple and delicious as it sounds, but you might still have a few questions."/></p>
+                            <p><c:EdtText group="cke-faqs" key="intro-text-1b" context="{!edtContext}" text="If they&rsquo;re not answered here, email Cupcake Headquarters at"/> <a href="mailto:cupcakeday@alzheimers.org.uk"><c:EdtText group="cke-faqs" key="intro-text-1c" context="{!edtContext}" text="cupcakeday@alzheimers.org.uk"/></a> <c:EdtText group="cke-faqs" key="intro-text-1d" context="{!edtContext}" text="or call us on"/> <a href="tel:03002225770" class="tel"><em><c:EdtText group="cke-faqs" key="intro-text-1e" context="{!edtContext}" text="0300 222 5770"/></em></a><c:EdtText group="cke-faqs" key="intro-text-1f" context="{!edtContext}" text=". We&rsquo;re here, wooden spoons in hand, Monday to Friday, 9am to 5pm. And we&rsquo;ll reply to emails within two baking days."/></p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-8 col-md-push-2">
+                            <!-- CATEGORY START -->
+                           
+                        <apex:repeat value="{!faqCategories}" var="category">                                    
+
+                            <div id="category{!category.Rank__c}" class="faqs">                            
+                                <h2 id="{!category.Name}">{!category.Name__c}</h2>
+                                <dl>
+                                <apex:repeat value="{!mapFaqs[category.Id]}" var="faq">
+                                    <dt id="{!faq.Name}">
+                                    <span>{!faq.Question__c}</span>
+                                    
+                                    </dt>
+                                    <dd><p><apex:outputText value="{!faq.Answer__c}" escape="false"/></p></dd>
+                                </apex:repeat>
+                                </dl>
+                                <hr/> 
+                            </div>     
+
+                        </apex:repeat>  
+                        
+                        </div>
+                    </div>        
+                </div>                             
+            </article>
+        </div>      
+    </main>
+
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+   
+    
+   <aside>
+    <article class="green"><div class="container">
+        <!-- DONATION BAR START -->
+        <div class="row"><div class="col-md-9 col-sm-9 vcenter"><h2><c:EdtText group="cke-faqs" key="intro-title-2" context="{!edtContext}" text="Can&rsquo;t host your own Cupcake Day? Make a donation to Alzheimer&rsquo;s Society instead."/> </h2></div><!-- --><div class="col-md-3 col-sm-3 vcenter"><a href="donate" class="btn-donate">Donate</a></div>
+        </div>        
+        <!-- DONATION BAR END -->
+    </div>         
+    
+    </article>
+    </aside> 
+
+    <c:Cke_CommonFooter />    
+    <c:Cke_CommonScripts />
+    </body>
+    </html>
+
+</apex:page>

@@ -1,0 +1,6 @@
+<aura:event type="COMPONENT" description="Dispatch a flux action">
+    
+    <aura:attribute name="action" type="String"/>
+    <aura:attribute name="data" type="Object"/>
+    
+</aura:event>

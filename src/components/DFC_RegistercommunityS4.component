@@ -1,0 +1,70 @@
+<apex:component >
+<!--
+<style>
+.action-area-option {
+    background-color: #eeecec;
+    border: 1px solid #a5a5a5;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.action-area-option textarea {
+    display: block;
+    margin-top: 10px;
+    height: 8em;
+    width:100%;
+    max-width:100%;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.validation {
+    
+    display: inline-block;
+    color: white;
+    background-color: #ce3c39;
+    margin-right: 8px;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+.wordCount{
+    float: right;
+}
+
+</style>
+-->
+ <h3>Select your action areas</h3>
+ <span ng-show="step4badge!=null&&isActionSelected()==false" class="validation">Please select at least 1 action area  </span>
+ <p>
+ <c:DFC_PageSnippets uniqueKey="dfc-apply-action-areas" group="dfc_apply"/>
+   </p>
+ <form  name="actionForm" >
+                <div  ng-repeat="area in community.Action_Areas__r">
+                    <div class="action-area-option">
+                        
+                        <label style="color: #330000;margin-right:12px;">
+                        <input type="checkbox" ng-model="area.Selected__c" ng-click="updateActionDesc(area.Selected__c);step ='step4'"  />&nbsp;<span>{{area.Action_Area__r.Name}}</span>
+                         
+                        </label>
+                        <span class="wordCount" ng-show="area.Description__c.length>0&& area.Selected__c==true" ng-bind="countOf(area.Description__c)"></span> 
+                        <span ng-show="area.Selected__c &&(area.Description__c.length<=0 || area.Description__c==null)" class="validation">Please enter your plan of action</span>
+                        <span ng-show="area.Selected__c">
+                           <textarea type="text" ng-model="area.Description__c" placeholder="Enter a description of your plan of action"/>
+                           
+                        </span>
+                           
+                         <span class="ng-hide">
+                           <input type="textarea" name="description" value="area.Description__c" updateOn="keyup" required="true" />
+                          
+                        </span>
+                     
+                    </div>
+                    
+              </div>
+             
+
+</form>
+
+
+</apex:component>

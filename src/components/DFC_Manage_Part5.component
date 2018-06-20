@@ -1,0 +1,26 @@
+<apex:component >
+  
+<div ng-show= "yearEnding==null">
+   <h3>Annual Assessment</h3>
+</div>
+<div ng-show= "yearEnding!=null">
+   <h3>Annual Assessment for year ending {{yearEnding| date:'dd MMMM yyyy'}}</h3>
+</div>
+<div ng-show="status==null">
+   <p>First Annual Assessment will become available for completion on 
+      <span>{{firstAssessmentDate| date:'dd MMMM yyyy'}}</span>
+   </p>
+</div>
+<div ng-show="status=='Submitted'">
+   <c:DFC_AssessmentRead questionGroups="questionGroups" submittedDate="submittedDate" />
+</div>
+<div ng-show="status=='New'|| status=='Draft'" name="assessedit">
+   <c:DFC_AssessmentEdit questionGroups="questionGroups" 
+      dueDate="dueDate" 
+      lastModifiedName="lastModifiedName" 
+      lastModifiedDate="lastModifiedDate" 
+      status="status"
+      viewState="viewState"/>
+</div>
+
+</apex:component>

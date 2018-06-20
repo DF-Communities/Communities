@@ -1,0 +1,170 @@
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_UserDetailsController" action="{!loginRedirect}" title="My details - Dementia Connect" applyHtmlTag="false" applyBodyTag="false">  
+	<html>
+		<head>
+			<c:DCE_CSS />
+			<script>
+				$(document).ready(function(){
+					
+					var emailChange = false;
+					
+					$("[id*='emailInput']").change(function(){
+						emailChange = true;
+					});
+					
+					$("[id*='modalConfirm']").on('click', function(){
+						checkForErrors();
+					});
+					
+					$("[id*='saveButton']").on('click', function(){
+				         
+						if(emailChange){
+				         	
+				         	$('#emailChangeModal').modal('show');
+				         
+				         } else {
+				         	saveRecord();
+				         }
+				         
+					})
+					
+					function checkForErrors(){
+						var requiredFields = $('input,textarea').filter('[required]:visible');
+						var hasError = false;
+				         
+						for(i=0; i < requiredFields.length; i++){
+				         	
+							if(requiredFields[i].value == ''){
+								$(requiredFields[i]).closest("div.form-group").addClass("has-error");
+								hasError = true;
+							}
+				         	
+						}
+						
+						if(hasError){
+							$("[id*='javascriptAlertText']").text("Please complete the highlighted fields before submitting.");
+							$("[id*='javascriptAlert']").show('fast');
+				         	
+						} else {
+							$("[id*='javascriptAlert']").hide();
+							saveRecord();
+						}
+					
+					}
+					
+				});
+			</script>
+			<c:importvisualstrap />
+		</head>
+		<body>
+			<c:visualstrapblock >
+				<apex:form >
+					<c:DCE_Navbar />
+					<apex:actionFunction name="saveRecord" action="{!save}" status="status"/>
+					<c:row >
+					<c:column type="col-md-1 hidden-sm hidden-xs"/>
+						<c:column type="col-md-7">
+							<c:panel >
+								<div style="margin-bottom:1em;" class="clearfix">
+								<!--<h3><span class="label label-default">Edit your Details</span></h3>-->
+									<span class="sectionHeading">Edit your Details</span>
+									
+									<span style="float:right;margin-right:1em;">
+										<apex:outputLink styleClass="btn btn-primary" value="{!URLFOR($Page.DCE_Dashboard)}" ><c:glyph icon="home" html-aria-hidden="true"/><span class="sr-only">Home</span></apex:outputLink>
+										<apex:commandLink styleClass="btn btn-primary" onclick="return false;" id="saveButton"><c:glyph icon="save" html-aria-hidden="true"/>&nbsp;Save</apex:commandLink>&nbsp;<!--  -->
+									</span>
+								</div>
+								
+								<apex:outputpanel layout="none" rendered="{!displayPageMessage}">
+									<apex:outputPanel layout="block" styleClass="alert {!pageMessageType}">
+									    <apex:outputText value="{!pageMessage}" escape="false"/>
+									</apex:outputPanel>
+								</apex:outputpanel>
+								
+								<div class="alert alert-danger alert-dismissible" role="alert" id="javascriptAlert" style="display:none;">
+									 <span id="javascriptAlertText"></span>
+								</div>
+								
+								<c:row >
+									<c:column type="col-md-6">
+										<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+							        		<apex:outputLabel styleclass="control-label">Name</apex:outputLabel>
+							        		<apex:outputLabel styleclass="sr-only" for="firstName">First Name</apex:outputLabel><apex:inputfield value="{!user.FirstName}" html-placeholder="First Name" styleClass="form-control" style="margin-bottom:0.2em;" id="firstName"/>
+							        		<apex:outputLabel styleclass="sr-only" for="lastName">Last Name</apex:outputLabel><apex:inputfield value="{!user.LastName}" html-placeholder="Last Name" styleClass="form-control" required="true" id="lastName"/>
+							        	</c:formgroup>
+							        	
+							        	<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+							        		<apex:outputLabel styleclass="control-label" for="emailInput">Email</apex:outputLabel>
+							        		<apex:inputfield value="{!user.Email}" html-placeholder="Email" styleClass="form-control" required="true" id="emailInput"/>
+							        		<span class="help-block" id="emailError"></span>
+							        	</c:formgroup>
+							        	
+							        	<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+							        		<apex:outputLabel styleclass="control-label" for="phone">Phone</apex:outputLabel>
+							        		<apex:inputfield value="{!user.Phone}" html-placeholder="Phone" styleClass="form-control" required="true" id="phone"/>
+							        	</c:formgroup>
+										
+									</c:column>
+									<c:column type="col-md-6">
+										
+										<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+					    					<apex:outputLabel >Address</apex:outputLabel>
+					    					<apex:outputLabel styleclass="sr-only" for="street">Street</apex:outputLabel><apex:inputText id="street" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Street" value="{!user.Street}"/>
+					    					<apex:outputLabel styleclass="sr-only" for="town">Town</apex:outputLabel><apex:inputText id="town" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Town/City" value="{!user.City}" />
+					    					<apex:outputLabel styleclass="sr-only" for="state">County</apex:outputLabel><apex:inputText id="state" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="County" value="{!user.State}" />
+					    					<apex:outputLabel styleclass="sr-only" for="postcode">Postcode</apex:outputLabel><apex:inputText id="postCode" styleClass="form-control" html-placeholder="Postcode" value="{!user.PostalCode}"/>
+					    					<apex:outputLabel styleclass="sr-only" for="country">Country</apex:outputLabel><apex:inputText id="country" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Country" value="{!user.Country}"/>
+					    					
+					    					<link rel="stylesheet" type="text/css" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=kb59-yz47-hj67-xf67" />
+					    					<script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=kb59-yz47-hj67-xf67"></script>
+					    					<script type="text/javascript">
+												
+												var fields = [
+													{ element: "{!$Component.street}", field: "Line1" },
+													{ element: "{!$Component.town}", field: "City", mode: pca.fieldMode.POPULATE },
+													{ element: "{!$Component.state}", field: "Province", mode: pca.fieldMode.POPULATE },
+													{ element: "{!$Component.postCode}", field: "PostalCode" },
+													{ element: "{!$Component.country}", field: "{HomeNation}", mode: pca.fieldMode.POPULATE },
+
+												];
+													
+												var options = {key: "KB59-YZ47-HJ67-XF67", countries: { codesList: "GBR" }, culture:"en_GB" };
+
+												var control = new pca.Address(fields, options);
+												//control.listen("load", function(){control.setCountry("GBR");});
+											</script>
+										</c:formgroup>
+									</c:column>
+									
+								</c:row>
+							</c:panel>
+						</c:column>
+						<c:column type="col-md-3 hidden-sm hidden-xs">
+							<c:panel >
+								<p>	Use this page to update your details in the Dementia Connect database</p>
+								<p><strong>Please note: </strong>If you update your email address, you will need to use your new email address to log-in to the Dementia Connect database.</p>
+								<p>	Please ensure that, if changing your email, you choose a valid and operational address.</p>
+								<p>	The information you have submitted, including your personal and business information, will be held by Alzheimer’s Society so we can access your information 
+									for signposting and to contact you about your services or the activities of your organisation. We may contact your organisation to provide updates to the 
+									information your organisation has submitted or to give you updates about the Dementia Connect Online Directory.</p>
+							</c:panel>
+						</c:column>
+					<c:column type="col-md-1 hidden-sm hidden-xs"/>
+					</c:row>
+					<c:modal title="Confirm" id="emailChangeModal" html-role="dialog" html-aria-labelledby="updatedEmail">
+						<div class="modal-dialog" role="document">
+							<div class="modalText">
+								<p class="lead" id="updatedEmail">Updated email address</p>
+								<p>You are submitting a change to your email address. Please ensure this is a valid email address.</p>
+							</div>
+							<span>
+								<apex:commandButton value="Cancel" styleClass="btn-primary" html-data-dismiss="modal"/>&nbsp;
+				        		<apex:commandButton value="Confirm" onclick="return false;" id="modalConfirm" html-data-dismiss="modal"  styleClass="btn-success"/>
+				        	</span>
+				        </div>
+					</c:modal>
+				</apex:form>
+			</c:visualstrapblock>
+			<c:DCE_LoadingSpinner />
+		</body>
+	</html>
+</apex:page>

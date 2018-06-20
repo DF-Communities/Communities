@@ -1,0 +1,140 @@
+<apex:component controller="DF_WEBC_WebHeader_Controller" allowDML="true">
+    
+    <apex:attribute name="activeValue" description="Which menu is active ?" type="String" required="false"/>
+    
+    <!-- WEBHEADER COMPONENT START -->
+    
+    <header class="page-header">
+        <div class="wrapper">
+    
+            <div class="logo"><a href="/">
+                <img src="{!URLFOR($Resource.img, 'img/f/logo.png')}" height="103" width="259" alt="Dementia Friends" /></a>
+            </div>
+    
+            <div class="account-info">
+    
+                <apex:outputPanel rendered="{!NOT(IF(isloggedIn==TRUE,true,false))}">
+                    <div class="user-area">
+                        <ul>
+                            <li><a href="/login">Sign in</a></li>
+                            <li><a href="/register-intro">Register</a></li>
+                        </ul>
+                    </div>
+                </apex:outputPanel>
+    
+                <apex:outputPanel rendered="{!IF(isloggedIn==TRUE,true,false)}">
+                    <div class="user-area">
+                        <div>Hi <strong>{!currentContact.firstName}</strong></div>
+                        <ul>
+                            <li><a href="secur/logout.jsp">Sign out</a></li>
+                            <li><a href="/user-home">My dashboard</a></li>
+                        </ul>
+                    </div>
+                </apex:outputPanel>
+
+				<apex:outputPanel rendered="{!NOT(IF(isloggedIn==TRUE,true,false))}">
+				
+                	<div class="social-media" id = "social-media-head" >
+
+	                    <p>Follow:</p>
+	                    <a class="twitter" href="https://twitter.com/dementiafriends">Follow us on Twitter</a> 
+	                    <a class="facebook" href="https://www.facebook.com/DementiaFriends">Find us on Facebook</a>
+	                   	
+	                   	<a href="/subscribe" class="btn btn-primary">Subscribe to our newsletter</a>
+						
+                	</div>
+				
+				</apex:outputPanel>
+
+
+                <apex:outputPanel rendered="{!IF(isloggedIn==TRUE,true,false)}">
+
+					<apex:outputPanel id="webheader-subscribe-container" style="display:none">
+	                	<div class="social-media" id = "social-media-head" >
+	
+		                    <p>Follow:</p>
+		                    <a class="twitter" href="https://twitter.com/dementiafriends">Follow us on Twitter</a> 
+		                    <a class="facebook" href="https://www.facebook.com/DementiaFriends">Find us on Facebook</a>
+
+                            <apex:outputPanel layout="none" rendered="{!NOT(IF(isOrgAdmin==TRUE,true,false))}">    
+    		                   	
+	   	                   	   <a href="#" class="btn btn-primary" id="webheader-subscribe-button">Subscribe to our newsletter</a>
+
+                            </apex:outputPanel>
+							
+	                	</div>
+	                </apex:outputPanel>
+	                
+	               	<apex:outputPanel id="webheader-un-subscribe-container" style="display:none">
+	               	
+	               		<div class="social-media" id = "social-media-head" style="width:350px;">
+	
+		                    <p>Follow:</p>
+		                    <a class="twitter" href="https://twitter.com/dementiafriends">Follow us on Twitter</a> 
+		                    <a class="facebook" href="https://www.facebook.com/DementiaFriends">Find us on Facebook</a>
+	               	
+                            <apex:outputPanel layout="none" rendered="{!NOT(IF(isOrgAdmin==TRUE,true,false))}">    
+
+		                 	    <a href="#" class="btn btn-primary" id="webheader-un-subscribe-button">Unsubscribe from our newsletter</a>
+
+                            </apex:outputPanel>    
+		                 	
+		                 </div>
+		                 	
+					</apex:outputPanel>
+					
+				</apex:outputPanel>	
+				
+            </div>
+    
+            <nav class="main-nav">
+                <ul class="navigation">
+                    <li class="{!IF(activeValue=='HOME','active','')}" >
+                       <a href="/home">Home</a>
+                    </li>
+                    <li class="{!IF(activeValue=='GET INVOLVED','active','')}">
+                        <a href="WEBAboutPage">Get involved</a>
+                        <ul>
+                            <li>
+                                <a href="WEBArticle?page=what-is-a-friend">What is a Friend?</a>
+                            </li>
+                            <li>
+                                <a href="WEBArticle?page=what-is-a-champion">What is a Champion?</a>
+                            </li>
+                            <li>
+                                <a href="WEBArticle?page=about-partner-organisations">Organisations</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{!IF(activeValue=='FAQ','active','')}" >
+                        <a href="WEBFAQs">FAQs</a>
+                    </li>
+                    <li class="{!IF(activeValue=='WHAT IS DEMENTIA','active','')}">
+                        <a href="WEBArticle?page=what-is-dementia">What is dementia?</a>
+                    </li>
+                    <li class="{!IF(activeValue=='NEWS','active','')}" > 
+                        <a href="WEBNews">News &amp; press</a>
+                    </li>
+                    <li class="{!IF(activeValue=='CONTACT','active','')}" >
+                        <a href="WEBContactForm">Contact</a>
+                    </li>
+                </ul>    
+            </nav>
+
+        </div>
+
+    </header>
+    <!-- WEBHEADER COMPONENT END -->
+    <c:WEBC_Utils_js />    
+    <c:DF_WEBC_WebHeader_js />
+    <apex:form >
+      <apex:actionFunction name="afToggleSubscription" 
+                             oncomplete="_webc.toggleSubscribeDisplay(_webc.isSubscriber);"
+                             action="{!toggleSubscription}"
+                             rerender="jsVars"                             
+                             >
+                            <apex:param name="option" value=""/>
+      </apex:actionFunction>                    
+    </apex:form>     
+
+</apex:component>

@@ -1,0 +1,51 @@
+<apex:component >
+
+<div class="row">
+   <div class="col-md-12" >
+      <h1 style="min-height:26px" ></h1>
+      <span  class="cDfcBlockNavigator" ></span>
+      <div class="DESKTOP no-print dfc-nav clearfix cDfcBlockNavigator" >
+         <div >
+            <div class="step-tile" data-index="0" tabindex="0" >
+               <div ng-class="{'step': !showPart1, 'step-active': showPart1}" ng-click="onNavClick('showPart1')">
+                  <h5>PART 1</h5>
+                  <p>Community details</p>
+               </div>
+            </div>
+            <div class="step-tile" data-index="1" tabindex="0">
+               <div ng-class="{'step': !showPart2, 'step-active': showPart2}" ng-click="onNavClick('showPart2')">
+                  <h5 >PART 2</h5>
+                  <p>Focus areas</p>
+               </div>
+            </div>
+            <div class="step-tile" data-index="2" tabindex="0">
+               <div ng-class="{'step': !showPart3, 'step-active': showPart3}" ng-click="onNavClick('showPart3')">
+                  <h5>PART 3</h5>
+                  <p>Activities</p>
+               </div>
+            </div>
+            <div class="step-tile" data-index="3" tabindex="0">
+               <div ng-class="{'step': !showPart4, 'step-active': showPart4}" ng-click="onNavClick('showPart4')">
+                  <h5>PART 4</h5>
+                  <p>Representatives</p>
+               </div>
+            </div>
+            <div class="step-tile" data-index="4" tabindex="0">
+               <div ng-class="{'step': !showPart5, 'step-active': showPart5}" ng-click="onNavClick('showPart5')">
+                  <h5>PART 5</h5>
+                  <p>Annual assessment</p>
+               </div>
+            </div>
+            <div class="step-tile" data-index="5" tabindex="0">
+               <div ng-class="{'step': !showPart6, 'step-active': showPart6}" ng-click="onNavClick('showPart6')">
+                  <h5>HELP</h5>
+                  <p>Resources</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<br></br>
+
+</apex:component>

@@ -1,0 +1,17 @@
+<apex:component >
+
+    <apex:attribute name="question" description="" type="String" required="false" default=""   />
+  <apex:attribute name="IE9" type="boolean" description=""/>
+
+
+<div ng-show="question.Capture_Extra__c && (question.Capture_Extra_On_Option__c.indexOf(question.Entered_Answer__c)>=0  || question.Capture_Extra_On_Option__c==null)">
+     <br/>
+    <textarea type="string" ng-model="question.Extra_Information__c" class="form-control further-information" 
+    placeholder="Please give further explanation"/>
+</div>
+
+<span ng-show="isSubmit && question.Extra_Information__c==null &&question.Capture_Extra__c &&(question.Capture_Extra_On_Option__c.indexOf(question.Entered_Answer__c)>=0)" class="validation">Please give further explanation</span>
+
+
+
+</apex:component>

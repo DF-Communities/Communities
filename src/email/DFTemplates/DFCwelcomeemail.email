@@ -1,0 +1,115 @@
+<messaging:emailTemplate subject="Dementia Friends - Getting started as a Dementia Friends Champion" recipientType="Contact" relatedToType="DF_Contact__c" >
+<messaging:HtmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+Thank you again for attending the Dementia Friends Champion induction. I hope you enjoyed it and are feeling inspired and eager to run your own Dementia Friends Information Sessions.
+<br/><br/>
+
+As your Dementia Friends Officer, I’m here to support you every step of the way.  I’ve been 
+through the Champions’ induction myself and I know that taking the first step is often the 
+hardest, but with just a bit of advice and help you can be all set to go.  So whether you need 
+a quick refresher on the Information Session, ideas for groups or venues, or support using our website - don't hesitate to contact me: <br/><br/>
+
+Email: {!relatedTo.DF_Region__r.RSO__r.email}<br/>
+Phone: {!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+
+<b>Your next steps…</b><br/><br/>
+
+Your Champions account on the Dementia Friends website is now ready to use. When you login you’ll be able to access the Session Resources and start planning your Sessions! Remember the three actions from your Induction Day to help you on your volunteer journey:
+<br/>
+
+<ul>
+  <li>Make your First Friend - If you haven’t already, identify someone to use your First Friend pack. It’s a great opportunity to practise the whole Information Session– and you will create a Dementia Friend along the way.</li>
+  <li>Post on the Champions Exchange – complete your profile, say ‘Hello!’ to other Champions in your area, and start finding out what others have been doing.</li>
+  <li>Order your resources- allow 10 working days to get your first set of badges and action cards. </li>
+</ul>
+<br/>
+
+If you need any help with the website, you can find a guide in your Champion 
+Handbook or on the “Session resources” page of the website.  Remember, you’ll need to log and report back on all your Information Sessions using the website so that I can support you with your plans - plus it's the only way for us to see how many Dementia Friends we have reached!
+<br/><br/>
+If you’ve changed your mind and decided the role isn’t for you please let me know using my contact details above.
+<br/><br/>
+Finally, we want the Dementia Friends Champion induction to be the best it can be and 
+value your feedback to help us do that – so whether you loved it or felt it could be different 
+please share your thoughts by completing our short survey: 
+
+<a><c:DF_Mail_SurveyURL ToID="{!relatedto.id}"/></a><br/><br/>
+
+Good luck running your first Information Session and thank you for supporting Dementia Friends! <br/><br/>
+
+Best wishes, <br/>
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Dementia Friends Officer - Dementia Friends<br/><br/>
+
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+Email: {!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+Phone: {!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+<a href="http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a><br/><br/>
+
+PS. Please don’t reply directly to this email as it comes from a 'noreply' address via our website. My direct contact details are above.
+<br/><br/>
+Email Id:TEREF01
+</span>
+</messaging:HtmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c}, 
+
+Thank you again for attending the Dementia Friends Champion induction. I hope you enjoyed it and are feeling inspired and eager to run your own Dementia Friends Information Sessions.
+
+As your Dementia Friends Officer, I’m here to support you every step of the way. I’ve been 
+through the Champions’ induction myself and I know that taking the first step is often the 
+hardest, but with just a bit of advice and help you can be all set to go. So whether you need 
+a quick refresher on the Information Session, ideas for groups or venues, or support using our website - don't hesitate to contact me:
+
+Email: {!relatedTo.DF_Region__r.RSO__r.Email}
+Phone: {!relatedTo.DF_Region__r.RSO__r.phone}
+
+Your next steps…
+
+Your Champions account on the Dementia Friends website is now ready to use. When you log in you’ll be able to access the Session resources and start planning your Sessions! Remember the three actions from your Induction Day to help you on your volunteer journey:
+
+- Make your First Friend - If you haven’t already, identify someone to use your First Friend pack. It’s a great opportunity to practise the whole Information Session– and you will create a Dementia Friend along the way.
+- Post on the Champions Exchange – complete your profile, say ‘Hello!’ to other Champions in your area, and start finding out what others have been doing.
+- Order your resources- allow 10 working days to get your first set of badges and action cards. 
+
+If you need any help with the website, you can find a guide in your Champion 
+Handbook or on the “Session resources” page of the website.  Remember, you’ll need to log and report back on all your Information Sessions using the website so that I can support you with your plans - plus it's the only way for us to see how many Dementia Friends we have reached!
+
+If you’ve changed your mind and decided the role isn’t for you please let me know using my contact details above.
+
+Finally, we want the Dementia Friends Champion induction to be the best it can be and 
+value your feedback to help us do that – so whether you loved it or felt it could be different 
+please share your thoughts by completing our short survey: 
+
+<c:DF_Mail_SurveyURL ToID="{!relatedto.id}"/>
+
+Good luck running your first Information Session and thank you for supporting Dementia Friends!
+
+Best wishes, 
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Dementia Friends Officer - Dementia Friends
+
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}
+Email: {!relatedTo.DF_Region__r.RSO__r.Email}
+Phone: {!relatedTo.DF_Region__r.RSO__r.phone}
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+
+PS. Please don’t reply directly to this email as it comes from a 'noreply' address via our website. My direct contact details are above.
+
+Email Id:TEREF01
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

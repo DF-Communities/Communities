@@ -1,0 +1,15 @@
+<img id="Logo" src="https://c.eu0.content.force.com/servlet/servlet.ImageServer?id=01520000001HfE1&oid=00D260000008nKU" height="103" width="259"/>
+<br/>
+<span style="font-family: arial;">
+Dear {{contact.First_Name__c}} {{contact.Last_Name__c}},
+<br/><br/>
+You have unregistered from {{event.Name}} on {{event.Event_Date_Time__c}}.
+<br/><br/>
+If you are still interested in volunteering as a Dementia Friends Champion we have new courses added to the website all of the time <a href="http://www.dementiafriends.org.uk">dementiafriends.org.uk</a> The training courses are listed in date order. To find a course near you, search by your postcode using the filter on the left hand side of the screen. We are continuously updating the site with new training dates, so please keep checking. 
+<br/><br/>
+Best wishes,
+<br/><br/>
+Dementia Friends team
+<br/><br/>
+<a href="http://www.dementiafriends.org.uk">dementiafriends.org.uk</a>
+</span>

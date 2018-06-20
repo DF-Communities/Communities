@@ -1,0 +1,43 @@
+<aura:component >
+	
+     <aura:attribute name="questionGroups" type="Object[]" access="GLOBAL"/>
+     <aura:attribute name="submittedDate" type="Date" access="GLOBAL"/>
+     <aura:attribute name="showSubmitMessage" type="boolean" default="false" access="GLOBAL"/>
+
+     <c:CsqLodashService aura:id="lodashService"/>
+
+    <div>
+        
+     <div class="pull-right">Submitted: <ui:outputDateTime value="{!v.submittedDate}" format="d MMM YYYY" timezone="Europe/London"/>
+     </div>
+     <div class="clearfix"></div>
+     <p class="{!v.showSubmitMessage?'dfc-msg':'hide'}"><c:DfcSnippet group="dfc_manage" key="dfc-assessment-submitted"/></p>
+    
+     <aura:iteration items="{!v.questionGroups}" var="group">
+
+       <div class="question-group">
+          
+          <div class="question-group-title">{!group.Title__c}</div>
+          <p class="guidance">{!group.Guidance__c}</p>
+
+          <div class="form-group"> 
+
+           <aura:iteration items="{!group.questions}" var="question">
+
+            <label class="required question-text">{!question.Question_Text__c}</label>
+            <div class="dfc-answer"> 
+         		<div>{!question.Entered_Answer__c}</div>
+         		<div>{!question.Extra_Information__c}</div>
+            </div>   
+
+          </aura:iteration>
+
+          </div>
+
+         </div>
+          
+      </aura:iteration>
+        
+   </div>
+
+</aura:component>

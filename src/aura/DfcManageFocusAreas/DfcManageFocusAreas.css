@@ -1,0 +1,47 @@
+.THIS .dfc-container {
+    width:100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px; 
+}
+
+.THIS .btn-action {
+    font-size:12px;
+    display:inline-block;
+    margin-left:6px;
+}
+
+/* Override bootstrap height for form-control here as we are in read mode and want to show all the text */
+.THIS .uiOutputTextArea {
+    height: auto !important;
+    min-height:6em ;
+    border-radius:4;
+    border: 1px solid #777;
+}
+
+.THIS .well {
+    border-bottom: solid 2px #ccc;
+}
+
+.THIS .cDfcValidationComponent {
+    margin:0;
+    float:right;
+}
+
+.THIS .action-area-option {
+    background-color: #eeecec;
+    border: 1px solid #a5a5a5;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.THIS .action-area-option textarea {
+    display: block;
+    margin-top: 10px;
+    height: 8em;
+    width:100%;
+    max-width:100%;
+    padding: 10px;
+    font-size: 14px;
+}

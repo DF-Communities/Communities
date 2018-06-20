@@ -1,0 +1,41 @@
+<aura:component extends="forceCommunity:navigationMenuBase" implements="forceCommunity:availableForAllPageTypes">
+    <br/>
+    <br/>
+  <div class="slds-context-bar">
+  <nav class="slds-context-bar__secondary" role="navigation">
+    <ul onclick="{!c.onClick}" class="slds-grid " >
+     <aura:iteration items="{!v.menuItems}" var="item" >
+      <aura:if isTrue="{!item.subMenu}">
+        <li class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger--hover" aria-haspopup="true">
+
+        <a href="" class="slds-context-bar__label-action" title="{!item.label}">
+         {!item.label}
+                   <lightning:icon class="slds-context-bar__label-action" iconName="utility:down" size="xx-small" alternativeText="Open topic menu"/>
+            </a>
+            
+
+  
+      <div class="slds-dropdown slds-dropdown--left">   
+                <ul class="slds-dropdown__list" role="menu">
+                    <aura:iteration items="{!item.subMenu}" var="subItem">
+                        
+                        <li class="slds-dropdown__item" role="presentation"><a data-menu-item-id="{!subItem.id}" href="" class="submenuitems">{!subItem.label}</a></li>
+                    </aura:iteration>
+                </ul>
+                    </div>
+                    </li>
+            <aura:set attribute="else">
+                <li class="slds-context-bar__item">
+                    <a data-menu-item-id="{!item.id}" href="" class="slds-context-bar__icon-action buttonstl" title="{!item.label}">
+                      {!item.label}
+                    </a>
+                </li>
+     
+                </aura:set>
+            </aura:if>
+        </aura:iteration>
+    </ul>
+    </nav>
+    </div>
+    
+</aura:component>

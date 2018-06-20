@@ -1,0 +1,25 @@
+<apex:component >
+  <fieldset>
+        <div class="checkbox">
+            <label><input type="checkbox" value="Person with Dementia" ng-model="data.prox.a" ng-change="onProximitySelection()"/>I have dementia</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" value="Family or Friend" ng-model="data.prox.b" ng-change="onProximitySelection()"/>I am a family member or friend of someone with dementia</label>
+        </div>
+        <div class="checkbox ">
+            <label><input type="checkbox" value="Past Family or Friend" ng-model="data.prox.c" ng-change="onProximitySelection()"/>I was a family member or friend of someone who had dementia</label>
+        </div>
+        <div class="checkbox ">
+            <label><input type="checkbox" value="Carer" ng-model="data.prox.d" ng-change="onProximitySelection()"/>I am a carer of someone with dementia</label>
+        </div>
+        <div class="checkbox ">
+            <label><input type="checkbox" value="Past Carer" ng-model="data.prox.e" ng-change="onProximitySelection()"/>I used to be a carer of someone with dementia</label>
+        </div>
+        <div class="checkbox ">
+            <label><input type="checkbox" value="Dementia Professional" ng-model="data.prox.f" ng-change="onProximitySelection()"/>I am a dementia professional</label>
+        </div>
+        <div class="checkbox ">
+            <label><input type="checkbox" value="Interested In Dementia" ng-model="data.prox.g" ng-change="onProximitySelection()"/>I am generally interested in dementia</label>
+        </div>
+    </fieldset>
+</apex:component>

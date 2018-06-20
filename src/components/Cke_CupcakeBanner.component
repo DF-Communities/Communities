@@ -1,0 +1,47 @@
+<apex:component controller="EdtComponentController" layout="none" selfClosing="true">
+
+ 	<apex:attribute name="group" type="String" required="true" assignTo="{!itemGroup}" description=""/>
+    <apex:attribute name="key" type="String" required="true" assignTo="{!itemKey}" description=""/>
+    <apex:attribute name="context" type="EdtPageContext" required="true" assignTo="{!pageContext}" description=""/>
+	
+	<apex:outputPanel rendered="{!context.editEnabled}" layout="none">
+
+		<edit-text data-key="{!key}" data-group="{!group}" title="{!group} | {!key}">
+
+            <button onclick="alert('a few baking days to go');return false;" class="btn btn-xs text-copy-btn">
+              {!key}
+            </button>
+
+     		<apex:outputPanel rendered="{!itemText1!=''}" layout="none">
+
+	         	<span class="days" style="display:none"/>{!itemText1}
+
+	        </apex:outputPanel> 	
+
+			<apex:outputPanel rendered="{!itemText1==''}" layout="none">
+
+	        	<span class="days">a few</span> baking days to go
+
+	        </apex:outputPanel>	
+
+         </edit-text>
+    
+	</apex:outputPanel>
+
+	<apex:outputPanel rendered="{!!context.editEnabled}" layout="none">
+
+     		<apex:outputPanel rendered="{!itemText1!=''}" layout="none">
+
+	         	<span class="days" style="display:none"/>{!itemText1}
+
+	        </apex:outputPanel> 	
+
+			<apex:outputPanel rendered="{!itemText1==''}" layout="none">
+
+	        	<span class="days">a few</span> baking days to go
+
+	        </apex:outputPanel>	
+    
+	</apex:outputPanel>
+
+</apex:component>

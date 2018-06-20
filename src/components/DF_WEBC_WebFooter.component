@@ -1,0 +1,68 @@
+<apex:component >
+
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+<style>
+
+    .at_PinItButton {
+        margin-right: 20px !important;
+    }
+
+</style>
+
+<footer class="page-footer">
+
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style ">
+        
+            <a class="addthis_button_facebook_like at300b"></a>
+            <a class="addthis_button_tweet at300b" ></a>
+            <!-- <a class="addthis_button_pinterest_pinit at300b" style="margin-right:10px !important;"></a> -->
+        
+            <a href="//gb.pinterest.com/pin/create/button/?url=http%3A%2F%2Fdfdevpro-dementiafriends.cs18.force.com%2F&media=http%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="beside">
+            <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>
+        
+            <!-- Please call pinit.js only once per page -->
+            
+
+             <a class="addthis_counter addthis_pill_style"></a> 
+        </div>
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+        <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-528b7c927d6d5192"></script>
+        
+        <!-- AddThis Button END -->
+        <div class="wrapper">
+            <div class="alzheimers-logo"><a href="http://www.alzheimers.org.uk/"><img src="{!URLFOR($Resource.img, 'img/f/alzheimers-logo.png')}" width="133" height="66" alt="Alzheimer's Society" /></a>
+            </div>
+            <div class="partners">
+                <p>Dementia Friends is an Alzheimer's Society initiative</p>
+            </div>
+
+            <div class="legal-info">
+                <p>&copy; 2015 Alzheimer's Society</p>
+                <p>Alzheimer's Society is a registered Charity No. 296645</p>
+            </div>
+
+            <nav class="footer-nav">
+                <ul>
+                    <!-- <li><a href="WEBArticle?page=website-history">Version 1.1</a></li> -->
+                    <li><a href="http://blog.dementiafriends.org.uk/">Project blog</a></li>
+                    <li><a href="WEBArticle?page=terms-and-conditions">Terms &amp; conditions</a></li>
+                    <li><a href="WEBArticle?page=privacy-policy">Privacy policy</a></li>
+                    <!-- <li><a href="WEBArticle?page=partners">Partners</a></li> -->
+                    <li><a href="WEBSiteMap">Site map</a></li>
+                </ul>
+            </nav>  
+            
+            <!--  This library causes an error in IE8 
+            
+                SCRIPT65535: Unexpected call to method or property access. 
+                jquery-1.9.1.js, line 5951 character 5              
+                <script type="text/javascript" src="{!URLFOR($Resource.js, 'js/dementia-friends_5.js')}"></script>
+            -->
+            
+        </div>        
+    </footer>
+
+    
+</apex:component>

@@ -1,0 +1,16 @@
+<aura:component >
+	
+    <aura:attribute name="store" type="Aura.Component[]" required="true"/>
+    
+    <aura:attribute name="selectedViewName" type="String" access="GLOBAL"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+ 
+    <aura:handler event="c:CsqStoreChanged" action="{!c.onStoreChanged}"/>
+    <aura:handler event="c:CsqValidationBroadcastEvent" action="{!c.onValidationEvent}"/>
+
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    
+   <div>{!v.body}</div>
+    
+</aura:component>

@@ -1,0 +1,12 @@
+.THIS {
+    display:inline-block;
+    color: white;
+    background-color: #ce3c39;
+    margin-top: 8px;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+.THIS:empty {
+    display:none;
+}

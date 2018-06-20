@@ -1,0 +1,111 @@
+<apex:page showHeader="false" sidebar="false" controller="EdtPageController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+    
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>#CupcakeDay: Alzheimer's Society</title>
+    <c:Cke_CommonHead ogUrl="cupcake-catwalk"/>
+    <link rel='stylesheet' type="text/css" href="{!URLFOR($Resource.Cke_Assets, 'css/wall.css')}" media="screen" />
+
+</head>    
+    
+<body class="sub">
+    
+   <c:Cke_CommonBody pageUrl="cupcake-catwalk"/>
+   <c:Cke_WebMainNav pageUrl="cupcake-catwalk"/>
+   <c:Cke_WebBanner bannerClass="purple"/>
+
+ <main>   
+        <div class="gallery-page">
+            <article class="cake">
+				<div class="container-bt">
+					<div class="green">
+					<div class="container ">
+						<div class="row">    
+							<!-- SOCIAL START -->
+
+							<div class="col-md-6 col-sm-6 col-xs-12 vcenter"> 
+								<img src="{!URLFOR($Resource.Cke_Assets, 'img/layout/cake.png')}" alt="instagram cakes" class="img-responsive" />
+							</div><!--      
+							--><div class="col-md-6 col-sm-6 col-xs-12 vcenter">
+							<h1><c:EdtText group="cke-gallery" key="intro-title-1" context="{!edtContext}" text="Looking good, cupcakes"/></h1>
+							<p><c:EdtText group="cke-gallery" key="intro-text-1" context="{!edtContext}" text="Show us your swirls and sprinkles this Cupcake Day. We want to see your finest cupcakes, ready for their big day. This is the moment you&rsquo;ve been practising, mixing and piping for. Show us what you&rsquo;ve got!"/></p>
+							<h2><u><c:EdtText group="cke-gallery" key="hash-tag-text" context="{!edtContext}" text="#CupcakeDay"/></u></h2>
+							</div>        
+							<!-- SOCIAL END -->
+						</div>
+					</div></div>
+				</div>
+			</article>
+        </div>
+        <div class="gallery-block">
+			<div class="">
+				<div class="container ">
+					<div class="row center">
+						<h2><c:EdtText group="cke-gallery" key="juicer-title" context="{!edtContext}" text="See who else is rising to the challenge"/></h2>
+						<!-- GALLERY IMAGE ITEM START -->
+						<!-- <div class="col-xs-6 col-md-3">
+							<img src="img/other/gallery.jpg" alt="" class="img-responsive" />
+						</div>-->
+						<!-- GALLERY IMAGE ITEM END -->
+						<!-- GALLERY TWEET ITEM START -->
+						<!-- <div class="col-xs-6 col-md-3 "> 
+							<div class="twitter">
+								<p>Lorem ipsum dolor sit amet, con sectetur elit. Vivamus eget tortor ex donec quis blan odio &lt;URL&gt; #CupcakeDay</p>
+								<a href="http://twitter.com"><span class="fa fa-twitter"></span></a>
+							</div>
+						</div>-->
+						<!-- GALLERY TWEET ITEM END -->
+						<!--<div class="col-xs-6 col-md-3">
+							<img src="img/other/gallery.jpg" alt="" class="img-responsive" />
+						</div>
+						<div class="col-xs-6 col-md-3 "> 
+							<div class="twitter">
+								<p>Lorem ipsum dolor sit amet, con sectetur elit. Vivamus eget tortor ex donec quis blan odio &lt;URL&gt; #CupcakeDay</p>
+								<a href="http://twitter.com"><span class="fa fa-twitter"></span></a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<a href="" class="btn btn-default">Bake some more </a> 
+						-->
+						<ul class='juicer-feed' data-feed-id='cupcake' data-per="16" data-columns="1" data-after="updateJuicer()">
+						<h1 class="referral"><a href="https://www.juicer.io">Powered by Juicer</a></h1>
+						</ul>
+					</div>
+				</div>					
+			</div>
+		</div>
+		<div class="white">
+            <article id="video2">	
+				<div class="container">
+					<div class="row">				
+						<!-- SOCIAL START -->
+						<div class="col-md-12 center">
+							<h2><c:EdtText group="cke-gallery" key="follow-us-link" context="{!edtContext}" text="Follow us for cupcake updates"/></h2>
+						</div>
+						<div class="col-md-6 col-md-push-3 col-xs-12">
+							<div class="col-sm-6 col-xs-12 xs-center text-right">					
+								<a class="btn btn-social btn-twitter" href="https://twitter.com/alzheimerssoc"><span class="fa fa-twitter"></span> Tweet cake</a>					
+							</div>
+							<div class="col-sm-6 col-xs-12 xs-center">					
+								<a class="btn btn-social btn-facebook" href="https://www.facebook.com/alzheimerssocietyuk"><span class="fa fa-facebook"></span> Cakebook</a>
+							</div>
+						</div>
+						<!-- SOCIAL END -->
+					</div>        
+				</div>  			
+            </article>                
+        </div>					
+    </main>
+
+    
+    <c:Cke_CommonDonateAside />
+    <c:Cke_CommonFooter />    
+    <c:Cke_CommonScripts />
+    <script language="JavaScript" src="//assets.juicer.io/embed-no-jquery.js"></script> 
+
+</body>
+
+</html>
+    
+</apex:page>

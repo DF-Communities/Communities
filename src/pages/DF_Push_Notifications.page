@@ -1,0 +1,717 @@
+<apex:page showHeader="true" sidebar="false" controller="DF_Push_Notifications_Controller" docType="html-5.0">
+
+ 
+  <style>  
+      .dataCell .btn {width:160px;}
+      .searchSelection {padding-3px; border :solid 1px #ccc;margin-top:10px;} 
+      .radioinput input[type="radio"]{float:left;}
+       .radioinput label{display:block;}
+
+  </style>  
+
+  <head>
+
+  <!-- The SF Ajax Framework -->    
+  <apex:includeScript value="/soap/ajax/32.0/connection.js"/> 
+  <apex:includeScript value="/soap/ajax/32.0/apex.js" /> 
+    
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.css" />
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+  
+   <style type="text/css">
+      
+      h1 {font-size: 22px; 
+             margin-right: 30px; 
+             font-family: "HelveticaNeue-Light", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;
+             }
+             
+      .bold-label { font-weight:bold; padding-top:10px; padding:bottom: 3px;}      
+      .searchLink {font-size:14px;  display:block; padding-top: 10px; padding-bottom: 10px} 
+      .right-align {text-align : right;}
+      
+      #search-filters input, select { width: 200px; padding-bottom: 5px;}  
+      #search-filters input[type=checkbox] { width: 10px; float: left; margin-right: 15px;}
+      
+      tr.headerRow th {font-size: 1.0em !important;}
+
+      body .pbBody table.list tr.dataRow td.dataCell { min-width : 6%; vertical-align: text-top;}
+      .wrapped {width : 45%; height : auto;}
+      .wrapped h3 {display: block; width:100%; margin:10px 5px 0px 0px;}
+
+      .toggler {border : solid 1px #ccc; padding: 2px 4px 2px 4px;}
+
+
+  </style>  
+  
+  </head>
+  <apex:pageMessages id="errors"  escape="false" ></apex:pageMessages>
+  <apex:form id="inputForm">
+    <apex:outputPanel id="hiddenBlock" layout="none" />
+  
+
+  <!-- Page Title and "New BDR" button -->
+  <div style="margin-bottom:10px; margin-top:10px; padding-left: 5px;"> 
+         <h1>Push Notifications </h1>
+         <h2>Create push notifications for Champions</h2>
+
+          
+
+         <span style = "float:right;padding-right:5px;width:30%;color:#666;text-align:right">Search shows a maximum of 1000 results<br/>Use the filters on the left to help find what you are looking for </span>   <br/><br/><br/>   
+         
+  </div>
+
+    <apex:pageBlock title="Add contacts to receive push notifications">
+    <div class="form-group"  >
+       <label for="title" class="col-md-3 control-label required">Title</label>
+         <div class="col-md-6">
+        <apex:inputText value="{!title}" id="title" maxlength="40"/>
+        
+        </div>
+      </div>
+      <div class="form-group">  
+         <label for="pushmessages" class="col-md-3 control-label required">Message</label>
+         <div class="col-md-12">
+         <apex:inputHidden value="{!pushMessage}" id="myHiddenVar" />
+         <textArea  rows="5" id="pushmessages" maxlength="1000" style="width: 1000px;" onblur="document.getElementById('{!$Component.myHiddenVar}').value = this.value;"></textArea>
+         <span id="pushmessagesError" class="help-block"></span>
+         </div>
+         </div>
+      
+        <div class="form-group" >
+         <label for="btnTitle" class="col-md-3 control-label required">Link Button title</label>
+         <div class="col-md-9">
+          <apex:inputText value="{!btnTitle}" maxlength="10"/>
+          </div>
+        </div>
+
+       <div class="form-group"  >
+        <label for="btnLink" class="col-md-3 control-label required">Link</label>
+         <div class="col-md-9">
+             <apex:inputText value="{!btnLink}" maxlength="200"/>
+         </div>
+       </div>
+    <div class="form-group" style = "text-align: center;"> 
+         <apex:commandButton value="Add Messages" action="{!addMessages}" reRender="errors,inputForm,queryresults"/>
+         
+   </div>
+  
+     <apex:pageBlockTable value="{!selectedDFCs}" var="row"  id="selected">
+        <!-- <apex:column >
+               <apex:inputCheckbox value="{!row.selectedDFC}" id="removedfc"  />
+           </apex:column>-->
+
+           <apex:column >
+           
+               <apex:outputLink value="/{!selectedDFCs[row].id}">
+                {!selectedDFCs[row].Name}
+                </apex:outputLink> 
+               
+             </apex:column>
+
+
+            <apex:column >
+           
+                
+                <apex:outputText value="{!selectedDFCs[row].Type_of_Champion__c}"/> 
+             
+            </apex:column>
+
+            <apex:column >
+           
+              <apex:outputText value="{!selectedDFCs[row].Status__c}"/> 
+             
+            </apex:column>
+          
+        </apex:pageBlockTable>
+     
+  </apex:pageBlock>    
+
+  </apex:form>
+  <apex:form id="wrapperForm">
+  
+
+    
+
+ <!--  The Search Page  Outer table with narrow column on the left -->
+  <table width="100%" border="0">
+  
+  
+  <tr>  
+    <td width="190" valign="top">
+     
+      <apex:pageBlock mode="edit" id="criteria">              <!-- mode="edit" as we want the search fields to be editable -->
+
+      <!--  The order of the parameters is important. 
+              It must match the calls to this function from the UI js functions -->  
+      <apex:actionFunction name="runSearch" action="{!runSearch}" 
+              rerender="results,debug,errors,createAction"
+              oncomplete="initResults();"
+              >                   
+      </apex:actionFunction>
+
+                     
+      
+      <div style="padding:10px;"  id="search-filters">
+      
+      <div style="font-size:14px; font-weight: bold;">DF Contact Details</div>
+      
+    
+      <div class="bold-label">Type of Champion</div>
+      <div class="searchSelection">
+          <apex:selectCheckboxes value="{!type_selection}"  layout="pageDirection" html-data-search="champtype" id="champtype">
+                 <apex:selectOptions value="{!typeOptions}"/>     
+          </apex:selectCheckboxes>
+      </div>
+
+      <div class="bold-label">DF Region</div>
+
+      <div class="searchSelection">
+          <apex:selectList value="{!region_selection}" html-data-search="region"   id="region"  multiselect="false" size="1">
+                 <apex:selectOptions value="{!regionOptions}"/>     
+          </apex:selectList>
+      </div>
+
+      <div class="bold-label">Postcode outward code</div>
+
+      <div class="searchSelection">
+          <apex:inputText value="{!postcodeout}" html-data-search="postcodeout" id="postcodeout"  />
+          <span id="postcodeouterror" class="help-block"></span>
+                 
+      </div>
+
+      <div class="bold-label">DFC Email</div>
+
+      <div class="searchSelection">
+          <apex:inputText value="{!emailaddress}" html-data-search="emailaddress" id="emailaddress"  />
+          <span id="emailerror" class="help-block"></span>
+                 
+      </div>
+
+      <div class="bold-label">No of Friends</div>
+
+      <div class="searchSelection">
+       <label for="totalfriendsmin" class="control-label required">Between</label>
+        <apex:input value="{!totalfriendsmin}" html-data-search="totalfriendsmin" id="totalfriendsmin" label="from" />
+          <span id="totalfriendsminerror" class="help-block"></span>
+
+        <label for="totalfriendsmax" class="control-label required">To</label>
+         <apex:input value="{!totalfriendsmax}" html-data-search="totalfriendsmax" id="totalfriendsmax" label="to" />
+          <span id="totalfriendsmaxerror" class="help-block"></span>
+      </div>
+      <div class="bold-label">No of completed Sessions</div>
+
+      <div class="searchSelection">
+       <label for="totalsessionsmin" class="control-label required">Between</label>
+        <apex:input value="{!totalsessionsmin}" html-data-search="totalsessionsmin" id="totalsessionsmin" label="from" />
+          <span id="totalsessionsminerror" class="help-block"></span>
+
+        <label for="totalsessionsmax" class="control-label required">To</label>
+         <apex:input value="{!totalsessionsmax}" html-data-search="totalsessionsmax" id="totalsessionsmax" label="to" />
+          <span id="totalsessionsmaxerror" class="help-block"></span>
+      </div>
+
+      <div class="bold-label">No of available Sessions</div>
+
+      <div class="searchSelection">
+       <label for="totalincompletesessionsmin" class="control-label required">Between</label>
+        <apex:input value="{!totalincompletesessionsmin}" html-data-search="totalincompletesessionsmin" id="totalincompletesessionsmin" label="from" />
+          <span id="totalincompletesessionsminerror" class="help-block"></span>
+
+        <label for="totalincompletesessionsmax" class="control-label required">To</label>
+         <apex:input value="{!totalincompletesessionsmax}" html-data-search="totalincompletesessionsmax" id="totalincompletesessionsmax" label="to" />
+          <span id="totalincompletesessionsmaxerror" class="help-block"></span>
+      </div>
+
+      <div class="bold-label">Interests</div>
+      <div class="searchSelection">
+          <apex:selectCheckboxes value="{!interests_selection}"  layout="pageDirection" html-data-search="interests" id="interests">
+                 <apex:selectOptions value="{!InterestsOptions}"/>     
+          </apex:selectCheckboxes>
+      </div>
+       <div class="bold-label">Date of champion training</div>
+      <div class="searchSelection">
+       <label for="training" class="col-md-3 control-label required" >Between</label>
+       
+          <apex:input type="date" value="{!champtraining}"  html-data-search="training" id="training" size="10"   />
+        <label for="training2" class=" col-md-3control-label required" >to </label>
+        
+          <apex:input type="date"  value="{!champtraining2}"  html-data-search="training2" id="training2" size="10"   />
+            
+      </div>
+      
+      <div class="bold-label">Latest session date</div>
+      <div class="searchSelection">
+       <label for="latestsession" class="control-label required">Between</label>
+          <apex:input type="date" value="{!latestsession}"  html-data-search="latestsession" id="latestsession" size="10"   />
+        <label for="latestsession2" class="control-label required">To</label>
+          <apex:input type="date"  value="{!latestsession2}"  html-data-search="latestsession2" id="latestsession2" size="10"   />
+            
+      </div>
+
+    
+      
+      <div class="bold-label">Subscribed for Champion newsletters?</div>
+       <div class="searchSelection">
+      
+  <apex:selectRadio value="{!newsletter}" layout="pageDirection" styleClass="radioinput" style="width:300px;" html-data-search="newsletter" id="newsletter">
+                            
+
+                            <apex:selectOption itemValue="None" itemLabel="All" id="None" />
+                            <apex:selectOption itemValue="True" itemLabel="Yes" id="True"/>
+                            <apex:selectOption itemValue="False" itemLabel="No" id="False"/>
+
+                                              </apex:selectRadio>
+                        
+                        
+        </div>  
+              
+
+      <div style=" margin-top: 20px; margin-bottom : 20px;">                 
+        <apex:commandLink onclick="doBlankSearch();return false;" styleClass="searchLink">Clear Search Filters</apex:commandLink>                                      
+      </div>        
+
+
+      <div style="margin:15px 0 15px 0;">   
+          <apex:commandButton value="Search" action="{!clicked}" onclick="doSearch(); return false;" id="btnSearch"/>
+      </div>
+
+      <h3 style="margin-top:15px;display:block;">Remember this Search</h3>
+      <apex:commandLink onclick="setDefaultSearch();return false;" 
+                styleClass="searchLink"  
+                id="setDefaultLink"
+                style="float:left;"
+                >Set
+      </apex:commandLink>
+      <apex:commandLink onclick="removeDefaultSearch();return false;" 
+                styleClass="searchLink"  
+                id="removeDefaultLink"
+                style="float:right;margin-right:25px;"
+                >Clear
+      </apex:commandLink>
+      
+      <div style="clear:both"></div>
+
+    
+    </div>  
+ 
+   </apex:pageBlock>
+ 
+    </td>
+
+    <td valign="top">
+
+    
+    <apex:outputPanel id="mainPanel"> 
+        
+        <apex:pageBlock mode="edit" id="results">
+        <div class="form-group" style = "text-align: center;"> 
+         <apex:commandButton value="Add Contacts" action="{!processSelected}" reRender="selected" id="addContacts"/>
+        </div>
+
+           <p><apex:commandLink styleClass="btn-xs btn-primary" 
+                                action="{!previousPage}"
+                                rendered="{!IF(AND(NOT(ISBLANK(startRecord)), startRecord > 0),TRUE,FALSE)}"
+                                >
+                                &lt;&lt;
+                                </apex:commandLink>
+          
+                                &nbsp;
+                                Showing {!startRecord+1} to {!IF(AND(NOT(ISBLANK(startRecord)),NOT(ISBLANK(recordsPerPage)),NOT(ISBLANK(noOfRecords)) ,(startRecord+recordsPerPage) > noOfRecords), noOfRecords, startRecord+recordsPerPage)} of {!noOfRecords} records.&nbsp;&nbsp;
+
+            <apex:commandLink styleClass="btn-xs btn-primary" 
+                                action="{!nextPage}"
+                                rendered="{!IF(AND(NOT(ISBLANK(startRecord)),NOT(ISBLANK(recordsPerPage)),NOT(ISBLANK(noOfRecords)) ,startRecord+recordsPerPage < noOfRecords), TRUE,FALSE)}"
+                                >
+                               &gt;&gt;
+                                </apex:commandLink>
+
+            </p>
+
+        <apex:pageBlockTable value="{!DFCWrappersList}" var="row"  id="queryresults">
+           <apex:column >
+            <apex:facet name="header">
+               <apex:inputCheckbox onclick="selectAllCheckboxes(this,'selecteddfc')"/>
+            </apex:facet>
+              <apex:inputCheckbox value="{!row.selectedDFC}" id="selecteddfc" />
+           </apex:column>
+
+           <apex:column >
+           
+                <apex:facet name="header">
+                    <apex:commandLink value="DF Contact" action="{!toggleSort}" rerender="results,debug"
+                     title="Click to change sort order" oncomplete="initResults()">
+                        <apex:param name="sortField" value="Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+
+                </apex:facet>
+                                             
+                <apex:outputLink value="/{!row.dfc.id}" >
+                {!row.dfc.Name}
+                </apex:outputLink> 
+               
+                 
+                
+            </apex:column>
+
+
+            <apex:column >
+           
+                <apex:facet name="header">
+                <label>Type of champion</label>
+                  <!--  <apex:commandLink value="Type of champion" action="{!toggleSort}" rerender="results,debug"
+                     title="Click to change sort order" oncomplete="initResults()">
+                        <apex:param name="sortField" value="Type_Of_Champion__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>-->
+                </apex:facet>
+                
+                <apex:outputText value="{!row.dfc.Type_of_Champion__c}"/> 
+             
+            </apex:column>
+
+            <apex:column >
+           
+                <apex:facet name="header">
+                   <label>Champion Newsletter</label>
+                    <apex:commandLink value="Champion Newsletter" action="{!toggleSort}" rerender="results,debug"
+                     title="Click to change sort order" oncomplete="initResults()">
+                        <apex:param name="sortField" value="Champion_newsletters__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                
+                <apex:outputText value="{!row.dfc.Champion_newsletters__c}"/> 
+             
+            </apex:column>
+
+             <apex:column >
+           
+                <apex:facet name="header">
+                    <apex:commandLink value="Selected" action="{!toggleSort}" rerender="results,debug"
+                     title="Click to change sort order" oncomplete="initResults()">
+                        <apex:param name="sortField" value="Selected_to_receive_message__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                
+                <apex:outputText value="{!row.dfc.Selected_to_receive_message__c}"/> 
+             
+            </apex:column>
+          
+        </apex:pageBlockTable>
+       
+    </apex:pageBlock>
+ 
+    </apex:outputPanel>
+ 
+    </td>
+  </tr>
+  </table>
+  
+ 
+
+  </apex:form>
+  
+      
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js"/>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/jquery.spin.min.js"/>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.js"/>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"/>
+      
+      
+      <script type="text/javascript">
+
+             var j$ = jQuery.noConflict();
+             
+             j$(document).ready(function() {
+                 
+                  j$(window).keydown(function(event) {
+                    if (event.keyCode == 13) {
+                      callSearch();
+                      
+                      return false;
+                    }
+                   });
+                   
+                   sforce.connection.sessionId = "{!$Api.Session_ID}";
+  
+                    // Run the search stored in a cookie, if available
+                  doCookieSearch();     
+                  
+
+              });  
+                          
+
+            function doSearch(thisField) {
+
+                    //Currently not checks on enoughInput
+                    var enoughInput=true;                                        
+                    if (enoughInput) {
+                      console.log('doSearch');
+                       callSearch();
+                    }
+
+             }
+            
+             /*   Salesforce puts it's own markup into the id so this function returns the value of the field
+                  ending in the given string */
+              
+                  
+             function getValue(inputFieldName) {
+                  var ending = '*[id$=FIELD]';
+                  var res = ending.replace("FIELD", inputFieldName);
+                  var result =  j$(res).val();
+                  return result;
+             }
+             
+                function setValue(inputFieldName, value) {
+                var ending = '*[id$=FIELD]';
+                var res = ending.replace("FIELD", inputFieldName);
+                var result =  j$(res).val(value);
+                return result;
+              }
+           
+
+             // Use the data attribute for selection 
+             function getDataValue(attrValue) {
+                  var ending = '*[data-search="ATTR-VALUE"]';
+                  var res = ending.replace("ATTR-VALUE", attrValue);
+                  var result =  j$(res).val();
+                  return result;             
+             }
+
+             function getCheckboxValue(inputFieldName) {
+
+                var ending = 'input[name$=FIELD]:checked';
+                var res = ending.replace("FIELD", inputFieldName);    
+
+                    var items = [];
+                    j$(res).each(function() {
+                            items.push(j$(this).val());
+                    });
+                var s = items.join(',');
+                console.log('radio value'+s);
+                return s;
+
+             }
+
+             function getRadioButtonValue(inputFieldName){
+               var ending = 'input[name$=FIELD]:checked';
+                var res = ending.replace("FIELD", inputFieldName);    
+
+                    var items = [];
+                    j$(res).each(function() {
+                            items.push(j$(this).val());
+                    });
+                var s = items.join(',');
+                console.log('checkboxvalues'+s);
+                return s;
+                
+             }
+
+                 function setCheckboxValue(inputFieldName, value) {
+           
+                var ending = 'input[name$=FIELD]';
+                var res = ending.replace("FIELD", inputFieldName);  
+                j$(res).val(value);
+                
+             }
+
+                function setRadioButtonValue(inputFieldName, value) {
+              
+                var ending = 'input[name$=FIELD][value=VAL]';
+                var res = ending.replace("FIELD", inputFieldName);
+                var res2 = res.replace("VAL", value);  
+                
+                
+               j$(res2).prop('checked', true); 
+                
+             }
+
+             function getSelectValue(inputFielName) {
+                  var ending = 'select[id$=FIELD]';
+                  var res = ending.replace("FIELD", inputFieldName);
+                  var result =  j$(res).val();
+                  return result
+             }
+
+                   function setSelectValue(inputFieldName, value) {
+                
+                  var ending = 'select[id$=FIELD]';
+                  var res = ending.replace("FIELD", inputFieldName);
+                  var result =  j$(res).val(value);
+                  return result           
+            }
+
+             
+             function hasCheckboxValue(inputFieldName) {
+                    var ending = 'input[name$=FIELD]:checked]';
+                    var res = ending.replace("FIELD", inputFieldName);                  
+                    return j$(res).length>0;
+                
+             }
+
+
+             
+             function clearValue(inputFieldName) {
+                      var ending = '*[id$=FIELD]';
+                      var res = ending.replace("FIELD", inputFieldName);                      
+                      j$(res).val('');
+             }
+
+             function doBlankSearch() {
+                      clearInputFields();
+                      callSearch();
+             }
+             
+            function callSearch() {
+
+                    j$("[id$=results]").html('');
+                    j$("[id$=results]").spin({ top:'20%', left: '50%', color : '#ccc', radius : 25, length : 20 });
+            
+                    // No need to pass the check box values, they are tied
+                    // directly to the ViewState
+                    
+                    runSearch();
+
+               
+            }
+
+            function initResults() {
+
+                j$('[id^=item_detail]').hide();
+                j$('.toggler').click( function (){
+                  
+                  var id = this.id.split('_')[2];
+
+                  j$('#item_detail_' + id).slideToggle();
+                  j$('[id$=toggler_' + id +']').toggle();  
+                
+                });
+
+
+            }  
+            
+            /* Clear the values in all input fields */
+            function clearInputFields() {
+               j$('input[type=checkbox]').not('#create-option-toggle').prop('checked',false);
+               j$('input[type=text]').val('');
+               j$('[id*=region]').val('');
+
+            }
+
+
+                function setDefaultSearch() {
+                   
+                   // apex_ as a prefix is required for the Apex code to see the cookie     
+                   j$.removeCookie('apex__pushMsgSearch');
+                   
+                   var s='';
+                    s+= getCheckboxValue('champtype') + ';';
+                    s+= getValue('region') + ';';
+                    s+= getValue('emailaddress') + ';';
+                    s+= getValue('totalfriendsmin') + ';';
+                    s+= getValue('totalfriendsmax') + ';';
+                    s+= getCheckboxValue('interests') + ';';
+                    s+= getValue('training') + ';';
+                   s+= getValue('training2') + ';';                                       
+                   s+= getValue('latestsession') + ';';
+                   s+= getValue('latestsession2') + ';';
+                   s+= getRadioButtonValue('newsletter') + ';';
+                   s+= getValue('postcodeout') + ';';
+                   s+= getValue('totalsessionsmin') + ';';
+                    s+= getValue('totalsessionsmax') + ';';
+
+                   //set with a name prefixed with apex__ so Apex can see the cookie if required
+                   j$.cookie('apex__pushMsgSearch',s,{expires : 365});                   
+                   
+                   j$('#setDefaultSearchDialog').dialog({
+                         buttons: [
+                         {
+                          text: "OK",
+                          click: function() {
+                            j$( this ).dialog( "close" );
+                          }
+                        }
+                      ]
+                   });
+                                    
+           }
+           
+           function removeDefaultSearch() {
+                   
+               j$.removeCookie('apex__pushMsgSearch'); 
+               j$('#removeDefaultSearchDialog').dialog({
+                     buttons: [
+                     {
+                      text: "OK",
+                      click: function() {
+                        j$( this ).dialog( "close" );
+                      }
+                    }
+                  ]
+               });
+                                    
+           }
+           
+           function doCookieSearch() {
+                
+                var s= j$.cookie('apex__pushMsgSearch');
+                   
+                if (typeof s === 'undefined') { 
+                    callSearch(); 
+                    return;
+                }  
+ 
+                var v = s.split(';'); 
+                                
+                setCheckboxValue('champtype',v[0].split(','));
+                setValue('region',v[1]);
+                setValue('emailaddress',v[2]);
+                setValue('totalfriendsmin',v[3]);
+                setValue('totalfriendsmax',v[4]);
+                setCheckboxValue('interests',v[5].split(','));
+                setValue('training',v[6]);
+                setValue('training2',v[7]);
+                setValue('latestsession',v[8]);
+                setValue('latestsession2',v[9]);
+                setRadioButtonValue('newsletter',v[10]);
+                setValue('postcodeout',v[11]);
+                setValue('totalsessionsmin',v[12]);
+                setValue('totalsessionsmax',v[13]);
+                 callSearch();        
+          
+
+                                
+      
+                
+                              
+           
+           }
+           
+              function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+                 
+
+      </script>
+
+      <div style="display:none">
+      <div id="setDefaultSearchDialog" title="Remember this Search">
+         <p>Default Search has been set. The search will run with the selections you have made each time the page is opened.</p>
+      </div>
+      
+      <div id="removeDefaultSearchDialog" title="Basic dialog">
+        <p>Default search has been cleared.</p>
+      </div>
+      </div>
+      
+
+
+
+</apex:page>

@@ -1,0 +1,134 @@
+<apex:component layout="none">
+
+<apex:attribute name="inclFbookShare" description="Facebook sharing functionality is not required on all pages so make this optional" default="true" type="Boolean"/>
+<apex:attribute name="pageUrl"  description="the url for this page (exc host)" default="home" required="false" type="String"/>
+<apex:attribute name="fbUrl" description="the var in the FB link for tracking" default="Navigation" required="false" type="String"/>
+<apex:attribute name="fbHome" description="FB Link should redirect" default="false" required="false" type="Boolean"/>
+
+
+<apex:variable value="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" var="baseUrl"/>
+
+<a href="#maincontent" class="sr-only">Skip to main content</a>
+
+
+<!-- START Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6TN6T"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- END Google Tag Manager (noscript) -->
+
+<!-- START FACEBOOK SHARE FUNCTIONATLITY -->
+<apex:outputPanel rendered="{!inclFbookShare}">
+<script type="text/javascript">
+
+
+    /*<![CDATA[*/
+    (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+                
+    var FBAsync;
+
+    FBAsync = {
+      initFBAsync: function() {
+        return FB.init({
+          appId      : '{!$Label.CKE_Facebook_App_Id}',
+          xfbml      : false,
+          version    : 'v2.5' 
+        });
+      },
+
+
+      FBShareOp: function (){
+
+        FB.ui({
+          method: 'feed',
+          name: (document.querySelector("meta[property='og:title']") !== null && document.querySelector("meta[property='og:title']").getAttribute('content').length === 0) ? encodeURIComponent(document.querySelector("meta[property='og:title']").getAttribute('content')) : '',
+          link: '{!baseUrl}/{!pageUrl}?{!IF(fbHome==true,"ckefb="+fbUrl,"utm_source=Facebook&utm_medium=ShareButton&utm_content="+fbUrl+"&utm_campaign=CupcakeDay2016")}',
+          picture: (document.querySelector("meta[property='og:image']") !== null && document.querySelector("meta[property='og:image']").getAttribute('content').length === 0) ? encodeURIComponent(document.querySelector("meta[property='og:image']").getAttribute('content')) : '',
+          caption:  'Cupcakes against dementia',
+          description: (document.querySelector("meta[property='og:description']") !== null && document.querySelector("meta[property='og:description']").getAttribute('content').length === 0) ? encodeURIComponent(document.querySelector("meta[property='og:description']").getAttribute('content')) : ''
+        }, function(response) {
+          if(response && response.post_id){}
+          else{}
+        });
+      }
+    };
+    window.FBAsync = FBAsync;
+    window.fbAsyncInit = window.FBAsync.initFBAsync;  
+
+                    
+/*]]>*/
+
+</script>
+</apex:outputPanel>
+<!-- END FACEBOOK SHARE FUNCTIONATLITY -->
+
+
+<!-- START COOKIES NOTIFICATION -->
+<script>
+
+                var dropCookie = true; // false disables the Cookie, allowing you to style the banner
+                var cookieDuration = 14; // Number of days before the cookie expires, and the banner reappears
+                var cookieName = 'complianceCookie'; // Name of our cookie
+                var cookieValue = 'on'; // Value of cookie          
+
+                function createDiv(){
+                    var bodytag = document.getElementsByTagName('body')[0];
+                    console.log("BODYTAG " + bodytag);
+                    var div = document.createElement('div');
+                    div.setAttribute('id','cookie-law');
+                    div.innerHTML = '<div classname="cookie-warning cookie-notice" style="padding-top:15px;position:fixed;bottom:0;left:0;right:0;background-color:#e6e6e6 !important;z-index:1000;"><p>We use cookies to help make this website better and to make our advertising more cost-effective. We also share information about your use of our site with our trusted social media, advertising and analytics partners. For more information on our use of cookies, how you can disable them and your rights in relation to the information collected, please <a href="https://www.alzheimers.org.uk/legal-information/cookies#content-start" target="_blank">click here</a>. If you continue to use this website, you are indicating you are happy for cookies to be used as we have described.<br/<br/><a class="close-cookie-banner" href="javascript:void(0);" onclick="removeMe();"><span><span class="fa fa-close"></span><span> Close</span></span></a></p></div>';
+                    // Be advised the Close Banner 'X' link requires jQuery
+                    //bodytag.appendChild(div); // Adds the Cookie Law Banner just before the closing </body> tag
+                    // or
+                    bodytag.insertBefore(div,bodytag.firstChild); // Adds the Cookie Law Banner just after the opening <body> tag
+                    document.getElementById('cookie-law').className+=' '; //Adds a class tothe <body> tag when the banner is visible
+                    //createCookie(window.cookieName,window.cookieValue, window.cookieDuration); // Create the cookie
+                }
+                
+                function createCookie(name,value,days) {
+                    if (days) {
+                        var date = new Date();
+                        date.setTime(date.getTime()+(days*24*60*60*1000));
+                        var expires = "; expires="+date.toGMTString();
+                    }
+                        else var expires = "";
+                        if(window.dropCookie) {
+                        document.cookie = name+"="+value+expires+"; path=/";
+                    }
+                }
+                
+                function checkCookie(name) {
+                    var nameEQ = name + "=";
+                    var ca = document.cookie.split(';');
+                    for(var i=0;i < ca.length;i++) {
+                        var c = ca[i];
+                        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                        }
+                        return null;
+                    }
+                    
+                function eraseCookie(name) {
+                    createCookie(name,"",-1);
+                }
+                
+                window.onload = function(){
+                    if(checkCookie(window.cookieName) != window.cookieValue){
+                        createDiv();
+                    }
+                }
+
+                function removeMe(){
+                    createCookie(window.cookieName,window.cookieValue, window.cookieDuration)
+                    var element = document.getElementById('cookie-law');
+                    element.parentNode.removeChild(element);
+                }
+    </script>
+<!-- END COOKIES NOTIFICATION -->
+
+</apex:component>

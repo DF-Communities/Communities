@@ -1,0 +1,62 @@
+/* Table */
+.THIS .dfc-country {
+    display: table;
+    border: 1px solid #c0c0c0; 
+    border-radius: 4px;
+    margin: 3px 0 20px 0;
+    width: 100%;
+}
+
+/* Row */
+.THIS .dfc-country > div {
+    display: table-row;
+}
+
+/* Cell */
+.THIS .dfc-country > div > div {
+    display: table-cell;
+    padding: 20px 10px 20px 10px;
+    font-weight: bold;
+}
+
+.THIS .dfc-country .cell1 { 
+    width: 120px;
+}
+
+
+.THIS img.region { 
+    width:58px;
+    height:75px;
+    margin-left:10px;
+}
+
+.THIS .dfc-selected-country {
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    padding: 35px 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+
+.THIS .dfc-selected-daa {
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    padding: 35px 20px;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+
+.THIS .dfc-selected-daa > div {
+    display: table-row;
+}
+
+.THIS .dfc-selected-daa > div > div {
+    display: table-cell;
+}
+
+.THIS .dfc-selected-daa >div > div:first-child {
+    width: 90%;
+}

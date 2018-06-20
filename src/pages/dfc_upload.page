@@ -1,0 +1,151 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false" docType="html-5.0" controller="Dfc_UploadController">
+    
+<html>
+<head>
+<style>
+body {
+    margin:0;
+    padding:0;
+    background-color:white;
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    font-size:14px;
+}
+    
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+input[type=file] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:120px;
+    height:40px;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    z-index:999;
+}       
+input[type=file]::-webkit-file-upload-button { 
+    cursor: pointer; 
+}       
+.btn, button, input[type=submit]  {
+    font-size: 11px;
+    color: #330000 !important;
+    background: #ffcc00 !important;
+    font-weight: bold !important;
+    padding: 0.571em 1.071em !important;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    text-decoration: none !important;
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+}       
+.fileUpload {
+    color: white !important;
+    background: #2A6FAF !important;
+}    
+</style>
+    
+</head>
+    
+  <body onload="notify()">
+
+  <apex:form enctype="multipart/form-data" style="padding:6px" onsubmit="return onSubmit()">
+       <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" contentType="{!attachment.ContentType}" id="file" onchange="onFileChange()"/>           
+     <div class="fileUpload btn">
+       <span>Choose file</span>
+    </div>
+    <span id="fileName"></span>
+    <div style="float:right">
+       <apex:commandButton action="{!upload}" value="Upload"/>          
+    </div>
+    <div style="float:right;margin-right:6px">
+       <apex:commandButton onclick="onCancel()" value="Cancel"/>          
+    </div>
+  </apex:form>
+        
+   <div id="json" style="display:none">
+    <apex:repeat value="{!attachments}" var="att">
+        ,{
+        "Id":"{!att.Id}",
+        "Name":"{!att.Name}",
+        "BodyLength":"{!att.BodyLength}",
+        "ContentType":"{!att.ContentType}",
+        "signedId":"{!att.signedId}"
+        }
+   </apex:repeat>
+   </div> 
+
+    <script>
+
+    if (!window.console) window.console = { log:function(){}, warn:function(){}, error:function(){} };
+
+    var origin = window.location.origin||window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+      
+    function notify()
+    {
+        var json = document.getElementById('json').innerHTML;
+        var atts = JSON.parse('['+json.substr(json.indexOf(',')+1)+']');  
+        var msg = '{!errorMessage}';
+        if (!msg) return; //initial load
+        var data = {
+              error:msg=='Ok'?null:msg,
+              diagnostic:'{!diagnostic}',
+              attachments: atts 
+            };
+        window.parent.postMessage(JSON.stringify(data), origin);    
+    }
+    
+    function onFileChange()
+    {
+        var upload = document.querySelector('input[type=file]');
+        var name = upload.value;
+        if (name) {
+          name = name.replace(/\\/g, '/');
+          name = name.substr(name.lastIndexOf('/')+1);
+        }
+        document.getElementById("fileName").innerHTML = name;
+    }
+      
+    function onCancel()
+    {
+        window.parent.postMessage("CANCEL", origin);    
+    }
+      
+    function onSubmit()
+    {
+        var upload = document.querySelector('input[type=file]');
+        if (!upload.value) return false;
+    }
+      
+    function getFileName(upload)
+    {
+        //if (upload.files)...
+            
+    }
+  </script>
+      
+ </body>
+
+</html>
+    
+</apex:page>

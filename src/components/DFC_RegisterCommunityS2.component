@@ -1,0 +1,96 @@
+<apex:component >
+  <!-- Begin Default Content REMOVE THIS -->
+
+    <h3>Community Details</h3>
+
+<!--<apex:inputHidden value="{!ID_Param}" id="communityId"/>-->
+<form name="commdetails">
+ <div class="well" >
+     <div class="form-group" >
+            <label class="required">What is the name of your Dementia Friendly Community</label>
+            
+               <div>
+                <input ng-model="community.Name__c" class="form-control inputText" placeholder="Community Name" /> 
+                </div>
+                
+                <span ng-show="step2badge!=null&&(community.Name__c.length<=0 || community.Name__c==null)" class="validation">Please enter a value</span>
+                
+
+                   
+      </div>       
+
+      <span ng-show="community.Central_Location__c=='Yes'"> 
+       
+       
+       <div class="form-group"> 
+         
+            <div  class="form-group" id="county">
+            <label class="required">Select the County where your Community is located</label>
+              <div class="dfc-counties">
+
+                 <select class="form-control select" name="counties" id="counties"  ng-model="community.County__c" >
+                  <option  selected="selected" value ="">Select County</option>
+                  <option ng-repeat="c in counties| orderBy :'Name'" ng-show="community.Country__c==c.Country__c"  value="{{c.Id}}" >
+                   
+                   {{c.Name}}
+
+                   </option> 
+
+                 </select>
+                
+         </div>
+            <span ng-show="step2badge!=null && (community.County__c==null||community.County__c=='Select County')" class="validation">Please select a county</span>
+           </div>
+          
+        </div>
+
+        <div class="form-group">
+            <label class="required">Where is your community located</label>
+            <div>
+                <textarea updateOn="keyup" class="form-control" placeholder="Describe the geographic area covered by your community" 
+                 ng-model="community.Location__c"/> 
+            </div>
+
+            <span ng-show=" step2badge!=null && (community.Location__c.length<=0|| community.Location__c==null)" class="validation">Please enter a value</span>
+            
+        </div>
+
+        <div class="form-group"> 
+          <label class="required">Is this community best described as predominantly
+          </label><br/>
+          <label ng-repeat="type in locationType" for="{{name}}" class="radioinputlabel">
+      
+               {{type}}
+               <input type="radio" ng-model="locTypeSelected.loctype" ng-value="type" name="loctype" id="{{type}}"> </input >
+                   
+          </label>
+          <div>
+         <span ng-show=" step2badge!=null && (locTypeSelected.loctype==null || locTypeSelected.loctype=='')" class="validation">Please enter a value</span> 
+         </div>
+        </div>
+        
+         </span>
+
+        <div class="form-group">
+            <label for="population" class="required">Approximate Population</label>
+            <div>
+            <textarea type="number" name="population" class="form-control" placeholder="Approximate population size, e.g. 50000" 
+                 ng-model="community.Population__c" required="true" /> 
+               
+            </div>
+
+            <span ng-show="step2badge!=null && (commdetails.population.$error.required)" class="validation">Please enter a value</span>
+
+            <span ng-show="step2badge!=null && (commdetails.population.$error.number)" class="validation">Please enter the approximate population as a number, e.g. 10000</span>
+            
+            
+        </div>
+
+       
+      
+ 
+ </div>
+ </form>
+ 
+
+</apex:component>

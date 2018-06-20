@@ -1,0 +1,74 @@
+<apex:page standardController="Contact" extensions="DCE_UserCreateKickOff" title=" Create a new user - Dementia Connect">
+	<apex:form id="TheForm">
+		<apex:pageMessages escape="false"/>
+		
+		<apex:pageblock rendered="{!NOT(emailSent) && NOT(alreadyDCEUser) && NOT(ISBLANK(Contact.email))}" title="Link to Production Organisation">
+			<apex:pageblocksection columns="2">
+				<apex:inputField required="true" value="{!partnerOrg.DCEProdOrgID__c}"/>
+				<apex:outputtext value="Please confirm the id of the Dementia Connect Partner Organisation"/>
+				<apex:pageblocksectionitem >
+					<apex:outputpanel />
+					<apex:commandButton value="Search for Partner Id" action="{!searchPartner}" rerender="TheForm" status="status"/>
+				</apex:pageblocksectionitem>
+			</apex:pageblocksection>
+			<apex:pageblocksection title="Dementia Connect Partner Details" rendered="{!NOT(ISNULL(partnerOrg.DCEProdOrgID__c))}">
+				<apex:outputField value="{!prodAccount.Name__c}"/>
+				<apex:outputField value="{!prodAccount.Phone__c}"/>
+				<apex:outputField value="{!prodAccount.BillingCity__c}"/>
+				<apex:pageblocksectionitem />
+				<apex:pageblocksectionitem >
+					<apex:outputpanel />
+					<apex:commandButton value="Confirm Partner" action="{!confirmPartner}" rerender="TheForm" status="status" rendered="{!NOT(ISBLANK(prodAccount))}" disabled="{!partnerConfirmed}"/>
+				</apex:pageblocksectionitem>
+			</apex:pageblocksection>
+		</apex:pageblock>
+		
+		<apex:pageblock rendered="{!alreadyPortalUser && NOT(alreadyDCEUser)}" title="Existing Community User">
+			<apex:pageblocksection columns="1">
+				<p style="margin-bottom:10px;">This person's email is already being used by an existing portal User. You are not able to create a new Portal User, but may be able to use this existing User:</p>
+				
+				<apex:outputfield value="{!existingPortalUser.Name}" />
+				<apex:outputfield value="{!existingPortalUser.Contact.Account.Name}" />
+				<apex:outputfield value="{!existingPortalUser.isActive}" />
+				<apex:outputfield value="{!existingPortalUser.Contact.MailingPostalCode}" />
+				<apex:outputfield value="{!existingPortalUser.Contact.Phone}" />
+				<apex:pageblocksectionItem >
+					<apex:outputlabel value="Communities"/>
+					<apex:repeat value="{!existingPortalUser.NetworkMemberUsers}" var="comm">{!comm.Network.Name};&nbsp;</apex:repeat>
+				</apex:pageblocksectionItem>
+				
+				<p>The button below will:
+					<ol>
+						<li>Move the Existing Person record into this Account</li>
+						<li>Assign the Dementia Connect Permission Set to the User</li>
+						<li><b>New - </b>Send an email to the user to let them know they can use their existing Dementia Friends Credentials</li>
+					</ol>
+				</p>
+				<p>You will then need to:
+					<ol>
+						<li>Use the "Merge Contacts" button on the Account to merge the Person records and their details (deciding which are appropriate to keep, in case of conflicts)</li>
+					</ol>
+				</p>
+				
+			</apex:pageblocksection>
+			<apex:commandbutton value="Transfer this Contact into the current Account and Assign DCE Permission Set" action="{!assignExisting}"  rerender="TheForm" status="status" disabled="{!NOT(partnerConfirmed) || existingContactMoved}"/>
+		</apex:pageblock>
+		
+		<apex:commandButton value="I have confirmed the correct partner. Send Verification email." action="{!sendEmail}" disabled="{!NOT(partnerConfirmed) || alreadyDCEUser || ISBLANK(Contact.email) || alreadyPortalUser}" rendered="{!NOT(emailSent)}"/>
+		
+		<apex:commandButton value="Back to Contact" action="{!cancel}"/>
+		<apex:actionStatus id="status">
+		    <apex:facet name="start">
+		    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+		        &nbsp;
+		    </div>
+		    <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+		        <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px;">
+		            <img src="/img/loading.gif" style="float: left; margin: 8px;" alt="Page loading"/>
+		            <span style="display: inline-block; padding: 10px 0px;">Please Wait...</span>
+		        </div>
+		    </div>
+		    </apex:facet>
+		</apex:actionStatus>
+	</apex:form>
+</apex:page>

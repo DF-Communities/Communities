@@ -1,0 +1,178 @@
+<apex:component controller="DF_WEBC_RegisterFriend_Form_Controller">
+
+     <div id="long-register-form" class="well"  style="display:none">
+
+              <apex:form styleClass="form-horizontal" id="long-form">
+              <input type="hidden" id="userid"/>
+              <h3>Personal details</h3>
+
+              <div class="form-group required">
+              <label for="title" class="col-md-3 control-label required">Title</label>
+                           <div class="col-md-4">
+                               <select id="title-select" class="form-control">
+                                    <option value="NULL">Select...</option>
+                  									<option value="Mr.">Mr.</option>
+                  									<option value="Mrs.">Mrs</option>
+                  									<option value="Miss">Miss</option>
+                  									<option value="Ms.">Ms.</option>
+                  									<option value="Other">Other</option>
+                               </select><br/>
+                               <span id="titleError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+
+                       <div class="form-group" id="title-other-container">
+                           <label for="titleOTher" class="col-md-3 control-label required">Other Title</label>
+                           <div class="col-md-8">
+                               <input id="titleOther" class=" form-control "/>
+                               <span id="titleOtherError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+                       
+
+                       <div class="form-group required">
+                           <label for="firstName" class="col-md-3 control-label required">First name</label>
+                           <div class="col-md-8">
+                               <input id="firstName" class="form-control "/>
+                               <span id="firstNameError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+
+                       <div class="form-group required">
+                           <label for="lastName" class="col-md-3 control-label required">Last name</label>
+                           <div class="col-md-8">
+                              <input id="lastName" class=" form-control "/>
+                               <span id="lastNameError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+
+                       <div class="form-group required">
+                           <label for="postcode" class="col-md-3 control-label required">Postcode</label>
+                           <div class="col-md-8">
+                               <input id="df_pca_postcode" class=" form-control " />
+                               <span id="postCodeError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+
+                       <div class="form-group required">
+                           <label for="street" class="col-md-3 control-label required">House No./Street</label>
+                           <div class="col-md-8">
+                               <input id="df_pca_street" class=" form-control " />
+                               <span id="streetError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+                       
+                       <div class="form-group required">
+                           <label for="city" class="col-md-3 control-label required">City</label>
+                           <div class="col-md-8">
+                               <input id="df_pca_city" class=" form-control " />
+                               <span id="cityError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+
+                      <div class="form-group optional">
+                           <label for="county" class="col-md-3 control-label optional">County</label>
+                             <div class="col-md-8">
+                               <input id="df_pca_county" class=" form-control " />
+                               <span id="countyError" class="help-block has-error"></span>
+                           </div>
+                       </div> 
+                       
+                       <div class="form-group required">
+                           <label for="country" class="col-md-3 control-label required">Country</label>
+                           <div class="col-md-8">
+                               <input id="df_pca_country" class=" form-control " />
+                               <span id="countryError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+                       
+                       <div class="form-group required">
+                           <label for="telephone" class="col-md-3 control-label required">Contact number</label>
+                           <div class="col-md-8">
+                               <input id="telephone" class=" form-control " />
+                               <span id="telephoneError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+
+                    <hr/>                                              
+                       <h3>Account details</h3>
+                       <div class="form-group required">
+                           <label for="email" class="col-md-3 control-label required">Email address</label>
+                           <div class="col-md-8">
+                             <input id="emailAddress" class=" form-control " />
+                             <span id="emailAddressError" class="help-block has-error"></span>
+                          </div>
+                       </div>
+                       
+                       <div class="form-group required" id="emailAddress2_container">
+                           <label for="email" class="col-md-3 control-label required">Confirm Email address</label>
+                           <div class="col-md-8">
+                             <input id="emailAddress2" class=" form-control "/>
+                             <span id="emailAddressError2" class="help-block has-error"></span>
+                          </div>
+                       </div>
+                       
+                       <div class="form-group required">
+                           <label for="password" class="col-md-3 control-label required">
+                           	Password                                 	
+                           	</label>
+                           <div class="col-md-8">        
+                            <input id="password" class="form-control" type="password"/>
+                            <small>Minimum 8 characters with numbers and letters</small>
+                            <span id="passwordError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+                       <div class="form-group required">
+                           <label for="password2" class="col-md-3 control-label required">Re-enter password</label>
+                           <div class="col-md-8">
+                               <input id="password2" class="form-control" type="password"/>
+                               <span id="password2Error" class="help-block has-error"></span>
+                           </div>
+                       </div>
+
+              <hr/>                       
+                 
+             	<c:DF_WEBC_Recaptcha2 />
+                  	
+             <hr/>
+
+              <div class="form-group">
+                  <div class="col-xs-6 col-md-8">
+
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" checked="checked" id="newsletter"/> Sign up to Dementia Friends e-newsletter and further communications from Alzheimer's Society
+                          </label>
+                      </div>
+
+                      <div class="checkbox" id="packRequest_checkbox_container" style="display:none">
+                          <label>
+                              <input type="checkbox" checked="checked" id="packRequest"/> Please send me my Little Book of Friendship and Dementia Friends badge
+                          </label>
+                      </div>
+                      
+                  </div>
+
+                  <div class="col-xs-6 col-md-4" >
+                      <img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/little-book.png')}" alt="" style="display:none" id="packRequest_image"/>
+                  </div>
+
+              </div>
+
+            <div class="form-group">
+              <div class="col-md-10">
+                 <input id="save-long-form" type="submit" name="save-long-form" value="Register" class="btn btn-primary"/>                         
+              </div>
+            </div>
+
+            <div class="has-error"> 
+               <div id="longServerError" class="help-block"></div>   
+            </div>
+
+           </apex:form>
+
+
+	</div>
+
+
+</apex:component>

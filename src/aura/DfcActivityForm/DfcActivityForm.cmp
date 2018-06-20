@@ -1,0 +1,86 @@
+<aura:component >
+
+    <aura:attribute name="activity" type="DFC_Activity__c" access="GLOBAL"/>
+
+    <aura:attribute name="date" type="Date" access="GLOBAL"/>
+    <aura:attribute name="IE9" type="boolean" access="GLOBAL"/>
+
+    <aura:attribute name="actionAreas" type="DFC_Community_Action_Area__c[]" required="true" 
+    description="The list of Focus Areas this Community has opted to focus on" access="GLOBAL"/>
+    <aura:attribute name="class" type="String"/>
+        
+    <aura:attribute name="new" type="boolean" description="Indicates if we are creating a 'new' Activity or editing an exising one"  access="GLOBAL"/>
+
+    <aura:attribute name="data" type="Object" access="GLOBAL"/>
+    <aura:attribute name="areas" type="Object[]" access="GLOBAL"/>
+    
+    <aura:attribute name="selectedArea" type="String" access="GLOBAL" description="The selected focus Area this Activity relates to"/>
+    <aura:attribute name="pristine" type="String" default="true" access="GLOBAL"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+    
+    <aura:registerevent name="save" type="c:DfcEvent"/>
+    <aura:registerevent name="cancel" type="c:DfcEvent"/>
+    
+    <c:CsqLodashService aura:id="lodashService"/>
+   
+    <div class="{!v.class+' '+$Browser.formFactor}">
+     
+       <c:CsqValidationTracker aura:id="validationTracker">
+               
+           <div class="heading">
+               <aura:if isTrue="{!v.new}">Add a new activity</aura:if>
+               <aura:if isTrue="{!v.new==false}">Edit activity</aura:if>
+           </div>
+           
+           <button class="btn btn-action pull-right" onclick="{!c.onSave}">{!v.new?'Add':'Save'}</button>
+           <button class="btn btn-action pull-right" onclick="{!c.onCancel}">Cancel</button>
+           
+            <aura:if isTrue="{!v.new}">
+             <p>Describe an activity carried out in one of your selected focus areas</p>
+            </aura:if>
+           
+           <!-- Dropdown list for selecting Action Area -->
+           <label class="{!v.IE9?'':'hide'}">Focus Area</label> 
+           <div class="clearfix">
+           <ui:inputSelect aura:id="focusArea" class="form-control select-focus-area" value="{!v.selectedArea}">
+           <aura:if isTrue="{!v.areas.length>0}">
+              <ui:inputSelectOption text="" label="Select a focus area" />
+           </aura:if>
+           <aura:iteration items="{!v.areas}" var="area"  >
+              <ui:inputSelectOption text="{!area.Id}" label="{!area.Name}"/>
+           </aura:iteration>
+          </ui:inputSelect>
+          <c:CsqValidateRequired value="{!v.selectedArea}" message="Please select a focus area" hide="{!v.pristine}"/> 
+          </div>
+ 
+           <label class="{!v.IE9?'':'hide'}">Activity Title</label> 
+           <strong>
+            <ui:inputText value="{!v.data.title}" class="form-control" updateOn="keyup" placeholder="Please enter a title for the activity" maxlength="200" />
+           </strong>   
+           <c:CsqValidateRequired value="{!v.data.title}" message="Please enter a title for the activity" hide="{!v.pristine}"/>         
+          
+           <!-- Activity start and end dates -->
+           <label class="{!v.IE9?'':'hide'}">Activity Date(s)</label> 
+           <div class="clearfix">
+               <ui:inputText value="{!v.data.start}" class="form-control csq-inline csq-date" updateOn="keyup" placeholder="Start date (eg 1/5/2016)"/>
+             <span class="date-separator">to</span> 
+             <ui:inputText value="{!v.data.end}"   class="form-control csq-inline csq-date" updateOn="keyup" placeholder="End date (optional)"/>
+           </div>          
+           <c:CsqValidateRequired value="{!v.data.start}" message="Please enter a start date" hide="{!v.pristine}"/>
+           <c:CsqValidateDate value="{!v.data.start}" format="D/M/YYYY" message="Please enter a start date in the form 1/5/2016" hide="{!v.pristine}"/>
+           <c:CsqValidateDate value="{!v.data.end}" format="D/M/YYYY" message="Please enter an end date in the form 1/5/2016" hide="{!v.pristine}"/>
+           <c:CsqValidateDateRange value="{!v.data.end}" isAfter="{!v.data.start}" message="End date (if entered) must be after start" hide="{!v.pristine}"/>
+           
+          <!-- Activity description-->
+           <label class="{!v.IE9?'':'hide'}">Activity Description</label> 
+           <p>
+              <ui:inputTextArea class="form-control" rows="4" value="{!v.data.description}" updateOn="keyup" placeholder="Please describe the activity"/>
+          </p>
+           <c:CsqValidateRequired value="{!v.data.description}" message="Please describe your activity" hide="{!v.pristine}"/>
+           
+        </c:CsqValidationTracker>
+        
+    </div>
+    
+</aura:component>

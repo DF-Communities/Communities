@@ -1,0 +1,156 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html"  controller="DF_WEBC_InboundChangesToDFCController">
+<style>
+tr td {
+    font-size: 1em;
+    color: #330000;
+}
+td.blue {
+   background-color:#A5C4CD;
+}
+td.yellow {
+   background-color:#ffcc00;
+}
+th.headerblue {
+   background-color:#A5C4CD;
+}
+th.headeryellow {
+   background-color:#ffcc00;
+}
+
+
+</style>
+ <c:DF_WEBR_WebMeta />
+    
+
+ <div class="container">
+    <c:DF_WEBR_WebHeader />
+  <c:DF_WEBR_WebNavbar />
+         
+<div class="row *.css">
+        <div class="col-md-12">
+  <div class="row*.css">
+  
+        
+        <div class="col-md-9 column col-md-push-3">            
+               
+           
+           <h1> Update My Details </h1>
+           <div>
+            <p> Changes to your contact details 
+            </p>
+           </div>
+         <div class="well">  
+          <div class="table-responsive">
+                <table  class="table">
+                   
+                    <tr>
+                          <th>My Details</th> 
+                          <td/>                  
+                          <th>Proposed Changes </th>   
+                          <td/>       
+                    
+                    </tr> 
+                    <apex:outputPanel rendered="{!child.Title__c!=null}">  
+                    <tr>
+                          <th class ="headerblue">Title</th>
+                   
+                                  
+                     <td class ="blue"> {!master.Title__c}</td>
+              
+                           <th class ="headeryellow">Title</th>
+                   
+                                      
+                     <td class ="yellow"> {!child.Title__c}</td>
+                    
+                    </tr>
+                       </apex:outputPanel>  
+                     <apex:outputPanel rendered="{!child.First_Name__c!=null}">       
+                    <tr>
+                        <th class ="headerblue">First name</th>
+                        <td class ="blue">{!master.First_Name__c}</td>
+                        <th class ="headeryellow">First name</th>
+                        <td class ="yellow">{!child.First_Name__c}</td>
+
+                    </tr>
+                    </apex:outputPanel>  
+                    <apex:outputPanel rendered="{!child.Last_Name__c!=null}">         
+                    <tr>
+                        <th class ="headerblue">Last name</th>
+                        <td class ="blue">{!master.Last_Name__c}</td>
+                        <th class ="headeryellow">Last name</th>
+                        <td class ="yellow">{!child.Last_Name__c}</td>
+                    </tr>  
+                    </apex:outputPanel>  
+                    <apex:outputPanel rendered="{!child.BirthDate__c!=null}">    
+                      
+                    <tr>
+                        <th class ="headerblue">Birthdate</th>
+                        <td class ="blue"><apex:outputfield value="{!master.BirthDate__c}"/></td>
+            <th class ="headeryellow">Birthdate</th>
+                        <td class ="yellow"><apex:outputfield value="{!child.BirthDate__c}"/></td>
+                    </tr>   
+                    </apex:outputPanel>   
+                    <apex:outputPanel rendered="{!child.Street__c!=null}">      
+                    <tr>
+                        <th class ="headerblue">Street address</th>
+                        <td class ="blue">{!master.Street__c}</td>
+                        <th class ="headeryellow">Street address</th>
+                        <td class ="yellow">{!child.Street__c}</td>
+                    </tr>    
+                    </apex:outputPanel>   
+                     <apex:outputPanel rendered="{!child.City__c!=null}">           
+                    <tr>
+                        <th class ="headerblue">Town City</th>
+                        <td class ="blue">{!master.City__c}</td>
+                        <th class ="headeryellow">Town City</th>
+                        <td class ="yellow">{!child.City__c}</td>
+                    </tr>  
+                     </apex:outputPanel>  
+                     <apex:outputPanel rendered="{!child.County__c!=null}">         
+                    <tr>
+                        <th class ="headerblue">County</th>
+                        <td class ="blue">{!master.County__c}</td>
+                        <th class ="headeryellow">County</th>
+                        <td class ="yellow">{!child.County__c}</td>
+                    </tr> 
+                     </apex:outputPanel>  
+                     <apex:outputPanel rendered="{!child.Postcode__c!=null}">       
+                    <tr>
+                        <th class ="headerblue">Postcode</th>
+                        <td class ="blue">{!master.Postcode__c}</td>
+                        <th class ="headeryellow">Postcode</th>
+                        <td class ="yellow">{!child.Postcode__c}</td>
+                    </tr> 
+                      </apex:outputPanel>  
+                      <apex:outputPanel rendered="{!child.Contact_Number__c!=null}">        
+                    <tr>
+                        <th class ="headerblue">Telephone</th>
+                        <td class ="blue">{!master.Contact_Number__c}</td>
+                         <th class ="headeryellow">Telephone</th>
+                          <td class ="yellow">{!child.Contact_Number__c}</td>
+                    </tr> 
+                      </apex:outputPanel>         
+                    
+                </table>                
+               </div>         
+             
+         
+     </div>
+     
+    <apex:form > 
+       <div class="form-group"> 
+         <apex:commandButton value="Accept" action="{!autoRunCopyChanges}" styleClass="btn-primary btn" onclick="if(!confirm('Are you sure?')){return };"/>
+         <apex:commandButton value="Reject" action="{!reject}" styleClass="btn btn-default"/ >
+      </div>
+     </apex:form>
+     </div>
+  
+
+ <c:DF_WEBC_FriendNav dfcW="{!dfcW}" rendered="{!Not(isChampion)}" />               
+ <c:DF_WEBC_ChampionNav dfcW="{!dfcW}"  rendered="{!isChampion}"/>
+ </div>
+ </div>
+  </div>
+ <c:DF_WEBR_WebFooter />
+ </div>
+</apex:page>

@@ -1,0 +1,39 @@
+<apex:component controller="DFC_RegisterCommunityController">
+
+<apex:attribute name="status" description="comunity status" type="string" required="false" default="" assignTo="{!communitystatus}"/>
+
+<style>
+.dfc-res {
+    margin: 0 0 14px 0;
+}
+
+h4 {
+    margin: 0 0 6px 0;
+}
+</style>
+
+
+  <h3>Help and Resources</h3>
+  <div   id="resources">
+   
+   
+  <apex:repeat value="{!data['resources']}" var="resinner">
+   <div class="dfc-res">
+
+           
+   
+       <h4>{!resinner.Title__c}</h4>
+          <div>{!resinner.Description__c}</div>
+          <apex:repeat value="{!data['attachments']}" var="res">
+          <apex:outputPanel rendered="{!res.parentId==resinner.id}">
+          <a href="{!URLFOR($Action.Attachment.Download, res.id)}}" target="_blank">Download ({!ROUND((res.BodyLength/1024)/1000,2)}M)</a>
+          </apex:outputPanel>
+
+          </apex:repeat>
+         
+    </div>
+    
+    </apex:repeat>
+    </div>
+
+</apex:component>

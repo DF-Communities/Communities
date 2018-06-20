@@ -1,0 +1,20 @@
+<apex:component controller="DF_WEBC_WebHeader_Controller">
+
+    <!-- JSON and general Fixes for IE8 --->
+    <!--[if lt IE 9]>
+        <script src="https://dementiafriends.secure.force.com/dco/services/apexrest/ie8shim_js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/css3pie/2.0beta1/PIE_IE678.js"></script>    
+    <![endif]-->
+    <apex:includeScript value="{!$Resource.df_webc_app_r_js}" />
+
+    <apex:outputPanel id="jsVars">
+        
+        <script>
+            _webc.isLoggedIn = {!isLoggedIn};
+            _webc.isSubscriber = {!isSubscriber};   
+            _webc.isOrgAdmin = {!isOrgAdmin};
+        </script>
+
+    </apex:outputPanel>
+
+</apex:component>

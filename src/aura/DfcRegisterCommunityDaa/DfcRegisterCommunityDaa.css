@@ -1,0 +1,252 @@
+.THIS {
+    margin-bottom:40px;
+}
+
+.THIS .form-group {
+    margin-bottom: 24px;
+}
+
+
+.THIS label {
+    color: #666;
+}
+
+.THIS button.btn-primary  {
+    font-size:11px;
+    float:right;
+}
+
+
+/* Regions are displayed in a 2 column table */
+.THIS .dfc-regions,
+.THIS .dfc-selected-region {
+    display: table;
+    border-radius: 4px;
+    margin:3px 0 40px 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.THIS .dfc-regions > div,
+.THIS .dfc-selected-region > div {
+    display: table-row;
+}
+
+.THIS .dfc-regions > div > div{
+    display: table-cell;
+    padding:10px 20px;
+    font-weight: bold;
+    border: 1px solid #c0c0c0;
+}
+
+
+.THIS .dfc-selected-region > div > div {
+    display: table-cell;
+    padding:10px 20px;
+    font-weight: bold;
+    border: 1px solid #c0c0c0;
+     vertical-align:middle;
+}
+
+.THIS .dfc-regions > div > div {
+    cursor:pointer;
+}
+
+.THIS .dfc-regions > div:hover > div {
+    background-color: #f0f0f0;
+}
+
+.THIS .dfc-regions > div > div:first-child {
+	width:120px;
+}
+
+.THIS .dfc-regions > div > div img {
+	width:60px;
+    height:74px;
+}
+
+/* Use less space when displaying the selecte one  than we use when selecting */
+.THIS .dfc-selected-region > div > div img {
+	width:45px;
+    height:56px
+}
+
+.THIS .dfc-selected-region >div > div:first-child {
+  width: 130px;
+    vertical-align:middle; 
+    text-align:center;
+}
+
+
+
+/*  Countries 
+    The only difference from Region is that the first cell is wider as the flag
+    image is wider than the region image.  Flag is 101.6px wide
+*/
+
+
+.THIS .dfc-countries {
+    display: table;
+    border-radius: 4px;
+    margin:3px 0 40px 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.THIS .dfc-countries > div {
+    display: table-row;
+}
+
+.THIS .dfc-countries > div > div {
+    display: table-cell;
+    padding: 20px 20px 20px 10px;
+    font-weight: bold;
+    border: 1px solid #c0c0c0; 
+    vertical-align:middle;
+}
+
+.THIS .dfc-countries > div > div {
+    cursor:pointer;
+}
+
+.THIS .dfc-countries > div:hover > div {
+    background-color: #f0f0f0;
+}
+
+.THIS .dfc-countries > div > div:first-child {
+  /*   width:130px; */
+}
+
+
+
+
+/* End Countries */
+
+
+
+/* DAA's are displayed in a single column table */
+.THIS .dfc-selected-daa > div {
+    display: table-row;
+}
+
+.THIS .dfc-selected-daa > div > div {
+    display: table-cell;
+     vertical-align: middle;
+}
+
+.THIS .dfc-selected-daa >div > div:first-child {
+    width: 90%;
+}
+
+.THIS .dfc-selected-daa {
+	border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    padding: 20px 20px;
+    margin-bottom: 20px;
+    font-weight:bold;
+   
+}
+
+
+
+/* DAA List 
+.THIS .dfc-daa-list > div {
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+}
+
+.THIS .dfc-daa-list > div > div {
+    border-top: 1px solid #c0c0c0;
+	padding: 10px 16px;
+    cursor: pointer;
+}
+
+.THIS .dfc-daa-list > div > div:hover {
+    background-color: #f0f0f0;
+}
+
+.THIS .dfc-daa-list > div > div:first-child {
+    border-top: 0;
+} */
+
+/*  Single column list */
+
+.THIS .one-col-list > div {
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+}
+
+.THIS .one-col-list > div > div {
+    border-top: 1px solid #c0c0c0;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.THIS .one-col-list > div > div:hover {
+    background-color: #f0f0f0;
+}
+
+.THIS .one-col-list > div > div:first-child {
+    border-top: 0;
+}
+
+/*  Single column list end */
+
+.THIS .dfc-dup-list {
+    width:100%;
+    border: 1px solid #c0c0c0;
+    border-radius:4px;
+}
+.THIS .dfc-dup-list > div {
+    display:table;
+    width:100%;
+    border-collapse:collapse;
+}
+.THIS .dfc-dup-list p {
+    display:table-row;
+}
+.THIS .dfc-dup-list span {
+    display:table-cell;
+    padding:10px;
+    color:#666;
+    border-top:1px solid #c0c0c0;
+}
+.THIS .dfc-dup-list span:last-child {
+    text-align:right;
+}
+.THIS .dfc-dup-list p:first-child span {
+	border:0
+}
+.THIS .dfc-dup-conf .cDfcValidationComponent {
+    float:left;
+}
+
+.THIS .explain .cDfcValidationComponent {
+    float:left;
+}
+
+
+
+.THIS .cDfcValidationComponent {
+    float:right;
+    margin:0;
+} 
+
+/* Country Selection */
+
+.THIS .form-group {
+    margin-bottom: 24px;
+}
+
+.THIS .uiInputRadio {
+    display: inline-block;
+    margin-right: 18px;
+    margin-left: 0;
+}
+
+.THIS .uiInputRadio label {
+    display: inline-block;
+    margin-right: 4px;
+    font-weight: 500;
+    color: #666;
+}

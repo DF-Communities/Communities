@@ -1,0 +1,18 @@
+.THIS .hidden-field {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+}
+
+.THIS .checkbox-left{
+  display: inline-block;
+  float: left;
+}
+
+.THIS.uiInputDefaultError uiInput uiInputText uiInput--default uiInput--input ul li {
+    list-style-image: none;
+}
+
+.THIS .cDF_infoSessionRequest .form-control {
+    height: 0px;
+}

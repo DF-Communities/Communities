@@ -1,0 +1,72 @@
+<apex:component >
+
+    <apex:attribute name="title" description="What is the page Title ?" type="String" required="false"/>
+    <apex:attribute name="isPreview" description="Is this being loaded from a preview page?" type="String" required="false"/>
+
+    <!-- WEBMETA COMPONENT START -->
+    <head>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />  
+
+        <apex:stylesheet value="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>      
+        <title>{!IF(ISBLANK(title),'Dementia Friends', title)}</title>
+
+        <meta charset="utf-8" />
+        <meta name="keywords" content="Dementia,Alzheimers,Dementia Friends" />
+        <meta name="description" content="Become a Dementia Friend. Learn more about what it is like to live with dementia and turn that understanding into action." />
+        <meta property="fb:app_id" content="642827155779303" />
+
+        <!-- mobile declarations -->
+
+        <meta name="HandheldFriendly" content="true" />
+        <!--  meta name="MobileOptimized" content="320" -->
+        <meta name="apple-mobile-web-app-capable" content="yes" /><!-- try to forces full-screen for apple devices -->
+
+        <!-- Adding in NEW Google Analytics Code as per Alzheimers request -->
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+
+        ga('create', 'UA-2332956-13', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-2332956-13']);
+
+        </script>
+
+        <!--
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-2332956-13']);
+            //_gaq.push(['_setDomainName', 'dementiafriends.org.uk']);
+            _gaq.push(['_setDomainName', 'dfdev-dfdev.cs18.force.com']);
+            _gaq.push(['_trackPageview']);
+     
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        -->
+
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.9.1.js"></script>        
+        <script src="//code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        
+        <script type="text/javascript">
+            window.fbAppId = 642827155779303
+        </script><!--[if IE]> <link href="/css/ie-2.css" media="screen" rel="stylesheet" type="text/css" ><![endif]-->
+        <!--<link href="{!URLFOR($Resource.css, 'css/screen_8.css')}" media="screen" rel="stylesheet" type="text/css" />-->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        
+    </head>
+    <!-- WEBMETA COMPONENT END -->  
+
+</apex:component>

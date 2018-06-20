@@ -1,0 +1,16 @@
+<apex:component >
+  
+<div class="DESKTOP cDfcManageFocusAreas">
+   <button class="btn btn-primary pull-right" ng-show="focusAreaInput.readOnlyMode" ng-click="focusAreaInput.readOnlyMode = !focusAreaInput.readOnlyMode" >Change</button>
+   <button class="btn btn-action pull-right" ng-show="!focusAreaInput.readOnlyMode" ng-click="saveFocusAreaData()">Save</button>
+   <button class="btn btn-action pull-right" ng-show="!focusAreaInput.readOnlyMode" ng-click="reloadFocusAreaData()" >Cancel</button>
+   <h3 data-aura-rendered-by="233:0">Focus Areas</h3>
+   <span class="cCsqValidationComponent" ng-show="!focusAreaInput.hasMinNoFocusAreas">
+   At least one focus area must be selected
+   </span>
+   <div class="clearfix" ng-repeat="(key, value) in commActionAreas">
+      <c:DFC_Manage_Part2_FocusArea />
+   </div>
+</div>  
+  
+</apex:component>

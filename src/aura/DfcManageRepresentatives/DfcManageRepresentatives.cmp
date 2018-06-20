@@ -1,0 +1,80 @@
+<aura:component extends="c:CsqViewComponent" >
+    
+    <aura:attribute name="communityData" type="Object" access="GLOBAL"/>
+    <aura:attribute name="representatives" type="Object[]" access="GLOBAL" />
+
+    <aura:attribute name="readOnly" type="Boolean" access="GLOBAL" default="false"/>
+    
+    <aura:attribute name="newRep" type="Object" access="GLOBAL" />
+    <aura:attribute name="newRepDisabled" type="Boolean" access="GLOBAL" default="true"/>
+    <aura:attribute name="newRepText" type="String" access="GLOBAL" />
+    <aura:attribute name="newRepMessage" type="String" access="GLOBAL" />
+    <aura:attribute name="newRepInviting" type="Boolean" access="GLOBAL" default="false"/>
+    <aura:attribute name="newRepShowErrors" type="Boolean" access="GLOBAL" default="false"/>
+    <aura:attribute name="currentContact" type="String" access="GLOBAL" default="false"/>
+
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+    <aura:handler name="change" value="{!v.representatives}" action="{!c.onRepresentativesChange}" /> 
+
+    <aura:handler name="change" value="{!v.newRep.Email}" action="{!c.onNewRepEmailChange}" /> 
+
+    <c:CsqLodashService aura:id="lodashService" />
+    
+    <c:CsqUserStore aura:id="userStore" />
+    <c:DfcCommunityStore change="c.onCommunityStoreChange" actionComplete="c.onCommunityStoreActionComplete"/>
+    
+    <div>
+
+        <h3>Community Representatives</h3>
+        
+            <p>
+     		   <c:DfcSnippet group="dfc_apply" key="dfc-apply-representatives-intro"/>
+           </p>
+
+            <aura:iteration var="rep" items="{!v.representatives}" indexVar="index">
+                <div class="user-card">
+                   <!-- Remove button - hidden for current user -->
+                   <aura:if isTrue="{!v.readOnly==false}">
+                   <button class="{!rep.DF_Contact__r.Id==v.currentContact?'hide':'btn btn-primary'}" 
+                           style="float:right" 
+                           data-id="{!rep.Id}" 
+                           onclick="{!c.onRemoveRepresentative}">Remove</button>
+                    </aura:if>       
+                    <div><label>Name</label><ui:outputText value="{!rep.Name}" class="form-control"/></div>
+                   <div><label>Email Address</label><ui:outputText value="{!rep.Email}" class="form-control"/></div>
+                   <div><label>Status</label><ui:outputText value="{!rep.Role__c}" class="form-control"/></div>
+              </div>
+            </aura:iteration>
+        
+        <aura:if isTrue="{!v.readOnly==false}">
+            <div class="user-card clearfix" role="form">
+
+               <div class='add-rep'>
+                   <label>Email Address</label>
+                   <ui:inputText value="{!v.newRep.Email}" updateOn="keyup" class="form-control" disabled="{!v.newRepInviting}"   placeholder="Add representative by email address" maxlength="100"/>
+                   <button class="{!v.newRepInviting?'hide':'btn btn-primary'}" disabled="{!v.newRepDisabled}" onclick="{!c.onAddRepresentative}">Add</button>
+               </div>
+
+               <div class="{!v.newRepInviting?'':'hide'}">
+                   <label>Name</label>
+                   <ui:inputText value="{!v.newRep.Name}" updateOn="keyup" class="form-control" 
+                                 placeholder="Enter the name of the person being invited " maxlength="100"/>
+                   <c:CsqValidateRequired value="{!v.newRep.Name}" disregard="{!not(v.newRepInviting)}" hide="{!not(v.newRepShowErrors)}" message="Please enter the name of the invited representative"/>
+                </div>
+                <div class="add-rep-text">
+                    {!v.newRepText}
+                </div>
+                <div class="{!v.newRepInviting?'btn-group pull-right':'hide'}" role="group">
+                    <button class="btn btn-primary" onclick="{!c.onInviteRepresentative}">Invite</button>&nbsp;
+                    <button class="btn btn-primary" onclick="{!c.onCancel}">Cancel</button>
+                </div>   
+                <c:CsqAlert priority="HIGH" active="{!v.viewState.active}"/>
+            </div>
+         </aura:if>    
+
+ 	</div>
+
+	
+</aura:component>

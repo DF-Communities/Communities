@@ -1,0 +1,4 @@
+<apex:page showHeader="false" sidebar="false"  standardController="DF_Contact__c" tabStyle="DF_Contact__c"  docType="html" standardStylesheets="false" extensions="DF_SendVerificationEmail_Extension" action="{!sendVerificationEmail}" >
+
+
+</apex:page>

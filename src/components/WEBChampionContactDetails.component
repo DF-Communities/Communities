@@ -1,0 +1,150 @@
+<apex:component controller="WEBChampionContactDetailsClass" allowDml="true">
+    
+    <apex:includeScript value="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"/>
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />    
+ 
+    <script type="text/javascript">
+
+       function disableBtn() {
+            $("[id$=SubmitBtn]").prop('disabled',true).addClass('btnDisabled');
+            submitForm();
+               
+        }
+    $(document).ready( function () {
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+            
+      
+    
+     
+   });
+    </script>
+
+    <apex:outputPanel layout="block" id="Main" >
+    
+        <apex:pageBlock >
+        <apex:outputPanel layout="block" id="FormPage" rendered="{!displayFormPage}" >
+        
+        
+        <div class="row clearfix">
+        <div class="col-md-12">
+
+        <h1>Confirm your induction booking</h1>
+        
+            
+
+        <apex:form styleClass="form-horizontal" forceSSL="true">
+        
+                <div class="row clearfix">
+                <div class= "col-md-10 well-primary">
+                        <h3>
+                            
+                            <apex:outputText value="{0, date, dd MMMM yyyy}"><apex:param value="{!courseDate}"/>
+                            </apex:outputText>
+                        </h3>    
+                        <h4>
+                            <apex:outputfield value="{!courseObj.Event_Date_Time__c}"/>&nbsp;-&nbsp;
+                            <apex:outputfield value="{!courseObj.Event_End_Date_Time__c}"/><br/>
+                            <!--apex:outputText value="{0, date, HH:mm}"><apex:param value="{!courseDate+currentUserOffset}"/></apex:outputText>
+                            -
+                            <apex:outputText value="{0, date, HH:mm}"><apex:param value="{!courseEndDate+currentUserOffset}"/></apex:outputText><br/-->                            
+                        </h4>
+                         
+                        <h3><apex:outputLabel value="{!courseStreet}" /></h3>
+                        
+                        <apex:outputLabel value="{!courseCity}" /><br/>
+                        <apex:outputLabel value="{!courseCounty}" />
+                        <apex:outputLabel value="{!courseCountry}" /><br/>
+                        <apex:outputLabel value="{!coursePostcode}" /><br/>
+                </div>
+                </div>
+
+                <div class="row clearfix">
+                <div class= "col-md-10 well">
+
+                <div class="form-group required {!IF(LEN(firstNameError)>0,'has-error','')}">
+                    <label for="firstName" class="control-label col-md-3  required">First name</label>
+                    <div class="col-md-8">
+                        <apex:inputText id="firstName" value="{!firstName}" styleClass=" form-control" maxlength="45" />
+                        <apex:outputText value="{!firstNameError}" rendered="{!LEN(firstNameError)>0}" styleClass="help-block"/>
+                    </div>
+                </div>
+
+                <div class="form-group required {!IF(LEN(lastNameError)>0,'has-error','')}">
+                    <label for="lastName" class="control-label col-md-3  required">Last name</label>
+                    <div class="col-md-8">
+                        <apex:inputText id="lastName" value="{!lastName}" styleClass=" form-control" maxlength="45" />
+                        <apex:outputText value="{!lastNameError}" rendered="{!LEN(lastNameError)>0}" styleClass="help-block"/>
+                    </div>
+                </div>
+
+
+                <div class="form-group required {!IF(LEN(postCodeError)>0,'has-error','')}">
+                    <label for="postcode" class="control-label col-md-3  required">Post Code</label>
+                    <div class="col-md-8">
+                        <apex:inputText id="df_pca_postcode" value="{!postCode}" styleClass=" form-control" maxlength="11" />
+                        <apex:outputText value="{!postCodeError}" rendered="{!LEN(postCodeError)>0}" styleClass="help-block"/>
+                    </div>
+                </div>
+
+                <div class="form-group required {!IF(LEN(address1Error)>0,'has-error','')}">
+                    <label for="address1" class="control-label col-md-3  required">Address</label>
+                    <div class="col-md-8">
+                        <apex:inputText id="df_pca_street" value="{!address1}" styleClass=" form-control" maxlength="255" />
+                        <apex:outputText value="{!address1Error}" rendered="{!LEN(address1Error)>0}" styleClass="help-block"/>
+                    </div>
+                </div>
+
+                <div class="form-group required {!IF(LEN(townCityError)>0,'has-error','')}">
+                    <label for="townCity" class="control-label col-md-3  required">Town / City</label>
+                    <div class="col-md-8">
+                        <apex:inputText id="df_pca_city" value="{!town_City}" styleClass=" form-control" maxlength="255" />
+                        <apex:outputText value="{!townCityError}" rendered="{!LEN(townCityError)>0}" styleClass="help-block"/>
+                    </div>
+                </div>
+
+                <div class="form-group {!IF(LEN(countyError)>0,'has-error','')}">
+                    <label for="county" class="control-label col-md-3">County</label>
+                    <div class="col-md-8">
+                        <apex:inputText id="df_pca_county" value="{!county}" styleClass=" form-control" maxlength="255" />
+                        <apex:outputText value="{!countyError}" rendered="{!LEN(countyError)>0}" styleClass="help-block"/>
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <apex:actionFunction name="submitForm" action="{!submitForm}"/>
+                        <apex:commandButton id="SubmitBtn" value="Submit" styleClass="btn-primary btn" onclick="disableBtn();" rerender="Main"  />
+                    </div>
+                </div>
+
+                </div>
+                </div>
+
+            </apex:form>
+
+            </div>
+            </div>
+
+         </apex:outputPanel>
+         
+         <apex:outputPanel layout="block" id="ThankyouPage" rendered="{!displayThankyoupage}" >
+
+         <div class="row clearfix">
+        <div class="col-md-12">
+
+            <h1><apex:outputLabel value="Enquiry sent" /> </h1>
+            <div class="well">
+                <apex:outputLabel value="Thank you for booking into the Dementia Friends Champions induction. A trainer from Alzheimer's Society will be in contact with further information shortly." />
+            </div>
+
+        </div>
+        </div>
+
+         </apex:outputPanel>
+        
+        </apex:pageBlock>
+        </apex:outputPanel>
+    
+</apex:component>

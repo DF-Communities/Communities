@@ -1,0 +1,19 @@
+<apex:page standardController="DF_Event__c" >
+    <apex:pagemessages />
+    <apex:form >
+        <apex:sectionHeader title="DF Event Address Finder" subtitle="{!DF_Event__c.Name}"/>
+        <apex:pageBlock title="Event Address" mode="edit">
+            <apex:pageblockButtons >
+                <apex:commandButton value="Save" action="{!Save}" />
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockButtons>
+            <apex:pageBlockSection title="Address Finder">
+                <pca:AddressFinder label="" record="{!DF_Event__c}" 
+                address="DFEventMailing" 
+                country="{!DF_Event__c.Country__c}" 
+                value="{!DF_Event__c.street__c}</br>{!DF_Event__c.city__c}, 
+                {!DF_Event__c.county__c} {!DF_Event__c.postcode__c}</br>{!DF_Event__c.Country__c}" />  
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

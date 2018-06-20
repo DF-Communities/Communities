@@ -1,0 +1,96 @@
+<apex:component controller="Dfc_ListCommunities">
+
+<style>
+
+.ng-cloak { display:none; }
+    
+</style>
+    
+
+<div ng-app="listing" ng-controller="RootController" class="ng-cloak">
+    
+    <form>
+    
+ 
+      <div class="form-group"> 
+
+       <label>Filter by Country</label> 
+          
+          <select class="form-control" ng-model="selectedCountry" style="font-size:14px, height:28px">
+                  <option value="-- Select a Country --">-- Select a Country --</option>
+                  <option value="England">England</option> 
+                  <option value="Wales">Wales</option> 
+          </select>
+        </div>
+        
+        
+     <div class="form-group">
+
+       <label>Filter by Region</label> 
+           <option value="-- Select a Region --">-- Select a Region --</option>
+          <select class="form-control" ng-model="selectedRegion" ng-options="rgn.name as rgn.label for rgn in countryRegions" style="font-size:14px, height:28px">
+                  
+          </select>
+        </div>
+
+   </form>
+    
+    <ul class="media-list">
+      <li class="media" ng-repeat="comm in selectedCommunities">
+                <div class="media-body">
+                  <h4 class="media-heading">{{comm.Name__c}}</h4>
+                  <span ng-hide="{{comm.Location__c==null}}" >{{comm.Location__c}},</span> {{comm.County__r.Name}}<br/>
+                    {{comm.Country__c}}<br/>
+                    
+                   <span ng-show="{{comm.DA_Alliance__r!=null && comm.DA_Alliance__r.Url__c == ''}}">
+                    Associated with: {{comm.DA_Alliance__r.Name}}
+                    </span>
+
+                <span ng-show="{{comm.DA_Alliance__r!=null && comm.DA_Alliance__r.Url__c != ''}}">
+                    Associated with: <a href="{{comm.DA_Alliance__r.Url__c}}" style="color:#285987" target="_blank" >{{comm.DA_Alliance__r.Name}}</a>
+                </span>     
+                    
+                    
+                 </div>
+      </li>
+    </ul>              
+
+</div>
+
+
+
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.10.0/lodash.min.js"></script>
+    <script>
+
+        var app = angular.module('listing', []);
+
+        app.controller('RootController', function ($scope) {
+
+        $scope.items = {!communityList};
+            
+        $scope.selectedCountry = 'England';
+        $scope.selectedCommunities = [];
+        
+        $scope.$watch('selectedCountry', function(newval){
+            $scope.countryCommunities = _.filter($scope.items, {Country__c:newval});
+            $scope.countryRegions = _.map(_.groupBy($scope.countryCommunities, 'Region__r.Name'), function(list, key){
+                if (key=='undefined') key = 'National';
+                return { name:key, label:key+' ('+list.length+')'};
+            });
+        });
+          
+        $scope.$watchGroup(['selectedCountry','selectedRegion'], function(newval){
+            var country = newval[0];
+            var region = newval[1];
+            $scope.countryCommunities = _.filter($scope.items, {Country__c:country}); 
+            $scope.selectedCommunities = region ? _.filter($scope.countryCommunities, function(c){return (!c.Region__r && region=='National') || (c.Region__r && c.Region__r.Name==region)}) : $scope.countryCommunities;                     
+        });
+          
+    });
+    
+
+ </script>
+</apex:component>

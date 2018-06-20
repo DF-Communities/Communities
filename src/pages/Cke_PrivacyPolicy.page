@@ -1,0 +1,93 @@
+<apex:page showHeader="false" sidebar="false" controller="EdtPageController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+    
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>Privacy and Security – Alzheimer’s Society</title>
+    <c:Cke_CommonHead ogUrl="privacy-policy"/>
+
+</head>    
+    
+<body class="sub">
+    
+   <c:Cke_CommonBody pageUrl="privacy-policy"/>
+   <c:Cke_WebMainNav pageUrl="privacy-policy"/>
+
+    <main>   
+        <div class="tsandcs">
+            <article >
+                <div class="container">
+                    <div id="responsive-spacer"></div>
+                    <div class="row "> 
+                        <!-- POLICY START -->                   
+                        <div class="col-xs-12">
+                            <h2><c:EdtText group="cke-privacypolicy" key="intro-title-1" context="{!edtContext}" text="Privacy and Security"/></h2>
+                            
+                            <p><c:EdtText group="cke-privacypolicy" key="intro-text-2" context="{!edtContext}" text='This website is run by Alzheimer&#8217;s Society. We respect your privacy and comply with the Data Protection Act 1998. You are welcome to access our site without disclosing your personal data.
+We also have information about how we use personal information for service users and <a href="https://www.alzheimers.org.uk/info/20004/about_us/639/privacy_and_security/4">supporters</a>.
+On this page you will find information about the ways in which we collect and use personal data about you.
+Any changes we may make to what we do with your personal data in the future will be posted on this page. If you have a question which is not answered by the information on this page or in the leaflets available to download, please use the contact details at the bottom of this page to get in touch with us.
+This policy does not cover links to third party sites. Take a look at our <a href="https://www.alzheimers.org.uk/info/20004/about_us/639/privacy_and_security/3">website links policy</a> for information about links to other sites from this website.'/></p>
+
+
+                            <h3><c:EdtText group="cke-privacypolicy" key="intro-title-2" context="{!edtContext}" text="What information do we collect?"/></h3>
+                            <p><c:EdtText group="cke-privacypolicy" key="intro-text-2" context="{!edtContext}" text='Alzheimer&#8217;s Society believes in the free dissemination of information as far as possible. However, proper credit and citations to Alzheimer&#8217;s Society should be included wherever the information appears.
+                            Commercial use or publication of all or any item displayed is strictly prohibited without. If you contact us through our website, we may keep a record of that correspondence; details of transactions you carry out through our website and details of your visits to our website including but not limited to, traffic data, location data, weblogs and other communication data. We may also ask you for information when you report a problem with this website.
+We also collect personal information about service users and <a href="https://www.alzheimers.org.uk/info/20004/about_us/639/privacy_and_security/4">supporters</a>. 
+We also collect non-personal information such as browsing data to help us to monitor and improve the performance of our website and other online tools. Get further information on <a href="https://www.alzheimers.org.uk/info/20004/about_us/639/privacy_and_security/2">cookies and IP tracking</a>.'/>
+</p>
+
+                            <h3><c:EdtText group="cke-privacypolicy" key="intro-title-3" context="{!edtContext}" text="How do we use personal information?"/></h3>
+                            <p><c:EdtText group="cke-privacypolicy" key="intro-text-1" context="{!edtContext}" text="We may use your personal data in the following ways:"/> </p>
+                            <ul>
+                            <li>To ensure that content from our website is presented in the most effective manner for you and for your computer.</li>
+                            <li>To provide you with information, products or services that you request from us or which we feel may interest you. Where you have provided your postal address, telephone number or email address, we take that to indicate that you agree to this use of your personal data. You may contact us at any time to request that your personal data is not used for direct marketing purposes.</li>
+                            <li>To carry out our obligations arising from any contracts entered into between you and us. </li>
+                            <li>To notify you about changes to our website and the services we provide.</li>
+                            </ul>
+                            <p>We will only use any personal information you send us for the purposes for which you provide it.</p>
+                            
+                            
+                            <h3><c:EdtText group="cke-privacypolicy" key="intro-title-3" context="{!edtContext}" text="How do we protect personal information?"/></h3>
+          
+                            <p><c:EdtText group="cke-privacypolicy" key="intro-text-3a" context="{!edtContext}" text="We will only hold your information for as long as necessary. This information might be shared with marketing organisations who work with Alzheimer’s Society. They cannot reuse it in any way without our permission and we ask them to delete the information once it has been used. 
+All employees who have access to your personal data are obliged to respect the confidentiality of this information. We deliver training to our staff to make sure this happens.
+If you do not want us to use your data for news, updates or promotional messages, please tick the relevant box situated on the form on which we collect your data."/></p>
+
+                            <h3><c:EdtText group="cke-privacypolicy" key="intro-title-3" context="{!edtContext}" text="Your rights"/></h3>
+
+                            <p><c:EdtText group="cke-privacypolicy" key="intro-text-3b" context="{!edtContext}" text='Alzheimer&#8217;s Society tries to keep the information we have about you accurate and up to date. If you find errors or inaccuracies in your data, we will erase, complete or amend that information upon request.
+You can ask us whether we are keeping personal data about you by writing to the Information Governance Manager, Alzheimer&#8217;s Society, 43-44 Crutched Friars, London EC3N 2AE or by emailing <a href="mailto:information.governance@alzheimers.org.uk">information.governance@alzheimers.org.uk</a>.
+Please ask for a subject access request form. Once we have received the form with full details of your request we will aim to respond as soon as possible in a maximum of 40 days (as permitted by law). There is an administrative charge of £10 for this service.'/></p>
+
+                            <h3><c:EdtText group="cke-privacypolicy" key="intro-title-3" context="{!edtContext}" text="Safety online "/></h3>
+
+                            <p><c:EdtText group="cke-privacypolicy" key="intro-text-3c" context="{!edtContext}" text="Please note that any information you may post on online forums may be viewed by anyone visiting our site. Do not post any information about yourself that you would not be happy for random passers-by to see."/></p>
+
+                            <h3><c:EdtText group="cke-privacypolicy" key="intro-title-3" context="{!edtContext}" text="Cookies and analytics "/></h3>
+
+                            <p><c:EdtText group="cke-privacypolicy" key="intro-text-3d" context="{!edtContext}" text='Our site uses cookies. A cookie is a small text marker stored on your computer that enables us to track the use of our website. We use cookies to help us understand what our users interests and preferences are to ensure the website is as user friendly as possible, and for marketing purposes, including remarketing. Guidance on what cookies are is available <a href="https://ico.org.uk/for-the-public/online/cookies/">here</a>. For more details see our page on how we use cookies.'/></p>
+
+                            <h3><c:EdtText group="cke-privacypolicy" key="intro-title-3" context="{!edtContext}" text="Online shop "/></h3>
+
+                            <p><c:EdtText group="cke-privacypolicy" key="intro-text-3e" context="{!edtContext}" text='Our <a href="http://shop.alzheimers.org.uk/">online shop</a> is operated by Alzheimer&#8217;s Trading Ltd (ATL), a subsidiary of Alzheimer&#8217;s Society. You can view the <a href="http://shop.alzheimers.org.uk/terms-conditions/">terms and conditions for our online shop</a>.
+This page was last updated in November 2015. If our use of your personal data changes, we will place an updated version on this page. Regularly reviewing this page ensures you are always aware of what information we collect, how we use it and under what circumstances, if any, we will share it with other parties.'/></p>
+
+                        
+                        </div>
+                    </div>        
+                </div>                             
+            </article>
+        </div>
+    </main>
+
+    
+    <c:Cke_CommonDonateAside />
+    <c:Cke_CommonFooter />    
+    <c:Cke_CommonScripts />
+
+</body>
+
+</html>
+    
+</apex:page>

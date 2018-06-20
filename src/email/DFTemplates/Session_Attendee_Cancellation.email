@@ -1,0 +1,6 @@
+<table height="400" width="550" cellpadding="5" border="0" cellspacing="5" >
+<tr height="400" valign="top" >
+<td style=" color:#000000; font-size:12pt; background-color:#FFFFFF; font-family:arial; bLabel:main; bEditID:r3st1;" tEditID="c1r1" locked="0" aEditID="c1r1" >
+<![CDATA[<div><font face="arial">Dear {championName},</font></div><div><font face="arial"><br></font></div><div><font face="arial">{friendName} has unregistered from your session</font></div><div><font face="arial">{sessionName}</font></div><div><font face="arial">on</font></div><div><font face="arial">{sessionDate}.</font></div><div><font face="arial"><br></font></div><div><font face="arial">You now have {attendeeCount} registered attendees.</font></div><div><font face="arial"><br></font></div><div><font face="arial">Kind regards,</font></div><div><font face="arial"><br></font></div><div><font face="arial">Dementia Friends</font></div><div><font face="arial">http://www.dementiafriends.org.uk</font></div>]]></td>
+</tr>
+</table>

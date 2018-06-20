@@ -1,0 +1,23 @@
+<aura:component extensible="true" abstract="true">
+	
+    <aura:attribute name="instance" type="Object" access="GLOBAL"/> 
+
+    <aura:attribute name="containerId" type="String" access="GLOBAL"/> 
+    <aura:attribute name="nonContainerIds" type="String[]" access="GLOBAL"/> 
+
+    <aura:handler name="init" value="{!this}" action="{!c.initHandler}" /> 
+
+    <aura:handler event="c:CsqFluxComponentInit" action="{!c.onFluxComponentInit}" /> 
+    <aura:handler event="c:CsqStoreChanged" action="c.onStoreChange"/>
+    <aura:handler event="c:CsqActionComplete" action="c.onActionComplete"/>
+
+    <aura:registerEvent name="change" type="c:CsqComponentEvent"/>
+    <aura:registerEvent name="actionComplete" type="c:CsqActionCompleteLocal"/>
+    <aura:registerEvent name="actionError" type="c:CsqActionErrorLocal"/>
+    <aura:registerEvent name="registerStore" type="c:CsqRegisterStore"/>
+    <aura:registerEvent name="showAlert" type="c:CsqShowAlert"/>
+    
+    <c:CsqLodashService aura:id="lodashService"/>
+    <c:CsqPromiseService aura:id="promiseService"/>
+    
+</aura:component>

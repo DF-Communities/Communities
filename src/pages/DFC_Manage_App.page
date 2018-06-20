@@ -1,0 +1,86 @@
+<apex:page controller="Dfc_ApplyController" 
+           showHeader="false" 
+           standardStylesheets="false" 
+           sidebar="false" 
+           applyBodyTag="false" 
+           applyHtmlTag="false" 
+           docType="html-5.0" >
+  
+<html>
+<head> 
+<c:DFC_CommonHead />
+
+
+<style type="text/css">
+  
+  @media  only screen and (max-width: 764px) { /* ipad */
+  .cDfcBlockNavigator .step-tile {
+    width: 30%;
+  }
+  @media  only screen and (max-width: 375px) { /* nexus */
+  .cDfcBlockNavigator .step-tile {
+    width: 40%;
+  }
+  @media  only screen and (max-width: 317px) { /* nexus */
+  .cDfcBlockNavigator .step-tile {
+    width: 100%;
+  }
+
+  
+
+</style>
+
+<script>
+  var commUserEmail = '{!$User.Email}';
+</script>
+<script src="{!$Resource.DFC_Manage_App_AngularJS}"></script>     
+<script src="{!$Resource.action_service_js}"></script>
+
+</head>
+<body ng-app="manageApp" ng-controller="manageController">
+  <div class="container">
+      <c:DF_WEBR_WebHeader logoPrefix="dfc"/>
+  <c:DF_WEBR_WebNavbar />
+        <div class="row">
+            <div class="col-md-12 ng-cloak" style="min-height:calc(100vh - 350px)">    
+               
+                <c:DFC_Manage_BreadCrumb />
+                
+                <div id="dfc" style="border 1px solid black" class="slds-scope" data-ltngout-rendered-by="4:0">
+                    <span data-aura-rendered-by="607:0" class="cDfcManageCommunity" data-aura-class="cDfcManageCommunity"></span>
+                    <span data-aura-rendered-by="611:0" class="cDfcManageCommunity" data-aura-class="cDfcManageCommunity"></span>
+                    <span data-aura-rendered-by="9:0" class="cDfcManageCommunity" data-aura-class="cDfcManageCommunity"></span>
+                    <span data-aura-rendered-by="13:0" class="cDfcManageCommunity" data-aura-class="cDfcManageCommunity"></span>
+                    <span data-aura-rendered-by="20:0" class="cDfcManageCommunity" data-aura-class="cDfcManageCommunity"></span>
+                    <span data-aura-rendered-by="24:0" class="cDfcManageCommunity" data-aura-class="cDfcManageCommunity"></span>
+                    
+
+                    <div class="DESKTOP cDfcManageCommunity" data-aura-rendered-by="25:0" data-aura-class="cDfcManageCommunity">     
+                        <h1 style="min-height:26px" data-aura-rendered-by="28:0">{{part1data['Name__c']}}</h1>                            
+                        <c:DFC_Manage_FlowBoxes />
+                         
+                        <c:DFC_Manage_FormBody />
+                    </div>
+                </div>
+               <c:DF_WEBR_WebFooter /> 
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+  if (!window.console) window.console = { log:function(){}, warn:function(){}, error:function(){} };
+
+  var dfcid   = '{!$CurrentPage.parameters.dfcid}';               // Query string parameter with community id
+
+  if (dfcid=='') {
+      console.log('No query string param for community id , redirecting to dashboard');
+      window.location.replace('user-home');
+  }  
+  
+  var dateVar = Modernizr.inputtypes.date;
+  app.constant("Modernizr", Modernizr);
+
+</script>
+</html>
+  
+</apex:page>

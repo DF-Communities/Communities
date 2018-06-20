@@ -1,0 +1,55 @@
+<aura:component controller="ExchangeHeaderCmpController" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+    <!--<ltng:require styles="/resource/1482336904000/Bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+
+    <ltng:require styles="/resource/Bootstrap/bootstrap/css/bootstrap.min.css,
+                          /resource/Bootstrap/bootstrap/css/bootstrap-theme.css"
+                  
+                  />
+    <ltng:require styles="{!$Resource.Bootstrap}"/>
+  -->
+    <aura:attribute name="stub_url" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="loggedin" type="Boolean" access="global"/>
+    <aura:attribute name="totalFriendCountList" type="string" access="global" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <div class="header">
+         <br/>
+    <div class="slds-grid slds-wrap ">
+    <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--4-of-12">
+        <img src="{!$Resource.DF_Logo}" width="250" class="img-responsive" alt="Dementia Friends" />
+        </div>
+  <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1   slds-large-size--4-of-12">
+        <div class="pricing-unit">             
+            <small>Dementia Friends</small><br/>
+             
+           <aura:iteration items="{!v.totalFriendCountList}" var="c">
+
+                <aura:renderIf isTrue="{!c!=','}">
+                    <span class="pricing-unit-value">{!c}</span>
+                </aura:renderIf>
+         
+                <aura:renderIf isTrue="{!c==','}">
+                    <span class="pricing-unit-comma">,</span>
+                </aura:renderIf>
+
+             </aura:iteration>
+
+        </div>
+      
+        </div>  
+   
+      
+      <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--4-of-12">
+   
+          <br/><br/>
+             <a class="btn-default slds-button slds-button--neutral"><c:ExchangeProfileMenu loggedin="{!v.loggedin}" stub_url="{!v.stub_url}"/> </a>
+            <aura:renderIf isTrue="{!v.loggedin}">
+                <a class="btn-action slds-button" href="{!v.stub_url+'user-home'}">My dashboard</a>
+            </aura:renderIf>
+                  
+
+      </div>
+      </div>
+	       	<c:ExchangeNavigationMenu />
+        </div>
+   
+</aura:component>

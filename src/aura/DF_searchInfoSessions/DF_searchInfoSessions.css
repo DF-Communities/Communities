@@ -1,0 +1,56 @@
+.THIS {
+    color: black;
+}
+
+.THIS.hide {
+    display: none;
+}
+
+.THIS #app-toplevel-container{
+    font-size: 1.0rem !important;
+    background: transparent;
+}
+
+.THIS .form-horizontal .override-ltng-zoomfactor {
+    display: block;
+    width: 100%;
+    height: 34px;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+
+.THIS #sessionTimingConfirmationBox {
+    height: 45px;
+    width: 45px;
+}
+
+.THIS .record-display {
+    width: 70px;
+    float: right;
+    margin-left: 5px;
+}
+
+.THIS .form-submit-err {
+    color: #a94442; 
+    padding-top: 15px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.THIS .error-msg {
+    font-size: 14px;
+    color: #a94442;
+    margin-top: 5px!important;
+    margin-bottom: 10px!important;
+}
+
+@media (max-width: 770px) {
+    .THIS .center-xs {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .THIS .spacer-xs {
+        margin-bottom: 15px;
+    }
+}

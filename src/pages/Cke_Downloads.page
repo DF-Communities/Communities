@@ -1,0 +1,252 @@
+<apex:page showHeader="false" sidebar="false" controller="EdtPageController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false" cache="true" expires="604800">
+    
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>Cupcake Day Resources – Alzheimer’s Society</title>
+    <c:Cke_CommonHead />
+    <link rel="canonical" href="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" />
+
+    <script>
+        var u = '{!$User.LastName}';
+        var isEditEnabled={!edtContext.editEnabled};
+    </script>
+
+</head>    
+    
+<body>
+    
+   <c:Cke_CommonBody pageUrl="home" inclFbookShare="false"/> 
+   <c:Cke_WebMainNav pageUrl="home"/> 
+
+   <div id="maincontent"> </div>
+
+   <main>   
+        <div class="intro">
+            <article id="intro">   
+                <div class="container m1">
+                    <div class="row">  
+                        <!-- INTRO START -->
+                        <div class="col-md-12">
+                            <h2><c:EdtText group="cke-getready" key="block-title-1" context="{!edtContext}" text="Downloads" /></h2>                
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <p><c:EdtText group="cke-getready" key="block-text-1" context="{!edtContext}" text="Hungry for inspiration for your Cupcake Day? It’s all here – recipes, invites, posters, whizzy decorations, fun games for the day…and more. Get clicking, then let’s get cooking!"/></p>
+                        </div>
+                    </div>        
+                </div>                    
+            </article>
+        </div>
+        <div>
+            <article class="bring">                 
+                <div class="container-bt">
+                    <div class="white">
+                        <div class="container">
+                            <div id="responsive-spacer"></div>
+                            <div class="row">                   
+                                <div class="col-xs-12">
+                                    <h2><c:EdtText group="cke-getready" key="recipe-title" context="{!edtContext}" text="Cupcake Day essentials"/></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- RECIPES START -->
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-1" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Merchandise-min.png')}"  alt="Linked image to merchandise" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">                                       
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-2" context="{!edtContext}" link-text="<strong>Buy merchandise></strong>" html-class="white-text" 
+                                                      href="https://shop.alzheimers.org.uk/baking" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-2" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Invitations-min.png')}" alt="Pastel Cupcakes" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-2" context="{!edtContext}" link-text="<strong>Invitations ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Invitation.pdf')}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-3" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Gift-aid-min.png')}" alt="Sweeties Cupcakes" html-class="img-responsive img-100"/>                            
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-3" context="{!edtContext}" link-text="<strong>Extra Gift Aid forms ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt1, 'Gift_Aid_Form.pdf')}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-4" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Social-media-cover-min.png')}"  alt="Salested Caramel Dreams" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-4" context="{!edtContext}" link-text="<strong>Social media banner ></strong>" html-class="white-text" 
+                                                          href="{!URLFOR($Resource.Cke_Downloadables_Pt1, 'Cover_photo.jpg')}" />                                       
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-5" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Email-Sig.jpg')}" alt="Bingo" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-5" context="{!edtContext}" link-text="<strong>Email signature ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt1, 'Email_Signature.jpg')}" />
+                                     </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-6" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_-bunting-min.png')}" alt="Bunting" html-class="img-responsive img-100"/>                            
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-6" context="{!edtContext}" link-text="<strong>Brilliant bunting ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt1, 'Bunting.pdf')}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-7" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Childrens-bunting-min.png')}"  alt="Invitation printouts" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-7" context="{!edtContext}" link-text="<strong>Colour in bunting ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt1, 'Colour_in_bunting.pdf')}" />                                                     
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-8" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Matched-giving-form-min.png')}" alt="Matches Giving Forms" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-8" context="{!edtContext}" link-text="<strong>Matched Giving ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Matched_Giving.pdf')}" /> 
+                                     </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-9" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Baking-safe-min.png')}" alt="Bake safely" html-class="img-responsive img-100"/>                            
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-9" context="{!edtContext}" link-text="<strong>Health and Safety ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt1, 'Health_and_Safety.pdf')}" />                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-10" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_school_guess-cupcake.jpg')}" alt="Guess the cupcake flavour image" html-class="img-responsive img-100"/>                            
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-10" context="{!edtContext}" link-text="<strong>Guess the flavour ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Guess_the_flavour_download.pdf')}" />                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-11" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_school-involvement.jpg')}" alt="Get involved image" html-class="img-responsive img-100"/>                            
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-11" context="{!edtContext}" link-text="<strong>Info sheet for schools ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Schools_2018_download.pdf')}" />                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="essentials-image-12" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_school-cta.jpg')}" alt="Call to action image" html-class="img-responsive img-100"/>                            
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="essentials-download-12" context="{!edtContext}" link-text="<strong>Info sheet for work ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Workplace_2018_download.pdf')}" />                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="responsive-spacer"></div>              
+                        <div class="container">
+                            <div class="row">                   
+                                <div class="col-xs-12">
+                                    <h2><c:EdtText group="cke-getready" key="recipe-title" context="{!edtContext}" text="Delicious recipes"/></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="recipe-image-1" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Brownie-cupcakes-min.png')}"  alt="Brownie cupcake recipe image" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="recipe-download-1" context="{!edtContext}" link-text="<strong>Brownie cupcakes ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Brownie_cupcake_recipe.pdf')}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="recipe-image-2" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Gluten-free-blueberry-and-pecan-muffins-min.png')}" alt="Gluten free blueberry cupcake recipe image" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="recipe-download-2" context="{!edtContext}" link-text="<strong>Gluten-free blueberry muffins ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Gluten_free_blueberry_and_pecan_muffin_recipe.pdf')}" />                                      
+                                     </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="recipe-image-3" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_mini-carrot-cupcakes-min.png')}" alt="Mini carrot cupcake recipe image" html-class="img-responsive img-100"/>                            
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="recipe-download-3" context="{!edtContext}" link-text="<strong>Mini carrot cupcakes ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Mini_carrot_cupcake_recipe.pdf')}" /> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="recipe-image-4" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Red-velvet-cupcakes-min.png')}"  alt="Red velvet cupcake recipe image" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="recipe-download-4" context="{!edtContext}" link-text="<strong>Red velvet cupcakes ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Red_velvet_cupcake_recipe.pdf')}" /> 
+                                    </div>
+                                </div>
+                            
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="recipe-image-5" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Rosemary-Shrager-min.png')}" alt="Rosemary shrager cupcake recipe image" html-class="img-responsive img-100"/>                
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="recipe-download-5" context="{!edtContext}" link-text="<strong>Rosemary shrager's favourite cupcakes ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Rosemary_Shrager_favourite_cupcake_recipe.pdf')}" />                                        
+                                     </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 col-sm-offset-1 drop-shadow">
+                                    <div class="thumbnail recipes">
+                                        <c:EdtImage group="cke-getready" key="recipe-image-6" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Tiramisu-cupcakes.jpg-min.png')}" alt="Tiramisu cupcake recipe image" html-class="img-responsive img-100"/>                            
+                                    </div>
+                                    <div class="billboard__content billboard__darkblue white-text">
+                                        <c:EdtDownload group="cke-getready" key="recipe-download-6" context="{!edtContext}" link-text="<strong>Tiramisu cupcakes ></strong>" html-class="white-text" 
+                                                      href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Tiramisu_cupcake_recipe.pdf')}" />                                             
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="responsive-spacer"></div>                       
+                    </div>    
+                </div> 
+        </article>
+        
+        <c:Cke_CommonDonateAside />   
+    </div>
+</main>
+
+<c:Cke_CommonFooter />    
+<c:Cke_CommonScripts />
+<script src="{!$Resource.cke_home_ie9_fix_js}"></script>     
+
+</body>
+
+</html>
+    
+</apex:page>

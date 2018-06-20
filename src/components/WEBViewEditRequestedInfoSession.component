@@ -1,0 +1,807 @@
+<apex:component controller="WEBCreateEditSession" allowDML="true">
+    
+    
+    <script type="text/javascript">
+    var dateFormat = {"short":"d M yy","dateTime":"d M yy HH:mm","time":"HH:mm"};    
+    </script>
+    
+    <style>
+        
+        .form-group .radio input { margin-left : 0px; }
+        .form-group .radio td { padding-right : 10px; }
+        .datepicker.dropdown-menu { background : #ccc;}
+        .form-inline .select-group label { padding-left : 0px;}
+        .form-inline .select-group { margin-right: 25px ;}
+        
+        .ui-dialog .ui-dialog-content {
+        font-family: arial;
+        }
+        
+        .ui-button .ui-button-text {
+        font-family: arial;
+        }
+        ui-widget-header {
+        border: 1px solid #aaaaaa;
+        background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
+        color: #222222;
+        font-weight: bold;
+        }
+        .ui-dialog .ui-dialog-title {
+        float: left;
+        margin: .1em 0;
+        white-space: nowrap;
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #1C1463;
+        font-family: arial;
+        }
+        
+    </style>
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />
+    
+    <c:DF_WEBR_WebMeta />
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+    
+    
+    <div class="container">
+        
+        <c:DF_WEBR_WebHeader showCounter="Y"/>
+        <c:DF_WEBR_WebNavbar />    
+        
+        <div class="row *.css">
+            <div class="col-sm-12">
+                
+                <div class="row *.css">
+                    
+                    <div class="col-md-9 column col-md-push-3">
+                        
+                        <apex:outputPanel rendered="{!IF(ISBLANK(messageArea),FALSE,TRUE)}" >                
+                            <div id="message-center">
+                                
+                                <div class="alert {!messageAreaClass}">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {!messageArea}        
+                                </div>                            
+                                
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!if(isRequestedSession,false,true)}">
+                            <h1>Create a session</h1>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if(!isRequestedSession,false,true)}">
+                            <h1>Your Information Session</h1>
+                        </apex:outputPanel>
+                        
+                        <apex:form id="form" styleClass="form-horizontal" forceSSL="true">
+                            
+                            <apex:actionFunction name="hideSection" action="{!hideSectionOnChange}" rerender="form.editable-timings.timingsPref1"/>
+                            
+                            <apex:pageMessages /> 
+                            
+                            <div class="well">
+                                <h3>Event Details</h3>
+                                
+                                <div class="form-group required {!IF(LEN(sessionError)>0,'has-error','')}">
+                                <apex:outputText value="{!sessionError}" rendered="{!LEN(sessionError)>0}" styleClass="help-block"/>
+                                </div>
+                                
+                                <div class="form-group required {!IF(LEN(sessionNameError)>0,'has-error','')}">
+                                    <label for="name" class="col-lg-4 col-md-4 col-sm-6 control-label required">Session Name</label>        
+                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <apex:outputPanel rendered="{!userIsSessionRequester && !champSignedUpToSession}">
+                                            <apex:inputText id="name" value="{!event.Name}" styleClass="form-control" maxlength="200"/>
+                                            <apex:outputText value="{!sessionNameError}" rendered="{!LEN(sessionNameError)>0}" styleClass="help-block"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                            <apex:outputText value="{!event.Name}" styleClass="form-control"/>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>                                
+                                
+                                <!-- START REQUESTER SPECIFIC FIELDS -->
+                                <apex:outputPanel rendered="{!userIsSessionRequester && !champSignedUpToSession}">
+                                    <div class="form-group">
+                                        <label for="privatePlaces" class="col-lg-4 col-md-4 col-sm-6 control-label required">Number of people expected to attend from your group</label>        
+                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                            <apex:outputPanel rendered="{!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                                <apex:inputText id="privatePlaces" value="{!event.Private_Places__c }" styleClass="form-control" maxlength="4"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!userIsSessionRequester && !champSignedUpToSession}">
+                                    <div class="form-group">
+                                        <label for="publicPlaces" class="col-lg-4 col-md-4 col-sm-6 control-label required">Number of places available to the public</label>        
+                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                            <apex:outputPanel rendered="{!userIsSessionRequester  || (userIsSessionRequester && champSignedUpToSession)}">
+                                                <apex:inputText id="publicPlaces" value="{!noPublicPlaces}" styleClass="form-control" maxlength="4"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                <!-- END REQUESTER SPECIFIC FIELDS -->
+                                
+                                
+                                <div class="form-group required {!IF(LEN(sessiontypeError)>0,'has-error','')}">
+                                    <label for="sessiontype" class="col-lg-4 col-md-4 col-sm-6 control-label required" > Type of Session </label>
+                                    <div class="col-lg-8 col-md-8 col-sm-6">  
+                                        <apex:outputPanel rendered="{!userIsSessionRequester && !champSignedUpToSession}">
+                                            <apex:selectlist size="1" value="{!sessiontype}" id="sessiontype" styleClass="form-control">                                
+                                                <apex:selectoptions value="{!SessionTypeOptions}"/>                                   
+                                            </apex:selectlist> 
+                                            <p><apex:outputText value="{!sessiontypeError}" rendered="{!LEN(sessiontypeError)>0}" styleClass="help-block"/></p>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                            <apex:outputText value="{!sessiontype}" styleClass="form-control"/>
+                                        </apex:outputPanel>
+                                    </div>  
+                                </div>
+                                
+                                <apex:outputPanel rendered="{!!userIsSessionRequester && !champSignedUpToSession}">
+                                    <div class="form-group">
+                                        <label for="sessiontype" class="col-lg-4 col-md-4 col-sm-6 control-label" > Session Requester </label>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">  
+                                            <apex:outputText value="{!eventReadOnly.Session_Requester_Name__c}" styleClass="form-control"/>
+                                        </div>  
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!isRequestedSession && !userIsSessionRequester}">
+                                    <div class="form-group">
+                                        <label for="sessiontype" class="col-lg-4 col-md-4 col-sm-6 control-label" > Contact Email </label>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">  
+                                            <apex:outputText value="{!eventReadOnly.Session_Requester_Email__c}" styleClass="form-control"/>
+                                        </div>  
+                                    </div>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!isRequestedSession && userIsSessionRequester && champSignedUpToSession}">
+                                    <div class="form-group">
+                                        <label for="sessiontype" class="col-lg-4 col-md-4 col-sm-6 control-label" > Contact Email </label>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">  
+                                            <apex:outputText value="{!eventReadOnly.Session_Organiser_Email__c}" styleClass="form-control"/>
+                                        </div>  
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!!isRequestedSession}">
+                                    <div id='football-team-container' style="visbility:hidden">
+                                        <div class="form-group {!IF(LEN(footballTeamError)>0,'has-error','')}">
+                                            <label for="footballTeam" class="col-lg-4 col-md-4 col-sm-6 control-label" > Football Team </label>
+                                            <div class="col-lg-8 col-md-8 col-sm-6">   
+                                                <apex:outputPanel rendered="{!userIsSessionRequester}">
+                                                    <apex:selectlist size="1" value="{!footballTeam}" id="footballTeam" styleClass="form-control">                                
+                                                        <apex:selectoptions value="{!FootballTeamOptions}"/>                                   
+                                                    </apex:selectlist> 
+                                                    <p><apex:outputText value="{!footballTeamError}" rendered="{!LEN(footballTeamError)>0}" styleClass="help-block"/></p>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!!userIsSessionRequester}">
+                                                    <apex:outputText value="{!footballTeam}" styleClass="form-control"/>
+                                                </apex:outputPanel>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!!isRequestedSession}">
+                                    <div class="form-group required {!IF(LEN(visibleOnSiteError)>0,'has-error','')}">
+                                        <label for="open" class="col-lg-4 col-md-4 col-sm-6 control-label required">Is your Session open to the public?</label>
+                                        <div class="col-sm-10 radio">
+                                            
+                                            <apex:selectRadio value="{!visibleOnSiteVal}" disabled="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                                <apex:selectOptions value="{!visibleOptions}"/>
+                                            </apex:selectRadio>
+                                            
+                                            <apex:outputPanel rendered="{!userIsSessionRequester}">
+                                                <p><apex:outputText value="{!visibleOnSiteError}" rendered="{!LEN(visibleOnSiteError)>0}" styleClass="help-block" /></p>    
+                                                <p class="help-block"><apex:outputText value="{!CreateSessionVisibleHelp.Body_Text__c}" escape="false"/></p>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!event.id!=null && !event.Requested_Info_Session__c}" layout="none">
+                                    <div class="form-group required {!IF(LEN(statusError)>0,'has-error','')}">
+                                        <label for="fk_session_status_id" class="col-lg-4 col-md-4 col-sm-6 control-label required">Status</label>
+                                        <div class="col-sm-10 radio">
+                                            <apex:selectRadio value="{!event.Event_Status__c}" layout="pageDirection" border="0" disabled="{!!userIsSessionRequester}">
+                                                <apex:selectoptions value="{!eventStatusOptions}"/>
+                                            </apex:selectRadio>
+                                            <apex:outputPanel rendered="{!userIsSessionRequester}">
+                                                <p><apex:outputText value="{!statusError}" rendered="{!LEN(statusError)>0}" styleClass="help-block" /></p>
+                                                <apex:outputPanel rendered="{!NOT(ISBLANK(currentSession))}" >
+                                                    <p class="help-block"><apex:outputText value="{!CreateSessionStatusHelp.Body_Text__c}" escape="false" /></p>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!(isChampion && !userIsSessionRequester) || !event.Requested_Info_Session__c}">
+                                    <div class="form-group {!IF(LEN(numberOfPlacesError)>0,'has-error','')}">
+                                        <label for="numberOfPlaces" class="col-lg-4 col-md-4 col-sm-6 control-label required">Number of places</label>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                            <apex:outputPanel rendered="{!userIsSessionRequester}">
+                                                <apex:inputText id="numberOfPlaces" value="{!event.Number_of_Places__c}" styleClass="  form-control" />
+                                                <apex:outputText value="{!numberOfPlacesError}" rendered="{!LEN(numberOfPlacesError)>0}" styleClass="help-block" />
+                                                <apex:outputPanel rendered="{!LEN(numberOfPlacesError) = 0}">
+                                                    <p class="help-block"><apex:outputText value="{!CreateSessionPlacesHelp.Body_Text__c}" escape="false"/></p>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                                <apex:outputText value="{!event.Number_of_Places__c}" styleClass="form-control"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!!event.Requested_Info_Session__c}">
+                                    <div class="form-group required {!IF(LEN(descriptionError)>0,'has-error','')}">
+                                        <label for="description" class="col-lg-4 col-md-4 col-sm-6 control-label required">Description</label>
+                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                            <apex:outputPanel rendered="{!userIsSessionRequester}">
+                                                <apex:inputTextarea value="{!event.Event_Description__c}" id="description" rows="3" styleClass=" area form-control character-count" cols="80" />
+                                                <apex:outputText value="{!descriptionError}" rendered="{!LEN(descriptionError)>0}" styleClass="help-block" />
+                                                <p class="help-block"><apex:outputText value="{!CreateSessionDescriptionHelp.Body_Text__c}" escape="false"/></p>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!!userIsSessionRequester}">
+                                                <apex:outputText value="{!event.Event_Description__c}"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <div class="form-group">
+                                    <label for="wheelchairAccessible" class="col-lg-4 col-md-4 col-sm-6 control-label">Wheelchair accessible</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <label class="checkbox-inline">
+                                            <apex:inputCheckbox value="{!wheelChairAccessible}" id="wheelchairAccessible"
+                                                                disabled="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}"/>
+                                            <apex:outputText value="{!CreateSessionWheelchairHelp.Body_Text__c}" escape="false"/>
+                                        </label>  
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="hearingLoopAvailable" class="col-lg-4 col-md-4 col-sm-6 control-label">Hearing loop available?</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <label class="checkbox-inline">
+                                            <apex:inputCheckbox value="{!hearingLoopAvailable}" id="hearingLoopAvailable"
+                                                                disabled="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}"/>
+                                            <apex:outputText value="Tick this if the session has a hearing loop" escape="false"/>
+                                        </label>  
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="well">
+                                
+                                <div class="row *.css">
+                                    <div class="col-sm-12 {!IF(LEN(timeError)>0,'has-error','')}">                    
+                                        
+                                        <h3>Start and End Time</h3>
+                                        <apex:outputText value="{!timeError}" rendered="{!LEN(timeError)>0}" styleClass="help-block"/>
+                                        <apex:outputText value="{!timeErrorPref1}" rendered="{!LEN(timeErrorPref1)>0}" styleClass="help-block"/>
+                                        <apex:outputText value="{!timeErrorPref2}" rendered="{!LEN(timeErrorPref2)>0}" styleClass="help-block"/>
+                                        <apex:outputText value="{!timeErrorPref3}" rendered="{!LEN(timeErrorPref3)>0}" styleClass="help-block"/>
+                                        
+                                    </div>
+                                    
+                                    
+                                    <!-- START: SHOW READONLY DATES (AFTER SESSION HAS BEEN TAKEN UP BY CHAMPION -->
+                                    
+                                    <apex:outputPanel rendered="{!champSignedUpToSession}">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="date" class="col-lg-4 col-md-4 col-sm-6 control-label">Date</label>
+                                                <div class="col-sm-8">                                                    
+                                                    <div class="form-group" style="padding-right: 15px;">
+                                                        <apex:outputText value="{!eventDateStr}" styleClass="form-control-select form-control"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">                
+                                                <label class="col-lg-4 col-md-4 col-sm-6 control-label">Start time</label>
+                                                <div class="form-inline col-sm-6">     
+                                                    
+                                                    <div class="form-group select-group {!IF(LEN(timeError)>0,'has-error','')}">
+                                                        <label for="timehour-confirmed" class="col-lg-4 col-md-4 col-sm-5 control-label optional">Hour</label>
+                                                        <apex:selectList id="timehour-confirmed" styleClass="form-control-select form-control" 
+                                                                         value="{!startTimeHour}" size="1" disabled="true">
+                                                            <apex:selectOptions value="{!timeHour}" />
+                                                        </apex:selectList>
+                                                    </div>
+                                                    
+                                                    <div class="form-group select-group {!IF(LEN(timeError)>0,'has-error','')}">
+                                                        <label for="starttimeminute" class="col-lg-4 col-md-4 col-sm-5 control-label optional" style="margin-left:8px;margin-right:8px;">Minute</label>
+                                                        <apex:selectList id="starttimeminute" styleClass="form-control-select form-control" 
+                                                                         value="{!startTimeMinutes}" size="1" disabled="true">
+                                                            <apex:selectOptions value="{!timeMinute}" />
+                                                        </apex:selectList>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <!-- END -->
+                                    
+                                    <!-- START: SHOW EDITABLE DATES TO SESSION REQUESTER (BEFORE SESSION HAS BEEN TAKEN UP BY CHAMPION -->
+                                    <apex:outputPanel id="editable-timings" rendered="{!userIsSessionRequester && !champSignedUpToSession}">
+                                        
+                                        <!-- START PREFERENCE 1 -->
+                                        <apex:outputPanel id="timingsPref1" rendered="true">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <h4>Preference 1</h4>
+                                                <div class="form-group required {!IF(LEN(dateErrorPref1)>0,'has-error','')}">
+                                                    <label for="date-pref1" class="col-lg-4 col-md-4 col-sm-6 control-label required">Date</label>
+                                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                                        <apex:inputText id="date-pref1" value="{!eventDateStrPref1}" styleClass="as-datepicker form-control" disabled="{!champSignedUpToSession}"/>
+                                                        <p><apex:outputText value="{!dateErrorPref1}" rendered="{!LEN(dateErrorPref1)>0}" styleClass="help-block" /></p>
+                                                    </div>
+                                                    <label for="sessionperiod-pref1" class="col-lg-4 col-md-4 col-sm-6 control-label required">Period</label>
+                                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                                        <apex:selectlist size="1" value="{!eventPeriodPref1}" id="sessionperiod-pref1" styleClass="form-control" 
+                                                                         disabled="{!champSignedUpToSession}">
+                                                            <apex:actionSupport event="onchange" rerender="timePref1"/>
+                                                            <apex:selectoptions value="{!sessionPeriodOptions}"/>                                   
+                                                        </apex:selectlist> 
+                                                    </div>
+                                                </div>
+                                            </div>                                                    
+                                            
+                                            <apex:pageBlock id="timePref1">
+                                                <apex:outputPanel rendered="{!IF(eventPeriodPref1 == 'Specific time (hh:mm)', true , false)}">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <div class="form-group {!IF(LEN(timeErrorPref1)>0,'has-error','')}">
+                                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                                <label for="starttime-pref1" class="col-lg-4 col-md-4 col-sm-6 control-label required" style="padding-left:0px">Start time</label>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-6"> 
+                                                                <div class="col-lg-5 col-md-5 col-sm-5"> 
+                                                                    <div class="form-group select-group {!IF(LEN(timeError)>0,'has-error','')}">
+                                                                        <label for="timehour-pref1" class="control-label optional">Hour</label>
+                                                                        <apex:selectList id="timehour-pref1" styleClass="form-control-select form-control"
+                                                                                         value="{!startTimeHourPref1}" size="1" style="block:inline;" disabled="{!champSignedUpToSession}">
+                                                                            <apex:selectOptions value="{!timeHour}" />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1">
+                                                                    <div class="form-group select-group {!IF(LEN(timeErrorPref1)>0,'has-error','')}">   
+                                                                        <label for="timeminute" class="control-label optional" style="margin-left:8px">Minute</label>
+                                                                        <apex:selectList id="timeminute" styleClass="form-control-select form-control"
+                                                                                         value="{!startTimeMinutesPref1}" size="1" style="block:inline;" disabled="{!champSignedUpToSession}">
+                                                                            <apex:selectOptions value="{!timeMinute}" />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </apex:outputPanel>
+                                            </apex:pageBlock>
+                                        </apex:outputPanel>
+                                        <!-- END PREFERENCE 1 -->
+                                        
+                                        <!-- START PREFERENCE 2 -->
+                                        <apex:outputPanel id="timingsPref2" rendered="{!eventDateStrPref2 != null}">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <h4>Preference 2</h4>
+                                                <div class="form-group required {!IF(LEN(dateErrorPref2)>0,'has-error','')}">
+                                                    <label for="date-pref2" class="col-lg-4 col-md-4 col-sm-6 control-label required">Date</label>
+                                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                                        <apex:inputText id="date-pref2" value="{!eventDateStrPref2}" styleClass="as-datepicker form-control" disabled="{!champSignedUpToSession}"/>
+                                                        <p><apex:outputText value="{!dateErrorPref2}" rendered="{!LEN(dateErrorPref2)>0}" styleClass="help-block" /></p>
+                                                    </div>
+                                                    <label for="sessionperiod-pref2" class="col-lg-4 col-md-4 col-sm-6 control-label required">Period</label>
+                                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                                        <apex:selectlist size="1" value="{!eventPeriodPref2}" id="sessionperiod-pref2" styleClass="form-control" 
+                                                                         disabled="{!champSignedUpToSession}">
+                                                            <apex:actionSupport event="onchange" rerender="timePref2"/>
+                                                            <apex:selectoptions value="{!sessionPeriodOptions}"/>                                   
+                                                        </apex:selectlist> 
+                                                    </div>
+                                                </div>
+                                            </div>      
+                                            
+                                            <apex:pageBlock id="timePref2">
+                                                <apex:outputPanel rendered="{!IF(eventPeriodPref2 == 'Specific time (hh:mm)', true , false)}">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <div class="form-group {!IF(LEN(timeErrorPref2)>0,'has-error','')}">
+                                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                                <label for="starttime-pref1" class="col-lg-4 col-md-4 col-sm-6 control-label required" style="padding-left:0px">Start time</label>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-6"> 
+                                                                <div class="col-lg-5 col-md-5 col-sm-5"> 
+                                                                    <div class="form-group select-group {!IF(LEN(timeError)>0,'has-error','')}">
+                                                                        <label for="timehour-pref2" class="control-label optional">Hour</label>
+                                                                        <apex:selectList id="timehour-pref2" styleClass="form-control-select form-control"
+                                                                                         value="{!startTimeHourPref2}" size="1" style="block:inline;" disabled="{!champSignedUpToSession}">
+                                                                            <apex:selectOptions value="{!timeHour}" />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1">
+                                                                    <div class="form-group select-group {!IF(LEN(timeErrorPref2)>0,'has-error','')}">   
+                                                                        <label for="timeminute-pref2" class="control-label optional" style="margin-left:8px">Minute</label>
+                                                                        <apex:selectList id="timeminute-pref2" styleClass="form-control-select form-control"
+                                                                                         value="{!startTimeMinutesPref2}" size="1" style="block:inline;" disabled="{!champSignedUpToSession}">
+                                                                            <apex:selectOptions value="{!timeMinute}" />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </apex:outputPanel>
+                                            </apex:pageBlock>
+                                        </apex:outputPanel>
+                                        
+                                        <!-- END PREFERENCE 2 -->
+                                        
+                                        <!-- START PREFERENCE 3 -->
+                                        <apex:outputPanel id="timingsPref3" rendered="{!eventDateStrPref3 != null}">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <h4>Preference 3</h4>
+                                                <div class="form-group required {!IF(LEN(dateErrorPref2)>0,'has-error','')}">
+                                                    <label for="date-pref3" class="col-lg-4 col-md-4 col-sm-6 control-label required">Date</label>
+                                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                                        <apex:inputText id="date-pref3" value="{!eventDateStrPref3}" styleClass="as-datepicker form-control" disabled="{!champSignedUpToSession}"/>
+                                                        <p><apex:outputText value="{!dateErrorPref3}" rendered="{!LEN(dateErrorPref3)>0}" styleClass="help-block" /></p>
+                                                    </div>
+                                                    <label for="sessionperiod-pref3" class="col-lg-4 col-md-4 col-sm-6 control-label required">Period</label>
+                                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                                        <apex:selectlist size="1" value="{!eventPeriodPref3}" id="sessionperiod-pref3" styleClass="form-control" 
+                                                                         disabled="{!champSignedUpToSession}">
+                                                            <apex:actionSupport event="onchange" rerender="timePref3"/>
+                                                            <apex:selectoptions value="{!sessionPeriodOptions}"/>                                   
+                                                        </apex:selectlist> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <apex:pageBlock id="timePref3">
+                                                <apex:outputPanel rendered="{!IF(eventPeriodPref3 == 'Specific time (hh:mm)', true , false)}">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <div class="form-group {!IF(LEN(timeErrorPref3)>0,'has-error','')}">
+                                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                                <label for="starttime-pref3" class="col-lg-4 col-md-4 col-sm-6 control-label required" style="padding-left:0px">Start time</label>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-6"> 
+                                                                <div class="col-lg-5 col-md-5 col-sm-5"> 
+                                                                    <div class="form-group select-group {!IF(LEN(timeError)>0,'has-error','')}">
+                                                                        <label for="timehour-pref3" class="control-label optional">Hour</label>
+                                                                        <apex:selectList id="timehour-pref3" styleClass="form-control-select form-control"
+                                                                                         value="{!startTimeHourPref3}" size="1" style="block:inline;" disabled="{!champSignedUpToSession}">
+                                                                            <apex:selectOptions value="{!timeHour}" />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1">
+                                                                    <div class="form-group select-group {!IF(LEN(timeErrorPref3)>0,'has-error','')}">   
+                                                                        <label for="timeminute-pref3" class="control-label optional" style="margin-left:8px">Minute</label>
+                                                                        <apex:selectList id="timeminute-pref3" styleClass="form-control-select form-control"
+                                                                                         value="{!startTimeMinutesPref3}" size="1" style="block:inline;" disabled="{!champSignedUpToSession}">
+                                                                            <apex:selectOptions value="{!timeMinute}" />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </apex:outputPanel>
+                                            </apex:pageBlock>
+                                        </apex:outputPanel>
+                                        
+                                        <!-- END PREFERENCE 3 -->
+                                        
+                                    </apex:outputPanel>
+                                </div>
+                            </div>  
+                            
+                            <div class="well">
+                                
+                                <div class="row *.css">
+                                    <div class="col-sm-12">                    
+                                        
+                                        <h3>Location</h3>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group required {!IF(LEN(addressError)>0,'has-error','')}">
+                                    <label for="address1" class="col-lg-4 col-md-4 col-sm-6 control-label required">House No/Street</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <apex:outputPanel rendered="{!userIsSessionRequester && !champSignedUpToSession}">
+                                            <apex:inputText id="df_pca_street" value="{!event.Street__c}" styleClass="  form-control" maxlength="100" />
+                                            <apex:outputText value="{!addressError}" rendered="{!LEN(addressError)>0}" styleClass="help-block" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                            <apex:outputText value="{!event.Street__c}" styleClass="form-control"/>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group required {!IF(LEN(townCityError)>0,'has-error','')}">
+                                    <label for="townCity" class="col-lg-4 col-md-4 col-sm-6 control-label required">Town / City</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <apex:outputPanel rendered="{!userIsSessionRequester && !champSignedupToSession}">
+                                            <apex:inputText id="df_pca_city" value="{!event.City__c}" styleClass="  form-control" maxlength="100" />
+                                            <apex:outputText value="{!townCityError}" rendered="{!LEN(townCityError)>0}" styleClass="help-block" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                            <apex:outputText value="{!event.City__c}" styleClass="form-control"/>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="county" class="col-lg-4 col-md-4 col-sm-6 control-label">County</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <apex:outputPanel rendered="{!userIsSessionRequester && !champSignedUpToSession}">
+                                            <apex:inputText id="df_pca_county" value="{!event.County__c}" styleClass="  form-control" maxlength="100" />
+                                            <apex:outputText value="{!countyError}" rendered="{!LEN(countyError)>0}" styleClass="help-block" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                            <apex:outputText value="{!event.County__c}" styleClass="form-control"/>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group required {!IF(LEN(postcodeError)>0,'has-error','')}">
+                                    <label for="postcode" class="col-lg-4 col-md-4 col-sm-6 control-label required">Postcode</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <apex:outputPanel rendered="{!userIsSessionRequester && !champSignedUpToSession}">
+                                            <apex:inputText id="df_pca_postcode" value="{!event.Postcode__c}" maxlength="11" styleClass="form-control" />
+                                            <apex:outputText value="{!postcodeError}" rendered="{!LEN(postcodeError)>0}" styleClass="help-block" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!!userIsSessionRequester || (userIsSessionRequester && champSignedUpToSession)}">
+                                            <apex:outputText value="{!event.Postcode__c}" styleClass="form-control"/>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                                
+                                <apex:outputPanel rendered="{!userIsSessionRequester}">
+                                    <p class="help-block"><apex:outputText value="{!CreateSessionLocationHelp.Body_Text__c}" escape="false"/></p>
+                                </apex:outputPanel>
+                                
+                            </div>
+                            
+                            <apex:outputPanel rendered="{!!champSignedUpToSession && userIsSessionRequester}">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <apex:commandlink action="{!saveSession}" id="save" value="Save changes" styleClass="btn-primary btn" immediate="false"/>
+                                </div>
+                            </apex:outputPanel>
+                            
+                            <apex:outputText escape="false" rendered="{!champSignedUpToSession && !userIsSessionRequester}">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <input type="button"
+                                           value="Drop this Session"
+                                           class="btn-primary btn" 
+                                           style="margin-left: 5px;"
+                                           onclick="(function(){document.getElementById('dropout-confirm').style.display = 'block';})();return false;"/>
+                                </div>
+                            </apex:outputText>
+                            
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <a href="{!IF(isChampion,$Site.CurrentSiteUrl+'WEBChampion',$Site.CurrentSiteUrl+'WEBFriend')}" 
+                                   class="btn btn-default" style="margin-right: 5px;">Cancel</a>
+                            </div>
+                            
+                            <apex:outputText escape="false" rendered="{!userIsSessionRequester}">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <input type="button"
+                                           value="Withdraw Session"
+                                           class="btn-primary btn" 
+                                           style="margin-left: 5px;display:inline-block;"
+                                           onclick="(function(){document.getElementById('withdrawal-confirm').style.display = 'block';})();return false;"/>
+                                </div>
+                            </apex:outputText>
+                            
+                            <!-- START CHAMP DROPOUT -->
+                            
+                            <div class="form-group">
+                                <div class="col-sm-6 pull-right">                                    
+                                    <apex:outputPanel layout="none" rendered="{!IF(event.Request_Status__c!='Withdrawn' && event.Event_Status__c=='Cancelled', true, false)}">
+                                        <p class="help-block"><strong>This Session has been cancelled</strong></p>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>    
+                            <div id="dropout-confirm" class="form-group" style="display: none">
+                                <form>
+                                    
+                                    <div class="modal-dialog" >
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <label id="QuestionToAsk" name="QuestionToAsk">Are you sure?</label><br />
+                                                <apex:commandlink action="{!championDropSession}" 
+                                                                  value="Yes, I want to withdraw from this Session" 
+                                                                  rendered="{!champSignedUpToSession}"
+                                                                  styleClass="btn-primary btn" 
+                                                                  immediate="false"/> 
+                                                
+                                                <input type="button" 
+                                                       value="No, I will still host it" 
+                                                       class="btn-primary btn"
+                                                       style="margin-left: 5px;"
+                                                       onclick="(function(){document.getElementById('dropout-confirm').style.display='none';})()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </form>
+                                
+                            </div>
+                            <!-- END CHAMP DROPOUT -->
+                            
+                            <!-- START WITHDRAWAL -->
+                            
+                            <div class="form-group">
+                                <div class="col-sm-6 pull-right">                                    
+                                    <apex:outputPanel layout="none" rendered="{!event.Request_Status__c=='Withdrawn'}">
+                                        <p class="help-block"><strong>This Session has been withdrawn</strong></p>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>    
+                            <div id="withdrawal-confirm" class="form-group" style="display: none">
+                                <form>
+                                    <div class="modal-dialog" >
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <label id="QuestionToAsk" name="QuestionToAsk">Are you sure?</label><br />
+                                                <apex:commandlink action="{!withdrawSession}" 
+                                                                  value="Yes, I want to withdraw this request" 
+                                                                  styleClass="btn-primary btn" 
+                                                                  immediate="false"
+                                                                  /> 
+                                                <!--input type="button" value="Yes, I want to drop out of this session" name="yes" onClick="ret=true;dropOutConfirmation(true)" /-->
+                                                <input type="button" 
+                                                       value="Cancel" 
+                                                       class="btn-primary btn"
+                                                       style="margin-left: 5px;"
+                                                       onclick="(function(){document.getElementById('withdrawal-confirm').style.display='none';})()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </form>
+                                
+                            </div>
+                            <!-- END CHAMP DROPOUT -->
+                            
+                        </apex:form>
+                        
+                        <div class="row *.css">
+                            <div class="col-sm-12">
+                                <hr />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <apex:outputPanel rendered="{!isChampion}">
+                        <c:DF_WEBC_ChampionNav activeValue="CREATESESSION" dfcW="{!dfcW}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!isChampion}">
+                        <c:DF_WEBC_FriendNav activeValue="CREATESESSION" dfcW="{!dfcW}" />
+                    </apex:outputPanel>
+                    
+                </div>
+            </div>
+        </div>
+        <div id="jq_dialog" style="display:none">Please check the start and end time you have entered. The standard Dementia Friends Information Session takes approximately 60 minutes to 1 hour to deliver. For advice and support, contact your Dementia Friends Officer.</div>
+        
+        <c:DF_WEBR_WebFooter />
+        
+    </div>
+    
+    
+    <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
+    <script> 
+    
+    
+    $(".as-datepicker").datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true
+    });
+        
+    </script>
+    
+    <!--  PostcodeAnywhere code -->    
+    <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript">
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+        pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+    </script>
+    
+    <script type="text/javascript">
+    
+    $(document).ready( function() {
+        
+        toggleFootballTeam();
+        
+        $('[id$=sessiontype]').change(function() {
+            toggleFootballTeam();
+        });
+        
+    });
+    
+    
+    function checkSessionlength(){
+        
+        var timehour = parseInt($('[id$=timehour]').val());
+        var timeminute = parseInt($('[id$=timeminute]').val());
+        var endtimehour = parseInt($('[id$=endtimehour]').val());
+        var endtimeminute = parseInt($('[id$=endtimeminute]').val());
+        
+        if (((endtimehour*60 + endtimeminute)-(timehour*60 + timeminute)) <= 40 || ((endtimehour*60 + endtimeminute)-(timehour*60 + timeminute)) >= 70)
+        { 
+            
+            
+            $('#jq_dialog').dialog({
+                title: 'Session length',
+                modal: true,
+                resizable: false,
+                width: 500,
+                maxHeight: 400,
+                closeText: 'fechar',
+                show: 'fade',
+                hide: 'fade',
+                dialogClass: 'main-dialog-class',
+                buttons: [
+                    {
+                        text: "Ignore & Proceed",
+                        "class": 'submit_class_name',
+                        click: function() {
+                            
+                            saveSession();                   
+                            $(this).dialog("close"); 
+                        }
+                    },
+                    {
+                        text: "Go back",
+                        click: function() {
+                            
+                            $(this).dialog("close"); 
+                        }
+                    }
+                ]
+            });
+            //alert('You must report an attendance at a session of 1 or higher. If the session did not happen please click the ‘Cancel Session’ button');
+            
+        }
+        else {
+            
+            
+            saveSession();
+            
+        }
+        return false;
+    };
+    
+    
+    function toggleFootballTeam() {
+        
+        if ( $('[id$=sessiontype]').val() == '#TeamDementiaFriends - Football Campaign' ) {
+            
+            $('#football-team-container').show();
+            
+        } else {
+            
+            $('#football-team-container').hide();
+            
+        }
+        
+    }
+    
+    </script>
+    
+</apex:component>

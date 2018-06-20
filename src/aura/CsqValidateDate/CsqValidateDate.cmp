@@ -1,0 +1,6 @@
+<aura:component extends="c:CsqValidationComponent">
+    
+    <aura:attribute name="format" type="string" default="D MMM YYYY"/>
+    <aura:set attribute="defaultMessage" value="{!'Please enter a date in the format '+v.format}"/>
+    
+</aura:component>

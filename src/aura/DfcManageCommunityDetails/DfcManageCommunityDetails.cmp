@@ -1,0 +1,149 @@
+<aura:component >
+  
+    <aura:attribute name="context" type="Object" required="true"/>
+    <aura:attribute name="step" type="Object" required="true"/>
+
+    <c:DfcCommunityService aura:id="communityService" />
+ 
+  <div>
+    
+         <h4>Community Details</h4>
+      <div class="dfc-container">
+        <div class="dfc-tabular">
+                
+          <p>
+            <span>DAA Alliance</span>    
+            <span>{!v.context.community.DA_Alliance__r.Name}</span>  
+          </p>
+        
+          <p>
+            <span>Location</span>    
+            <span>{!v.context.community.Location__c}</span>
+          </p>
+          
+          <p>
+            <span>County</span>    
+            <span>{!v.context.community.County__r.Name}</span>   
+    	</p>
+
+	<p>
+            <span>Location Type</span>    
+            <span>{!v.context.community.Location_Type__c}</span>
+         
+        </p>
+        
+         <p>
+            <span>Population</span>    
+            <span><ui:outputNumber value="{!v.context.community.Population__c}"/></span>
+        </p>
+       
+    </div>
+    </div>
+      
+       <h4>Action Areas</h4>
+      <div class="dfc-container">
+        <div class="dfc-tabular dfc-right">
+            <aura:iteration var="area" items="{!v.context.community.Action_Areas__r}" indexVar="index">
+                <aura:if isTrue="{!area.Selected__c}">
+                    <p>
+                      <span><strong>{!area.Action_Area__r.Name}</strong></span>
+                      <span>2 activities this year</span>
+                    </p>
+                </aura:if>
+              </aura:iteration>
+        </div>  
+      </div>
+
+       <h4>Community Representatives</h4>
+      <div class="dfc-container">
+        <div class="dfc-tabular dfc-right">
+                <aura:iteration var="rep" items="{!v.context.community.Representatives__r}" indexVar="index">
+                    <p>
+                        <span><strong>{!rep.DF_Contact__r.Name}</strong></span>
+                        <span>{!rep.DF_Contact__r.Email__c}</span>
+                        <span>{!rep.Role__c}</span>
+                    </p>
+                </aura:iteration>
+        </div>  
+     </div>
+        
+       <h4>Next Annual Assessment</h4>
+      <div class="dfc-container">
+        <div class="dfc-tabular dfc-right">
+                    <p>
+                        <span><strong>March 1st 2016</strong></span>
+                        <span>6 activities recorded</span>
+                    </p>
+        </div>  
+     </div>
+     
+        <br/>  <br/>  <br/>
+     
+    <div class="panel panel-default">
+      <div class="panel-heading">
+              <h3 class="panel-title">Community Details</h3>
+     </div>
+  
+            <div class="panel-body">
+          
+                    <div class="list-group "> 
+                              <div class="list-group-item detail">
+                                        <div >DAA Alliance</div>
+                                        <div>{!v.context.community.DA_Alliance__r.Name}</div>
+                              </div>
+                              
+                               <div class="list-group-item detail">
+                                        <div>Location</div>
+                                        <div>{!v.context.community.Location__c}</div>
+                              </div>
+                              
+                               <div class="list-group-item detail">
+                                        <div>County</div>
+                                        <div>{!v.context.community.County__r.Name}</div>
+                              </div>
+                              
+                               <div class="list-group-item detail">
+                                        <div>Location type</div>
+                                        <div>{!v.context.community.Location_Type__c}</div>
+                              </div>                              
+                               <div class="list-group-item detail">
+                                        <div>Population</div>
+                                        <div>{!v.context.community.Population__c}</div>
+                              </div>                    
+                    </div>
+                    
+            </div>
+   </div>   
+
+
+
+   
+  <div class="panel panel-default">
+      <div class="panel-heading">
+              <h3 class="panel-title">Action Areas</h3>
+     </div>
+  
+            <div class="panel-body">
+          
+                    <div class="list-group"> 
+                    
+                      <aura:iteration var="area" items="{!v.context.community.Action_Areas__r}" indexVar="index">
+                           <aura:if isTrue="{!area.Selected__c}">                               
+                                    <div class="list-group-item activities">
+                                                    <div>{!area.Action_Area__r.Name}</div>
+                                                    <div><span class="badge">14</span> activities this year</div>
+                                    </div>
+                          </aura:if>
+                      </aura:iteration>
+
+                    </div>
+                    
+            </div>
+   </div>   
+   
+   
+
+        
+
+  </div>  
+</aura:component>

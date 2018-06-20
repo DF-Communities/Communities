@@ -1,0 +1,15 @@
+<aura:component >
+    
+     <aura:attribute name="key" type="String" required="true"/>
+     <aura:attribute name="group" type="String" required="true"/>
+     <aura:attribute name="text" type="String" access="GLOBAL"/>
+ 
+	<c:DfcSnippetService aura:id="snippetService"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+    
+	 <span>
+         <aura:unescapedHtml value="{!v.text}"/>
+    </span> 
+    
+</aura:component>

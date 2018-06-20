@@ -1,0 +1,6 @@
+<aura:component extends="c:CsqStoreComponent" controller="Dfc_Resource_Store_Controller">
+	
+    
+    
+    
+</aura:component>

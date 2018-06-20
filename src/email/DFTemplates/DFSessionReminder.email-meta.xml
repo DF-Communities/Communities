@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>34.0</apiVersion>
+    <available>true</available>
+    <description>Email sent out for DF who booked a session</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DF_Mail_TEREF18_Session Reminder</name>
+    <style>none</style>
+    <type>visualforce</type>
+</EmailTemplate>

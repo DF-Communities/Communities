@@ -1,0 +1,167 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="DF_WEBC_PartnerHome_Controller" action="{!orgAdminLoginRedirect}">
+
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css"/>
+    <apex:stylesheet value="//fonts.googleapis.com/css?family=Orbitron:400,700"/>
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+
+    <div class="row *.css">
+    <div class="col-md-12">
+    
+        <div class="row *.css">
+
+            <div class="col-md-9 column col-md-push-3">                
+           <div id="message-center"></div> 
+           <apex:outputPanel rendered="{!actionRecordSaved}" >
+                    
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        You have successfully saved organisation actions.           
+                    </div>
+
+                     
+                </apex:outputPanel> 
+            <apex:outputPanel rendered="{!orgDetailsUpdated}" >
+
+                    <div class="alert alert-success"  >   
+                                                   
+                         <button type="button" class="close" data-dismiss="alert"> <span aria-hidden="true">&times;</span>
+                         </button>                         
+                       <p> Your organisation details have successfully been updated.</p>
+
+                   </div> 
+            </apex:outputPanel>
+                
+             <div class="row *.css">
+             <div class="col-md-12 column">
+            
+                 <div class="well rounded">
+                        <h3 style="margin-bottom:15px ;padding-left:5px">{!selectedPartner.Name}</h3>
+                        <h4 style="margin-bottom:15px ;padding-left:5px">Welcome to your organisation dashboard </h4>
+                        
+                            <div class="well dashboard-block rounded">
+                                
+                                <p align="center"><b>Total number of Friends created by your organisation</b><br/></p>
+                                <p align="center">
+                                 <b>{!selectedPartner.Total_Number_Of_Friends_Created__c}</b>
+                                </p>
+                            </div>
+                        
+                           <p style="padding-left:5px;">As an organisation administrator, you can: </p>
+                              <ul class="bullets">
+                                
+                                <li>Access the videos at any time by logging in to this dashboard. </li>
+                                <li>
+                                Please ensure to watch the Introductory video and at least one other most relevant to your area of work
+                                </li>
+                                <li>Your partner organisation code is <b>{!selectedPartner.DFC_Code__c}</b>.  Share this with your colleagues, who can use it to watch the videos and become Dementia Friends on the Dementia Friends website. The code is specific to your organisation.</li>
+                                <li>Download your toolkit with information about Dementia Friends and how to engage your staff and volunteers from the <b>Resources</b> tab, on the left. </li>
+                             </ul>
+                          
+                          <p style="padding-left:5px;">The Dementia Friends team will use the above code to track each time someone in your organisation watches the videos and we can report this back to you as needed. 
+                          If you have any other enquiries please email <a href="mailto:programmepartnerships@alzheimers.org.uk">programmepartnerships@alzheimers.org.uk</a> </p>
+                         
+                     </div>
+                  </div> 
+               </div>
+                <div class="row *.css">
+                   <div class="col-md-12 column">
+                         
+                           <h5>Breakdown of the total number of Friends created by your organisation</h5>
+                       
+                   </div>
+               </div>
+                 <div class="row *.css">
+                        <div class="col-md-4 column">
+                            <div class="well rounded">
+                                
+                                <p align="center">Total no. of Friends who watched the videos using the code<br/></p>
+                                <p align="center">
+                                   {!selectedPartner.Number_Of_Online_Friends_Created__c}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        
+                         <div class="col-md-4 column">
+                            <div class="well rounded">
+                                
+                                <p align="center">Total no. of Friends who watched the videos on your internal system/DVD<br/></p>
+                                <p align="center">
+                                    {!selectedPartner.Number_Of_Offline_Friends_Created__c}
+                                </p>
+                               
+                            </div>
+                        </div>
+ 
+                      <div class="col-md-4 column">
+                            <div class="well rounded">
+                                
+                                <p align="center">Total no. of Friends created by Champions within your organisation<br/></p>
+                                <p align="center">
+                                  {!selectedPartner.Total_Number_Of_Friends_by_Champions__c}
+                                </p>
+                                
+                         
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row *.css">
+             
+                 <div class="col-md-12 column">
+                    <button type="button" class="btn btn-primary" id="streamVideo">Click here to watch the videos for organisations</button>
+                    
+                 </div>
+                </div>
+            <br/>
+               
+                 <c:DF_WEBC_PartnerVideos partnerid="{!selectedPartner.Id}" partnercode="{!partnerCode}"/>   
+
+            </div>
+
+            <c:DF_WEBC_AdminNavigationMenu activeValue="PARTNER" partnerid="{!selectedPartner.Id}" partnerhasActions="{!hasActions}" />               
+         
+            </div>
+            </div>
+            </div>
+        
+       
+
+
+                <c:DF_WEBR_WebFooter />
+
+        </div>
+
+
+
+     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/js/jqueryui-editable.min.js"/>
+     <script>
+
+       
+        $(document).ready(function() {  
+          
+           $('#streamVideo').click(function(){
+         
+             $("#myModal").modal('show');
+             $('.play-icon').hide();
+          
+             
+             }); 
+                     
+             
+           _webc_video.partnerVideos_init();
+       
+            
+        });
+    
+    </script>
+
+</apex:page>

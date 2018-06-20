@@ -1,0 +1,66 @@
+<aura:component >
+    
+    <aura:method name="getAllParams" action="{!c.getAllParams}"/>
+    <aura:attribute name="outputParams" type="Object" default="{}"/>
+    <aura:attribute name="isValid" type="Boolean" default="false"/>
+    <aura:attribute name="name" type="String" default="setSessionPeriodCmp"/>
+    <aura:attribute name="instanceNo" type="Integer" default="1"/>
+    <aura:attribute name="valueObj" type="Object" default="{date: '', period: '', time: ''}"/>
+    
+    <aura:handler name="STD_datePickerSelectionEvt" event="c:STD_datePickerSelectionEvt" action="{!c.getDateFromEvt}"/>
+    
+    <aura:attribute name="showSpecificTime" type="Boolean"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="selectedDate" type="Date"/>
+    <aura:attribute name="selectedPeriod" type="String"/>
+    <aura:attribute name="selectedTime" type="String" default="null"/>
+
+    
+    <!--aura:registerEvent name="DF_timeDetailEvt" type="c.DF_timeDetailEvt"/--> <!-- can maybe delete -->
+    <!--aura:handler name="DF_timeDetailEvt" event="DF_timeDetailEvt" action="{!c.handle description="If specific time is selected then the time must be entered"/-->
+    <!--aura:attribute name="isSessionDetailComplete" type="Boolean" description="If specific time is selected then the time must be entered"/-->
+    
+    <aura:registerEvent name="DF_rowItemDetailEvt" type="c.DF_rowItemDetailEvt"/>
+    
+    <td>
+        <c:STD_datePicker name="date" 
+                          label="Proposed date of session" 
+                          daysOffsetFromToday="21" 
+                          aura:id="childComponent"/>
+    </td>
+    <td>
+        <!--c:STD_dynamicPicklist name="period" 
+                           label="Select an item" 
+                           aura:id="childComponent"
+                           change="{!c.timeSlotSelection}"
+                           sObjectApiName="DF_Event__c" 
+                           sObjectFieldApiName="Preference_1_Period__c"/-->
+        
+        <lightning:select name="period" 
+                          label="Select an item" 
+                          value="{!v.valueObj.period}"
+                          aura:id="requiredInputField" 
+                          onchange="{!c.timeSlotSelection}">
+            <option value="Please select">Please select...</option>
+            <option value="Morning (7am-12pm)">Morning (7am-12pm)</option>
+            <option value="Afternoon (12pm-5pm)">Afternoon (12pm-5pm)</option>
+            <option value="Evening (5pm-10pm)">Evening (5pm-10pm)</option>
+            <option value="Any time">Any time</option>
+            <option value="Specific time (hh:mm)">Specific time (hh:mm)</option>
+        </lightning:select>
+    </td>
+    <td>
+        <!-- conditionally Display the set time dropdown
+     if "specific time" has been selected as the timeslot
+             --> 
+        <aura:if isTrue="{!v.showSpecificTime}">
+            <lightning:input name="time" 
+                             type="time" 
+                             label="Time" 
+                             value="{!v.valueObj.time}"
+                             onchange="{!c.validateTimeEntry}" 
+                             aura:id="requiredInputField"/>
+        </aura:if>
+        
+    </td> 	
+</aura:component>

@@ -1,0 +1,6 @@
+<apex:page >
+    <meta http-equiv="refresh" content="0;url={!$Page.WEBChangePassword}"/>
+    <script type="text/javascript">
+        window.location.href = "{!$Page.WEBChangePassword}";
+    </script>
+</apex:page>

@@ -1,0 +1,99 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_PartnerResources_Ctr" action="{!orgAdminLoginRedirect}">
+
+
+<head>
+<style type='text/css'>
+label.fLabel {
+    color: #040507;
+    font-weight: normal !important;
+    text-align: left !important;
+}
+
+</style>
+</head>
+    <c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+   
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />    
+
+     <div class="row *.css">
+     <div class="col-sm-12">
+    
+     <div class="row *.css">
+                
+     
+
+      <div class="col-md-9 column col-md-push-3">
+           
+                <div id="message-center"></div> 
+                <div class="intro">
+                    <h1>Organisation resources</h1>
+                    <div>
+                        <p>Here you can download resources that will relate to your organisation's sector. These resources can provide useful information on how your organisation can become more dementia-friendly. </p>
+                            
+                    </div>
+                </div>
+       
+      
+                    
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Date added</th>
+                                        <th><span>Download</span></th>
+                                    </tr>
+                                    <tr>
+                                     
+                                    </tr>
+                                    
+                                </thead>
+                                 <tbody>
+                                <apex:repeat value="{!partnerResources}" var="resource" >                               
+
+                                        <tr>
+                                            <td class="col-md-5">
+                                                <p ><strong><span>{!resource.Name__c}</span></strong> </p>
+                                            </td>
+                                            <td  class="col-md-6">
+                                            <apex:outputfield id="dateadded" value="{!resource.Date_added__c}" />
+                                            </td>
+                                            
+                                            <td class="col-md-1"><a onclick="_gaq.push(['_trackEvent', 'champion-resource-Post', 'Download', '{!resource.Name}']);" href="{!URLFOR($Action.Attachment.Download, att[resource.Id].id)}" class="btn btn-primary"><span>Download</span></a></td>
+                                           
+                                        </tr>
+                                        
+                                </apex:repeat>                       
+                                </tbody>     
+                           </table>
+                        
+                  
+                
+                </div>
+
+                 <c:DF_WEBC_AdminNavigationMenu activeValue="RESOURCES" partnerid="{!partnerId}" partnerhasActions="{!hasActions}" />  
+          
+    
+     </div>
+     </div>
+     </div>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+  <c:DF_WEBR_WebFooter />
+
+   <script>
+
+   $(document).ready(function() {
+
+    $('#tabs').tab();
+    $('#tabs a:first').tab('show');
+   $('#datefield + p').hide();
+   });
+
+   </script> 
+
+    </div>
+
+</apex:page>

@@ -1,0 +1,23 @@
+<img id="Logo" src="https://c.eu0.content.force.com/servlet/servlet.ImageServer?id=01520000001HfE1&oid=00D20000000CwQc" height="103" width="259"/>
+<br/>
+Dear {{contact.First_Name__c}} {{contact.Last_Name__c}},
+<br/><br/>
+The Dementia Friends Information Session you have registered for has been updated. Here are the new details:<br/><br/>
+Session date: - {{event.Event_Date_Time__c}}<br/>
+Session location: {{event.Location__c}}<br/>
+{{event.Street__c}}<br/>
+{{event.City__c}}<br/>
+{{event.County__c}} {{event.Postcode__c}}<br/><br/>
+ Please <a href="{{sessionLink}}">click here</a> to view up-to-date details.
+<br/><br/>
+Kind regards,
+<br/><br/>
+The Dementia Friends team
+<br/><br/>
+0300 222 5855
+<br/>
+<a href="http://www.dementiafriends.org.uk">dementiafriends.org.uk</a>
+<br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a>
+<br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a>

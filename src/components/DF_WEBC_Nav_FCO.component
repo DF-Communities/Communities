@@ -1,0 +1,181 @@
+<apex:component >
+
+	 <apex:attribute name="activePage" description="The active page" type="String" required="false"/>
+ 
+
+     <div class="panel-group" id="accordion">
+     <div class="row">
+     <div class="col-xs-12 col-sm-12 col-md-12">
+     <div class="panel panel-default">
+     <div class="panel-heading">
+        <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFriends">
+        Friends
+        </a>
+        </h3>
+    </div>
+    <div id="collapseFriends" class="panel-collapse collapse in">
+    <!-- Panel content starts-->
+    <div class="panel-body">
+    <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+
+        <ul>
+            <li class="{!IF(activePage=='what-is-a-friend','active','')}">
+                <a href="WEBArticle?page=what-is-a-friend">What is a Friend?</a>
+            </li>
+            <li class="{!IF(activePage=='friend-am-eligible','active','')}">
+                <a href="WEBArticle?page=friend-am-eligible">Am I eligible?</a>
+            </li>
+            <li class="{!IF(activePage=='friend-how-else-can-i-help','active','')}">
+                <a href="WEBArticle?page=friend-how-else-can-i-help">How else can I help?</a>
+            </li>
+            <li>
+                <a href="WEBSession">Find Sessions</a>
+            </li>
+        </ul>                    
+    </div>
+    </div>   
+    </div>
+    </div>
+    </div>
+    </div>   
+    </div>
+    </div>
+
+     <div class="panel-group" id="accordion">
+     <div class="row">
+     <div class="col-xs-12 col-sm-12 col-md-12">
+     <div class="panel panel-default">
+     <div class="panel-heading">
+        <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseChampions">
+            Champions
+        </a>
+        </h3>
+    </div>
+
+    <div id="collapseChampions" class="panel-collapse collapse in">
+    <!-- Panel content starts-->
+    <div class="panel-body">
+    <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">    
+    
+    <ul>
+        <li class="{!IF(activePage=='what-is-a-champion','active','')}">
+            <a href="WEBArticle?page=what-is-a-champion">What is a Champion?</a>
+        </li>
+        <li class="{!IF(activePage=='champions-training','active','')}">
+            <a href="WEBArticle?page=champions-training">Champions induction</a>
+        </li>
+        <li class="{!IF(activePage=='after-the-training','active','')}">
+            <a href="WEBArticle?page=after-the-training">After the induction</a>
+        </li>
+        <li class="{!IF(activePage=='champion-am-eligible','active','')}">
+            <a href="WEBArticle?page=champion-am-eligible">Am I eligible?</a>
+        </li>
+        <li class="{!IF(activePage=='what-should-i-consider','active','')}">
+            <a href="WEBArticle?page=what-should-i-consider">What should I consider?</a>
+        </li>
+        <li>
+            <a href="WEBTraining">Find inductions</a>
+        </li>
+        <li class="{!IF(activePage=='champion-how-else-can-i-help','active','')}">
+            <a href="WEBArticle?page=champion-how-else-can-i-help">How else can I help?</a>
+        </li>
+    </ul> 
+    
+    </div>
+    </div>   
+    </div>
+    </div>
+    </div>
+    </div>   
+    </div>
+    </div>
+
+
+    <div class="panel-group" id="accordion">
+     <div class="row">
+     <div class="col-xs-12 col-sm-12 col-md-12">
+     <div class="panel panel-default">
+
+         <div class="panel-heading">
+            <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOrganisations">
+            Organisations
+            </a>
+            </h3>
+          </div>
+    
+    <div id="collapseOrganisations" class="panel-collapse collapse in">
+    <!-- Panel content starts-->
+    <div class="panel-body">
+        <div class="row">
+         <div class="col-xs-12 col-sm-12 col-md-12"> 
+
+         <ul>
+            <li class="{!IF(activePage=='about-partner-organisations','active','')}">
+                <a href="WEBArticle?page=about-partner-organisations">How can organisations be involved?</a>
+            </li>
+            <li class="{!IF(activePage=='videos-for-organisations','active','')}">
+                <a href="DF_WEBC_PartnerVideos?page=videos-for-organisations">Watch our videos for organisations</a>
+            </li>
+            <li class="{!IF(activePage=='organisation-case-studies','active','')}">
+                <a href="WEBArticle?page=organisation-case-studies">Case studies</a>
+            </li>
+            <li class="{!IF(activePage=='organisation-further-activity','active','')}">
+                <a href="WEBArticle?page=organisation-further-activity">Further activity</a>
+            </li>
+            </ul>                                
+
+            </div>
+        </div> <!-- End row -->  
+    </div><!-- End panel-body -->  
+
+    </div><!-- End collapseOrganisations -->  
+    </div>
+    </div>   
+    </div>
+    </div>
+
+
+    <!-- Dementia Friendly Communities -->
+    <div class="panel-group" id="accordion">
+     <div class="row">
+     <div class="col-xs-12 col-sm-12 col-md-12">
+     <div class="panel panel-default">
+     
+         <div class="panel-heading">
+            <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseDFC">
+            Dementia Friendly Communities
+            </a>
+            </h3>
+          </div>
+    
+    <div id="collapseDFC" class="panel-collapse collapse in">
+    <!-- Panel content starts-->
+    <div class="panel-body">
+        <div class="row">
+         <div class="col-xs-12 col-sm-12 col-md-12"> 
+
+         <ul>
+            <li class="{!IF(activePage=='dementia-friendly-communities','active','')}">
+                <a href="WEBArticle?page=dementia-friendly-communities">Dementia Friendly Communities</a>
+            </li>
+       
+            </ul>                                
+
+            </div>
+        </div> <!-- End row -->  
+    </div><!-- End panel-body -->  
+
+    </div><!-- End collapseDFC -->  
+    </div>
+    </div>   
+    </div>
+    </div>
+
+
+</apex:component>

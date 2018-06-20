@@ -1,0 +1,11 @@
+<aura:component extends="c:serviceComponent" controller="Dfc_SnippetServiceController">
+	
+    <aura:attribute name="loadGroup" type="String" access="GLOBAL"/>
+    
+    <c:repositoryService aura:id="repositoryService"/>
+    <c:CsqPromiseService aura:id="promiseService"/>
+    <c:CsqLodashService aura:id="lodashService"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+    
+</aura:component>

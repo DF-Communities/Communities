@@ -1,0 +1,23 @@
+<aura:component >
+	
+    <aura:attribute name="recordId" required="true" type="String" access="GLOBAL"/>
+    
+    <aura:attribute name="message" type="String" access="GLOBAL"/>
+    <aura:attribute name="attachments" type="Object[]" access="GLOBAL"/>
+    
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    <aura:registerEvent name="cancel" type="c:CsqComponentEvent"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+    <aura:handler event="aura:doneRendering" action="{!c.doneRendering}"/>
+
+    <div>
+        
+        <div class="dfc-upload">
+            <iframe src="{!'/dfc_upload?id='+v.recordId}" aura:id="iframe" scrolling="no"></iframe>
+            <div class="emsg">{!v.message}</div>
+        </div>
+    
+    </div>
+    
+</aura:component>

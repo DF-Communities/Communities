@@ -1,0 +1,79 @@
+<messaging:emailTemplate subject="Dementia Friends - Tell us about your recent Information Session" recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+
+Further to my previous emails, I’m contacting you as it looks like you still haven’t reported back on the Dementia Friends Information Session you ran recently.
+<br/><br/>
+Unfortunately we cannot recognise the Dementia Friends you’ve created unless you log them online, nor can we count them towards our total number across England and Wales.  For this reason, we ask every Champion to report on the Sessions they deliver on the website. This is outlined in your code of conduct, which was discussed during your Champions induction day.
+<br/><br/>
+Reporting back on your Session is simple.  You’ll just need to:
+<br/><br/>
+1)  Sign in to the Dementia Friends <a href="http://www.dementiafriends.org.uk/login">website</a> using your email address and password (if you’ve forgotten your password you can reset it <a href="https://www.dementiafriends.org.uk/register/passwordreset">here</a>). 
+<br/>
+2)  Click on the ‘Tell us about your Sessions’ button on the left-hand side of your dashboard.
+<br/>
+3)  Select the Session and fill in the number of Dementia Friends and any comments you have about how the Session went.  Alternatively, click the “Cancel Session” button if it didn’t take place.
+<br/><br/>
+Alternatively, <b>if you’re not able to report back on your Session online</b>, please reply to this email with the number of Friends you made during the Session and I’ll do this for you.
+<br/><br/>
+Finally, <b>if you’ve not reported back on the Session because you are no longer able to volunteer as a Champion</b>, simply respond to this email and I’ll update our records.
+<br/><br/>
+If you have any questions or need any support, please don’t hesitate to get in touch.
+<br/><br/>
+Best wishes,<br/>
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Regional Support Officer - Dementia Friends<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+{!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+{!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+
+<a href= "http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a><br/>
+Email Id:TEREF10
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+Further to my previous emails, I’m contacting you as it looks like you still haven’t reported back on the Dementia Friends Information Session you ran recently.
+ 
+Unfortunately we cannot recognise the Dementia Friends you’ve created unless you log them online, nor can we count them towards our total number across England and Wales.  For this reason, we ask every Champion to report on the Sessions they deliver on the website. This is outlined in your code of conduct, which was discussed during your Champions induction day.
+
+Reporting back on your Session is simple.  You’ll just need to:
+
+1)  Sign in to the Dementia Friends website using your email address and password (if you need to reset your password you can do so here: dementiafriends.org.uk/register/passwordreset). 
+
+2)  Click on the ‘Tell us about your Sessions’ button on the left-hand side of your dashboard.
+
+3)  Select the Session and fill in the number of Dementia Friends and any comments you have about how the Session went.  Alternatively, click the “Cancel Session” button if it didn’t take place.
+
+Alternatively, if you’re not able to report back on your Session online, please reply to this email with the number of Friends you made during the Session and I’ll do this for you.
+ 
+Finally, if you’ve not reported back on the Session because you are no longer able to volunteer as a Champion, simply respond to this email and I’ll update our records.
+
+If you have any questions or need any support, please don’t hesitate to get in touch.
+
+Best wishes,
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Regional Support Officer - Dementia Friends
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}
+{!relatedTo.DF_Region__r.RSO__r.Email}
+{!relatedTo.DF_Region__r.RSO__r.phone}
+
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+Email Id:TEREF10
+
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

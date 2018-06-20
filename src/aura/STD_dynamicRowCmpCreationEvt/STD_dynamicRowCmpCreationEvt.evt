@@ -1,0 +1,9 @@
+<aura:event type="COMPONENT" description="Event template">
+    
+    <aura:attribute name="component" type="Aura.Component" required="true"/>
+    <aura:attribute name="isCreateNewComponent" type="Boolean" required="true"
+                    description="Build or destroy boolean: 'true' creates a new component. 'false' destroys the component"/>
+        <aura:attribute name="rowNum" type="Integer" 
+                        description="This is the row NUMBER (i.e. NOT zero based)"/>
+
+</aura:event>

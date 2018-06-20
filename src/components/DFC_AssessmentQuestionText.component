@@ -1,0 +1,14 @@
+<apex:component >
+    <apex:attribute name="question" description="" type="String" required="false" default=""   />
+    <apex:attribute name="captureExtraInfo" type="boolean" description=""/>
+
+    <label class="required question-text">{{question.Question_Text__c}}</label>
+
+    <div> 
+       
+        <textarea type="text" class="form-control" placeholder="Please give further information" 
+                 ng-model="question.Entered_Answer__c" required="true" />
+    </div>
+    <span ng-show="isSubmit && question.Entered_Answer__c==null" class="validation">Please enter an answer</span>
+
+</apex:component>

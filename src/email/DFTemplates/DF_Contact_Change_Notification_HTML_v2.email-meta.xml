@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DF Contact Change Notification HTML v2</name>
+    <style>none</style>
+    <subject>Changes to your contact details</subject>
+    <textOnly>Dear {{FirstName}}, 
+
+We update our database regularly to make sure we’ve got accurate contact details for you. During that process we noticed information about you that was missing from our system or has recently been updated through another Alzheimer’s Society channel. 
+
+As Dementia Friends is an Alzheimer’s Society initiative, you can also choose to update the details we hold for you on your Dementia Friends account. To view the prospective changes and either accept or reject them please login to the Dementia Friends website  (dementiafriends.org.uk/login) and choose either ‘accept’ or ‘reject’.
+
+If you have any questions, please email us at DementiaFriends@alzheimers.org.uk.
+
+Kind Regards,
+Dementia Friends
+
+
+Thank you, 
+Dementia Friends team 
+
+
+dementiafriends.org.uk 
+twitter.com/DementiaFriends 
+facebook.com/DementiaFriends</textOnly>
+    <type>custom</type>
+</EmailTemplate>

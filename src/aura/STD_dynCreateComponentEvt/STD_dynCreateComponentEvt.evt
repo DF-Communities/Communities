@@ -1,0 +1,11 @@
+<aura:event type="APPLICATION" description="Event template">
+    
+    <aura:attribute name="isCreateNewComponent" type="Boolean" 
+                    description="Build or destroy boolean: 'true' creates a new component. 'false' destroys the component"/>
+    <aura:attribute name="cmpRowNo" type="Integer" 
+                    description="The row number of the component that fired this action"/>
+    <aura:attribute name="entireRowCmp" type="Aura.Component" 
+                    description="The component that defines the row from which this action was fired"/>
+                    
+
+</aura:event>

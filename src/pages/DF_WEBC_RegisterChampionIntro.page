@@ -1,0 +1,44 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" >
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+     
+    <div class="row">
+    <div class="col-md-12">
+		<h1>Volunteer as a Dementia Friends Champion</h1>
+		            			
+			<p>Dementia Friends Champions are trained volunteers who encourage people to learn a little bit more about dementia.  Champions run Information Sessions in their community and inspire others to help those living with dementia live well.</p>
+	            			
+	       <div class="well">
+	           <h3>What's involved in being a Champion</h3>
+
+				<ul class="status">
+					<li class="complete">Genuinely have the time to run Dementia Friends information sessions and reach around 100 people</li>
+					<li class="complete">Be over 16 years old</li>
+					<li class="complete">Be a good communicator and speak objectively about dementia</li>
+					<li class="complete">Enjoy talking to groups of people</li>
+					<li class="complete">Have access to the internet and be willing to record the number of Friends you reach by the website</li>
+					<li class="complete">Keen to set up information sessions in workplaces and your local community</li>
+					<li class="complete">Enthusiastic about Dementia Friends</li>
+					<li class="complete">Voluntarily attend a whole day induction session </li>
+				</ul>    
+				
+				<div class="form-group">
+					<a href="register-champion" class="btn btn-primary">Register as a Champion</a>
+					<a href="WEBArticle?page=what-is-a-champion">More about being a Champion</a>
+				</div>
+
+			</div>
+
+	</div>
+	</div>
+
+	 <c:DF_WEBR_WebFooter />
+
+	</div>
+
+</apex:page>

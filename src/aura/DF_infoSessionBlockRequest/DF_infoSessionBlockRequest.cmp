@@ -1,0 +1,19 @@
+<aura:component >
+    
+    <aura:attribute name="numExistingRequests" type="Integer" required="true"/>
+    <aura:attribute name="blockSessionRequests" type="Boolean" required="true"/>
+    <aura:attribute name="tooManyRequests" type="Boolean" required="true"/>
+    
+    <aura:if isTrue="{!v.tooManyRequests}">
+        <h1>You have exceeded the maximum number of open information sessions requested</h1>
+        <p>For more information on why you are not able to request Sessions, 
+            please email dementiafriends@alzheimers.org.uk</p>
+    </aura:if>
+    <aura:if isTrue="{!v.blockSessionRequests}">
+            <h1>Sorry, you are currently unable to request an Information Session</h1>
+            <p> 
+                For more information on why you are not able to request Sessions, 
+                please email dementiafriends@alzheimers.org.uk</p>
+    </aura:if>
+    
+</aura:component>

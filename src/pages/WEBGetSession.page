@@ -1,0 +1,3 @@
+<apex:page controller="WEBGetSession" action="{!loadSession}">
+<!-- 2014-05-28 : CSL : This page is a blank page that only forwards -->
+</apex:page>

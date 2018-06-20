@@ -1,0 +1,404 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="WEBTraining">
+
+<apex:stylesheet value="{!URLFOR($Resource.DF_WEBR_Assets, 'css/ion.rangeSlider.css')}" />
+<apex:stylesheet value="{!URLFOR($Resource.DF_WEBR_Assets, 'css/ion.rangeSlider.skinFlat.css')}" />
+    
+<c:DF_WEBR_WebMeta />
+
+
+<div class="container">
+
+<c:DF_WEBR_WebHeader />
+<c:DF_WEBR_WebNavbar />
+
+<div class="row *.css">
+    <div class="col-md-12">
+        <div class="row *.css">
+            <div class="col-md-9 column col-md-push-3">
+                <div class="row *.css">
+                    <div class="col-md-12 column">
+                        <ol class="breadcrumb">
+                          <li><a href="/" class="inactive">Home</a></li>
+                          <li><a href="WebArticle?page=how-to-get-involved" class="inactive">Get involved</a></li>
+                          <li class="active">Champions Inductions</li>
+                        </ol>
+                        <h1>Dementia Friends Champions Inductions</h1>
+                        <c:DF_WEBC_SocialLinks />
+                        
+                        <p class="lead">Become a Dementia Friends Champion by attending one of our volunteer induction days.</p> 
+
+                        <p>During the day you’ll see a Dementia Friends Information Session delivered by a Regional Support Officer and then learn how to deliver the Session yourself, with the chance to discuss the activities and our key messages, before taking part in a practice presentation. <strong>Tea and coffee will be provided. Please bring your own lunch.</strong></p>
+
+                        <p>To find an Induction in your area, select 'results near', enter your postcode, select a distance and click the ‘Search’ button.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="row *.css">
+                
+                        <div class="col-md-12 column">
+                            <!-- Filter list by panel starts --> 
+                            <div class="panel-group" id="accordion">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-alt-heading panel-heading paneltitle" >
+                                                <h3 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFilter">
+                                                Search by
+                                                </a>
+                                                </h3>
+                                            </div>
+
+                                            
+                                            <div id="collapseFilter" class="panel-collapse collapse in">
+                                            
+                                                <apex:form forceSSL="true">   
+                                                <!-- Panel content starts-->
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-12">
+                                                            <div class="row">
+                                                                <div class="filter col-xs-12 col-md-6">
+                                                                    <h4>Location</h4>
+
+                                                                      <div class="form-group">
+                                                                        <div class="radio">
+                                                                          <label>
+                                                                            <input type="radio" name="locality" id="locality-1" value="1" onclick="clickAllAvailable();" checked="checked"/>
+                                                                            All Available 
+                                                                          </label>
+                                                                        </div>
+                                                                        <div class="radio">
+                                                                          <label>
+                                                                            <input type="radio" name="locality" id="locality-0" value="option1" onclick="clickResultsNear();"></input>
+                                                                            Results near: 
+                                                                          </label>
+                                                                        </div> 
+                                                                      </div>
+                                                                      <span style="display:none" id="slider">  
+                                                                      <div class="col-md-8 form-group">
+                                                                        <apex:inputText value="{!searchPostCode}" id="postcode" html-placeholder="e.g. TR54 3CD" styleClass="form-control" ></apex:inputText>
+                                                                      </div>
+
+                                                                      <div class="col-md-8 form-group">
+
+                                                                        <h4>Distance</h4>
+                                                                        <apex:input id="range" value="{!tempNumber}" type="number"/>
+
+                                                                      </div>
+                                                                      </span>
+                                                                    
+                                                                </div>
+                                                                <div class="filter col-xs-12 col-md-6">
+                                                                    <h4>Status</h4>
+                                                                    <div class="form-group">
+                                                                        <div class="checkbox">
+                                                                          <label>
+                                                                            <apex:inputCheckbox value="{!showUnavailable}"></apex:inputCheckbox>
+                                                                            Show unavailable
+                                                                          </label>
+                                                                        </div>
+                                                                    </div>
+                                                                <div class="form-group">
+
+                                                                        <apex:actionFunction action="{!applyFilter}" name="applyFilter" ></apex:actionFunction>
+                                                                        <apex:commandLink id="search" value="Search" styleClass="btn-sm btn-primary pull-right" action="{!applyFilter}" ></apex:commandLink>
+                                                                </div>    
+                                                                    
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Panel content ends-->
+                                                </apex:form>
+                                           
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Filter list by panel ends -->
+                        </div>
+                    </div>
+                    
+                    
+                <div class="paging row *.css">
+                <apex:form forceSSL="true">
+                 <apex:outputPanel rendered ="{!(noOfRecords>0)}">
+                   <div class="col-md-6 column">
+                   
+                        <p><apex:commandLink styleClass="btn-xs btn-primary" 
+                            action="{!previousPage}"
+                            rendered="{!IF(startRecord > 0,TRUE,FALSE)}"
+                            >
+                            &lt;&lt;
+                            </apex:commandLink>
+
+                            &nbsp;
+                            Showing {!startRecord+1} to {!IF((startRecord+recordsPerPage) > noOfRecords, noOfRecords, startRecord+recordsPerPage)} of {!noOfRecords} records.&nbsp;&nbsp;
+
+                            <apex:commandLink styleClass="btn-xs btn-primary" 
+                            action="{!nextPage}"
+                            rendered="{!IF(startRecord+recordsPerPage < noOfRecords, TRUE,FALSE)}"
+                            >
+                           &gt;&gt;
+                            </apex:commandLink>
+
+                            </p>
+                        
+                    </div>
+                
+                    <div class="col-md-6 column">
+                        <p>Show&nbsp;
+
+                        <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="10">
+                            <apex:param assignTo="{!recordsPerPage}" value="10" ></apex:param>
+                        </apex:commandLink>&nbsp;
+
+                        <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="20">
+                            <apex:param assignTo="{!recordsPerPage}" value="20" ></apex:param>
+                        </apex:commandLink>&nbsp;
+
+                        <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="50">
+                            <apex:param assignTo="{!recordsPerPage}" value="50" ></apex:param>
+                        </apex:commandLink>&nbsp;
+
+                        <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="100">
+                            <apex:param assignTo="{!recordsPerPage}" value="100" ></apex:param>
+                        </apex:commandLink>&nbsp;
+
+                        &nbsp;per page.
+
+
+                        </p>
+                    
+                    </div>
+                    </apex:outputPanel>
+                
+                </apex:form>
+                </div>
+                                 <!--c:DF_WEBC_RequestInfoSession /-->    
+
+                <div class="row *.css">
+                    
+                    <div class="col-md-12 column">
+                    
+                        <div class="table-responsive">
+                                    <table class="table">
+                                     
+                                        <tbody>
+
+
+                                    <!--    <apex:repeat value="{!eventList}" var="event">
+
+                                                <tr class="session">
+
+
+                                                 <td class="{!IF(event.theEvent.Event_Status__c = 'Available','available','unavailable')} col-md-10 col-sm-8 col-xs-8 single-cell" align="center" >
+                                                    
+                                                    
+                                                     <div class="col-md-5" > 
+                                                     
+                                                      
+                                                     <br style="display: block;margin:5px 0;"/>  
+                                                       {!event.eventDayOfWeek}<h4>{!event.eventDay}  {!event.eventMonth}</h4> 
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                       <br/>     
+                                                         <span class="day">{!event.eventTime}</span><br/>
+                                                          
+                                                    </div>
+                                                            
+
+
+                                                    <div class="col-md-3" >           
+                                                        {!event.theEvent.City__c}<br/>{!event.theEvent.County__c}<br/>{!event.theEvent.Postcode__c}<br/>
+                                                    </div>
+                                                    
+                                                    <div class="btn-container col-md-2">
+                                                        <a class="btn-sm btn-primary" href="WEBTrainingDetails?id={!event.theEvent.Id}&user_type={!userType}">Details</a>
+                                                    </div>           
+
+                                                </td>     
+
+                                                </tr>    
+
+                                        </apex:repeat>-->
+                                        <apex:repeat value="{!eventList}" var="event">
+
+                                                <tr class="session">
+
+
+                                                <td class="{!IF(event.theEvent.Event_Status__c = 'Available','available available sessions','unavailable')} col-md-10 col-sm-8 col-xs-8 single-cell">
+                                                     
+                                                    <div class="col-md-1 col-sm-2 col-xs-2">    
+                                                        {!event.eventMonth} <br/>
+                                                        <span class="day">{!event.eventDay}</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-6 col-xs-4">
+                                                            &nbsp;<br/>
+                                                            <span class="day">{!event.eventTime}</span>
+                                                    </div>
+                                                        
+                                                    <div class="col-md-7 hidden-sm hidden-xs">  
+                                                     <div class="eventdetails">         
+                                                        <strong>{!event.theEvent.City__c}</strong>,{!event.theEvent.County__c},<strong>{!event.theEvent.Postcode__c}</strong><br/>
+                                                     </div>
+                                                    </div>           
+
+                                                    <div class="btn-container col-md-2">
+                                                        <a class="btn-sm btn-primary" href="WEBTrainingDetails?id={!event.theEvent.Id}&user_type={!userType}">Details</a>
+                                                    </div>
+
+                                                    <div class="hidden-md hidden-lg col-sm-8 col-xs-8">   
+                                                     <div class="eventdetails">
+                                                        <strong>{!event.theEvent.City__c}</strong>,{!event.theEvent.County__c},<strong>{!event.theEvent.Postcode__c}</strong><br/>
+                                                    </div>   
+                                                    </div>        
+
+                                                </td>     
+
+                                                </tr>    
+
+
+                                        </apex:repeat>
+
+
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                    </div>
+                </div>
+                <div class="paging row *.css">
+                <apex:form forceSSL="true">
+                  <apex:outputPanel rendered="{!(noOfRecords>0)}">
+
+                  <div class="col-md-6 column">
+                        <p><apex:commandLink styleClass="btn-xs btn-primary" 
+                            action="{!previousPage}"
+                            rendered="{!IF(startRecord > 0,TRUE,FALSE)}"
+                            >
+                            &lt;&lt;
+                            </apex:commandLink>
+
+                            &nbsp;
+                            Showing {!startRecord+1} to {!IF((startRecord+recordsPerPage) > noOfRecords, noOfRecords, startRecord+recordsPerPage)} of {!noOfRecords} records.&nbsp;&nbsp;
+
+                            <apex:commandLink styleClass="btn-xs btn-primary" 
+                            action="{!nextPage}"
+                            rendered="{!IF(startRecord+recordsPerPage < noOfRecords, TRUE,FALSE)}"
+                            >
+                           &gt;&gt;
+                            </apex:commandLink>
+
+                            </p>
+                    </div>
+                
+                    <div class="col-md-6 column">
+                        <p>Show&nbsp;
+
+                        <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="10">
+                            <apex:param assignTo="{!recordsPerPage}" value="10" ></apex:param>
+                        </apex:commandLink>&nbsp;
+
+                        <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="20">
+                            <apex:param assignTo="{!recordsPerPage}" value="20" ></apex:param>
+                        </apex:commandLink>&nbsp;
+
+                        <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="50">
+                            <apex:param assignTo="{!recordsPerPage}" value="50" ></apex:param>
+                        </apex:commandLink>&nbsp;
+
+                        <apex:commandLink styleClass="btn-sm btn-default" action="{!changeRecordsPerPage}" value="100">
+                            <apex:param assignTo="{!recordsPerPage}" value="100" ></apex:param>
+                        </apex:commandLink>&nbsp;
+
+                        &nbsp;per page.
+
+
+                        </p>
+                    
+                    </div>
+                </apex:outputPanel>
+                </apex:form>
+                
+                </div>
+                
+                 <div class="row *.css">
+                
+                        <div class="col-md-12 column">
+                        <apex:outputPanel rendered="{!(noRecordsText!='')}">
+                            <p>{!noRecordsText}</p>
+                        </apex:outputPanel>
+                        </div>
+                  </div>
+        </div>
+        <div class="sidebar col-md-3 column col-md-pull-9">
+            <c:DF_WEBC_Nav_FCO />
+        </div>
+    </div>
+</div>
+</div>
+
+<c:DF_WEBR_WebFooter />
+
+</div>
+
+<apex:includeScript value="{!URLFOR($Resource.DF_WEBR_Assets, 'js/ion.rangeSlider.js')}"/>
+
+<script>
+
+$(document).ready(function(){
+
+$("[id$=range]").ionRangeSlider({
+    min: 5,
+    max: 50,
+    postfix: " mi",
+    values: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+});
+
+if('{!searchPostCode}' == '') {
+    $('#locality-1').prop('checked', true);
+    $('#locality-0').prop('checked', false);
+} else {
+    $('#locality-1').prop('checked', false);
+    $('#locality-0').prop('checked', true);
+    $('#slider').show();
+}
+
+if($('#locality-0').prop('checked')==true) {
+    $('#slider').show();
+}
+
+
+$('[id$=postcode]').keyup(function(event){
+if(event.keyCode == 13){
+    $('[id$=search]').click();
+}
+});
+
+});
+
+
+function clickAllAvailable() {
+
+$('[id$=postcode]').val('');
+$('#slider').hide();
+
+}
+
+function clickResultsNear() {
+
+$('[id$=postcode]').val('');
+$('#slider').show();
+
+}
+
+</script>
+</apex:page>

@@ -1,0 +1,20 @@
+<apex:component controller="DF_WEBC_Register_Remoter">
+
+<script>
+
+ $(document).ready( function() {
+
+    _webc.invokeSubmitAction = function (sJson) { 
+          Visualforce.remoting.Manager.invokeAction (
+                '{!$RemoteAction.DF_WEBC_Register_Remoter.handleChampionJson}', 
+                sJson, 
+                _webc.handleResult
+           );
+     };
+
+ });
+
+
+</script>
+ 
+</apex:component>

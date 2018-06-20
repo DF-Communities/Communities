@@ -1,0 +1,110 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="HTML-5.0" controller="WEBChampionSessionFeedback" action="{!loginRedirect}">
+    
+    <head>
+        <apex:includeLightning />
+        <c:DF_WEBR_WebMeta />
+        <c:DF_WEBR_WebMeta_2 />
+    </head>   
+    
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
+    <style>
+        
+        
+        .uiInputDefaultError .form-element__help {
+        font-size: 14px;
+        }
+    </style>
+    
+    <script>
+    function confirmCancel(){
+        return window.confirm('This will mark this session as cancelled - OK to continue, Cancel to quit');
+    }
+    
+    function checkForZero(){
+        
+        var whichVal = $("input[id$='numberOfAttendees']" ).val();
+        if (whichVal == ''){ whichVal = '0';}
+        var numOfAttendees = parseInt(whichVal);
+        if (numOfAttendees < 1){
+            
+            $('#jq_dialog').dialog({
+                title: 'Incorrect Number of Attendees',
+                modal: true,
+                resizable: false,
+                width: 500,
+                maxHeight: 400,
+                closeText: 'fechar',
+                show: 'fade',
+                hide: 'fade',
+                dialogClass: 'main-dialog-class'
+            });
+            //alert('You must report an attendance at a session of 1 or higher. If the session did not happen please click the ‘Cancel Session’ button');
+            return false;
+        }else {
+            return true;
+        }
+    }
+    
+    function  showPartnerList(){
+        
+        if($('[id$=partnerSession]').is(':checked')==true){
+            $('#partnername').show();       
+            
+        }
+        else{
+            $('#partnername').hide();   
+            
+        }
+    }
+    
+    </script>
+    
+    <script>
+    
+    $(document).ready(function () {
+        showPartnerList();
+        
+    });
+    
+    </script>
+    
+    
+    
+    <div class="container">
+        <c:DF_WEBR_WebHeader showCounter="Y"/>
+        <c:DF_WEBR_WebNavbar />
+        
+        <div class="row *.css">
+            <div class="col-sm-12">
+                <div class="row *.css">
+                    <div class="col-md-9 column col-md-push-3" >
+                    <!--div class="col-md-12 column" -->
+                        <div id="sessionFeedbackApp" width="100%"/>
+                        
+                        <script>
+                        $Lightning.use("c:DF_sessionFeedbackApp", function() {
+                            $Lightning.createComponent("c:DF_infoSessionFeedback",
+                                                       { "useSlds" : false,
+                                                        "eventId" : "{!$CurrentPage.parameters.eventId}" },
+                                                       "sessionFeedbackApp",
+                                                       function(cmp) {
+                                                           // do some stuff
+                                                       });
+                        });
+                        </script>
+                    </div>
+                <!--/div -->
+                    <c:DF_WEBC_ChampionNav activeValue="MANAGEMYSESSIONS" dfcW="{!dfcW}"/>
+                </div>
+               
+            </div>
+        </div>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->    
+    <c:DF_WEBR_WebFooter />
+    
+</div>
+
+</apex:page>

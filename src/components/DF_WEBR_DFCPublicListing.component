@@ -1,0 +1,103 @@
+<apex:component controller="Dfc_CommunityPublicListing">
+
+
+    <apex:form >
+
+      <div class="form-group">
+
+       <label for="daaFilter">Filter by Country</label> 
+
+            <apex:selectList value="{!country}" size="1" id="countryFilter" multiselect="false" styleClass="form-control" style="font-size:14px; height:28px;">  
+                <apex:actionSupport event="onchange" rerender="listing"/>
+                <apex:selectOption itemValue="" itemLabel="-- Select a Country --"/>
+                 <apex:selectOption itemValue="England" itemLabel="England"/>
+                 <apex:selectOption itemValue="Wales" itemLabel="Wales"/>
+               
+            </apex:selectList>
+
+      </div>
+
+     <div class="form-group">
+
+       <label for="daaFilter">Filter by Region</label> 
+
+            <apex:selectList value="{!region}" size="1" multiselect="false" styleClass="form-control" style="font-size:14px; height:28px;">  
+                <apex:actionSupport event="onchange" rerender="listing, countryFilter"/>
+                <apex:selectOption itemValue="" itemLabel="-- Select a Region --"/>
+                <apex:selectOptions value="{!regions}"/>
+            </apex:selectList>
+
+      </div>
+
+ <apex:outputPanel rendered="{!country!='Wales'}">
+      <div class="form-group">
+        <label for="daaFilter">Filter by Dementia Action Alliance</label>
+
+            <apex:selectList value="{!daa}" size="1" multiselect="false" id="daaFilter" styleClass="form-control" style="font-size:14px; height:28px;">  
+                <apex:actionSupport event="onchange" rerender="listing, countryFilter"/>
+                <apex:selectOption itemValue="" itemLabel="-- Select a Dementia Action Alliance --"/>
+                <apex:selectOptions value="{!daas}"/>
+            </apex:selectList>  
+
+      </div>
+
+   </apex:outputPanel> 
+
+    </apex:form>
+
+
+    <apex:outputPanel id="listing">
+
+        <apex:outputPanel rendered="{!communities.size==0}">
+            <h6>There are no Communities for your selected options at this time</h6>
+        </apex:outputPanel> 
+
+        <ul class="media-list">
+
+        <apex:repeat value="{!communities}" var="community">
+
+              <li class="media">
+                <div class="media-body">
+                  <h4 class="media-heading">{!community.Name__c}</h4>
+
+                  {!community.Location__c}, {!community.County__r.Name}<br/>
+                <apex:outputPanel layout="none" rendered="{!community.DA_Alliance__r!=null && community.DA_Alliance__r.Url__c == ''}">
+                    Associated with: {!community.DA_Alliance__r.Name}
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!community.DA_Alliance__r!=null && community.DA_Alliance__r.Url__c != ''}">
+                    Associated with: <a href="{!community.DA_Alliance__r.Url__c}" style="color:#285987" target="_blank" >{!community.DA_Alliance__r.Name}</a>
+                </apex:outputPanel>         
+                </div>
+              </li>
+
+
+        </apex:repeat>
+
+        </ul>
+
+    </apex:outputPanel>
+
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script>
+
+        var app = angular.module('dfc', []);
+
+        app.controller('RootController', function ($scope) {
+         
+        $scope.selectedCountry = [];
+        $scope.countryList = [{
+            id: 1,
+            name: 'England'
+        }, {
+            id: 2,
+            name: 'Wales'
+        }];
+    });
+
+ </script>
+
+   
+
+</apex:component>

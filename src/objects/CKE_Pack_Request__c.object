@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>A pack request from the Cupcakes site</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Address_Line1__c</fullName>
+        <externalId>false</externalId>
+        <label>Address Line1</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_Line2__c</fullName>
+        <externalId>false</externalId>
+        <label>Address Line2</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_Line3__c</fullName>
+        <externalId>false</externalId>
+        <label>Address Line3</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BirthDate__c</fullName>
+        <externalId>false</externalId>
+        <label>BirthDate</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <externalId>false</externalId>
+        <label>City/Town</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Company_Name__c</fullName>
+        <description>Name of the company for when Cupcake Day is being hosted at work</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the company for when Cupcake Day is being hosted at work</inlineHelpText>
+        <label>Company Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>County__c</fullName>
+        <externalId>false</externalId>
+        <label>County</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <description>Don&apos;t make this an email field, because the form does interim saves, where the email address may not be valid. Only &apos;Completed&apos; status forms have a valid email address.</description>
+        <externalId>false</externalId>
+        <label>Email</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Location</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Work</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Home</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>School</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>First_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>First Name</label>
+        <length>45</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Name</label>
+        <length>45</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Master_Pack_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>If this field has a value, this record is considered a child to a master. This allows effective de-duping of records. The field will be set by a batch class.</description>
+        <externalId>false</externalId>
+        <label>Master Pack Request</label>
+        <referenceTo>CKE_Pack_Request__c</referenceTo>
+        <relationshipLabel>Duplicate Pack Requests</relationshipLabel>
+        <relationshipName>Child_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Master_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text(Master_Pack_Request__r.Status__c)</formula>
+        <label>Master Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Optin_Cupcakes__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Cupcake Option</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Optin_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Email Optin</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Optin_Phone__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Phone Optin</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Optin_SMS__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>SMS Optin</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Optin_Social_Media__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Social Media Optin</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Optin_TermsConditions__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>TC Optin</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Optout_Post__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Post Optout</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Postcode__c</fullName>
+        <externalId>false</externalId>
+        <label>Postcode</label>
+        <length>11</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Progress_Form_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Progress Form Id</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proximity_to_Dementia__c</fullName>
+        <description>This field will need to map to longer string values on the display page (see the wireframes for the site design).</description>
+        <externalId>false</externalId>
+        <label>Proximity to Dementia</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Person with Dementia</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Current Family or Friend</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Past Family or Friend</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Carer</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Past Carer</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Professional</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Interested Party</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Referer_Header__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Give the webpage information from the webpage a user was on before arriving at the packrequest form</inlineHelpText>
+        <label>Referer Header</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referrer_Domain__c</fullName>
+        <externalId>false</externalId>
+        <formula>MID(Referer_Header__c,  FIND(&apos;//&apos;, Referer_Header__c)+2 , FIND(&apos;/&apos;, Referer_Header__c,9)-FIND(&apos;//&apos;, Referer_Header__c)-2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Referrer Domain</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Required_Fields_Populated__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (  ISBLANK(Title__c), 0, 1) + IF ( ISBLANK( First_Name__c ), 0, 1) + IF ( ISBLANK( Last_Name__c ), 0, 1) + IF ( ISBLANK(Email__c), 0, 1) + IF ( ISBLANK( Address_Line1__c ), 0, 1) + IF ( ISBLANK( City__c ), 0, 1) + IF ( ISBLANK( Postcode__c ), 0, 1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Required Fields Populated</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                </value>
+                <value>
+                    <fullName>Incomplete</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Street__c</fullName>
+        <externalId>false</externalId>
+        <label>Street</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Amount_Donated__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Summary Amount Donated</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Amount_Paid__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Summary Amount Paid</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Completed_Count__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Summary Completed Count</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Duplicate_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>Summary_Completed_Count__c +  Summary_Incompleted_Count__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Summary Duplicate Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Incompleted_Count__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Summary Incompleted Count</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Total_Raised__c</fullName>
+        <externalId>false</externalId>
+        <formula>Summary_Amount_Donated__c  +  Summary_Amount_Paid__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Summary Total Raised</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_Submitted__c</fullName>
+        <externalId>false</externalId>
+        <label>Time Submitted</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <externalId>false</externalId>
+        <label>Title</label>
+        <length>32</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>CKE Pack Request</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Email__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Analysis_Complete_Duplicates_2016</fullName>
+        <columns>NAME</columns>
+        <columns>Email__c</columns>
+        <columns>Summary_Total_Raised__c</columns>
+        <columns>Summary_Duplicate_Count__c</columns>
+        <columns>Summary_Incompleted_Count__c</columns>
+        <columns>Summary_Completed_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Master_Pack_Request__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Summary_Duplicate_Count__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Email__c</field>
+            <operation>notEqual</operation>
+            <value>michelle.simpson@nccgroup.trust</value>
+        </filters>
+        <label>Analysis : Complete Duplicates 2016</label>
+    </listViews>
+    <listViews>
+        <fullName>Analysis_Incomplete_Duplicates_2016</fullName>
+        <columns>NAME</columns>
+        <columns>Email__c</columns>
+        <columns>Summary_Total_Raised__c</columns>
+        <columns>Summary_Duplicate_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Master_Pack_Request__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Summary_Duplicate_Count__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Email__c</field>
+            <operation>notEqual</operation>
+            <value>michelle.simpson@nccgroup.trust</value>
+        </filters>
+        <label>Analysis : Incomplete Duplicates 2016</label>
+    </listViews>
+    <listViews>
+        <fullName>Analysis_Incomplete_with_one_Attempt</fullName>
+        <booleanFilter>1 AND 2 AND (3 OR 4) AND 5</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Email__c</columns>
+        <columns>Summary_Total_Raised__c</columns>
+        <columns>Summary_Amount_Donated__c</columns>
+        <columns>Summary_Completed_Count__c</columns>
+        <columns>Summary_Duplicate_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Master_Pack_Request__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>New,Incomplete</value>
+        </filters>
+        <filters>
+            <field>Summary_Completed_Count__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Summary_Completed_Count__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>greaterThan</operation>
+            <value>5/9/2016 12:00 AM</value>
+        </filters>
+        <label>Analysis : Incomplete One Attempt 2016</label>
+    </listViews>
+    <listViews>
+        <fullName>Anonymised_Completed_2018</fullName>
+        <columns>NAME</columns>
+        <columns>Email__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Phone__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Progress_Form_Id__c</field>
+            <operation>startsWith</operation>
+            <value>EVCD18</value>
+        </filters>
+        <filters>
+            <field>Last_Name__c</field>
+            <operation>equals</operation>
+            <value>Anon</value>
+        </filters>
+        <label>Anonymised Completed 2018</label>
+    </listViews>
+    <listViews>
+        <fullName>CKE_Development_Testing</fullName>
+        <columns>NAME</columns>
+        <columns>Email__c</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>Time_Submitted__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>5/23/2018 12:00 AM</value>
+        </filters>
+        <label>CKE Development Testing</label>
+    </listViews>
+    <listViews>
+        <fullName>Complete_2018</fullName>
+        <columns>CREATED_DATE</columns>
+        <columns>Time_Submitted__c</columns>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Email__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>greaterThan</operation>
+            <value>1/1/2018 12:00 AM</value>
+        </filters>
+        <label>Complete 2018</label>
+    </listViews>
+    <listViews>
+        <fullName>Completed_This_Week</fullName>
+        <columns>NAME</columns>
+        <columns>Address_Line1__c</columns>
+        <columns>Postcode__c</columns>
+        <columns>Email__c</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Status__c</columns>
+        <columns>Time_Submitted__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>THIS_WEEK</value>
+        </filters>
+        <label>Complete This Week</label>
+    </listViews>
+    <listViews>
+        <fullName>Completed_Today</fullName>
+        <columns>NAME</columns>
+        <columns>Time_Submitted__c</columns>
+        <columns>Email__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>First_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>Completed Today</label>
+    </listViews>
+    <listViews>
+        <fullName>Created_Today</fullName>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>Email__c</columns>
+        <columns>Title__c</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>BirthDate__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>Created Today</label>
+    </listViews>
+    <listViews>
+        <fullName>Incomplete_2016</fullName>
+        <columns>CREATED_DATE</columns>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Email__c</columns>
+        <columns>BirthDate__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>New,Incomplete</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>greaterThan</operation>
+            <value>5/9/2016 12:00 AM</value>
+        </filters>
+        <filters>
+            <field>Progress_Form_Id__c</field>
+            <operation>equals</operation>
+            <value>EVCD16_KIT</value>
+        </filters>
+        <label>Incomplete 2016</label>
+    </listViews>
+    <listViews>
+        <fullName>Incomplete_2018</fullName>
+        <columns>NAME</columns>
+        <columns>Progress_Form_Id__c</columns>
+        <columns>Time_Submitted__c</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>greaterThan</operation>
+            <value>1/1/2018 12:00 AM</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>New,Incomplete</value>
+        </filters>
+        <label>Incomplete 2018</label>
+    </listViews>
+    <listViews>
+        <fullName>Incomplete_This_Week</fullName>
+        <columns>NAME</columns>
+        <columns>Required_Fields_Populated__c</columns>
+        <columns>Email__c</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>New,Incomplete</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>THIS_WEEK</value>
+        </filters>
+        <label>Incomplete This Week</label>
+    </listViews>
+    <listViews>
+        <fullName>Interest_Registered_2017</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Email__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Progress_Form_Id__c</field>
+            <operation>equals</operation>
+            <value>EVCD17_ENQ</value>
+        </filters>
+        <label>Interest Registered 2017</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CKE-{0000000}</displayFormat>
+        <label>Reference Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CKE Pack Requests</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Register_Interest</fullName>
+        <active>true</active>
+        <label>Register Interest</label>
+        <picklistValues>
+            <picklist>Proximity_to_Dementia__c</picklist>
+            <values>
+                <fullName>Carer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Current Family or Friend</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Interested Party</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Carer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Family or Friend</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Person with Dementia</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Professional</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <listViewButtons>Mass_Delete</listViewButtons>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>Mass_Delete</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Mass Delete</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/9.0/connection.js&quot;)} 
+
+var records = {!GETRECORDIDS( $ObjectType.CKE_Pack_Request__c )}; 
+
+if (records[0] == null) { 
+alert(&quot;Please select at least one record.&quot;) } 
+else { 
+
+var errors = []; 
+var result = sforce.connection.deleteIds(records); 
+if (result &amp;&amp; result.length){ 
+var numFailed = 0; 
+var numSucceeded = 0; 
+for (var i = 0; i &lt; result.length; i++){ 
+var res = result[i]; 
+if (res &amp;&amp; res.success == &apos;true&apos;){ 
+numSucceeded++; 
+} else { 
+var es = res.getArray(&quot;errors&quot;); 
+if (es.length &gt; 0) { 
+errors.push(es[0].message); 
+} 
+numFailed++; 
+} 
+} 
+if (numFailed &gt; 0){ 
+alert(&quot;Failed: &quot; + numFailed + &quot;\nSucceeded: &quot; + numSucceeded + &quot; \n Due to: &quot; + errors.join(&quot;\n&quot;)); 
+} else { 
+alert(&quot;Number of records deleted: &quot; + numSucceeded); 
+} 
+} 
+window.location.reload(); 
+}</url>
+    </webLinks>
+</CustomObject>

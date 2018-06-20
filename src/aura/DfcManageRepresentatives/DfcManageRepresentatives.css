@@ -1,0 +1,71 @@
+.THIS {
+}
+
+.THIS .user-card {
+    background-color: #eeecec;
+    border: 1px solid #a5a5a5;
+    border-radius: 4px;
+    margin: 10px 0px 20px 0;
+    padding: 15px 10px 10px 30px;
+}
+
+.THIS.PHONE .user-card {
+    padding: 15px 10px 10px 10px;
+    background-color: #eeecec;
+    margin: 10px 0px 0px 0;
+}
+
+.THIS.PHONE .user-card > div {
+    margin-bottom: 8px;
+    margin-left:5px;
+}
+
+.THIS .user-card label {
+    display: inline-block;
+    width: 9em;
+}
+
+.THIS .user-card .form-control {
+    display: inline-block;
+    width: 60%;
+    margin: 0 0 4px 0;
+}
+
+.THIS.PHONE .user-card .form-control {
+    display: inline-block;
+    width: 97%;
+    margin: 0 0 2px 0;
+}
+
+.THIS .user-card input[type="text"] {
+    display: inline-block;
+    margin-top:4px;
+    width: 60%;
+}
+.THIS .add-rep button {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.THIS .add-rep-text {
+    display: inline-block;
+    margin:10px 0;
+}
+
+.THIS .add-rep-text:empty {
+    display: none;
+}
+
+.THIS .user-card button {
+    display:inline-block;
+    margin-right:10px;
+	font-size:11px;
+}
+
+.THIS .cCsqValidationComponent {
+    margin-top: 8px;
+}
+
+.THIS .cCsqAlert {
+    margin-top:12px;
+}

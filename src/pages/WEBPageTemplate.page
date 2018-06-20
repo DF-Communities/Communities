@@ -1,0 +1,29 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html">
+    
+    <!--  <c:WEBMeta title="Dementia Friends" /> -->
+    <c:WEBMetaNoCSS title="Dementia Friends" />
+    <!-- <c:WEBMeta title="Dementia Friend" /> -->
+    <!-- NEW CSS CODE -->
+    <apex:stylesheet value="{!URLFOR($Resource.WEBCSS,'WEBCSS.css')}" />
+    <!-- END OF NEW CSS CODE -->
+    <!-- CHECK THIS ON THE ORIGONAL PAGE FOR NEW CLASSES -->
+    <body class="">
+    
+    <div id="skip">
+        <a href="#page_content">Skip to Main Content</a>
+    </div>        
+
+    <c:WEBHeader activeValue="" />
+    <div id="page_content"></div>
+    
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+    
+    
+
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:WEBFooter />
+
+    </body>
+
+</apex:page>

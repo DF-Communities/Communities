@@ -1,0 +1,13 @@
+<aura:component access="GLOBAL">
+	
+    <aura:attribute name="priority" type="String" default="LOW" access="GLOBAL"/>
+    <aura:attribute name="active" type="Boolean" default="true" access="GLOBAL"/>
+    <aura:attribute name="message" type="String" access="GLOBAL"/>
+    
+    <aura:handler name="init" value="{!this}" action="c.init"/>
+    <aura:handler event="c:CsqShowAlert" action="c.onShowAlert"/>
+    <aura:handler event="c:CsqActionBegin" action="c.onActionBegin"/>
+    
+    <span>{!v.message}</span>
+    
+</aura:component>

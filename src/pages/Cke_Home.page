@@ -1,0 +1,222 @@
+<apex:page showHeader="false" sidebar="false" controller="EdtPageController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false" cache="true" expires="604800">
+   <apex:variable value="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" var="baseUrl"/>
+   <html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+      <head>
+         <title>Cupcake Day: Alzheimer's Society</title>
+         <c:Cke_CommonHead />
+          <c:Cke_WebMainNav pageUrl="home"/>
+         <link rel="canonical" href="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" />
+         <script>
+            var u = '{!$User.LastName}';
+            var isEditEnabled={!edtContext.editEnabled};
+         </script>
+         <style>
+             @media all and (max-width: 1024px) {
+             .white .device-hidden{display:none;}         
+             }
+         </style>
+      </head>
+      <body>
+         <c:Cke_CommonBody pageUrl="home" inclFbookShare="false"/>
+         
+         <div id="maincontent"> </div>
+         <!--header class="header">
+            <div class="container">
+                <div class="row">   
+                    < HEADER BANNER TEXT START >
+                    <div class="col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-6 col-xs-push-6">
+                        <div class="assoc visible-xs-block hidden-sm"><span >16th June - in assoc with Women and Home</span></div>                  
+                        <h1 class="graphic hidden-xs visible-sm-block visible-md-block visible-lg-block"><span>Cupcake day</span></h1>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="count col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-12" style="display:none">
+                         <p id="countdown"><c:Cke_CupcakeBanner group="cke-home" key="countdown-banner-text" context="{!edtContext}"/></p>
+                    </div>
+            
+                </div>        
+            </div>        
+            </header-->
+         <main>
+            <!--div class="intro">
+               <article id="intro" class="white">   
+                   <div class="container">
+                       <div class="row"-->
+            <div>
+               <article class="bring">
+                  <div class="container-bt">
+                     <div class="bright-blue">
+                        <div class="container">
+                           <div id="responsive-spacer"></div>
+                           <div class="row">
+                              <div class="col-xs-12">
+                                 <div class="col-sm-6 col-xs-12">
+                                    <!-- INTRO START -->
+                                    <div class="col-md-12">
+                                       <h2 class="white-text">
+                                          <c:EdtText group="cke-home" key="block-title-1" context="{!edtContext}" text="Host a Cupcake Day to beat dementia" />
+                                       </h2>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12">
+                                       <p class="white-text">
+                                          <c:EdtText group="cke-home" key="block-text-1" context="{!edtContext}" text="Whether you bake or buy - get your workmates, friends or family together and raise money for Alzheimer’s Society."/>
+                                       </p>
+                                    </div>
+                                    <!--div class="col-md-4 col-sm-12"-->
+                                    <div class="col-md-12 col-sm-12">
+                                       <a href="request-a-pack" class="btn btn-secondary btn">
+                                          <c:EdtText group="cke-home" key="button-home-sign-up" context="{!edtContext}" text="Sign up to Cupcake Day" hideEditPrompt="true"/>
+                                       </a>
+                                    </div>
+                                 </div>
+                                 <!--
+                                    -->
+                                 <div class="col-sm-6 col-xs-12">
+                                    <c:EdtImage group="cke-home" key="block-image-1" src="{!URLFOR($Resource.Cke_Assets, 'img/homepage/81_AlzSoc_CCD-2018_Web-image_v5.jpg')}" alt="Cupcake day" html-class="center-block" context="{!edtContext}"/>
+                                 </div>
+                                 <!-- INTRO END -->
+                              </div>
+                              <div id="responsive-spacer"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </article>
+               <!--div class="marker"><p>Scroll to find out more</p></div-->
+            </div>
+            <div>
+               <article class="bring">
+                  <div class="container-knot">
+                     <div class="white">
+                        <div class="container">
+                           <!-- CHALLENGE START -->
+                           <div id="responsive-spacer"></div>
+                           <div class="row">
+                              <div class="col-xs-12">
+                                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                                    <h2>
+                                       <c:EdtText group="cke-home" key="block-title-2" context="{!edtContext}" text="Recipe for Cupcake Day"/>
+                                    </h2>
+                                    <c:EdtText group="cke-home" key="sign-up-1" context="{!edtContext}" text='
+                                       <ol>
+                                       <li><strong><a href="request-a-pack">Sign up</a></strong> to host a Cupcake Day and receive your free fundraising kit in the post</li>
+                                       <li>Set the date:  Cupcake Day is 14 June, but you can host yours any day that suits you</li>
+                                       <li>Decide when and where to host your day: at home, at work, up a mountain… the choice is yours</li>
+                                       <li>Start baking and/or get your friends baking for you (or buy cupcakes from the shop – yes, it’s allowed!)</li>
+                                       <li>Raise as much ‘dough’ as possible to help beat dementia.</li>
+                                       </ol>
+                                       </p>'/>
+                                   </div>
+                                   
+                                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12" >
+                                    <div style="max-width:85%;">
+                                        <c:EdtImage group="cke-home" key="block-image-2" src="{!URLFOR($Resource.Cke_Assets, 'img/homepage/Pack_1260x1000_refelction-2.jpg')}" alt="cupcake kit" html-class="center-block" context="{!edtContext}"/>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <h2>
+                                       <c:EdtText group="cke-home" key="block-sub-title-1" context="{!edtContext}" text="What’s in your fundraising kit"/>
+                                    </h2>
+                                    <c:EdtText group="cke-home" key="block-text-2" context="{!edtContext}" text="
+                                       <ul>
+                                       <li>Posters to help you spread the word</li>
+                                       <li>Fundraising ideas and fun games to play on the day</li>
+                                       <li>A donation box and Gift Aid form (for the all-important ‘dough’)</li>
+                                       <li>Cake toppers and decorations</li>
+                                       <li>A selfie-frame to share your creations on social media</li>
+                                       <li>Lipsmackingly fab recipes to inspire you.</li>
+                                       </ul>
+                                       "/>
+                                    <c:EdtText group="cke-home" key="block-text-2" context="{!edtContext}" text='<p style="padding-left:15px">You can also download extra materials on our <a href="downloads"><strong>downloads page</strong></a>.</p>'/>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                       <a href="request-a-pack" class="btn btn-primary btn">
+                                          <c:EdtText group="cke-home" key="button-get-kit-text" context="{!edtContext}" text="Sign up to Cupcake Day" hideEditPrompt="true"/>
+                                       </a>
+                                    </div>
+                                 </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </article>
+            </div>
+            <div>
+            <article class="bring">
+               <div class="container-sprinkle">
+               <div class="grey">
+               <div class="container">
+                  <div id="responsive-spacer"></div>
+                  <!-- COPY START -->
+                  <div class="row">
+                     <div class="col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                           <h2>
+                              <c:EdtText group="cke-home" key="block-title-3" context="{!edtContext}" text="The difference your Cupcake Day makes"/>
+                           </h2>
+                           <c:EdtText group="cke-home" key="block-text-3" context="{!edtContext}" text="<p>Dementia devastates lives. In the UK, someone develops dementia every three minutes, and there is currently no cure. But together we will beat it, dementia will not win.<br/></p>
+                              <p>Until the day we find a cure, Alzheimer's Society will be here for anyone affected by dementia - wherever they are, whatever they're going through.<br/></p>
+                              <p>By hosting a Cupcake Day you get to enjoy some tasty treats with your workmates, friends and family knowing you are helping us work tirelessly to find new treatments and, ultimately, a cure for dementia.<br/></p>
+                              <p>Dedicated Cupcakers like you have raised £1.4 million since 2016 and this year we can raise even more together!</p>
+                              <p><a href='request-a-pack'><strong>Sign up to host your Cupcake Day today.</strong></a>"/>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 img-responsive">
+                           <c:EdtImage group="cke-home" key="block-image-3" src="{!URLFOR($Resource.Cke_Assets, 'img/homepage/bring.jpg')}" alt="everything on a cupcake" html-class="img-responsive" context="{!edtContext}"/>
+                        </div>
+                        <div class="row">
+                           <!-- RECIPES START -->
+                           <!--div class="col-md-3rds col-sm-3rds col-xs-3rds drop-shadow first-recipe center-block"-->
+                           <div class="col-md-12">
+                              <div class="row flex">
+                                 <div class="col-md-3 thumbnail goal-green drop-shadow">
+                                    <div class="caption">
+                                       <h2 class="white-text">£50</h2>
+                                       <p class="white-text">
+                                          <c:EdtText group="cke-home" key="info-text-1" context="{!edtContext}" text="would pay for five people with dementia to attend a Singing for the Brain session – a fun activity that enhances wellbeing and connection through music."/>
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-1"/>
+                                    <div class="col-md-3 thumbnail goal-blue white-text drop-shadow">
+                                       <div class="caption">
+                                          <h2 class="white-text">£150</h2>
+                                          <p class="white-text">
+                                             <c:EdtText group="cke-home" key="info-text-2" context="{!edtContext}" text="would pay for one of our National Dementia Helpline Advisors to provide 10 hours of crucial support to people affected by dementia."/>
+                                          </p>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-1"/>
+                                       <div class="col-md-3 thumbnail goal-pink white-text drop-shadow">
+                                          <div class="caption">
+                                             <h2 class="white-text">£610</h2>
+                                             <p class="white-text">
+                                                <c:EdtText group="cke-home" key="info-text-3" context="{!edtContext}" text="would pay for a Doctoral Training Centre to run for one day, helping up to eight PhD researchers to carry out ground breaking study in dementia research."/>
+                                             </p>
+                                          </div>
+                                          <!--c:EdtImage group="cke-home" key="recipe-image-3" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/homepage/p3.jpg')}" alt="Sweeties Cupcakes" html-class="img-responsive img-100"/-->
+                                       </div>
+                                       <div class="col-md-1"/>
+                                       </div>
+                                       <!-- RECIPES END -->
+                                    </div>
+                                 </div>
+                              </div>
+                              
+                           </div>
+                           <!-- COPY END -->
+                        </div>
+                     </div>
+                  </div>
+            </article>
+            </div>
+         </main>
+         <aside>
+            
+            <c:Cke_CommonDonateAside />
+         </aside>
+          </body>
+         <c:Cke_CommonFooter />
+         <c:Cke_CommonScripts />
+         <script src="{!$Resource.cke_home_ie9_fix_js}"></script>     
+      
+   </html>
+</apex:page>

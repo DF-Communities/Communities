@@ -1,0 +1,79 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBArticle">
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar activeValue="{!thisPage.Active_Menu__c}"/>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+                
+                <div class="row clearfix">
+                
+                <div class="col-md-9 column col-md-push-3">
+    
+                    <!-- BREADCRUMB -->
+                    <c:DF_WEBR_Breadcrumb thisPage="{!thisPage}"/>
+                    <!-- BREADCRUMB -->
+
+
+                    <h1>{!thisPage.Title__c}</h1>
+
+                    <c:DF_WEBC_SocialLinks />
+                    
+                    <apex:repeat value="{!pageSections}" var="section"> 
+                    <apex:outputPanel rendered="{!section.Display_Order__c != '1' || thisPage.Unique_text__c = 'about'}">
+                    <h2>{!section.Heading__c}</h2>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(section.Intro_Paragraph__c))}">
+                        <p><apex:outputText value="{!section.Intro_Paragraph__c}" escape="false"/>
+                        </p>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(section.Body_Text__c))}">
+                        <p><apex:outputText value="{!section.Body_Text__c}" escape="false"/>
+                        </p>                    
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(section.Link_URL__c))}">
+                        <a class="btn btn-primary" href="{!section.Link_URL__c}">{!section.Link_Title__c}</a>
+                    </apex:outputPanel>
+
+                    </apex:repeat>
+
+                    <c:DF_WEBC_PartnerVideos />
+
+                </div>
+
+                <div class="col-md-3 column col-md-pull-9">
+
+                    <c:DF_WEBC_Nav_FCO activePage="videos-for-organisations"/>
+
+                </div>
+
+
+                </div>
+
+        </div>
+        </div>
+
+    
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+          
+    <script>    
+
+       $(document).ready(function() {  
+       
+           $("#myModal").modal('show');        
+
+       });
+
+    </script>   
+
+
+</apex:page>

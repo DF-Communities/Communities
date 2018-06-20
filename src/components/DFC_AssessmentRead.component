@@ -1,0 +1,38 @@
+<apex:component >
+    <apex:attribute name="questionGroups" description="retrieve snippet by unique name" type="String" required="false" default=""   />
+    <apex:attribute name="submittedDate" description="retrieve snippet by unique group" type="String" required="false" default="" />
+
+  <div>
+        
+      <div class="pull-right">Submitted: <span>{{submittedDate|date:'d MMM yyyy'}} </span>
+     </div>
+     <div class="clearfix"></div>
+     <p ng-show="isSubmit" class="dfc-msg"> <c:DFC_PageSnippets group="dfc_manage" uniqueKey="dfc-assessment-submitted"/></p>
+    
+     <div ng-repeat="group in questionGroups" >
+
+       <div class="question-group">
+          
+          <div class="question-group-title">{{group.Title__c}}</div>
+          <p class="guidance">{{group.Guidance__c}}</p>
+
+          <div class="form-group"> 
+
+           <div ng-repeat="question in group.questions track by $index" >
+
+            <label class="required question-text">{{question.Question_Text__c}}</label>
+            <div class="dfc-answer"> 
+                <div>{{question.Entered_Answer__c}}</div>
+                <div>{{question.Extra_Information__c}}</div>
+            </div>   
+
+          </div>
+
+          </div>
+
+         </div>
+          
+      </div>
+        
+   </div>
+</apex:component>

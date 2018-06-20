@@ -1,0 +1,81 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBFAQs">
+    
+     <c:DF_WEBR_WebMeta />
+     
+     <div class="container">
+     <c:DF_WEBR_WebHeader />
+     <c:DF_WEBR_WebNavbar activeValue="FAQ" />
+  
+        
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+    
+    <div class="row *.css">
+    <div class="col-md-12">
+    
+    <div class="row *.css">
+    <div class="col-md-8 column" id="page_content">    
+
+                    <h1><abbr title="Frequently Asked Questions">FAQs</abbr></h1>
+
+                    <c:DF_WEBC_SocialLinks />
+               
+                        <apex:repeat value="{!faqCategories}" var="category">
+                            <h3 class="faq-cat">
+                                <a href="#{!category.Name}">{!category.Name__c}</a>
+                                </h3>
+                                <hr/>
+                                <ul>
+                                    <apex:repeat value="{!mapFaqs[category.Id]}" var="faq">
+                                        <li><a href="#{!faq.Name}">{!faq.Question__c}</a></li>
+                                    </apex:repeat>
+                                </ul>
+                                <hr/>
+                            
+                        </apex:repeat>
+                        <apex:repeat value="{!faqCategories}" var="category">                                    
+
+                            <h2 id="{!category.Name}">{!category.Name__c}</h2>
+                            <hr/>
+                            <dl>
+                                <apex:repeat value="{!mapFaqs[category.Id]}" var="faq">
+                                    <dt id="{!faq.Name}">
+                                    <span>{!faq.Question__c}</span>
+                                    <a href="#page_content" class="to-top">Back to top</a>
+                                    </dt>
+                                    <dd><p><apex:outputText value="{!faq.Answer__c}" escape="false"/></p></dd>
+                                </apex:repeat>
+                            </dl>
+                            <hr/> 
+
+                        </apex:repeat>                          
+                    
+                
+     </div>           
+
+    <div class="col-md-4">
+
+            <div class="home-about">
+               <h3>Friends Information Sessions</h3>
+                <p>Friends Information Sessions are run by Dementia Friends Champions to help you understand what it's like to live with dementia and the actions you can take. Search for your nearest Information Session.</p>    
+                <a class="btn btn-primary" href="WEBSession">Find a Session</a>
+            </div>
+                
+            <div class="home-about">
+                <h3>Champions inductions</h3>
+                <p>Our inductions prepares Dementia Friends Champions to help people understand what it's like to live with dementia and the actions they can take in their communities. Search for your nearest inductions.</p>    
+                <a class="btn btn-primary" href="WEBTraining">Find Inductions</a>
+            </div>
+
+    </div>   
+    </div>    
+                
+    </div>
+    </div>
+
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:DF_WEBR_WebFooter />
+    
+    </div>
+
+</apex:page>

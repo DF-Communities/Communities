@@ -1,0 +1,120 @@
+<apex:component >
+
+<style>
+label.fLabel { 
+    padding: padding-left: 0px;
+    padding-bottom: 10px;
+    display: inline-block;max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    padding-left: 0px
+}
+
+</style>
+
+ <script type="text/javascript">
+
+
+  </script>
+
+
+ 
+<div id="demoInfo-register-form" style="padding-left:10px;padding-top:0px">
+
+  <input type="hidden" id="userid"/>
+  
+      <div class="form-group">
+              <label for="ethnicGroup" class="col-md-3 control-label required" style="padding-left: 3px;">Further information (optional)</label>
+                           <div class="col-md-8">
+                           <label>Please indicate how you prefer to describe your ethnic group?</label>
+                               <select size="1" id="ethnicGroup" class="form-control single-select">
+                                    <option value="NULL">Select...</option>
+                                    <option value="White - English / Welsh / Scottish / Northern Irish / British">White - English / Welsh / Scottish / Northern Irish / British</option>
+                                    <option value="White - Irish">White - Irish</option>
+                                    <option value="White - Gypsy or Irish Traveller">White - Gypsy or Irish Traveller</option>
+                                    <option value="White - Any other White background (please specify)">White - Any other White background (please specify)</option>
+                                    <option value="Asian/Asian British – Indian">Asian/Asian British – Indian</option>
+                                    <option value="Asian/Asian British - Pakistani">Asian/Asian British - Pakistani</option>
+                                    <option value="Asian/Asian British - Bangladeshi">Asian/Asian British - Bangladeshi</option>
+                                    <option value="Asian/Asian British - Chinese">Asian/Asian British - Chinese</option>
+                                    <option value="Asian/Asian British - Any other Asian background (please specify)">Asian/Asian British - Any other Asian background (please specify)</option>
+                                    <option value="Black/African/Caribbean/Black British – Caribbean">Black/African/Caribbean/Black British – Caribbean</option>
+                                    <option value="Black/African/Caribbean/Black British – African">Black/African/Caribbean/Black British – African</option>
+                                    <option value="Black/African/Caribbean/Black British – Any other Black background (please specify)">Black/African/Caribbean/Black British – Any other Black background (please specify)</option>
+                                    <option value="Mixed/Multiple Ethnic Groups – White & Black Caribbean">Mixed/Multiple Ethnic Groups – White &amp; Black Caribbean</option>
+                                    <option value="Mixed/Multiple Ethnic Groups – White and Black African">Mixed/Multiple Ethnic Groups – White and Black African</option>
+                                    <option value="Mixed/Multiple Ethnic Groups – White and Asian">Mixed/Multiple Ethnic Groups – White and Asian</option>
+                                    <option value="Mixed/Multiple Ethnic Groups – Any other mixed background (please specify)">Mixed/Multiple Ethnic Groups – Any other mixed background (please specify)</option>
+                                    <option value="Other Ethnic Group – Arab">Other Ethnic Group – Arab</option>
+                                    <option value="Other Ethnic Group – Any other Ethnic Group">Other Ethnic Group – Any other Ethnic Group</option>
+                               </select>
+                               <p style="padding-top: 10px;">This will help us to monitor the effectiveness of equality, diversity and inclusion. The information you supply will be used for statistical purposes only.</p>
+                               <span id="ethnicError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+                       
+             <div class="form-group" id="ethnicGroup-other-container">
+                           <label for="ethnicOther" class="col-md-3 control-label required" ></label>
+                           <div class="col-md-8">
+                           <label id="ethnicOtherLabel">Ethnic Group - Other</label>
+                               <input id="ethnicOther" class=" form-control "/>
+                               <span id="ethicOtherError" class="help-block has-error"></span>
+                           </div>
+                       </div>
+                       
+              <div class="form-group" id="proximity-container">
+                 
+                 <label for="proxcheckboxes" class="col-md-3 control-label required"></label>
+                             
+                     <div id="proxcheckboxes" class="checkbox col-md-8"> 
+                                                                        
+                     <label class= "fLabel" >Please let us know your connection to dementia (please tick all that apply)</label>         
+                                                
+                        <label>
+                            <input  type="checkbox" value ="Person with dementia" name="Person with dementia" />I have dementia
+                        </label>
+                        
+                         
+                          <label>
+                            <input  type="checkbox" name="Family or Friend" value ="Family or Friend" />I am a family member or friend of someone with dementia
+                          </label>
+                                           
+                       
+                          <label>
+                            <input type="checkbox" name="Past Family or Friend" value ="Past Family or Friend" />I was a family member or friend of someone who had dementia
+                          </label>
+                     
+                           
+                        
+                         <label>
+                            <input type="checkbox" name="Carer" value ="Carer" />I am a carer of someone with dementia
+                          </label>
+                          
+                           
+                         
+                           <label>
+                            <input  type="checkbox" name="Past Carer" value ="Past Carer" />I used to be a carer of someone with dementia
+                           </label>
+                      
+                           <label>
+                            <input type="checkbox" name="Dementia Professional" value ="Dementia Professional" />I am a dementia professional
+                           </label>
+                        
+                       
+                          <label>
+                            <input  type="checkbox" name="Interested In Dementia" value ="Interested In Dementia" />I am generally interested in dementia
+                          </label>
+                          
+                    
+                         <p class="help-block"> We want to ensure that we send you relevant communications. We won’t use your details unnecessarily and we won't pass them to third parties.</p>
+                           
+                          </div>
+                    
+                  </div> 
+
+                     
+
+                  </div>
+
+                  
+ </apex:component>

@@ -1,0 +1,63 @@
+<apex:component >
+    <apex:attribute name="questionGroups" description="" type="String" required="false" default=""   />
+    <apex:attribute name="dueDate" description="" type="String" required="false" default="" />
+    <apex:attribute name="lastModifiedName" description="" type="String" required="false" default="" />
+    <apex:attribute name="lastModifiedDate" description="" type="String" required="false" default="" />
+    <apex:attribute name="status" description="" type="String" required="false" default="" />
+    <apex:attribute name="viewState" description="" type="String" required="false" default="" />
+
+    <p>Due by <span>{{dueDate|date:'d MMM yyyy'}} </span></p>
+       
+   <p class="clearfix"><c:DFC_PageSnippets group="dfc_manage" uniqueKey="dfc-assessment-intro"/></p>
+
+   <div class="">
+
+
+          
+     <div ng-repeat="group in questionGroups|orderBy:'-Sequence__c'" >
+
+       <div class="question-group">
+          
+          <div ng-hide="group.Title__c == null" class="question-group-title">{{group.Title__c}}</div>
+          <p class="guidance">{{group.Guidance__c}}</p>
+           
+          <div class="form-group">
+            
+          <!-- Iterate through the questions in the group -->
+         <div ng-repeat="question in group.questions">
+
+                  <span ng-show="question.Question_Style__c=='Text'">
+                    <c:DFC_AssessmentQuestionText question="{{question}}"/>
+                  </span>
+
+                  <span ng-show="question.Question_Style__c=='Radio'">
+                    <c:DFC_AssessmentQuestionRadio question="{{question}}" extraRequired="{{group.Capture_Extra__c}}"/>
+
+                  </span>
+
+                  <span ng-show="question.Question_Style__c=='Multi'">
+                    <c:DFC_AssessmentQuestionMulti question="{{question}}"  />
+                  </span>
+              
+                  <p></p>
+
+           </div>
+
+         </div>
+
+       </div>
+          
+      </div>
+
+     <form name="assessform" >
+      <div ng-hide="status=='New'" style="width:100%;text-align:center;margin-bottom:14px">{{status}} Assessment last saved by {{lastModifiedName}} on {{lastModifiedDate|date:'EEEE MMM yyyy HH:mm:ss'}}</div>
+       
+
+       <div style="width:100%;text-align:center;margin-top:16px;margin-bottom:20px">
+           <button class="btn btn-primary submit-button" type="submit"  ng-click="onSubmitAssessment()">Submit Completed Assessment</button>&nbsp;&nbsp;&nbsp;
+           <button class="btn btn-primary" ng-click="onUpdateAssessment()">Save Draft Assessment</button>
+       </div>
+      
+     </form>
+   </div> 
+</apex:component>

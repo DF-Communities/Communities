@@ -1,0 +1,83 @@
+.THIS {
+    margin-top:7px;
+    margin-bottom:7px;
+}
+
+.THIS .cCsqValidationComponent {
+    margin: 0px 8px 10px 0;
+}
+
+.THIS input::-moz-placeholder {
+	font-size:14px;
+    font-weight:normal;
+    
+}
+.THIS input:-ms-input-placeholder {
+	font-size:14px;
+    font-weight:normal;
+    
+}
+.THIS input::-webkit-input-placeholder {  
+	font-size:14px;
+    font-weight:normal;
+}
+
+.THIS label {
+    color: #666;
+    margin-bottom:2px;
+}
+
+.THIS input {
+	padding:6px !important;
+    height:auto !important;
+    margin-bottom: 8px;
+    border: 1px solid #c0c0c0;
+}
+
+.THIS .select-focus-area {
+    width:73%;
+    height:33px !important;
+    margin-top:0px;
+    margin-bottom:8px;
+}
+
+.THIS.PHONE .select-focus-area {
+    width:100%;
+}
+
+.THIS h4 {
+	margin:0
+}
+
+.THIS.PHONE h4  {
+	clear:both;
+}
+
+.THIS h4 input {
+    width: 11em;
+    font-size:17px;
+}
+
+.THIS input[type=checkbox] {
+	display:inline-block;
+    margin-right:6px;
+}
+
+.THIS p {
+	margin:0
+}
+
+.THIS textarea {
+    height: 9em;
+    margin-bottom: 6px;
+    max-width:100%;
+}
+
+.THIS .csq-date  {
+    width: 14em;
+    display:inline;
+}
+
+.THIS .date-separator {
+    padding: 0px 10px 0px 10px;
+}

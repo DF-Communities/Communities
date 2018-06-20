@@ -1,0 +1,85 @@
+<aura:component access="GLOBAL" extends="c:CsqFluxComponent">
+	
+    <aura:attribute name="communityData" type="Object" access="GLOBAL"/>
+
+    
+
+    <aura:attribute name="alert" type="String" access="GLOBAL"/>
+
+    <!-- These two reference singletons - like Injection -->
+    <c:CsqLodashService aura:id="lodashService" />
+    <c:CsqMomentService aura:id="momentService"/>
+
+    <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+
+    <div class="{!$Browser.formFactor}">
+
+    <div class="row">
+     <div class="col-md-12" >
+        
+        <h1 style='min-height:26px'>Your application for Dementia Friendly Community Recognition</h1>
+
+         <c:DfcBlockNavigator >
+             <aura:set attribute="viewStore"><c:DfcViewViewStore /></aura:set>
+         </c:DfcBlockNavigator>
+
+      </div>
+    </div>
+               
+        
+    <div class="row">
+     
+           <div class="col-md-2" ></div>
+               
+           <div class="col-md-8">  
+<!--
+           <p style="font-size: 16px">This application is currently with the Dementia Friendly Communities team for review</p> -->
+        
+           <div class="dfc-alert"><c:CsqAlert priority="LOW"/></div>
+
+         <c:CsqViewSet >
+        
+        	   <aura:set attribute="store"><c:DfcViewViewStore /></aura:set>
+                       
+               <div> <!-- STEP 1 - Dementia Location -->
+                   <c:DfcViewAlliance />
+                    <c:DfcNavButtons backButton="false"/> 
+               </div>
+                              
+               <div><!-- STEP 2 - Community Details -->  
+                     <c:DfcViewCommunityDetails />
+                    <c:DfcNavButtons /> 
+               </div>                   
+               
+               <div><!-- STEP 3 - Community Representatives -->  
+                      <c:DfcManageRepresentatives readOnly="true"/>  
+                    <c:DfcNavButtons /> 
+               </div>              
+                   
+               <div><!-- STEP 4 - Areas For Action -->   
+                       <c:DfcViewAreasForAction />  
+                    <c:DfcNavButtons /> 
+               </div>
+                
+               <div><!-- STEP 5 - Community Status --> 
+                        <c:DfcViewCommunityStatus />  
+                    <c:DfcNavButtons /> 
+               </div>
+             
+              <div><!-- HELP - Resources --> 
+                   <c:DfcResourceList />
+                   <c:DfcNavButtons nextButton="false"/> 
+              </div>
+            
+        </c:CsqViewSet>
+
+     
+         </div><!-- end md-8 -->
+
+        <div class="col-md-2" ></div>
+          
+        </div><!-- end row -->       
+    
+    </div>
+          
+</aura:component>

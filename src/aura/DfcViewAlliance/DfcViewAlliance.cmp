@@ -1,0 +1,62 @@
+<aura:component extends="c:CsqViewComponent">
+    
+   <aura:attribute name="communityData" type="Object" access="GLOBAL"/>
+    <aura:attribute name="alliance" type="Object" access="GLOBAL"/>
+
+     <aura:attribute name="region" type="Object" access="GLOBAL"/>
+    <aura:attribute name="regionImage" type="String" access="GLOBAL"/>
+    
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    
+    <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+    
+           <h3>Community Location</h3> 
+
+           <div class="dfc-selected-country"><!-- Table -->
+                <div><!-- Row -->
+                    
+                    <div>{!v.communityData.Country__c}</div> 
+                </div>
+           </div> 
+
+          <!-- Display the selected Central Location option if No -->
+          <div class="{!v.communityData.Central_Location__c=='No'?'dfc-selected-daa':'hide'}">  <!-- Table -->
+                  <div>  <!-- Row -->
+                      <div>My Community does not have a fixed location</div>
+                   
+                  </div>
+
+                  <div>
+                     <div style="margin-top:20px">{!v.communityData.Why_No_Central_Location__c}</div>
+                   </div>
+          </div> 
+      
+    
+    <span class="{!v.communityData.Central_Location__c=='Yes'?'':'hide'}">      
+    
+             
+      <!-- Selected Region -->
+                 <div class="dfc-country"><!-- Table -->
+                      <div><!-- Row -->
+                          <div class="{!v.communityData.Country__c=='Wales'?'hide':'cell1'}" style="padding-top:8px;padding-bottom:9px;">
+                              <img class="region" src="{!'resource/dfc_images/'+v.regionImage}"/>
+                          </div>
+
+                          <div class="cell2">{!v.region.Name} </div> 
+                      </div>
+                 </div> 
+              
+
+           
+                 <div class="{!v.alliance.Name?'dfc-selected-daa':'hide'}"> 
+                    <div>
+                        <div>{!v.alliance.Name}</div>
+                    </div>
+                 </div>
+
+           
+
+   </span>    
+	      
+	
+</aura:component>

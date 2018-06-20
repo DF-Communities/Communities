@@ -1,0 +1,23 @@
+<apex:component >
+    <apex:attribute name="displaytext" description="Display Text" required="false" default="" type="string"/>
+   
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style ">
+            <meta property="og:title"   content="{!displaytext}" />
+            <meta property="og:description"   content="{!displaytext}" />
+            <a class="addthis_button_facebook_like at300b"></a>
+            <a class="addthis_button_tweet at300b" ></a>
+
+            <a href="//gb.pinterest.com/pin/create/button/?url=http%3A%2F%2Fdfdevpro-dementiafriends.cs18.force.com%2F&media=http%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="beside">
+            <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>
+            <!-- Please call pinit.js only once per page -->
+
+
+             <a class="addthis_counter addthis_pill_style" title="test"></a> 
+        </div>
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+        <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-528b7c927d6d5192"></script>
+        <!-- AddThis Button END -->
+  
+
+</apex:component>

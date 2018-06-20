@@ -1,0 +1,54 @@
+<apex:component controller="WEBRecentActions">
+
+    <div class="col-md-4 column">
+        <h3>Latest actions</h3>
+        <div id="action-slider">
+            <apex:repeat value="{!actions}" var="action">                                   
+
+                <div class="well col-md-12">
+                    <p style="width:92%">
+                        <apex:outputText value="{!action.Action__c}" escape="true" /><strong> by {!action.DF_Contact__r.Name}</strong>
+                    </p>
+                </div>
+
+            </apex:repeat>    
+        </div>
+
+    <div class="row clearfix">
+    <div class="col-md-12">
+    <br/><br/>   
+    <hr/>
+    </div>
+    </div>
+
+
+    </div>
+
+    <script src="{!URLFOR($Resource.js, 'js/jquery.bxslider.min.js')}"></script>     
+    <script>
+
+        $(document).ready(function(){
+          
+            $('#action-slider').bxSlider({
+                mode: 'vertical',
+                pager: false,
+                hideControlOnEnd: true,
+                minSlides: 3,
+                maxSlides: 4,
+                slideWidth: 350,
+                slideMargin: 10,
+                nextText: '<span style="float:right;margin: 10px 10px 0 0;"><i class="glyphicon glyphicon-chevron-down"/><span style="display:none">Previous Actions</span></span>',
+                prevText: '<span style="float:right;margin: 10px 0 0 0"><i class="glyphicon glyphicon-chevron-up"/><span style="display:none">Next Actions</span></span>',
+                auto: true,
+                infiniteLoop: true,
+                autoHover: true,
+                autoDelay: 8000,
+                pause: 6000
+            });
+
+        });
+
+    </script>
+
+                        <!-- WEBRECENTACTIONS COMPONENT END -->
+</apex:component>

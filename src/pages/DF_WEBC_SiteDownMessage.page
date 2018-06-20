@@ -1,0 +1,54 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBC_ControllerBase">
+    
+    
+    <c:DF_WEBC_WebMeta title="Site has moved" />
+    <c:DF_WEBC_css />
+    <c:WEBC_Utils_js />
+    
+    <body class="">
+    
+    <div id="skip">
+        <a href="#page_content">Skip to Main Content</a>
+    </div>        
+
+    <c:WEBHeader activeValue="" />
+    <div id="page_content"></div>
+    
+    <section class="page-content">
+        <div class="wrapper">
+
+            <section class="main-content">
+                    
+             
+                <h1>Dementia Friends has moved!</h1>
+                    <p>Dementia Friends has moved. We've been busy working on the new site. Try using the link below to access the page you are looking for.</p>                    
+            
+
+                    <p>
+
+                        <a href="{!$Label.DF_Email_Stub_Url}{!$CurrentPage.parameters.qs}">
+                        {!$Label.DF_Email_Stub_Url}{!$CurrentPage.parameters.qs}
+                        </a>
+
+                    </p>
+
+
+
+            </section>
+
+        </div>
+    </section>
+
+    <c:DF_WEBC_WebFooter />
+    
+    <script>
+    
+       $(document).ready(function() {  
+
+       });
+    
+    </script>
+
+    </body>
+
+</apex:page>

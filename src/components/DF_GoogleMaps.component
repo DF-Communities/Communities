@@ -1,0 +1,209 @@
+<apex:component controller="DF_GoogleMapsController">
+    
+    <apex:attribute name="showMapWhereComponentIsAddedOnPage" type="Boolean" 
+                    description="Setting to false means that you will need to place the div id='map' somewhere on the parent VF page 
+                                 where you wish to show the map. Useful if you wish to load the scripts in the head/footer of a page" required="false"/>     
+    
+        <apex:attribute name="isEmbeddedLightningApp" type="Boolean" description="Determines how the map interacts with its parent containers" required="true"/>    
+
+    
+    <apex:attribute name="addressName" type="String" description="Location name - not used for lightning implementations" />
+    <apex:attribute name="addressStreet" type="String" description="Location street  - not used for lightning implementations" />
+    <apex:attribute name="addressCity" type="String" description="Location city  - not used for lightning implementations" />
+    <apex:attribute name="addressPostcode" type="String" description="Location postcode  - not used for lightning implementations" />
+    
+    <apex:outputPanel rendered="{!!isEmbeddedLightningApp}">
+        <head>
+            
+            <script type="text/javascript"> 
+            
+            function loadMap() {
+                
+                var map;
+                var marker;
+                var mapOptions = {
+                    zoom: 15,
+                };
+                
+                var geocoder = new google.maps.Geocoder();
+                var address = "{!addressStreet}, " + "{!addressCity}, " + "{!addressPostcode}";
+                
+                var infowindow = new google.maps.InfoWindow({
+                    content: "<b>{!addressName}</b>"
+                });
+                
+                geocoder.geocode( { address: address}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK && results.length) {
+                        
+                        if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                            
+                            //create map
+                            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                            
+                            //center map
+                            map.setCenter(results[0].geometry.location);
+                            
+                            //create marker
+                            marker = new google.maps.Marker({
+                                position: results[0].geometry.location,
+                                map: map,
+                                title: "{!addressName}"
+                            });
+                            
+                            //add listeners
+                            google.maps.event.addListener(marker, 'click', function() {
+                                infowindow.open(map,marker);
+                            });
+                            google.maps.event.addListener(infowindow, 'closeclick', function() {
+                                map.setCenter(marker.getPosition()); 
+                            });
+                        }
+                        
+                    } else {
+                        $('#map').css({'height' : '15px'});
+                        $('#map').html("Oops! {!addressName}'s address could not be found, please make sure the address is correct.");
+                        resizeIframe();
+                    }
+                });
+                
+                //map = new google.maps.Map(document.getElementById('map'),mapOptions);
+                
+                $('form[data-once="true"]').submit( function(event) {             
+                    
+                    $(this).submit( function() {
+                        return false;
+                    });
+                    
+                });
+                
+            }
+            
+            </script>
+            
+            <!-- Atomic Component: Only load jQuery if it has not been loaded already in any parent containers -->
+            <script>
+            if(typeof jQuery=='undefined') {
+                var headTag = document.getElementsByTagName("head")[0];
+                var jqTag = document.createElement('script');
+                jqTag.type = 'text/javascript';
+                jqTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+                jqTag.onload = loadMap; // This listener is required to ensure the async jQuery library is loaded before running methods to create the map
+                headTag.appendChild(jqTag);
+            } else {
+                $(document).ready(loadMap);    
+            }
+            </script>
+            
+        </head>
+    </apex:outputPanel>
+    <body>
+        
+        
+        <style>
+            #map {
+            font-family: Arial;
+            font-size:12px;
+            line-height:normal !important;
+            background:transparent;
+            height : 450px;
+            width : 100%;
+            }
+        </style>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?key={!mapsApiKey}"/>
+            
+         <apex:outputPanel rendered="{!isEmbeddedLightningApp}">
+         	<script>
+                var lexOrigin = 'https://{!$CurrentPage.parameters.lcHost}';
+        		console.log('Page loaded with lcHost: ' + lexOrigin);
+                
+                //Data for Google map
+                var data;
+                
+                //Send message to LightningComponent
+                function sendToLC(message) {
+                    console.log('Attempting to send out loaded message to LC with message vfHost: ' + message["vfHost"]);
+                    if(typeof(lexOrigin) != 'undefined'){
+                        console.log('Posting message back of: ' + JSON.stringify(message));
+                        parent.postMessage(message, lexOrigin);
+                    }
+                }
+        
+                //Receive message from LC
+                window.addEventListener("message", function(event) {
+                    //If page is public (like used in force.com sites) then be careful about the origin
+                    console.log('VF has received payload from LTNG');
+                    if (event.origin !== lexOrigin) {
+                        // Not the expected origin: reject message!
+                        console.log('Would reject this message');
+                        //return;
+                    }
+                    // Handle message
+                    console.log('Data received by VF from LC: ', event.data);
+                    data = event.data;
+                    
+                    
+                    if(typeof(event.data.loadGoogleMap) != 'undefined'){
+                        //Load Google Map Script
+                        console.log('Loading the map as LTNG doesnt seem sto think we have one loaded yet');
+                        /*var script = document.createElement("script");
+                        script.src = "https://maps.googleapis.com/maps/api/js?key={!mapsApiKey}&callback=initMap";
+                        document.getElementsByTagName("head")[0].appendChild(script);*/
+                        initMap();
+                    }
+                }, false);
+            
+                //Callback when Google Map is loaded
+                function initMap() {
+                    console.log('In initMap');
+                    //Add marker for each point along with text
+                    function addMarker(feature) {
+                        console.log("feature isL " + JSON.stringify(feature));
+                        var marker = new google.maps.Marker({
+                            position: feature.position,
+                            //icon: icons[feature.type].icon,
+                            map: map
+                        });
+                        var infoWindow = new google.maps.InfoWindow({
+                            content: feature.markerText
+                        });
+                        
+                        marker.addListener('click', function() {
+                            infoWindow.open(map, marker);
+                        });
+                    }
+                    
+                    //Create new map
+                    console.log(data.mapOptions);
+                    //Create new map
+                var map = new google.maps.Map(document.getElementById("map"), data.mapOptions);
+                
+                //Set map center
+                map.setCenter(JSON.parse(data.mapOptionsCenter));
+                    
+                    //iterate through map data for each point (even if 1)
+                var mapData = JSON.parse(data.mapData);
+
+                for(var i=0, j=mapData.length; i<j; i++){
+                    //Add marker for each point
+                    console.log("mapData[i]: " + JSON.stringify(mapData[i]));
+                    var myLatlng = new google.maps.LatLng(mapData[i].lat, mapData[i].lng);
+                    addMarker({position: myLatlng, markerText: mapData[i].markerText  });
+                }
+                    console.log('Done');
+                }
+            
+                //Let LC know that VF page been loaded along with it's URL
+                //LC will then send the data
+                //This is done because LC has no way to know that VF page in iFrame has been loaded, event listener set and ready for data
+                var vfHost = "{!LEFT($CurrentPage.URL,FIND('/',$CurrentPage.URL,9))}";
+                sendToLC({'state':'LOADED', 'vfHost': vfHost});
+        </script>  
+        
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!showMapWhereComponentIsAddedOnPage}">
+        <div id="map"></div>
+    </apex:outputPanel>
+</body>
+</apex:component>

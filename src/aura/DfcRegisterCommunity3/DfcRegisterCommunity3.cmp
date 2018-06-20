@@ -1,0 +1,61 @@
+<aura:component >
+	
+    <aura:attribute name="context" type="Object" required="true"/>
+    <aura:attribute name="step" type="Object" required="true"/>
+
+    <aura:attribute name="representatives" type="Object[]" access="GLOBAL" />
+
+    <aura:attribute name="newRep" type="Object" access="GLOBAL" />
+    <aura:attribute name="newRepDisabled" type="Boolean" access="GLOBAL" default="true"/>
+    <aura:attribute name="newRepText" type="String" access="GLOBAL" />
+    <aura:attribute name="newRepMessage" type="String" access="GLOBAL" />
+    <aura:attribute name="newRepShowErrors" type="Boolean" access="GLOBAL" default="false"/>
+    <aura:attribute name="newRepInviting" type="Boolean" access="GLOBAL" default="false"/>
+
+    <c:CsqLodashService aura:id="lodashService" />
+    <c:DfcCommunityService aura:id="communityService" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+    <aura:handler name="change" value="{!v.context.community.Representatives__r}" action="{!c.onRepresentativesChange}" /> 
+    <aura:handler name="change" value="{!v.newRep.Email}" action="{!c.onNewRepEmailChange}" /> 
+    
+    <div class="{!$Browser.formFactor}">
+
+        <h3>Community Representatives</h3>
+        
+            <p>
+     		   <c:DfcSnippet group="dfc_apply" key="dfc-apply-representatives-intro"/>
+           </p>
+
+            <aura:iteration var="rep" items="{!v.representatives}" indexVar="index">
+                <div class="user-card">
+                   <button class="{!rep.DF_Contact__r.Id==v.context.currentContact.Id?'hide':'btn btn-primary'}" style="float:right" data-id="{!rep.Id}" onclick="{!c.onDeleteRepresentative}">Remove</button>
+                   <div><label>Name</label><span>{!rep.Name}</span></div>
+                   <div><label>Email Address</label><span>{!rep.Email}</span></div>
+                   <div><label>Status</label><span>{!rep.Role__c}</span></div>
+              </div>
+            </aura:iteration>
+        
+            <div class="user-card clearfix" role="form">
+               <div class='add-rep'>
+                   <label>Email Address</label>
+                   <ui:inputText value="{!v.newRep.Email}" updateOn="keyup" class="form-control" disabled="{!v.newRepInviting}" placeholder="Add another representative by email address" maxlength="100"/>
+                   <button class="{!v.newRepInviting?'hide':'btn btn-primary'}" disabled="{!v.newRepDisabled}" onclick="{!c.onAddRepresentative}">Add</button>
+               </div>
+               <div class="{!v.newRepInviting?'':'hide'}">
+                   <label>Name</label>
+                   <ui:inputText value="{!v.newRep.Name}" updateOn="keyup" class="form-control" placeholder="Enter the name of the person being invited " maxlength="100"/>
+                   <c:CsqValidateRequired value="{!v.newRep.Name}" disregard="{!not(v.newRepInviting)}" hide="{!not(v.newRepShowErrors)}" message="Please enter the name of the invited representative"/>
+                </div>
+                <div class="add-rep-text">
+                    {!v.newRepText}
+                </div>
+                <div class="btn-group pull-right" role="group"  aria-label="Invite Options">
+                    <button class="{!v.newRepInviting?'btn btn-primary':'hide'}" onclick="{!c.onInviteRepresentative}">Invite</button>&nbsp;
+                    <button class="{!v.newRepInviting?'btn btn-primary':'hide'}" onclick="{!c.onCancel}">Cancel</button>
+                </div>    
+            </div>
+
+ 	</div>
+    
+</aura:component>

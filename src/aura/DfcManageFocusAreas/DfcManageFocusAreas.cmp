@@ -1,0 +1,105 @@
+<aura:component extends="c:CsqViewComponent">
+    
+    <!-- These attributes are also on the Community Store   -->
+    <aura:attribute name="communityData" type="Object" access="GLOBAL"/>
+    <aura:attribute name="actionAreas" type="Object[]" access="GLOBAL"/>
+    <aura:attribute name="noSelectedAreas" type="boolean" default="false" access="GLOBAL"/>
+   
+    <aura:attribute name="editMode" type="boolean" default="false" access="GLOBAL"/>
+
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+
+    <c:CsqLodashService aura:id="lodashService"/>
+    
+    <c:DfcCommunityStore change="c.onCommunityStoreChange" actionComplete="c.communityStoreActionComplete" aura:id="communityStore"/>
+          
+    <!-- Hide 'Edit" button when we are in edit mode  -->
+    <button class="{!v.editMode ? 'hide' : 'btn btn-primary pull-right'}" onclick="{!c.onEditClicked}">Change</button> 
+
+    <!-- Hide 'Cancel' button when we are not in edit mode -->
+    <c:CsqActionButton class="{!!v.editMode ? 'hide' : 'btn btn-action pull-right'}" onclick="{!c.onSaveClicked}">Save</c:CsqActionButton>
+    <c:CsqActionButton class="{!!v.editMode ? 'hide' : 'btn btn-action pull-right'}" onclick="{!c.onCancelClicked}">Cancel</c:CsqActionButton>
+
+    <h3>Focus Areas</h3>
+    
+     <aura:if isTrue="{! and(v.noSelectedAreas, !v.editMode)}">    
+    	<p style="padding:10px">
+            <strong>You currently have no selected Focus Areas for your Community Activities. Click 'Change' to select your Focus Areas</strong></p>  
+     </aura:if>   
+
+       <aura:if isTrue="{!!v.noSelectedAreas}"> 
+      <p>  <c:DfcSnippet group="dfc_apply" key="dfc-manage-focus-areas"/> </p>
+      </aura:if>      
+
+      <!-- Read mode -->
+      <aura:if isTrue="{!not(v.editMode)}">
+      
+      <div class="clearfix">
+     
+             <aura:iteration var="area" items="{!v.actionAreas}">
+
+              <aura:if isTrue="{!area.Selected__c}"> 
+
+                  <div class="action-area-option">
+
+                   <div>
+                          <div>
+                              <!-- Bug relating to keeping this in sync on adding / removing activities
+                              <div style="float:right">{!area.activityCount==0?'':
+                              (area.activityCount==1?'1 Activity':area.activityCount+' Activities')}</div>
+                              -->
+                              <label style="margin:0 0 8px 6px;">
+                                <span>{!area.Action_Area__r.Name}</span>
+                              </label>
+                          </div>
+                          <div>
+                           <ui:outputTextArea value="{!area.Description__c}"  class="form-control" />
+                          </div>
+                      </div>
+                  </div>
+
+              </aura:if>
+              
+          </aura:iteration>
+            
+       </div>
+        
+    </aura:if>
+
+       <!-- Edit Mode -->
+      
+    <aura:if isTrue="{!v.editMode}">
+       <c:CsqValidationTracker aura:id="validationTracker">
+           
+          <div class="clearfix">
+                <aura:iteration var="area" items="{!v.actionAreas}">
+                    
+                    <div class="action-area-option">
+                        <div>
+                        <div style="float:right">
+                            <aura:if isTrue="{!area.Selected__c}">
+                                <c:DfcWordCount value="{!area.Description__c}"/>
+                            </aura:if>
+                            <c:DfcValidateWordCount value="{!area.Description__c}" max="500" disregard="{!area.Selected__c==false}"/>
+                            <c:CsqValidateRequired value="{!area.Description__c}" disregard="{!area.Selected__c==false}" message="Please enter your plan of action"/>
+                        </div>    
+                        <label style="margin-right:12px;">
+                            <aura:if isTrue="{!area.activityCount==0}"><ui:inputCheckbox value="{!area.Selected__c}"/></aura:if>
+                            <span>&nbsp;{!area.Action_Area__r.Name}</span>
+                        </label>
+                       </div>
+                       <div>
+                        <ui:inputTextArea value="{!area.Description__c}" updateOn="keyup" placeholder="Enter a description of your plan of action"/>
+                       </div>
+
+                    </div>
+                    
+               </aura:iteration>
+
+        </div>
+           
+    </c:CsqValidationTracker>
+        
+        </aura:if>
+	
+</aura:component>

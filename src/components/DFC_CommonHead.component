@@ -1,0 +1,30 @@
+<apex:component >
+<c:DF_WEBR_WebMeta />
+<script type="text/javascript" id="www-widgetapi-script" src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vflt7SI_I/www-widgetapi.js" async=""></script>
+
+<script src="{!$Resource.DF_WEBR_Assets}/js/respond.min.js" type="text/javascript"></script>
+<script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="{!$Resource.DF_WEBR_Assets}/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="{!$Resource.DF_WEBR_Assets}/js/scripts.js" type="text/javascript"></script>
+<script src="{!$Resource.df_webc_app_r_js}" type="text/javascript"></script>
+<script src="//code.jquery.com/ui/1.10.2/jquery-ui.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="/static/111213/js/picklist4.js" type="text/javascript"></script>
+
+<link href="{!$Resource.DF_WEBR_Assets}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="{!$Resource.DF_WEBR_Assets}/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+<link href="{!$Resource.DF_CSS_Stylesheet}" rel="stylesheet" type="text/css"/>
+<link href="{!$Resource.DFC_App_Styling}" rel="stylesheet" type="text/css"/>
+
+<link href="{!$Resource.DF_WEBR_Assets}/img/favicon.png" rel="icon"/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"  type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular-sanitize.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+
+</apex:component>

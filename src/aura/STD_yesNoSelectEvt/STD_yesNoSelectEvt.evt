@@ -1,0 +1,6 @@
+<aura:event type="COMPONENT" description="Event template">
+    <aura:attribute name="showDependentFieldWhenSelected_Option" type="Boolean"/>
+    <aura:attribute name="returnAsBoolean" type="Boolean"/>
+    <aura:attribute name="selectedOption" type="String"/>
+    <aura:attribute name="yesNoComponentName" type="String"/>
+</aura:event>

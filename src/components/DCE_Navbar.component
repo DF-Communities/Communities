@@ -1,0 +1,29 @@
+<apex:component controller="DCE_Navbar_Controller">
+	<c:navbar brand="Dementia Connect Extranet" logo="{!$Resource.DCE_AZLogo_Small}" type="fixed-top" homepagelink="{!URLFOR($Page.DCE_Dashboard)}">  
+		<ul class="nav nav-pills">
+	  		<li role="presentation" class="{!IF($CurrentPage.Name=='/DCE/home','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_Dashboard)}">Home</apex:outputlink></li>
+	  		<li role="presentation" class="{!IF($CurrentPage.Name=='/DCE/our-details','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_OrgDetails)}">Our Details</apex:outputlink></li>
+	  		<li role="presentation" class="{!IF($CurrentPage.Name=='/DCE/my-details','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_UserDetails)}">My Details</apex:outputlink></li>
+	  		<li role="presentation" class="{!IF($CurrentPage.Name=='/DCE/privacy','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_privacyNotice)}">Privacy</apex:outputlink></li>
+            <li role="presentation"><a href="{!$Site.Prefix}/secur/logout.jsp">Logout</a></li>
+	  		<apex:outputpanel layout="none" rendered="{!NOT(ISBLANK(HelpFile))}">
+	  			<li role="presentation"><a href="{!$Site.Prefix}/sfc/servlet.shepherd/version/download/{!HelpFile}">Help</a></li>
+	  		</apex:outputpanel>
+		</ul>
+	</c:navbar>
+	<!--<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<img alt="Brand" src="{!$Resource.DCE_AZLogo_Small}" />
+				</a>
+			</div>
+		</div>
+		<ul class="nav navbar-nav nav-pills">
+	  		<li role="presentation" class="{!IF($CurrentPage.Name=='DCE_Dashboard','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_Dashboard)}">Home</apex:outputlink></li>
+	  		<li role="presentation" class="{!IF($CurrentPage.Name=='DCE_OrgDetails','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_OrgDetails)}">Our Details</apex:outputlink></li>
+	  		<li role="presentation" class="{!IF($CurrentPage.Name=='DCE_UserDetails','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_UserDetails)}">My Details</apex:outputlink></li>
+	  		<li role="presentation"><a href="{!$Site.Prefix}/secur/logout.jsp">Logout</a></li>
+		</ul>
+	</nav>-->
+</apex:component>

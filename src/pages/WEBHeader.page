@@ -1,0 +1,151 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html">
+    
+    <c:WEBMetaNoCSS />
+    <!-- <c:WEBMeta title="Dementia Friend" /> -->
+    <!-- NEW CSS CODE -->
+    <apex:stylesheet value="{!URLFOR($Resource.WEBCSS,'WEBCSS.css')}" />
+    <!-- END OF NEW CSS CODE -->
+    
+    <body class="">
+    <div id="skip">
+        <a href="#page_content">Skip to Main Content</a>
+    </div>        
+
+    <c:WEBHeader />
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+    
+    <div id="page_content"></div>
+    <section id="homepage">
+        <section class="news-flash-bar">
+            <div class="snippet snippet-rich_text rte">
+                <h3><a href="contact.html"><strong>Find out</strong></a> more about how your business or organisation can get involved in Dementia Friends and help change the way people think, talk and act about dementia.</h3>   
+            </div>    
+        </section>
+        <section class="page-content promo">
+            <div class="wrapper">
+                <div id="vidplay"><!--  --></div>
+                <div class="image-link" id="imageID">
+                    <img src="{!URLFOR($Resource.img, 'img/c/homepage-promo.gif')}" width="998" height="317" alt="Dementia Friends Video" />
+                    <button class="video-link" value="Play Video">Play Video</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-content ">
+            <div class="wrapper">
+                <div class="content">
+                    <section class="friends-promos">
+                        <h1>Make life better for people with dementia</h1>
+
+                        <section class="become-a-friend">
+                            <header class="header">
+                                <h2>Become a Friend</h2>
+                            </header>
+                            <div>
+                                <div class="snippet snippet-rich_text rte">
+        <ul><li>Live in England or Wales</li><li>Be of any age</li><li>Attend a Dementia Friends' information session close to where you live, lasting about one hour</li><li>Do something practical to help people living with dementia in your community</li><li>Post your Dementia Friends action on the Dementia Friends website</li></ul>    </div>                            <a class="btn btn-secondary" href="register/friend.html">Register as a Friend</a>
+                                <a class="arrow" href="article/about-friends/what-is-a-friend.html">What is a Friend?</a>
+                            </div>
+                        </section>
+
+                        <section class="dementia-champions">
+                            <header class="header">
+                                <h2>Become a Champion</h2>
+                            </header>
+                            <div>
+                                <div class="snippet snippet-rich_text rte">
+        <ul><li>Genuinely have the time to run Dementia Friends information sessions and reach around 100 people</li><li>Be over 18 years old</li><li>Be a good communicator and speak objectively about dementia</li><li>Enjoy talking to groups of people</li><li>Have access to the internet and be willing to record the number of Friends you reach by the website</li><li>Keen to set up information sessions in workplaces and your local community</li><li>Enthusiastic about Dementia Friends</li><li>Voluntarily attend a whole day induction </li></ul>    </div>                            <a class="btn btn-secondary" href="register/champion.html">Register as a Champion</a>
+                                <a class="arrow" href="article/about-champions/what-is-a-champion.html">What is a Champion?</a>
+                            </div>
+                        </section>
+
+                    </section>
+
+                    <section class="secondary-promos">
+                        <section class="about-dementia-friends">
+                            <header class="header">
+                                <h2>About Dementia Friends</h2>
+                            </header>
+                            <div class="snippet snippet-rich_text rte">
+        <p>People with dementia sometimes need a helping hand to go about their daily lives and feel included in their local community. Dementia Friends is giving people an understanding of dementia and the small things they can do that can make a difference to people living with dementia - from helping someone find the right bus to spreading the word about dementia.</p><p>We want to create a network of a million Dementia Friends across England by 2015.</p><p>You can get involved in two ways: become a <a title="Become a Dementia Friends Champion" href="article/about-champions/what-is-a-champion.html">Dementia Friends Champion</a> or become a <a title="Become a Dementia Friend" href="article/about-friends/what-is-a-friend.html">Dementia Friend</a>.</p>    </div>
+                            <a class="btn btn-primary" href="about.html">About the initiative</a>
+
+                            <a href="article/partners-page.html" class="arrow">Find out about our partners</a>
+                        </section>
+
+                        <section class="dfc-training">
+                            <header class="header">
+                                <h2>Champions inductions</h2>
+                            </header>
+                            <div class="snippet snippet-rich_text rte">
+                            <p>Our inductions prepares Dementia Friends Champions to help people understand what it's like to live with dementia and the actions they can take in their communities. Search for your nearest inductions.</p>    </div>    <a class="btn btn-primary" href="session/trainingcourses.html">Find Inductions</a>
+                        </section>
+                        <section class="awareness-session">
+                            <header class="header">
+                                <h2>Friends' information sessions</h2>
+                            </header>
+                            <div class="snippet snippet-rich_text rte">
+                            <p>Friends' information sessions are run by Dementia Friends Champions to help you understand what it's like to live with dementia and the actions you can take. Search for your nearest information session.</p>    </div>    <a class="btn btn-primary" href="session.html">Find a Session</a>
+                        </section>                
+                    </section>
+                    <section class="social-news">
+                        <section id="news" class="social">
+                            <header class="header">
+                                <h2>Latest Actions</h2>
+                            </header>
+                            <div class="ticker">
+                                <ul class="latest-actions bxslider">
+                                    <li>Remember &amp; use what I have learned about dementia in my work within the customer services team of a housing association <strong>by Louise Williams</strong></li>
+                                </ul>                       
+                            </div>
+                            <div class="clear-both"></div>
+
+                            <h3>Stay up to date with Dementia Friends</h3>
+                            <a href="newsletter.html" class="btn btn-primary">Subscribe to our newsletter</a>
+                        </section>
+
+                        <section id="facebook-widget" class="social">
+                            <header class="header">
+                                <h3>Dementia Friends on Facebook</h3>
+                            </header>
+                                                   
+                            <div class="fb-like-box" data-href="https://www.facebook.com/DementiaFriends" data-width="307" data-show-faces="false" data-stream="true" data-show-border="false" data-header="false"></div>
+                        </section>
+                        <section id="twitter" class="social">
+                            <header class="header">
+                                <h3>Latest on Twitter</h3>
+                            </header>
+                            <div class="twitter-box">
+                                <ul>
+                                    <li>
+                                        <img src="http://pbs.twimg.com/profile_images/2818960240/783e0d13ccbd6e4446cc00e776c5f892_normal.png" class="avatar" alt="DementiaFriends" />
+                                        <p class="tweet">RT<a href="http://twitter.com/@ActiveMindsUK">@ActiveMindsUK</a>: Looking forward to our<a href="http://twitter.com/@DementiaFriends">@DementiaFriends</a> information session in Kent this afternoon. Hoping to learn more, so we can be of more use!</p>
+                                    </li>
+                                                                    <li>
+                                        <img src="http://pbs.twimg.com/profile_images/2818960240/783e0d13ccbd6e4446cc00e776c5f892_normal.png" class="avatar" alt="DementiaFriends" />
+                                        <p class="tweet">Report reveals undernutrition a major problem among people with dementia in all world regions.... <a href="http://t.co/e1yvMz5FOF" target="_blank">http://t.co/e1yvMz5FOF</a></p>
+                                    </li>
+                                                                    <li>
+                                        <img src="http://pbs.twimg.com/profile_images/2818960240/783e0d13ccbd6e4446cc00e776c5f892_normal.png" class="avatar" alt="DementiaFriends" />
+                                        <p class="tweet">RT<a href="http://twitter.com/@Hutsutgirl">@Hutsutgirl</a>: So 2nd Dementia Friends session under the belt - so much personal experience in just the one room. Quite humbling.<a href="http://twitter.com/@DementiaFriends">@DementiaFriends</a></p>
+                                    </li>
+                                                                    <li>
+                                        <img src="http://pbs.twimg.com/profile_images/2818960240/783e0d13ccbd6e4446cc00e776c5f892_normal.png" class="avatar" alt="DementiaFriends" />
+                                        <p class="tweet">Good luck with the Dementia Friends Information Session<a href="http://twitter.com/@bethyb1886">@bethyb1886</a></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+        </section>
+    </section>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:WEBFooter />
+
+    </body>
+
+</apex:page>

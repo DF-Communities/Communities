@@ -1,0 +1,49 @@
+<aura:component >
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:attribute name="auraIdsToValidate" type="Object[]" default="[{auraId: 'requiredInputField', isCustomCmp: false},
+                                                                      {auraId: 'requiredChildComponent', isCustomCmp: true}]"/>
+    
+    <ltng:require scripts="{!$Resource.LightningCodeLibrary}"/>
+    
+    <aura:attribute name="dfContact" type="DF_Contact__c" required="true"/>
+    <aura:attribute name="dfDemographic" type="Demographic_information__c" required="true"/>
+    <aura:attribute name="gdprPreferences" type="Object" required="true"/>
+    <aura:attribute name="dfEvent" type="DF_Event__c" required="true"/>
+    <aura:attribute name="name" type="String" required="hardcodedContactName"/>
+    <aura:method name="getAllParams" action="{!c.validateAndGetParams}"/>
+    
+    <aura:handler event="c:SldsVsCustomStylingEvt" action="{!c.handleStylingFramework}"/>
+    <aura:attribute name="useSlds" type="Boolean"/>
+    
+    <c:STD_contactDetails contactInstance="{!v.dfContact}"
+                          name="contactDetailsFieldSet"
+                          isRegisterCommunityUserFastrack="true" 
+                          aura:id="requiredChildComponent"/>
+    
+    <div class="col-lg-12 zero-indent">
+        <div class="form-group">
+            <label class="col-md-12 control-label">Please tell us why you would like to become a Dementia Friend/host a Dementia Friends Information Session</label>
+            <div class="col-md-8 col-md-offset-3" style="margin-bottom: 15px;">
+                <div id="Requester_Reason_for_Interest__c">
+                    <ui:inputTextarea value="{!v.dfEvent.Requester_Reason_for_Interest__c}"
+                                      label="" 
+                                      resizable="false"
+                                      rows="3"
+                                      class="form-control"
+                                      change="{!c.checkFieldIsPopulated}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <c:STD_DemographicInfo demographicInstance="{!v.dfDemographic}"
+                           name="demographicInfoFieldSet"
+                           aura:id="as"/>
+    
+        <c:STD_communicationPreferences contactInstance="{!v.dfContact}"
+                                    gdprPreferences="{!v.gdprPreferences}"/>
+    
+    
+</aura:component>

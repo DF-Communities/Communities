@@ -1,0 +1,15 @@
+<apex:component >
+  
+
+       <h3>Application Status</h3>
+            
+            <p style="font-size:16px">
+            The application was submitted for Dementia Friendly Community Recognition on 
+            {{ community.Date_Submitted__c |date: "longDate" }} {{ community.Date_Submitted__c  |date: "shortTime" }}. 
+            </p>
+
+           <p style="font-size:16px"> 
+               <c:DFC_PageSnippets group="dfc_view" uniquekey="dfc-view-status"/>
+           </p>
+
+</apex:component>

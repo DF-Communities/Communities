@@ -1,0 +1,66 @@
+<apex:component controller="ExchangeTopicsListController">
+
+   
+  <apex:form styleClass="form-horizontal" forceSSL="true">
+  <h3>Latest Exchange Topics</h3>
+   <apex:outputPanel rendered="{!userHasCommunityAccess}">
+     <apex:pageBlock >
+        <apex:pageBlockSection >
+			<apex:repeat value="{!topics }" var="t" >
+				
+					<apex:pageBlockSectionItem dataStyle=" width:70%">
+                    <a href="/{!domainName}/{!t.Id }" target="_blank">{! t.Name }</a>
+                    </apex:pageBlockSectionItem>
+
+            </apex:repeat>   
+         </apex:pageBlockSection>
+       </apex:pageBlock>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!!userHasCommunityAccess}">
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+            <apex:repeat value="{!topics }" var="t">
+                <apex:pageBlockSectionItem dataStyle=" width:70%" >
+                    
+                    <a onclick="javascript:AlertIt();" target="_blank">{! t.Name }</a><br/>
+                 </apex:pageBlockSectionItem>
+            </apex:repeat>
+         </apex:pageBlockSection>
+       </apex:pageBlock>   
+    </apex:outputPanel>
+
+ 
+   </apex:form>
+
+ <div class="modal fade" id="topicsModal" >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Opted out of exchange</h4>
+          </div>
+          <div class="modal-body">
+            <p>You have opted out of the Champion exchange. To opt in, check the relevant box in the Edit my Details section</p>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+   <script type="text/javascript">
+function AlertIt() {
+//var answer = confirm ("You have opted out of the Champion exchange. To opt in, check the relevant box in the Edit my Details section.")
+$('#topicsModal').modal();
+
+}
+
+$(document).ready(function () {
+	$('#topicsModal').modal('hide');
+
+});
+</script>
+
+
+  
+</apex:component>

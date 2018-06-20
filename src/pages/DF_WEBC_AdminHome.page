@@ -1,0 +1,138 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="DF_WEBC_AdminHome_Controller" action="{!loginRedirect}">
+
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css"/>
+    <apex:stylesheet value="//fonts.googleapis.com/css?family=Orbitron:400,700"/>
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+
+    <div class="row clearfix">
+    <div class="col-md-12">
+    
+        <div class="row clearfix">
+
+            <div class="col-md-9 column col-md-push-3">                
+
+            <div class="row clearfix">
+            <div class="col-xs-9 col-sm-9 col-md-9 column">
+
+                    <div id="message-center">
+
+                    <apex:outputPanel rendered="{!showSaveConfirmation}">
+                        <div class="alert alert-info">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            Your details have been successfully changed.            
+                        </div>
+                    </apex:outputPanel>  
+
+                    </div>
+
+        
+                    <p><strong>The number of Friends your organisation has created is : 
+                    <span id="friendCount" title="Enter a number" class="partner-friend-counter">                          
+                    <apex:outputText value="{0, number, ###,##0}">
+                        <apex:param value="{!friendCount}"/>
+                    </apex:outputText>
+                    </span>
+                    </strong>
+                    </p> 
+
+            </div>
+            </div>
+                
+             <div class="row clearfix">
+             <div class="col-sm-4 col-md-4 column">
+             <div class="well-primary">
+
+                        <h1><apex:outputText value="{!totalFriendCount}" escape="false"/></h1>
+                        <p>Total number of Dementia Friends</p>    
+              </div>
+              </div>   
+
+              <div class="col-sm-8 col-md-8 column">
+              <div class="well rounded">
+                        <h3 style="margin-bottom:15px">{!partner.Name}</h3>
+                        <h4>Thanks for registering your organisation <br/>with Dementia Friends. </h4>
+
+                        <p style="padding-left:5px;">The videos below can help members of your organisation learn more about dementia and how best to support people affected by dementia. </p>
+
+               </div>
+               </div>
+               </div>
+
+                <div class="row clearfix">
+                <div class="col-md-12 column">
+
+
+                       <p style="padding-left:5px;">Using this login you are able to access the videos below at any time. Other members of your organisation will need your organisation code. The code is specific to your organisation. Your colleagues can use the code to watch the videos on the videos page.  </p>
+
+                        <p style="padding-left:5px;">Your organisation code and toolkit explaining more about Dementia Friends and how to engage your staff and volunteers in the initiative will be sent out to you within 5 working days of you registering your account. </p>
+
+                        <p style="padding-left:5px;">We also use the code to track each time someone in your organisation watches the videos and will report this back to you.  </p>
+                        <p style="padding-left:5px;">For any further enquiries please email <a href="MailTo:DForgs@alzheimers.org.uk">DForgs@alzheimers.org.uk </a>.</p>
+
+                </div>
+                </div>
+   
+                <c:DF_WEBC_PartnerVideos />    
+
+            </div>
+
+            <c:DF_WEBC_AdminNavigationMenu activeValue="DASHBOARD" />               
+         
+            </div>
+            </div>
+            </div>
+
+
+                <c:DF_WEBR_WebFooter />
+
+        </div>
+
+
+    <!-- A hidden form that support an action function submit. The action (clicked) does nothing, but the 
+         value in the form fires the setter on the controller that saves the value into the partner record
+         See the controller class. This saves having a separate web service to capture the submit
+    -->      
+    <apex:form style="display:none" id="friendCountForm">
+        <apex:actionFunction action="{!clicked}" name="submitFriendCount" reRender="friendCountForm"/>
+        <apex:inputText id="friendCountHidden" value="{!friendCount}"/>
+    </apex:form>
+
+
+     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/js/jqueryui-editable.min.js"/>
+     <script>
+
+         
+        $(document).ready(function() {  
+
+
+            _webc_video.partnerVideos_init();
+            $.fn.editable.defaults.mode = 'inline';
+            $('#friendCount').editable({
+                    
+                    url: function(params) {
+
+                         var orgValue = $('[id$=friendCountHidden]').val();  
+                         var d = new $.Deferred; 
+
+                         if ( isNaN(params.value) ) {
+                            return d.reject('Please enter a number in digits'); 
+                         }
+
+                         $('[id$=friendCountHidden]').val(params.value);
+                         submitFriendCount();
+                         
+                    }
+
+            });
+            
+        });
+    
+    </script>
+
+</apex:page>

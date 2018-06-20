@@ -1,0 +1,23 @@
+.THIS .well { 
+    border-bottom: 1px solid #ccc !important;
+}
+
+.THIS .form-group {
+    margin-bottom: 24px;
+}
+
+.THIS .uiInputRadio {
+    display: inline-block;
+    margin-right: 18px;
+    margin-left: 0;
+}
+
+.THIS .uiInputRadio label {
+    display: inline-block;
+    margin-right: 4px;
+    font-weight: 500;
+}
+
+.THIS .mimic-placeholder {
+	color: #eeeccc;
+}

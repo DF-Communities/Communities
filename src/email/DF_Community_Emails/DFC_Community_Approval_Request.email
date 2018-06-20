@@ -1,0 +1,20 @@
+A request to register a Dementia Friendly Community has been submitted for you to review. 
+        
+Community Name : {!DFC_Community__c.Name}
+
+Submitted by         : {!DFC_Community__c.OwnerFullName}
+                                {!DFC_Community__c.OwnerEmail}
+
+    
+Click here to see the details of the Dementia Friendly Community requesting recognition : 
+{!DFC_Community__c.Link}
+
+Please review the application. If you are happy please approve the application. 
+
+When the Community is finally approved the requestor will be notified automatically. 
+
+If you reject the application, you will need to contact the requestor to explain your reasons. 
+
+Many thanks, 
+
+The Dementia Friendly Communities Team

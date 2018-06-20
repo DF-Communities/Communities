@@ -1,0 +1,117 @@
+<aura:component extends="c:CsqViewComponent">
+  
+    <aura:attribute name="communityData" type="Object" access="GLOBAL"/>
+    <aura:attribute name="actionAreas" type="Object[]" access="GLOBAL"/>
+    <aura:attribute name="noSelectedAreas" type="boolean" default="false" access="GLOBAL"/>
+    <aura:attribute name="activities" type="Object[]" access="GLOBAL"/>
+    
+    <aura:attribute name="addingActivity" type="boolean" default="false" access="GLOBAL"/>
+    <aura:attribute name="addingAttachmentFor" type="String" access="GLOBAL"/>
+    
+    <aura:attribute name="editing" type="String" access="GLOBAL"/>
+    <aura:attribute name="editButtonClass" type="String" access="GLOBAL"/>
+    <aura:attribute name="editingData" type="Object" access="GLOBAL"/>
+
+
+    <aura:attribute name="editingId" type="String" access="GLOBAL" />
+    <aura:attribute name="removingId" type="String" access="GLOBAL" />
+
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+
+    <c:CsqLodashService aura:id="lodashService"/>
+
+    <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+ 
+    <div>
+    
+    <div class="clearfix">
+        <!-- Display the 'Nw Activity' button - diaabled if there are no selected areas -->
+        <button class="{!or(v.actionAreas.length==0,v.addingActivity)?'hide':'btn btn-primary pull-right dfc-new-btn no-print'}" 
+                onclick="{!c.onNewActivityClicked}" 
+                disabled="{!v.noSelectedAreas}">New activity
+        </button>
+        <h3>Activities</h3> 
+    </div>
+       
+  
+     <aura:if isTrue="{!v.noSelectedAreas}">    
+    	<p><strong>Please select some Focus Areas in PART 2 before you log Activities</strong></p>  
+     </aura:if>    
+     
+    <p>  <c:DfcSnippet group="dfc_manage" key="dfc-manage-add-activity-intro"/> </p>
+    
+
+    <aura:if isTrue="{!v.addingActivity}">
+      <div class="dfc-activity" style="margin-bottom:30px">
+          <c:DfcActivityForm new="true" actionAreas="{!v.actionAreas}" save="{!c.onAddActivity}"  cancel="{!c.onCancelAddActivity}"/>
+        </div>
+    </aura:if>
+
+    <!-- Iterate through the list of existing Activities -->
+    <div class="dfc-act">
+      <aura:iteration items="{!v.activities}" var="act" indexVar="index">
+         <div class="dfc-activity">
+          
+         <aura:if isTrue="{!v.editingId!=act.Id}">
+         <!-- Display the Activity in read mode -->      
+              <span class="{!act.Id==v.removingId?'hide': (v.activities.length==1?'pull-right':'no-print pull-right')}">
+                     <button class="btn btn-action" onclick="{!c.onEditActivityClicked}" data-id="{!act.Id}">Edit</button>
+                     <button class="btn btn-action" onclick="{!c.onAddAttachmentClicked}" data-id="{!act.Id}">Attach file</button>
+                     <button class="btn btn-action" onclick="{!c.onRemoveActivityClicked}" data-id="{!act.Id}">Remove</button>
+               </span>       
+               <button class="{!act.Id==v.removingId?'btn btn-action pull-right':'hide'}" onclick="{!c.onCancelRemoveActivity}" data-id="{!act.Id}">Cancel</button>
+               <button class="{!act.Id==v.removingId?'btn btn-action pull-right':'hide'}" onclick="{!c.onConfirmRemoveActivity}" data-id="{!act.Id}">Confirm remove</button>
+
+               <!-- Display the BSI Area this Activity focuses on -->
+              <div class="{!v.editingId==act.Id?'hide':'focus-area clearfix'}">
+                <aura:iteration items="{!act.Action_Areas__r}" var="area">
+                   {!area.Action_Area__r.Action_Area__r.Name}&nbsp;&nbsp;
+                 </aura:iteration>
+               </div>
+               
+             <div class="dfc-activity-body">
+                   <h4>
+                       <ui:outputDateTime value="{!act.Start__c}" format="D MMM YYYY" timezone="Europe/London"/><aura:if isTrue="{!act.End__c}">&nbsp;-&nbsp;<ui:outputDateTime value="{!act.End__c}" format="D MMM YYYY" timezone="Europe/London"/></aura:if>
+                   </h4>
+                   <h5 class="{!v.editingId==act.Id?'hide':''}">{!act.Title__c}</h5>
+                   
+                   <c:CsqLinkify >
+                     <p class="{!v.editingId==act.Id?'hide':'dfc-text'}">{!act.Description__c}</p>
+                   </c:CsqLinkify>
+              
+              </div>
+   
+           </aura:if>
+
+           <aura:if isTrue="{!v.editingId==act.Id}">
+             <c:DfcEditActivity activity="{!act}" actionAreas="{!v.actionAreas}" new="false" save="{!c.onUpdateActivity}" cancel="{!c.onCancelUpdateActivity}"/>
+           </aura:if>
+             
+           <div class="{!v.editingId==act.Id?'hide':'dfc-att clearfix'}">
+	           <aura:iteration items="{!act.Attachments}" var="att" indexVar="index">
+               <span>
+                   <i class="fa fa-file-text-o"></i>
+                   <a href="{!att.downloadLink}" target="_blank">{!att.Name} ({!att.length_str})</a>
+                   <i class="fa fa-close" onclick="{!c.onRemoveAttachment}" data-act-id="{!act.Id}" data-id="{!att.Id}"></i>
+               </span>          
+               </aura:iteration>
+           </div>
+
+           <aura:if isTrue="{!v.addingAttachmentFor==act.Id}">
+               <div class="dfc-att clearfix">
+                 <c:DfcUpload recordId="{!act.Id}" cancel="c.onCancelAddAttachment"/>
+               </div>
+           </aura:if>  
+             <!--
+           <div class="{!v.addingAttachmentFor==act.Id?'dfc-att clearfix':'hide'}">
+             <c:DfcUpload recordId="{!act.Id}"/>
+           </div>
+            -->
+         </div>
+          
+      </aura:iteration>
+        
+    </div>
+    
+    </div>
+</aura:component>

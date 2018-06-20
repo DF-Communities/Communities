@@ -1,0 +1,72 @@
+<!-- Child Lightning Component for Create New Row Instance-->
+<aura:component >    
+    
+    <aura:method name="getAllParams" action="{!c.validateAndGetParams}"/>
+    <aura:attribute name="outputParams" type="Object" default="{}"/>
+    <aura:attribute name="isValid" type="Boolean" default="true"/>
+    <aura:attribute name="name" type="String" default="Placeholder for dynamic row item component"/>
+    <aura:attribute name="maxNoRowsAllowed" type="Integer"/>
+    <aura:attribute name="forceUseSlds" type="Boolean"/>
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:attribute name="auraIdsToValidate" type="Object[]" default="[{auraId: 'requiredInputField', isCustomCmp: false},
+                                                                       {auraId: 'requiredChildComponent', isCustomCmp: true}]"/>
+    
+    <!-- Aura Attribute for store single Contact[standard Object] Instance
+         And Store Index of Particular Instance --> 
+    <aura:attribute name="ObjectInstance" type="Object"/>
+    <aura:attribute name="rowIndex" type="String"/>
+    <aura:attribute name="totalNoRows" type="String"/>
+    
+    <aura:attribute name="selectedTimeslot" type="Boolean"/> 
+    <aura:attribute name="showSpecificTime" type="Boolean"/>
+    
+    <aura:attribute name="invalidTimeEntry" type="Boolean" default="false"/> <!-- Set only on "Add row" action -->
+        
+    <!-- Register 2 Lightning Event for handle add or Delete rows on Parent Component  --> 
+    <aura:registerEvent name="STD_dynamicRowItemDeleteEvt" type="c:STD_dynamicRowItemDeleteEvt"/> 
+    <aura:registerEvent name="STD_dynamicRowItemAddEvt" type="c:STD_dynamicRowItemAddEvt"/>
+    
+    <aura:attribute name="itemDetailWrappedObj" type="Map" default="{}"/>
+    <aura:handler name="DF_rowItemDetailEvt" event="c:DF_rowItemDetailEvt" action="{!c.handleRowItemDetailUpdate}"/>
+    
+    <!-- Table Row -->   
+    <tr class="slds-text-title_caps">
+        <td> 
+            Preference {!v.rowIndex + 1}
+        </td>
+        
+        <c:DF_infoSessionDatePeriodTime name="sessionBookingPreference" 
+                                        valueObj="{!v.ObjectInstance}"
+                                        instanceNo="{!v.rowIndex + 1}"
+                                        aura:id="requiredChildComponent"/> <!-- This will be inherited -->
+        
+        <td>
+            <aura:if isTrue="{!v.totalNoRows != 1}">
+                <a onclick="{!c.RemoveRow}">
+                    <lightning:icon variant="error" iconName="utility:delete" 
+                                    class="slds-icon slds-icon_small" 
+                                    size="small"/>
+                </a>
+            </aura:if>
+        </td>
+        <td>
+            <aura:if isTrue="{!v.rowIndex == v.totalNoRows - 1}">
+                <a onclick="{!c.AddNewRow}">
+                    <lightning:icon iconName="utility:add" 
+                                    class="slds-icon slds-icon_small" 
+                                    size="small"/>
+                </a>    
+            </aura:if>
+        </td> 
+    </tr>
+    <tr>
+        <td>
+            <aura:if isTrue="{!v.isValid}">
+                <aura:set attribute="else">
+                    <ui:message title="Please fill out all sections of your proposed session time" severity="error"/>
+                </aura:set>
+            </aura:if>
+        </td>
+    </tr>
+</aura:component>

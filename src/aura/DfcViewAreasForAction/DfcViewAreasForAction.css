@@ -1,0 +1,9 @@
+/* Override bootstrap height for form-control here as we are in read mode and want to show all the text */
+.THIS .uiOutputTextArea {
+	height: auto !important;
+    min-height:6em;
+}
+
+.THIS .well {
+	    border-bottom: solid 2px #ccc;
+}

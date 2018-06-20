@@ -1,0 +1,82 @@
+.THIS .pricing-unit-value {
+    padding: 0.3000em 0.5em 0.3000em 0.5em;
+    border: #111 0.0625em solid;
+    border-radius: 0.125em;
+    background: #111 url(/resource/1481110295000/DF_WEBR_Assets/img/counter-bg.gif) center center;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-right: 0.100em;
+    color: #fff;
+    line-height: 3em;
+
+}
+.THIS  .pricing-unit-comma {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-right: 0.100em;
+    color: #333;
+}
+.THIS .pricing-unit {
+    float: left;
+    margin: 0 0 5px 0;
+    padding: 0 0 0 0;
+}
+.THIS .btn-action {
+    font-weight: bold !important;
+    color: #1C1463;
+    background: #FFDE00;
+    padding: 0.3125em 0.5em 0.3125em 0.5em;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    text-decoration: none !important;
+    border: 0pt none;
+}
+.THIS .btn-default {
+    font-weight: bold !important;
+    color: #3C3C3C;
+    background: #DEE0E2 ;
+    padding: 0.3125em 0.5em 0.3125em 0.5em;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    text-decoration: none !important;
+    border: 0pt none;
+}
+.THIS .slds-tabs--default__nav{
+   background: #2574a9 !important;  
+   color: #fff;
+}
+
+.THIS .slds-tabs--default__link {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-bottom: 2px solid transparent;
+    padding: 0 .5rem;
+    color: #fff;
+}
+.THIS .slds-button--neutral{
+ font-weight: bold ;
+    color:#3C3C3C;    
+    background: #DEE0E2;
+    padding: 0.3125em 0.5em 0.3125em 0.5em;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    text-decoration: none !important;
+    border: 0pt none;
+}
+
+.THIS .btn-action:hover {
+ 
+    color: #fff !important;
+    background: #1C1463 !important;
+   
+}

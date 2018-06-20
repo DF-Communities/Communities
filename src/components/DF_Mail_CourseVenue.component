@@ -1,0 +1,7 @@
+<apex:component controller="DF_Mail_PopulateCourseDetails" access="global">
+
+<apex:attribute type="ID" name="ToID"  description="the DF Contact ID" assignTo="{!dfcontactID}" />
+  
+<apex:outputText value="{!CourseDetails.DF_Event__r.City__c}" style="white-space: pre" />
+ 
+</apex:component>

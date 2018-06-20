@@ -1,0 +1,37 @@
+<aura:component >
+	
+    <aura:attribute name="viewStore" type="Aura.Component[]" required="true"/>
+    <aura:attribute name="trackErrors" type="Boolean" default="false" description="Show red / green on errors is true"/>
+
+    <aura:attribute name="viewDefs" type="Object[]" access="GLOBAL"/>
+    <aura:attribute name="selectedViewOrdinal" type="Integer" default="2" access="GLOBAL"/>
+
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    <aura:handler event="c:CsqStoreChanged" action="c.onStoreChange"/>
+    
+    <c:CsqLodashService aura:id="lodashService"/>
+    
+    <div class="{!$Browser.formFactor+' no-print dfc-nav clearfix'}">
+        
+        <div>
+
+        <aura:iteration items="{!v.viewDefs}" var="step" indexVar="index">
+          <div class="step-tile" onclick="{!c.clickHandler}" data-index="{!index}" tabindex="0">
+        	<div class="{!(index==v.selectedViewOrdinal?'step-active':'step')}">
+          		<h5>{!step.title}</h5>
+          		<p>{!step.label}</p>
+          		<aura:if isTrue="{!and(v.trackErrors, step.showErrors)}">
+              		<!-- Validation errors -->
+                    <span class="{!and(step.pristine==false, step.errors.length>0)?'badge':'hide'}">{!step.errors.length}</span>
+                    <!-- No validation errors -->
+                    <span class="{!and(step.pristine==false, step.errors.length==0)?'badge dfc-badge-ok':'hide'}">&#10003;</span>
+              </aura:if>
+        	</div>
+     	  </div>
+        </aura:iteration>
+            
+        </div>    
+	        
+    </div>
+    
+</aura:component>

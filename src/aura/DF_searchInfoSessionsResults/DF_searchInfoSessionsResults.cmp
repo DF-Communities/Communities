@@ -1,0 +1,124 @@
+<aura:component >
+    
+    <aura:attribute name="searchResults" type="DF_Event__c"/>
+    <aura:registerEvent name="DF_showInfoSessionDetailsEvt" type="c:DF_showInfoSessionDetailsEvt"/>
+    
+    <!-- START DESKTOP LISTINGS VIEW -->
+    <div class="table-responsive hidden-xs">
+        <table class="table table-bordered table-striped table-hover">
+            
+            <thead>
+                <tr >
+                    <th class="col-lg-2 col-md-2 col-sm-2">
+                        <div title="Date">Date</div>
+                    </th>
+                    <th class="col-lg-2 col-md-2 col-sm-2">
+                        <div title="Period">Period</div>
+                    </th>
+                    <th class="col-md-2 col-sm-2 col-xs-2">
+                        <div title="Type of Session">Type of Session</div>
+                    </th>
+                    <th>
+                    	<div title="Location">Location</div>
+                    </th>
+                    <th class="col-md-2 col-sm-2 col-xs-2">
+                        <div title="View">View Event</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody >
+                
+                <aura:iteration items="{!v.searchResults}" var="event" indexVar="index">
+                    <tr>    
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 single-cell" 
+                            style="vertical-align: middle;" data-label="Date">
+                            <aura:if isTrue="{!event.isPref1InFuture}">
+                                {!event.pref1DateUserFriendly}<br/>
+                            </aura:if>
+                            <aura:if isTrue="{!event.isPref2InFuture}">
+                                {!event.pref2DateUserFriendly}<br/>
+                            </aura:if>
+                            <aura:if isTrue="{!event.isPref3InFuture}">
+                                {!event.pref3DateUserFriendly}
+                            </aura:if>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-12 single-cell" 
+                            style="vertical-align: middle;" data-label="Period">
+                            <aura:if isTrue="{!event.Preference_1_Period__c}">
+                                {!event.Preference_1_Period__c }<br/>
+                            </aura:if>
+                            <aura:if isTrue="{!event.Preference_2_Period__c}">
+                                {!event.Preference_2_Period__c }<br/>
+                            </aura:if>
+                            <aura:if isTrue="{!event.Preference_3_Period__c}">
+                                {!event.Preference_3_Period__c }
+                            </aura:if>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-12 single-cell" 
+                            style="vertical-align: middle;" data-label="Type of Session">
+                            {!event.Type_of_session__c}
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-12 single-cell" 
+                            style="vertical-align: middle;" data-label="Location">
+                            {!event.City__c}, <br/>{!event.Postcode__c}
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 single-cell" 
+                            style="vertical-align: middle;" data-label="Show detail">
+                            <button type="button" name="Details" onclick="{!c.showSessionDetailsEvt}" 
+                                    data-id="{!index}" class="btn-primary btn-xs">Details</button>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                
+            </tbody>
+            
+        </table>
+    </div>
+    <!-- END DESKTOP LISTINGS VIEW -->
+    
+    <!-- START MOBILE LISTINGS VIEW -->
+    <div class="table-responsive hidden-lg hidden-md hidden-sm">
+        <table class="table-bordered table-striped table-hover">
+            
+            <tbody>
+                
+                <aura:iteration items="{!v.searchResults}" var="event" indexVar="index">
+                    
+                    <tr class="">                        
+                        
+                        <td class="col-xs-12 single-cell" style="margin-left:0px;padding-left:0px;">
+                                                            <span class="col-xs-3">When?:</span>
+                                <span class="col-xs-9">
+                                    <aura:if isTrue="{!event.isPref1InFuture}">
+                                        {!event.pref1DateUserFriendly}&nbsp;{!event.Preference_1_Period__c }
+                                    </aura:if>
+                                    <aura:if isTrue="{!event.isPref2InFuture}">
+                                        <br/>{!event.pref2DateUserFriendly}&nbsp;{!event.Preference_2_Period__c }
+                                    </aura:if>
+                                    <aura:if isTrue="{!event.isPref3InFuture}">
+                                        <br/>{!event.pref3DateUserFriendly}&nbsp;{!event.Preference_3_Period__c }
+                                    </aura:if>
+                                </span>
+                                
+                                <span class="col-xs-3">Location:</span>
+                                <span class="col-xs-9"><strong>{!event.City__c}</strong>, <strong>{!event.Postcode__c}</strong></span>
+                                
+                                <span class="col-xs-3">Type:</span>
+                                <span class="col-xs-9"><strong>{!event.Type_of_session__c}</strong>, <strong>{!event.Postcode__c}</strong></span>
+                                
+                                <div class="col-xs-12  btn-group">
+                                    <!--a class="btn-primary btn-xs" href="WEBSessionFeedback?eventId={!event.Id}">Tell us how the Session went</a-->
+                                    
+                                    <button type="button" name="Details" onclick="{!c.showSessionDetailsEvt}" 
+                                            data-id="{!index}" class="btn-primary btn-xs center-xs">Details</button> 
+                                </div>
+                        </td>
+                    </tr> 
+                </aura:iteration>
+                
+            </tbody>
+        </table>
+    </div>
+    <!-- END MOBILE LISTINGS VIEW -->
+    
+</aura:component>

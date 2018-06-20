@@ -1,0 +1,5 @@
+<aura:component extends="c:DfcValidationComponent">
+    
+    <aura:set attribute="defaultMessage" value="Please select at least 1 action area"/>
+    
+</aura:component>

@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Fire out dynamic picklist selections">
+    <aura:attribute name="picklistIdentifier" type="String"/>
+    <aura:attribute name="selectedOption" type="String"/>
+</aura:event>

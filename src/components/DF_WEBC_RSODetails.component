@@ -1,0 +1,34 @@
+<apex:component controller="DF_WEBC_RSODetailsController">
+  <div class="row">
+      <div class="col-md-12"> 
+      <apex:outputPanel rendered="{!(rso.FirstName!=null)&& (rso.CommunityNickname!='dementiafriends')}"> 
+       <div class="col-md-6"> 
+
+              <img class='img-circle' src='{!rso.smallPhotoUrl}'  height="75" width="75"/>
+       </div>
+       <br/>
+       
+           <h4 align="center">Your DFO</h4>
+           <br/>
+        <br/>
+        <p align="center">   I’m {!rso.FirstName}, your Dementia Friends Officer (DFO) for {!regionName}. I’m based in our {!rso.office_location__c} office. You can call me on {!rso.phone} or email me on {!email}.</p>
+           <!--     <a class="btn btn-primary btn-block" href="mailto:{!email}"> Email your<br/> DFO </a>-->
+        
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!(rso.FirstName==NULL) || (rso.CommunityNickname='dementiafriends') }"> 
+        <h4 align="center" >Your DFO</h4>
+           <br/>
+        <p align="center">
+           We're currently recruiting a new DFO for {!regionName}.  In the meantime, you can call the team on 0300 222 5855 or email us on dementiafriends@alzheimers.org.uk. 
+           
+        </p>
+        
+           
+     <!--   <a class="btn btn-primary btn-block" href="mailto:dementiafriends@alzheimers.org.uk
+"> Email the<br/> team </a>-->
+        </apex:outputPanel>    
+      </div>
+  </div>  
+
+              
+</apex:component>

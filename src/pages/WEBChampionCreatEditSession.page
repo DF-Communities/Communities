@@ -1,0 +1,299 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBChampionCreateEditSession" action="{!loginRedirect}">
+
+<style>
+
+.aerian-form .control-group label {
+padding: 0px 12px 0 0 !important;
+}
+
+table tbody tr td {
+
+ border-bottom:none !important;
+}
+
+table td {
+ padding:0px !important; 
+
+
+}
+
+table {
+margin-top:0px !important; 
+ margin-bottom:0em !important;
+}
+</style>
+    
+    <c:WEBMetaNoCSS title="Dementia Friends" />
+    <!-- <c:WEBMeta title="Dementia Friend" /> -->
+    <!-- NEW CSS CODE -->
+    <apex:stylesheet value="{!URLFOR($Resource.WEBCSS,'WEBCSS.css')}" />
+    <!-- END OF NEW CSS CODE -->
+    <!-- CHECK THIS ON THE ORIGONAL PAGE FOR NEW CLASSES -->
+    <body id="champion-dashboard" class="dashboard ">
+    
+    <div id="skip">
+        <a href="#page_content">Skip to Main Content</a>
+    </div>        
+
+    <c:WEBHeader activeValue="" />
+    <div id="page_content"></div>
+    
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+
+    <section class="page-content" id="page_content">
+        <div class="wrapper">
+            <section class="secondary-content">
+                <c:WEBChampionNavigationMenu activeValue="CREATESESSION" isChampion="{!isChampion}"/>
+                <span class="btn badge-action {!IF(isChampion,'btn-primary','disabled')}">Order 50 badges / infocards</span>
+                <span class="btn btn-secondary badge-action snippet"><p><apex:outputText value="{!totalFriendsSnippet.Body_Text__c}" escape="false"/></p> Total Number of Dementia Friends</span>
+                    
+                <section class="member-info-details">
+                    <c:WEBMemberDetails />
+                </section>
+            </section>
+            <section class="main-content">
+                <div id="message-center">
+                    <apex:outputPanel rendered="{!IF(ISBLANK(messageArea),FALSE,TRUE)}" >
+                        <div class="alert {!messageAreaClass}">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {!messageArea}        
+                        </div>
+                    </apex:outputPanel>
+                </div>
+                <div class="intro">
+                    <h1>Create a session</h1>
+                    <p></p>
+                </div>
+
+                <div class="form-wrapper">
+                    <apex:form styleClass="aerian-form admin-form form-horizontal">
+                        <fieldset accept-charset="utf-8">
+                            <div class="control-group element-name element-type-text required {!IF(LEN(sessionNameError)>0,'error','')}">
+                                <label for="name" class="control-label required">Session Name</label>
+                                <div class="controls">
+                                    <apex:inputText id="name" value="{!event.Name}" styleClass="input-xxlarge aerian input-text input" maxlength="200" />
+                                    <apex:outputText value="{!sessionNameError}" rendered="{!LEN(sessionNameError)>0}" styleClass="text-error"/>
+                                    <p class="help-block"><apex:outputText value="{!createSessionNameHelp.Body_Text__c}" escape="false"/></p>
+                                </div>
+                            </div>
+                            <div class="control-group element-date element-type-datepicker required {!IF(LEN(dateError)>0,'error','')}">
+                                <label for="date" class="control-label required">Date</label>
+                                <div class="controls">
+                                    <apex:inputField id="date" value="{!event.Event_Date_Time__c}" styleClass="as-datepicker input-datepicker input" />
+                                    <p><apex:outputText value="{!dateError}" rendered="{!LEN(dateError)>0}" styleClass="text-error" /></p>
+                                    <p class="help-block"><apex:outputText value="{!createSessionDateHelp.Body_Text__c}" escape="false"/></p>
+                                </div>
+                            </div>
+                            <div class="control-group element-open element-type-radio required">
+                                <label for="open" class="control-label required">Visible on site?</label>
+                                <div class="controls">
+                                    <label for="open-1">
+                                        <input type="radio" name="open" id="open-1" value="1" class=" input-radio input" />Yes</label>
+                                    <label for="open-0"><input type="radio" name="open" id="open-0" value="0" class=" input-radio input" />No</label>
+                                    <p class="help-block"><apex:outputText value="{!CreateSessionVisibleHelp.Body_Text__c}" escape="false"/></p>
+                                </div>
+                            </div>
+                            <div class="control-group element-fk_session_status_id element-type-radio required">
+                                <label for="fk_session_status_id" class="control-label required">Status</label>
+                                <div class="controls">
+                                    <span class=" input-radio input">
+                                        <apex:selectRadio styleClass=" input-radio input" value="{!event.Event_Status__c}" layout="pageDirection" border="0">
+                                                <apex:selectoptions value="{!eventStatusOptions}"/>
+                                        </apex:selectRadio>
+                                    </span>
+                                    <p class="help-block"><apex:outputText value="{!CreateSessionStatusHelp.Body_Text__c}" escape="false"/></p>
+                                </div>
+                            </div>
+                       <!--  <div class="control-group element-fk_session_status_id element-type-radio required">
+                                <label for="fk_session_status_id" class="control-label required">Status</label>
+                                <div class="controls">
+                                    <label for="fk_session_status_id-1">
+                                    <input type="radio" name="fk_session_status_id" id="fk_session_status_id-1" value="1" class=" input-radio input" />Available - People can sign up to session</label><br />
+                                    <label for="fk_session_status_id-2">
+                                    <input type="radio" name="fk_session_status_id" id="fk_session_status_id-2" value="2" class=" input-radio input" />Cancelled - Session has been cancelled</label><br />
+                                    <label for="fk_session_status_id-3">
+                                    <input type="radio" name="fk_session_status_id" id="fk_session_status_id-3" value="3" class=" input-radio input" />Full - Session has no spaces left</label>
+                                    <p class="help-block"><apex:outputText value="{!CreateSessionStatusHelp.Body_Text__c}" escape="false"/></p>
+                                </div>
+                            </div>  -->
+                            <div class="control-group element-numberOfPlaces element-type-text optional {!IF(LEN(numberOfPlacesError)>0,'error','')}">
+                                <label for="numberOfPlaces" class="control-label required">Number of places</label>
+                                <div class="controls">
+                                    <apex:inputText id="numberOfPlaces" value="{!event.Number_of_Places__c}" styleClass=" input-text input" />
+                                    <apex:outputText value="{!numberOfPlacesError}" rendered="{!LEN(numberOfPlacesError)>0}" styleClass="text-error" />
+                                    <p class="help-block"><apex:outputText value="{!CreateSessionPlacesHelp.Body_Text__c}" escape="false"/></p>
+                                </div>
+                            </div>
+                            <div class="control-group element-description element-type-textarea required {!IF(LEN(descriptionError)>0,'error','')}">
+                                <label for="description" class="control-label required">Description</label>
+                                <div class="controls">
+                                    <apex:inputTextarea value="{!event.Event_Description__c}" id="description" rows="3" styleClass="aerian input-textarea input character-count" cols="80" />
+                                    <apex:outputText value="{!descriptionError}" rendered="{!LEN(descriptionError)>0}" styleClass="text-error" />
+                                    <p class="help-block"><apex:outputText value="{!CreateSessionDescriptionHelp.Body_Text__c}" escape="false"/></p>
+                                </div>
+                            </div>
+                            <div class="control-group element-wheelchairAccessible element-type-checkbox optional">
+                                <label for="wheelchairAccessible" class="control-label optional">Wheelchair accessible</label>
+                                <div class="controls">
+                                    <input type="hidden" name="wheelchairAccessible" value="0" />
+                                    <input type="checkbox" name="wheelchairAccessible" id="wheelchairAccessible" value="1" class=" input-checkbox input" />
+                                    <p class="help-block"><apex:outputText value="{!CreateSessionWheelchairHelp.Body_Text__c}" escape="false"/></p>
+                                </div>
+                            </div>
+                            <div class="controls form-inline">
+                                <fieldset id="fieldset-timepicker" class="inline-fieldset"><legend>Start time</legend>
+
+                                    <div class="control-group element-timehour element-type-select optional"><label for="timehour" class="control-label optional">Hour</label>
+
+                                        <select name="timehour" id="timehour" class=" input-select input">
+                                            <option value="00" label="00">00</option>
+                                            <option value="01" label="01">01</option>
+                                            <option value="02" label="02">02</option>
+                                            <option value="03" label="03">03</option>
+                                            <option value="04" label="04">04</option>
+                                            <option value="05" label="05">05</option>
+                                            <option value="06" label="06">06</option>
+                                            <option value="07" label="07">07</option>
+                                            <option value="08" label="08">08</option>
+                                            <option value="09" label="09">09</option>
+                                            <option value="10" label="10">10</option>
+                                            <option value="11" label="11">11</option>
+                                            <option value="12" label="12">12</option>
+                                            <option value="13" label="13">13</option>
+                                            <option value="14" label="14">14</option>
+                                            <option value="15" label="15">15</option>
+                                            <option value="16" label="16">16</option>
+                                            <option value="17" label="17">17</option>
+                                            <option value="18" label="18">18</option>
+                                            <option value="19" label="19">19</option>
+                                            <option value="20" label="20">20</option>
+                                            <option value="21" label="21">21</option>
+                                            <option value="22" label="22">22</option>
+                                            <option value="23" label="23">23</option>
+                                        </select>
+                                    </div>
+                                    <div class="control-group element-timeminute element-type-select optional"><label for="timeminute" class="control-label optional">Minute</label>
+
+                                        <select name="timeminute" id="timeminute" class=" input-select input">
+                                            <option value="00" label="00">00</option>
+                                            <option value="05" label="05">05</option>
+                                            <option value="10" label="10">10</option>
+                                            <option value="15" label="15">15</option>
+                                            <option value="20" label="20">20</option>
+                                            <option value="25" label="25">25</option>
+                                            <option value="30" label="30">30</option>
+                                            <option value="35" label="35">35</option>
+                                            <option value="40" label="40">40</option>
+                                            <option value="45" label="45">45</option>
+                                            <option value="50" label="50">50</option>
+                                            <option value="55" label="55">55</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="controls form-inline">
+                                <fieldset id="fieldset-endtimepicker" class="inline-fieldset"><legend>End time</legend>
+
+                                    <div class="control-group element-endtimehour element-type-select optional"><label for="endtimehour" class="control-label optional">Hour</label>
+
+                                        <select name="endtimehour" id="endtimehour" class=" input-select input">
+                                            <option value="00" label="00">00</option>
+                                            <option value="01" label="01">01</option>
+                                            <option value="02" label="02">02</option>
+                                            <option value="03" label="03">03</option>
+                                            <option value="04" label="04">04</option>
+                                            <option value="05" label="05">05</option>
+                                            <option value="06" label="06">06</option>
+                                            <option value="07" label="07">07</option>
+                                            <option value="08" label="08">08</option>
+                                            <option value="09" label="09">09</option>
+                                            <option value="10" label="10">10</option>
+                                            <option value="11" label="11">11</option>
+                                            <option value="12" label="12">12</option>
+                                            <option value="13" label="13">13</option>
+                                            <option value="14" label="14">14</option>
+                                            <option value="15" label="15">15</option>
+                                            <option value="16" label="16">16</option>
+                                            <option value="17" label="17">17</option>
+                                            <option value="18" label="18">18</option>
+                                            <option value="19" label="19">19</option>
+                                            <option value="20" label="20">20</option>
+                                            <option value="21" label="21">21</option>
+                                            <option value="22" label="22">22</option>
+                                            <option value="23" label="23">23</option>
+                                        </select>
+                                    </div>
+                                    <div class="control-group element-endtimeminute element-type-select optional">
+                                        <label for="endtimeminute" class="control-label optional">Minute</label>
+
+                                        <select name="endtimeminute" id="endtimeminute" class=" input-select input">
+                                            <option value="00" label="00">00</option>
+                                            <option value="05" label="05">05</option>
+                                            <option value="10" label="10">10</option>
+                                            <option value="15" label="15">15</option>
+                                            <option value="20" label="20">20</option>
+                                            <option value="25" label="25">25</option>
+                                            <option value="30" label="30">30</option>
+                                            <option value="35" label="35">35</option>
+                                            <option value="40" label="40">40</option>
+                                            <option value="45" label="45">45</option>
+                                            <option value="50" label="50">50</option>
+                                            <option value="55" label="55">55</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="control-group element-address1 element-type-text required {!IF(LEN(addressError)>0,'error','')}">
+                                <label for="address1" class="control-label required">Address1</label>
+                                <div class="controls">
+                                    <apex:inputText id="address1" value="{!event.Street__c}" styleClass="input-xxlarge aerian input-text input" maxlength="100" />
+                                    <apex:outputText value="{!addressError}" rendered="{!LEN(addressError)>0}" styleClass="text-error" />
+                                </div>
+                            </div>
+                            <div class="control-group element-address2 element-type-text optional">
+                                <label for="address2" class="control-label optional">Address2</label>
+                                <div class="controls">
+                                    <input type="text" name="address2" id="address2" value="" class="input-xxlarge aerian input-text input" maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="control-group element-townCity element-type-text required {!IF(LEN(townCityError)>0,'error','')}">
+                                <label for="townCity" class="control-label required">Town / City</label>
+                                <div class="controls">
+                                    <apex:inputText id="townCity" value="{!event.City__c}" styleClass="input-xxlarge aerian input-text input" maxlength="100" />
+                                    <apex:outputText value="{!townCityError}" rendered="{!LEN(townCityError)>0}" styleClass="text-error" />
+                                </div>
+                            </div>
+                            <div class="control-group element-county element-type-text required {!IF(LEN(countyError)>0,'error','')}">
+                                <label for="county" class="control-label required">County</label>
+                                <div class="controls">
+                                    <apex:inputText id="county" value="{!event.County__c}" styleClass="input-xxlarge aerian input-text input" maxlength="100" />
+                                    <apex:outputText value="{!countyError}" rendered="{!LEN(countyError)>0}" styleClass="text-error" />
+                                </div>
+                            </div>
+                            <div class="control-group element-postcode element-type-text required {!IF(LEN(postcodeError)>0,'error','')}">
+                                <label for="postcode" class="control-label required">Postcode</label>
+                                <div class="controls">
+                                    <apex:inputText id="postcode" value="{!event.Postcode__c}" maxlength="11" styleClass=" aerian input-text input" />
+                                    <apex:outputText value="{!postcodeError}" rendered="{!LEN(postcodeError)>0}" styleClass="text-error" />
+                                </div>
+                            </div>
+                            <fieldset id="fieldset-actions" class="form-actions">
+ 
+                                <apex:commandButton action="{!saveSession}" id="save" value="Save changes" styleClass="btn-primary input-submit btn" />
+
+                                <a href="WEBChampion" class="btn">Cancel</a>
+                            </fieldset>
+                        </fieldset>
+                    </apex:form>
+                </div>
+            </section>
+            <div class="clear-both"></div>
+        </div>
+    </section>
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:WEBFooter />
+
+    </body>
+
+</apex:page>

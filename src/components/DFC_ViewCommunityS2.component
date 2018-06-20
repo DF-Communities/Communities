@@ -1,0 +1,57 @@
+<apex:component >
+
+<h3>Community Details</h3>
+
+    <div class="well">
+       
+        <div class="form-group">
+            <label class="required">The name of your Dementia Friendly Community</label>
+            <div class="form-control">
+                {{community.Name__c}}
+            </div>
+         
+        </div>
+
+       <span ng-show="community.Central_Location__c=='Yes'">   
+       
+       <div class="form-group"> 
+            <label class="required">The County where your Community is located</label>
+            <div class="form-control">   
+                
+            {{community.County__r.Name}}
+                    
+           </div>
+      
+        </div>
+        
+       <div class="form-group">
+            <label class="required">Where is your community located</label>
+            <div class="form-control">
+               {{community.Location__c}}
+
+            </div>
+          
+        </div>
+
+        <div class="form-group"> 
+            <label class="required">Is this community best described as predominantly</label>
+            <div class="form-control"> 
+            {{community.Location_Type__c}} 
+            </div>   
+      
+        </div>
+
+        </span>
+
+       <div class="form-group">
+            <label for="population" class="required">Approximate Population</label>
+            <div class="form-control"> 
+                {{community.Population__c}} 
+            </div>
+          
+        </div>
+
+    </div>
+ 
+
+</apex:component>

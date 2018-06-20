@@ -1,0 +1,213 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_RegisterOrgAdmin_Controller" action="{!handleInvite}">
+
+
+  <apex:variable value="{!ISBLANK($CurrentPage.parameters.invite)==FALSE}" var="isInvite"/>  
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+  
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+
+    <div class="row">
+      <div class="col-md-12" id="standard-registration" style="display:none">
+
+                    <h1>Register an Organisation with Dementia Friends</h1>                                    
+                    <div class="step-container row">
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step-active" id="panel-step-1">
+                                <h5>STEP 1</h5>
+                                <p>Tell us where you are<br/><br/></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step" id="panel-step-2">
+                                <h5>STEP 2</h5>
+                                <p>Complete the registration form<br/><br/></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step" id="panel-step-3">
+                                <h5>STEP 3</h5>
+                                <p>Verify your account by email<br/>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step" id="panel-step-4">
+                                <h5>STEP 4</h5>
+                                <p>Connect to organisation from your dashboard</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 column">
+                            <div class="step" id="panel-step-5">
+                                <h5>STEP 5</h5>
+                                <p>Share the videos with your organisation</p>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        
+          <div class="col-md-12" id="invite-registration" style="display:none">
+
+                <h3>Please complete registration to become an admin for your organisation</h3>          
+
+                <p class= "help-block" id ="intro-text-step-invite" title = "step 1" style="width:80%;display:none">
+                    
+                    {!invite.CreatedBy.FirstName} {!invite.CreatedBy.LastName} has invited you to become an administrator for your organisation in order to track and update Dementia Friends progress. Please enter your details below to set up your account. Once you have completed the process you will have access to your organisation’s dashboard. 
+
+                </p>
+
+
+                 </div>
+        
+        </div>
+                  
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8 column">
+                    
+                        <form class="form-horizontal" id="friend-options-title">
+
+                        <h3>Where is the organisation based?</h3>
+
+                         <div class="form-group">
+                         <div class="col-sm-8">
+                         <select class="form-control" id="friend-options-select">
+                            <option value='0'>Where is the organisation based?</option>
+                            <option value='1'>England</option>
+                            <option value='2'>Guernsey, Isle of Man</option>
+                            <option value='3'>Wales</option>
+                            <option value='4'>Northern Ireland</option>
+                            <option value='5'>Scotland</option>
+                            <option value='99'>Outside the UK</option>
+                        </select>
+                        </div>
+                        </div>
+
+                        </form>
+
+                         <div id ="friend-options-texts">                   
+                            
+                                
+
+                            <span id ="friend-options-text-4" style="display:none">
+                            
+                                The way we deliver Dementia Friends in Northern Ireland is a bit different to the rest of the UK. Contact our local Dementia Friendly Communities team or one of our local offices in Northern Ireland to find out what dementia friendly activity is taking place and how you can get involved. <a href="https://www.alzheimers.org.uk/homepage/169/our_local_offices?_ga=2.104295171.2028168748.1499268053-618002818.1423848131">Click here for more information</a> 
+                           
+                            </span>                        
+
+                            
+                            <span id ="friend-options-text-5" style="display:none">
+
+                            
+                                The Dementia Friends programme in Scotland is managed by Alzheimer Scotland. Find out how you can get involved by visiting <a href="http://www.dementiafriendsscotland.org/">their website</a>
+
+                           
+                            </span>                        
+
+
+                            <span id ="friend-options-text-99" style="display:none">
+                            
+                                 We can only register organisations in the United Kingdom. See <a href="WEBArticle?page=friend-how-else-can-i-help"> here</a> for more information about how you may be able to help people with dementia where you live.
+                           
+                            </span>                     
+                            <br/><br/>
+
+                        </div>
+                    
+                    <!-- ff -->
+
+                         <div id="intro-text-container">                   
+                       
+                        <p class= "help-block" id ="intro-text-step-1" title = "step 1" style="display:none">
+                            
+                           Register your organisation with Dementia Friends to gain access to helpful resources and videos you can use to make your organisation more Dementia Friendly.
+                           To find out more about how we use your personal information please take a look at our supporter <a href="https://www.dementiafriends.org.uk/WEBArticle?page=privacy-policy#.WwhNmO4vyUl">privacy statement</a>. 
+                           
+
+                        </p>
+                                            
+                    </div>
+                 
+                    <c:DF_WEBC_RegisterLongForm />  
+                    <c:DF_WEBC_RegisterDemoInfo />   
+                 
+                   <!-- Successful Message -->
+                
+                   <div id="success-message" style="display:none" class="well">   
+                                                   
+                       <h3> Thanks for registering your organisation with Dementia Friends  </h3>                               
+                       <p> We've sent an email to the email address you entered to confirm the details of your registration. Just click the link and you will be logged into the site. </p>
+                     
+                   </div>
+                   
+
+                    <!--  -->
+              </div>
+          </div>
+      </div>  
+</div>
+                        
+
+     
+    
+    
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+
+    <!--  PostcodeAnywhere code --> 
+       
+    <apex:includeScript value="//services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"/>
+    <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
+
+    <script type="text/javascript">
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+        
+    </script>
+    
+    <script type="text/javascript">
+                                                                        
+       var fields = [
+             { element: "df_pca_orgStreet", field: "Line1" },
+             { element: "df_pca_orgCity", field: "City", mode: pca.fieldMode.POPULATE },
+             { element: "df_pca_orgCounty", field: "Province", mode: pca.fieldMode.POPULATE },
+             { element: "df_pca_orgPostcode", field: "PostalCode" },
+             { element: "df_pca_orgCountry", field: "{HomeNation}", mode: pca.fieldMode.POPULATE },
+
+          ];
+                                                                            
+      var options = {key: "tr79-fy95-yb55-ge89", countries: { codesList: "GBR" }, culture:"en_GB" };
+
+      var control = new pca.Address(fields, options);
+   </script>
+
+
+    
+
+    <c:DF_WEBC_RegisterOrgAdmin_js />
+    
+    
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+        
+        _webc.inviteId = '{!inviteData.id}';
+        _webc.inviteEmail = '{!inviteData.email}';
+        _webc.inviteName = '{!inviteData.name}';
+        _webc.RegisterOrgAdmin_init();
+
+           
+        });
+        
+    </script>
+
+
+
+</apex:page>

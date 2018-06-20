@@ -1,0 +1,20 @@
+<apex:component >
+
+<div class="action-area-option" ng-hide="(!focusAreaInput.readOnlyMode) ? false : !value.Selected__c" >
+   <div>
+      <div style="float:right">
+         <span class="cCsqValidationComponent" ng-show="isMissingContent(value.Id)">Selected focus areas must have a description
+         </span>
+      </div>
+      <label style="margin-right:12px;">
+      <input type="checkbox" class="uiInput uiInputCheckbox uiInput--default uiInput--checkbox" ng-hide="focusAreaInput.readOnlyMode" ng-model="value.Selected__c"/>
+      <span>&nbsp;{{value.Name}}</span>
+      </label>
+      <input type="hidden" ng-model="commActionAreas[value.Id].Description__c"/>
+   </div>
+   <div>
+      <textarea class="textarea uiInput uiInputTextArea uiInput--default uiInput--textarea" cols="20" rows="2" placeholder="Enter a description of your plan of action" ng-model="commActionAreas[value.Id].Description__c" ng-disabled="focusAreaInput.readOnlyMode" ng-blur="facilitateRollback(value.Id)"></textarea>
+   </div>
+</div>
+
+</apex:component>

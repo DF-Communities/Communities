@@ -1,0 +1,9 @@
+<aura:component extends="c:DfcValidationComponent">
+    
+    <aura:attribute name="format" type="string" default="D MMM YYYY"/>
+    
+    <aura:set attribute="defaultMessage" value="{!'Please enter a date in the format '+v.format}"/>
+	
+    <c:CsqMomentService aura:id="momentService"/>
+    
+</aura:component>

@@ -1,0 +1,73 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBNews">
+
+    <c:DF_WEBR_WebMeta />
+   
+    <div class="container">
+    
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar activeValue="NEWS" />  
+    
+    <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+                <div class="col-md-9 column">    
+                <div id="page_content"></div>
+                
+                    <h1>{!selectedStory.Title__c}</h1>
+
+                    <c:DF_WEBC_SocialLinks />
+
+                    <span class="date">
+                        <apex:outputText value="{0,date,dd MMM yyyy}">
+                            <apex:param value="{!selectedStory.Publish_Date__c}" /> 
+                        </apex:outputText>
+                    </span>
+                    <div class="postContent">
+                        <apex:outputPanel rendered="{!imageId != ''}">
+                            <img src="/servlet/servlet.FileDownload?file={!imageId}" width="353" alt="" />
+                        </apex:outputPanel>
+                            <p><apex:outputText value="{!selectedStory.Body_Text__c}" escape="false" /></p>                
+                    </div>
+                
+               
+               
+               </div>
+               
+               <div class="col-md-3 column">
+                        <header class="header">
+                            <h2>Friends' information sessions</h2>
+                        </header>
+                        <div class="snippet snippet-rich_text rte">
+                            <p>Friends' information sessions are run by Dementia Friends Champions to help you understand what it's like to live with dementia and the actions you can take. Search for your nearest information session.</p>    
+                        </div>    
+                        <a class="btn btn-primary" href="WEBSession">Find a Session</a>
+                    
+                        <header class="header">
+                            <h2>Champions' inductions</h2>
+                        </header>
+                        <div class="snippet snippet-rich_text rte">
+                            <p>Our inductions prepares Dementia Friends Champions to help people understand what it's like to live with dementia and the actions they can take in their communities. Search for your nearest inductions.</p>    
+                        </div>    
+                        <a class="btn btn-primary" href="WEBTraining">Find Inductions</a>
+                    
+                   
+                        <header class="header">
+                            <h2>Already Registered</h2>
+                        </header>
+                        <div class="snippet snippet-rich_text rte">
+                            <p>Friends' information sessions are run by Dementia Friends Champions to help you understand what it is like to live with dementia the actions you can take. Search for your nearest information session.</p>    
+                        </div>        
+                        <a class="btn btn-primary" href="WEBLogin">Sign in here</a>
+                        <span class="bg"></span>
+                
+
+                </div>
+              <!-- END Sidebar -->
+
+
+            </div>
+        </div>
+    </div>
+   <c:DF_WEBR_WebFooter />
+</div>
+</apex:page>

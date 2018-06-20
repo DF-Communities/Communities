@@ -1,0 +1,17 @@
+<aura:component extensible="true" abstract="true">
+	
+    <aura:attribute name="dispatcher" type="Object" access="GLOBAL"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+
+    <aura:handler name="registerStore" event="c:CsqRegisterStore" action="c.registerStore"/> 
+
+    <aura:handler name="CsqDispatch" event="c:CsqDispatch" action="{!c.dispatch}"/> 
+   
+    <aura:registerEvent name="componentInit" type="c:CsqFluxComponentInit"/>
+
+    <c:CsqDispatcher aura:id="dispatcher"/>
+    
+    {!v.body}
+    
+</aura:component>

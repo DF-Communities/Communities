@@ -1,0 +1,6 @@
+<aura:component extends="c:DfcValidationComponent">
+	
+    <aura:attribute name="positive" type="Boolean" default="false"/>
+    <aura:set attribute="defaultMessage" value="{!v.positive ? 'Please enter a valid number greater than zero' : 'Please enter a valid number'}"/>
+
+</aura:component>

@@ -1,0 +1,6 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+	
+    <aura:attribute name="recordId" type="String"/>
+    <force:recordView type="FULL" recordId="a0Xg0000003feiVEAQ"/>
+    
+</aura:component>

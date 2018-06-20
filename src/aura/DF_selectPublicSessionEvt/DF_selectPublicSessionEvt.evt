@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="This event is fired to determine if a user must select from a pre-existing info session where group sizes are small" >
+    <aura:attribute name="isSessionPublic" type="Boolean"/>
+</aura:event>

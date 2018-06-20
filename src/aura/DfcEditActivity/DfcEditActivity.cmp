@@ -1,0 +1,84 @@
+<aura:component >
+
+    <aura:attribute name="activity" type="DFC_Activity__c" access="GLOBAL"/>
+    <aura:attribute name="actionAreas" type="DFC_Community_Action_Area__c[]" required="true" description="The full list of ActionAreas" access="GLOBAL"/>
+    <aura:attribute name="class" type="String" access="GLOBAL"/>
+
+    <aura:attribute name="new" type="boolean" access="GLOBAL"/>
+    <aura:attribute name="IE9" type="boolean" access="GLOBAL"/>
+
+    <aura:attribute name="data" type="Object" access="GLOBAL"/>
+
+    <aura:attribute name="areas" type="Object[]" access="GLOBAL" description="Selected Focus Areas"/>
+
+    <!-- N.B. This needs to be a String not an object -->
+    <aura:attribute name="selectedAreaId" type="String" access="GLOBAL" description="The Id of the selected focus Area "/>
+    
+    <aura:attribute name="pristine" type="String" default="true" access="GLOBAL"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> 
+    
+    <aura:registerevent name="save" type="c:DfcEvent"/>
+    <aura:registerevent name="cancel" type="c:DfcEvent"/>
+    
+    <c:CsqLodashService aura:id="lodashService"/>
+   
+    <div class="{!v.class+' '+$Browser.formFactor}">
+
+        <c:CsqValidationTracker aura:id="validationTracker">
+           
+           <c:CsqActionButton class="btn btn-action pull-right" onclick="{!c.onSave}">{!v.new?'Add':'Save'}</c:CsqActionButton>
+           <c:CsqActionButton class="btn btn-action pull-right" onclick="{!c.onCancel}">Cancel</c:CsqActionButton>
+            
+          <!-- Select Focus Area -->
+          <label class="{!v.IE9?'':'hide'}">Focus Area</label> 
+          <div class="clearfix">
+           <ui:inputSelect aura:id="area" value="{!v.selectedAreaId}" class="form-control select-focus-area" >
+                    <ui:inputSelectOption text="" label="Select a focus area" />
+                    <aura:iteration items="{!v.areas}" var="area">
+                       <ui:inputSelectOption text="{!area.Id}" label="{!area.Name}" />
+                    </aura:iteration>
+          </ui:inputSelect>
+          </div>
+
+
+           <c:CsqValidateRequired value="{!v.selectedAreaId}" message="Please select a focus area" hide="{!v.pristine}"/>  
+
+           <!-- Activity Start and end dates -->
+           <label class="{!v.IE9?'':'hide'}">Activity Date(s)</label> 
+           <div class="clearfix">
+
+               <ui:inputText value="{!v.data.start}" class="form-control csq-inline csq-date" updateOn="keyup" placeholder="Start date (eg 1/5/2016)"/>
+             <span class="date-separator">to</span> 
+             <ui:inputText value="{!v.data.end}"   class="form-control csq-inline csq-date" updateOn="keyup" placeholder="End date (optional)"/>
+           </div>  
+           <c:CsqValidateRequired value="{!v.data.start}" message="Please enter a start date" hide="{!v.pristine}"/>
+           <c:CsqValidateDate value="{!v.data.start}" message="Please enter a start date in the form 1/5/2016"/>
+           <c:CsqValidateDate value="{!v.data.end}" message="Please enter an end date in the form 1/5/2016"/>
+           <c:CsqValidateDateRange value="{!v.data.end}" isAfter="{!v.data.start}" message="End date (if entered) must be after start"/>
+
+           <!-- Activity Title -->
+           <label class="{!v.IE9?'':'hide'}">Activity Title</label> 
+            
+           <strong>
+            <ui:inputText value="{!v.data.title}" updateOn="keyup" class="form-control"  placeholder="Please enter a title for the activity"/>
+            </strong>
+            <c:CsqValidateRequired value="{!v.data.title}" message="Please enter a title for the activity" hide="{!v.pristine}"/> 
+           
+           <!-- Activity description -->
+           <label class="{!v.IE9?'':'hide'}">Activity Description</label> 
+           <p><ui:inputTextArea value="{!v.data.description}" class="form-control" updateOn="keyup" placeholder="Please describe the activity"/></p>
+             <c:CsqValidateRequired value="{!v.data.description}" message="Please describe your activity" hide="{!v.pristine}"/>
+
+           <!--
+           <aura:iteration items="{!v.areas}" var="area">
+               <div><label><ui:inputCheckbox value="{!area.selected}"/> {!area.Name}</label></div>
+           </aura:iteration>
+           -->
+
+         
+        </c:CsqValidationTracker>
+        
+    </div>
+    
+</aura:component>

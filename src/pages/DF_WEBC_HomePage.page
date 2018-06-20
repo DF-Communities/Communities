@@ -1,0 +1,212 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" cache="false" controller="DF_WEBC_HomePage" applyBodyTag="false" docType="HTML-5.0">
+           
+    <!--[if IE]>
+
+      <style>
+
+      .left.carousel-control, .right.carousel-control { 
+        filter :none;
+      }
+      
+      </style>
+    
+    <![endif]-->        
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+
+    <div id="fb-root"></div>
+    <script>
+
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+ 
+   
+    <!-- BODY START --> 
+
+                <div class="row *.css">
+                    <div class="col-md-12 column">
+                        <div id="myCarousel" class="carousel slide">
+                          <div class="carousel-inner">           
+
+                            <!-- FIRST SLIDE -->                            
+
+                            <div class="item active">
+                              <apex:image url="/servlet/servlet.FileDownload?file={!slides[0].fileId}" id="sliderImg" styleClass="rounded"/>                              
+                              <div class="carousel-caption">
+                                <a href="{!slides[0].Link_Url}" class="btn btn-slider">{!slides[0].Link_Title}&nbsp;<i class="fa fa-chevron-right"></i></a>
+                              </div>
+                            </div>
+
+                            <!-- SLIDER REPEAT-->                            
+                            <apex:repeat value="{!slides}" var="slide" id="sliderRepeat" first="1">
+
+                                <div class="item">
+                                  <apex:image url="/servlet/servlet.FileDownload?file={!slide.fileId}" id="sliderImg" styleClass="rounded"/>                              
+                                  <div class="carousel-caption">
+                                    <a href="{!slide.Link_Url}" class="btn btn-slider">{!slide.Link_Title}&nbsp;<i class="fa fa-chevron-right"></i></a>
+                                  </div>
+                                </div>
+
+                            </apex:repeat>
+
+                          </div>          
+                          <div class="carousel-controls">
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev"> <i class="fa fa-chevron-left"></i></a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next"> <i class="fa fa-chevron-right"></i></a>
+                          </div>
+                        </div>   
+                    </div>
+                </div>
+
+                <div class="home-about row *.css">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="row *.css">                            
+                            <div class="about col-sm-4 col-md-4 column">
+                                <div class="thumbnail">
+                                    <a href="#">
+                                        <img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/become-a-friend-thumb.jpg')}" class="img-responsive rounded" alt="" />
+                                    </a>
+                                </div>
+                                <h3>Become a Dementia Friend</h3>
+                                <p>Learn more about what it is like to live with dementia and turn that understanding into action. It’s really easy to do:</p>
+                                <p><a class="btn btn-default" style= "width:85%" href="register-friend">Attend an Info Session</a></p>
+                                <p><a class="btn btn-primary" style= "width:85%" href="register-digital-friend">Watch our online video</a></p>
+                                <ul>
+                                    <li><a href="WEBArticle?page=what-is-a-friend" class="webarticle-link">What is Dementia Friends?</a></li>
+                                    <li><a href="WEBSession" class="webarticle-link">Find an Information Session</a></li>
+                                </ul>
+                           </div> 
+                           
+                            <div class="about col-sm-4 col-md-4 column">
+                                <div class="thumbnail">
+                                  <a href="#">
+                                        <img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/become-a-champion-thumb.jpg')}" class="img-responsive rounded" alt="" />
+                                    </a>
+                                </div>
+                                  <h3>Volunteer as a Champion</h3>
+                                  <p>Dementia Friends Champions are trained volunteers who encourage others to learn a little bit about dementia. Champions run Information Sessions in their community and inspire others to help those living with dementia live well.</p>
+                                  <p><a class="btn btn-primary" href="DF_WEBC_RegisterChampionIntro">Register as a Champion</a></p>
+                                <ul>
+                                    <li><a href="WEBArticle?page=what-is-a-champion" class="webarticle-link">What is a Champion?</a></li>
+                                    <li><a href="WEBTraining" class="webarticle-link">Find Champions Inductions</a></li>
+                                </ul>
+                            </div>
+                            <div class="about col-sm-4 col-md-4 column">
+                                <div class="thumbnail">
+                                  <a href="#">
+                                        <img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/organisations-thumb.jpg')}" class="img-responsive rounded" alt="" />
+                                    </a>
+                                </div>
+                                  <h3>Get your organisation involved</h3>
+                                  <p>If you register your organisation with Dementia Friends, you will get access to resources and information aimed at helping members of your organisation understand dementia and how it may affect a person.</p>
+                                  <p><a class="btn btn-primary" href="register-partner-admin">Register your organisation</a></p>
+                                <ul>
+                                    <li><a href="WEBArticle?page=about-partner-organisations" class="webarticle-link">How organisations can get involved</a></li>
+                                    <li><a href="WEBArticle?page=organisation-case-studies" class="webarticle-link">Case studies</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="home-about row *.css">
+                    <div class="col-md-12">
+                        <div class="row *.css">
+                            <div class="col-md-8 column">
+                                <h2>About Dementia Friends</h2>
+
+                                <p>Alzheimer’s Society’s Dementia Friends programme is the biggest ever initiative to change people’s perceptions of dementia. It aims to transform the way the nation thinks, acts and talks about the condition.</p>
+
+                                <p>Whether you attend a face-to-face Information Session or watch the online video, Dementia Friends is about learning more about dementia and the small ways you can help. From telling friends about the Dementia Friends programme to visiting someone you know living with dementia, every action counts.</p>
+                                
+                                <p><a class="btn btn-primary webarticle-link" href="WEBArticle?page=how-to-get-involved" >About the initiative</a></p>
+                                    
+                            </div>
+                            <div class="col-md-4 column">
+                                <br/><br/><img src="{!URLFOR($Resource.DF_WEBR_Assets, 'img/about-dementia-friends.jpg')}" class="rounded img-responsive" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social row *.css">
+
+                    <c:WEBRecentActions />    
+
+                    <div class="col-md-4 column"> 
+                    
+                        <h3><i class="fa fa-facebook social-icon" style="color: #0073FF;"></i> Latest on Facebook</h3>
+                        <div class="fb-page" 
+                             data-href="https://www.facebook.com/DementiaFriends" 
+                             data-hide-cover="true" 
+                             data-show-facepile="true" 
+                             data-show-posts="true">
+
+                             <div class="fb-xfbml-parse-ignore">
+                                 <blockquote cite="https://www.facebook.com/DementiaFriends">
+                                        <a href="https://www.facebook.com/DementiaFriends">Dementia Friends</a>
+                                 </blockquote>
+                            
+                            </div>
+                           
+                        </div> 
+                    
+                    <div class="row *.css">
+                    <div class="col-md-12">
+                    <hr/>
+                    </div>
+                    </div>
+
+
+                    </div>
+
+                    <div class="col-md-4 column">
+                        <h3><i class="fa fa-twitter" style="color: #0073FF;"></i> Latest on Twitter</h3>
+                        <div class="twitter-box1">
+                            <a class="twitter-timeline" height="300" data-dnt="true" href="//twitter.com/DementiaFriends" data-widget-id="435759443012112384" data-chrome="nofooter noborders transparent">Tweets by @DementiaFriends</a>
+                        </div>
+
+                    <div class="row *.css">
+                    <div class="col-md-12">
+                    <hr/>
+                    </div>
+                    </div>
+
+
+                    </div>
+                
+                </div>
+                <p></p>
+                
+      <c:DF_WEBR_WebFooter />
+
+  </div>
+
+    <!-- BODY END --> 
+
+
+    <!-- PAGE SPECIFIC SCRIPTS START --> 
+    <script>
+
+        window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+
+         $('#myCarousel').carousel({
+            interval:   4000
+         });
+
+    </script>    
+    <!-- PAGE SPECIFIC SCRIPTS END --> 
+    
+
+</apex:page>

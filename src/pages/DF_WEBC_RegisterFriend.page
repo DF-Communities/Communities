@@ -1,0 +1,167 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_RegisterFriend_Controller">
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+     
+    <div class="row">
+    <div class="col-md-12">
+
+        <h1>Register to become a Dementia Friend</h1>  
+
+                    <div class="step-container row">
+                    
+                    <div class="col-sm-2 col-md-2 column">
+                        <div class="step-active" id="panel-step-1">
+                            <h5>STEP 1</h5>
+                            <p>Tell us where you live<br/><br/><br/></p>
+                        </div>
+                    </div> 
+                    <div class="col-sm-2 col-md-2 column">
+                        <div class="step" id="panel-step-2">
+                            <h5>STEP 2</h5>
+                            <p>Please complete the registration form<br/><br/></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-2 column">
+                        <div class="step" id="panel-step-3">
+                            <h5>STEP 3</h5>
+                            <p>Verify your account by email
+                                
+                                <br/><br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-2 column">
+                        <div class="step" id="panel-step-4">
+                            <h5>STEP 4</h5>
+                            <p>Search for an Information Session in your local area</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-2 column">
+                        <div class="step" id="panel-step-5">
+                            <h5>STEP 5</h5>
+                            <p>Book onto the Information Session of your choice</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>         
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8 column">
+
+                  
+                        <div id="friend-options">
+
+                        <form class="form-horizontal">
+                            <h3>Where do you live?</h3>
+
+                            <div class="form-group">
+                            <div class="col-sm-6">
+                            
+                             <select id="friend-options-select" class="form-control">
+                                <option value='0'>Where do you live?</option>
+                                <option value='1'>England</option>
+                                <option value='2'>Guernsey, Isle of Man</option>
+                                <option value='3'>Wales</option>
+                                <option value='4'>Northern Ireland</option>
+                                <option value='5'>Scotland</option>
+                                <option value='99'>Outside the UK</option>
+                            </select>
+                            
+                            </div>
+                            </div>
+                        </form>
+
+                         <div id="friend-options-texts">                   
+
+                            <p class= "help-block" id ="friend-options-text-4" style="display:none">
+                            
+                                The way we deliver Dementia Friends in Northern Ireland is a bit different to the rest of the UK. Contact our local Dementia Friendly Communities team or one of our local offices in Northern Ireland to find out what dementia friendly activity is taking place and how you can get involved. <a href="https://www.alzheimers.org.uk/homepage/169/our_local_offices?_ga=2.104295171.2028168748.1499268053-618002818.1423848131">Click here for more information</a> 
+                           
+                            </p>                        
+
+                            
+                            <p class= "help-block" id ="friend-options-text-5" style="display:none">
+
+                                The Dementia Friends programme in Scotland is managed by Alzheimer Scotland. Find out how you can get involved by visiting <a href="http://www.dementiafriendsscotland.org/">their website</a>
+                           
+                            </p>                        
+
+
+                            <p class= "help-block" id ="friend-options-text-99" style="display:none">
+                            
+                                 We can only register Friends in the United Kingdom. See <a href="WEBArticle?page=friend-how-else-can-i-help"> here</a> for more information about how you may be able to help people with dementia where you live.
+                           
+                            </p>                       
+
+
+                        </div>
+
+                    </div>    
+
+                    <div id="intro-text-container">                   
+                       
+                        <p class= "help-block" id ="intro-text-step-1" title = "step 1" style="display:none">
+                            
+                            Please register as a Dementia Friend if you would like to attend a Friends' Information Session. We need to pass your details on to the Dementia Friends Champion running your Friends Information Session so they know you are attending. Don't worry, we'll keep your details secure.
+                            To find out more about how we use your personal information please take a look at our supporter <a href="https://www.dementiafriends.org.uk/WEBArticle?page=privacy-policy#.WwhNmO4vyUl">privacy statement</a>. 
+
+                        </p>
+                                            
+                    </div>
+
+                    <c:DF_WEBC_RegisterLongForm />  
+                 
+                   <!-- Successful Message -->
+                
+                   <div id="success-message" style="display:none" class="well">   
+                                                   
+                       <h3> Thanks for registering as a Dementia Friend </h3>                               
+                       <p> We’ve sent you a confirmation email to confirm login.  Just click the link and you will be logged into the site.</p>
+
+                   </div>
+                   
+               </div>
+           </div>
+       </div>
+   </div>    
+    
+
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+    
+    
+    <!--  PostcodeAnywhere code -->    
+    <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"></script>
+    <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
+    
+    <script type="text/javascript">
+        if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+    </script>
+    
+
+    <c:DF_WEBC_RegisterFriend_js />
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            _webc.RegisterFriend_init();
+        });
+
+    </script>
+
+
+</apex:page>

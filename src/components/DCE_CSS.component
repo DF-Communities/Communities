@@ -1,0 +1,126 @@
+<apex:component layout="none">
+    <style type="text/css">
+        @viewport{
+            zoom: 1.0;
+            width: extend-to-zoom;
+        }
+        
+        @-ms-viewport{
+            width: extend-to-zoom;
+            zoom: 1.0;
+        }
+        
+        
+        .visualstrap .btn{
+        	border-radius: 0;
+        }
+        
+        .visualstrap .btn-primary{
+            background-color: rgb(1,153,255);/*rgb(0,158,224) !important;*/
+            border-color: rgb(1,153,255); /* !important;*/
+        }
+        
+        .visualstrap .btn-success{
+            background-color: rgb(56,166,74); /* !important;*/
+            border-color: rgb(56,166,74); /*!important;*/
+        }
+        
+        .visualstrap .btn-cancel{
+            background-color: rgb(201,209,33); /* !important;*/
+            border-color: rgb(201,209,33); /*!important;*/
+        }
+        
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+        
+        /*.nav-pills li.active > a{
+            background-color: rgb(0,158,224) !important;
+        }*/
+        
+        img.centredImage{
+            margin-left: auto;
+            margin-right: Auto;
+            display: block;
+        }
+        
+        .modalText{
+            margin-right:1.5em;
+        }
+        
+        .sectionHeading{
+            text-align:left;
+            color: rgb(1,153,255);
+            font-family: "FS Albert", "Arial";
+            font-size: 150%;
+            font-weight: bold;
+        }
+        
+        .sectionHeadingSmall{
+            text-align:left;
+            color: rgb(1,153,255);
+            font-family: "FS Albert", "Arial";
+            font-size: 125%;
+            font-weight: bold;
+            margin-left:0.5em;
+        }
+        
+        .topButtonRow{
+            margin-bottom:2em;
+        }
+        
+        .visualstrap .navbar-header{
+            min-height: 65px;
+        }
+        
+                .visualstrap .nav > li > a {
+            padding: 10px 5px;
+        }
+        
+        .not-active {
+            pointer-events: none;
+            cursor: default;
+            color: black !important;
+        }
+        
+        .wordBreak{
+        	word-break: break-all;
+        }
+        
+        span.private{
+		        	color: red;
+					font-size: 90%;
+					font-weight: bold;
+					margin: 0.5em;
+				}
+	</style>
+    
+    <script>
+        /*
+        (function (a, c, b, e) {
+            a[b] = a[b] || {}; a[b].initial = { accountCode: "ALZHE11122", host: "ALZHE11122.pcapredict.com" };
+            a[b].on = a[b].on || function () { (a[b].onq = a[b].onq || []).push(arguments) }; var d = c.createElement("script");
+            d.async = !0; d.src = e; c = c.getElementsByTagName("script")[0]; c.parentNode.insertBefore(d, c)
+        })(window, document, "pca", "//ALZHE11122.pcapredict.com/js/sensor.js");
+        */
+    </script>
+    
+    <meta name="viewport" content="initial-scale=1"></meta>
+    
+</apex:component>

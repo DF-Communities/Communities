@@ -1,0 +1,147 @@
+<apex:component allowDML="true" controller="DF_WEBC_FriendVideo_Controller">
+
+<apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example1/colorbox.css"/>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"/>
+<script src="https://www.youtube.com/iframe_api" type="text/javascript"></script>
+
+
+
+<script type="text/javascript">
+
+
+$(document).ready( function () {
+
+   // var videoSelected=$("[id$=video-link]").children.('a').attr('href');
+    /*
+    var _vfPlayer = new Object(); 
+
+     _vfPlayer.vid = 'y36lXG4L0iY';
+
+     _vfPlayer.onPlayerReady = function() {
+
+        function updateTime() {
+
+            if (_vfPlayer.player && _vfPlayer.player.getCurrentTime) {
+
+                if (_vfPlayer.player.getCurrentTime() >= 250) { // 4 minutes 10 seconds                
+                    afRecordTime();                                
+                };
+
+            }
+        }
+
+        _vfPlayer.timeupdater = setInterval(updateTime, 1000);
+     };
+     
+     _vfPlayer.insertVideo = function() {
+         
+         _vfPlayer.player = new YT.Player('player', {
+               height: '390',
+               width: '701',
+               videoId: _vfPlayer.vid,
+               playerVars: { 'autoplay': 0, 'autohide': 1, rel: 0 },
+               events: {
+                   'onReady': _vfPlayer.onPlayerReady
+               }
+         });
+
+     };
+     */
+    
+    
+     $('.vimeo-gallery').colorbox({  
+
+        iframe : true,
+        width : "50%", 
+        height : "50%", 
+        transition : "elastic",   
+        rel : "vimeo-gallery",
+        onClosed: function () { videoLinkClosed(); }
+    });
+     $('.vimeo-gallery2').colorbox({  
+
+        iframe : true,
+        width : "50%", 
+        height : "50%", 
+        transition : "elastic",   
+        rel : "vimeo-gallery2",
+        onClosed: function () { videoLinkClosed(); }
+    });
+     
+     
+        
+    $("[id$=video-link1]").click(function (event) {
+        
+       
+        afRecordTime();
+
+        return false;
+    });
+    $("[id$=video-link2]").click(function (event) {
+        
+       
+        afRecordTime2();
+
+        return false;
+    });
+
+       // "
+
+});
+
+
+</script>
+<!--new video 20/04/2017-->
+<div id ="video-lightbox" style="display:none">
+
+        <p>
+            <a id = "player" class='vimeo-gallery' 
+               href="//www.youtube.com/embed/fync5IKMgnk?autoplay=1" 
+               title="Understanding Dementia" >
+               Flash / Video (Iframe/Direct Link To YouTube)
+
+            </a>
+        </p>
+
+ </div>
+ <div id ="video-lightbox2" style="display:none">
+
+        <p>
+            <a id = "player2" class='vimeo-gallery2' 
+               href="//www.youtube.com/embed/qut1FiQfcrI?autoplay=1" 
+               title="Understanding Dementia" >
+               Flash / Video (Iframe/Direct Link To YouTube)
+
+            </a>
+        </p>
+
+ </div>
+ 
+
+
+ <apex:form id="record-time-watched" forceSSL="true">
+
+    <apex:actionFunction name="afRecordTime" 
+        action="{!doSetVideoWatched}"
+        onComplete="$('#player').click();"
+
+       >
+       <apex:param name="videoType" value="Standard Video"/>
+       </apex:actionFunction>
+  
+
+</apex:form>
+<apex:form id="record-time-watched2" forceSSL="true">
+
+    <apex:actionFunction name="afRecordTime2" 
+        action="{!doSetVideoWatched}"
+        onComplete="$('#player2').click();"
+
+       >
+       <apex:param name="videoType" value="BSL"/>
+       </apex:actionFunction>
+  
+
+</apex:form>
+
+</apex:component>

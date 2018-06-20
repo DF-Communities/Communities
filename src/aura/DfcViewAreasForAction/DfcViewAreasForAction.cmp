@@ -1,0 +1,41 @@
+<aura:component extends="c:CsqViewComponent">
+    
+    <aura:attribute name="actionAreas" type="Object[]" access="GLOBAL"/>
+    
+    <aura:registerEvent name="CsqDispatch" type="c:CsqDispatch"/>
+    
+    <c:DfcCommunityStore change="c.onCommunityStoreChange"/>
+    
+        <div >
+   
+            <h3>Areas for Action</h3>
+
+         	  <p>  <c:DfcSnippet group="dfc_apply" key="dfc-apply-action-areas"/> </p>
+        
+                <aura:iteration var="area" items="{!v.actionAreas}">
+
+                    <aura:if isTrue="{!area.Selected__c}">
+
+                        <div class="well">
+
+                         <div class="form-group">
+                                <div>
+                                    <label style="margin-right:12px;">
+                                      <span>{!area.Action_Area__r.Name}</span>
+                                    </label>
+                                </div>
+
+                                <div>
+        	                       <ui:outputTextArea value="{!area.Description__c}"  class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </aura:if>
+                    
+                </aura:iteration>
+
+        </div>
+	
+</aura:component>

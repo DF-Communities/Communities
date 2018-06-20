@@ -1,0 +1,29 @@
+<apex:page standardController="DF_Event__c" extensions="DfEventAttendeeController" tabStyle="DF_Contact__c">
+    <apex:form >
+    <apex:pageBlock >
+  <apex:pageBlockButtons >
+     <apex:commandButton value="Save" action="{!save}"/>
+     <apex:commandButton value="Cancel" action="{!cancel}"/>   
+  </apex:pageBlockButtons>
+  <!-- 2014-04-24 : SM : There is a problem with this page / controller so I am removing this page block table temporarily -->
+  <!-- <apex:pageBlockTable value="{!lstdfcontacts}" var="cons">
+   <apex:column headerValue="DF Champions"
+     value="{!cons.Name}">
+    </apex:column>
+   <apex:column headerValue="Email" value="{!cons.Email__c}">
+   </apex:column>
+   <apex:column headerValue="Contact Number" value="{!cons.Contact_Number__c}">
+   </apex:column>
+    <apex:column headerValue="Contacted?">
+       <apex:inputField value="{!cons.Contacted__c}"/>   
+    </apex:column>
+    <apex:column headerValue="Eligible?">
+       <apex:inputField value="{!cons.Eligible__c}"/>   
+    </apex:column>
+    <apex:column headerValue="Note">
+       <apex:inputField value="{!cons.Note__c}"/>   
+    </apex:column>
+  </apex:pageBlockTable> -->
+ </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,12 @@
+<aura:component extends="c:CsqViewStore" >
+	
+    <aura:set attribute="defs">
+        <c:CsqView name="overview" title="STEP 1" label="Community Location"/>
+        <c:CsqView name="actions" title="STEP 2" label="Community Details"/>
+        <c:CsqView name="activities" title="STEP 3" label="Community Representatives"/>
+        <c:CsqView name="reps" title="STEP 4" label="Areas for Action"/>
+        <c:CsqView name="assessment" title="STEP 5" label="Application Status"/>
+        <c:CsqView name="resources" title="HELP" label="Resources"/>
+    </aura:set>
+	
+</aura:component>

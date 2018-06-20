@@ -1,0 +1,122 @@
+<apex:component controller="DFC_RegisterCommunityController">
+
+<style>
+.dfc-country {
+    display: table;
+    border: 1px solid #c0c0c0; 
+    border-radius: 4px;
+    margin: 3px 0 20px 0;
+    width: 100%;
+}
+
+/* Row */
+.dfc-country > div {
+    display: table-row;
+}
+
+/* Cell */
+.dfc-country > div > div {
+    display: table-cell;
+    padding: 20px 10px 20px 10px;
+    font-weight: bold;
+}
+
+.dfc-country .cell1 { 
+    width: 100px;
+}
+
+
+.img.region { 
+    width:58px;
+    height:75px;
+    margin-left:10px;
+}
+
+.dfc-selected-country {
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    padding: 35px 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+
+.dfc-selected-daa {
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    padding: 35px 20px;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+
+.dfc-selected-daa > div {
+    display: table-row;
+}
+
+.dfc-selected-daa > div > div {
+    display: table-cell;
+}
+
+.dfc-selected-daa >div > div:first-child {
+    width: 90%;
+}
+</style>
+
+
+           <h3>Community Location</h3> 
+
+           <div class="dfc-selected-country"><!-- Table -->
+                <div><!-- Row -->
+                    
+                    <div>{{community.Country__c}}</div> 
+                </div>
+           </div> 
+
+          <!-- Display the selected Central Location option if No -->
+          <div ng-show="community.Central_Location__c=='No'" class="dfc-selected-daa">  <!-- Table -->
+                  <div>  <!-- Row -->
+                      <div>My Community does not have a fixed location</div>
+                   
+                  </div>
+
+                  <div>
+                     <div style="margin-top:20px">{{community.Why_No_Central_Location__c}}</div>
+                   </div>
+          </div> 
+      
+    
+    <span ng-show="community.Central_Location__c=='Yes'">      
+    
+             
+      <!-- Selected Region -->
+                 <div class="dfc-country"><!-- Table -->
+                      <div><!-- Row -->
+                      <div class="cell1">
+                          <div ng-show="community.Country__c=='England'" style="padding-top:8px;padding-bottom:9px;">
+                                <img ng-src="/resource/dfc_images/{{selectedRegion.Image_name__c}}" style="width:60px;
+                                 height:74px;width:60px;
+                                 height:74px;" />
+                          </div>
+                          </div>
+
+                          <div class="cell2">{{selectedRegion.Name}} </div> 
+                         
+                      </div>
+                 </div> 
+              
+
+           
+                 <div ng-show="selectedDaa!=null" class="dfc-selected-daa"> 
+                    <div>
+                        <div>{{selectedDaa.Name}}</div>
+                    </div>
+                 </div>
+
+          
+   </span> 
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</apex:component>

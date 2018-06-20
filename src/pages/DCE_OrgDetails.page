@@ -1,0 +1,480 @@
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_OrgDetails_Controller" title="Our details - Dementia Connect" applyHtmlTag="false" applyBodyTag="false">  <!-- action="{!loginRedirect}"  -->
+	<html>
+		<head>
+			<apex:stylesheet value="{!URLFOR($Resource.PhotoCropper, 'croppie.css')}"/>
+			
+			<script>
+			
+				$(document).ready(function() {
+					prepFields();
+				})
+				
+				function prepFields(){
+					
+					if({!isLockedForApproval}){
+						$( "#orgDetails :input" ).prop('disabled', true);
+					}
+					
+					$("[id*='submitApprovalButton']").on('click', function(){
+				         
+						var requiredFields = $("[data-requiredForApproval='true']");
+						var hasError = false;
+						
+				        for(i=0; i < requiredFields.length; i++){
+				         	
+							if(requiredFields[i].value == ''){
+								$(requiredFields[i]).closest("div.form-group").addClass("has-error");
+				         		hasError = true;
+				         	}
+				         	
+						}
+				       
+				        if(hasError){
+							$("[id*='javascriptAlertText']").text("Please complete the highlighted fields before submitting.");
+				         	$("[id*='javascriptAlert']").show('fast');
+				         	$("[id*='javascriptAlert']").addClass('in');
+				         } else {
+				         	$("[id*='javascriptAlert']").hide();
+				         	$("[id*='javascriptAlert']").removeClass('in');
+				         	$("[id*='approvalModal']").modal('show');
+				         }
+				         
+				    });
+				    
+				    $("[data-requiredForApproval='true']").change(function(){
+				    	$(this).closest("div.form-group").removeClass("has-error");
+				    });
+				    
+				    cropGenerator($("[id$=croppieDiv]"), $("[id$=upload-demo]"),$("[id$=upload]"), $("[id$=crop_button]"), $("[id$=erase_button]"), $("[id$=databaseUpload]"), $("[id$=crop-result]"), $("[id$=crop_result_input]"), 150, 150);
+					
+					$('#approvalModal, #discardModal').on('hidden.bs.modal', function (e) {
+						$(".modal-backdrop").remove();
+					})
+				}
+				
+			</script>
+			<c:DCE_CSS />
+			<!--[if IE]>
+    			<style type="text/css">
+        			span#hideIE9 {
+            			display:none;
+        			}
+        			
+        			span#showIE9 ::after {
+        				content: "Certain browsers are not compatible with this site's file upload functionality. Please upgrade your browser.";
+        			}
+        			
+    			</style>
+			<![endif]-->
+		</head>
+		<body>
+			<c:importvisualstrap />
+			<apex:includeScript value="{!URLFOR($Resource.PhotoCropper, 'croppie.js')}"/>
+			<script>
+				function cropGenerator(croppieDiv, uploadDiv, uploadInput, cropButton, eraseButton, commitDatabase, cropResultImage, cropResultInput, width, height) {
+					
+					eraseButton.hide();
+					commitDatabase.hide();
+					cropButton.hide();
+					uploadDiv.hide();
+					
+					step2 = $("[id$=step2]");
+					step3 = $("[id$=step3]");
+					step4 = $("[id$=step4]");
+					
+					step2.hide();
+					step3.hide();
+					step4.hide();
+					
+					var $uploadCrop;
+					var photoCropped;
+					
+					function readFile(input) {
+						if (input.files && input.files[0]) {
+							var reader = new FileReader();
+							
+							reader.onload = function (e) {
+								$uploadCrop.croppie("bind", {
+									url: e.target.result
+								});
+								
+								cropButton.show();
+								step2.show();
+								
+								uploadDiv.show();
+								
+								eraseButton.hide();
+								step3.hide();
+								
+								$("[id$=companyLogo]").hide();
+								$("[id*='logoUploadAlert']").hide('fast');
+							}
+							
+							reader.readAsDataURL(input.files[0]);
+						} else {
+							alert("Sorry - your browser doesnt support the FileReader API (Internet Explorer version 9 or below)");
+						}
+					}
+			
+					$uploadCrop = uploadDiv.croppie({
+						viewport: {
+							width: width,
+							height: height,
+							type: "square"
+						},
+						boundary: {
+							width: width + 50,
+							height: height + 50
+						},
+						enforceBoundary:false
+					});
+			
+					uploadInput.on("change", function () { 
+						readFile(this); 
+					});
+					
+					cropButton.on("click", function (ev) {
+						$uploadCrop.croppie("result", {
+							type: "canvas",
+							size: "viewport",
+							format: "png"
+						}).then(function (resp) {
+							//alert('resp - '+resp);
+							
+							cropResultImage.attr("src", resp);
+							uploadDiv.hide();
+							
+							cropButton.hide();
+							step2.hide();
+							
+							
+							eraseButton.show();
+							step3.show();
+							
+							commitDatabase.show();
+							step4.show();
+							
+							cropResultInput.val(resp);
+							photoCropped = resp;
+						});
+					});
+					
+					eraseButton.on("click", function (ev) {
+						cropButton.show();
+						step2.show();
+						
+						commitDatabase.hide();
+						step4.hide();
+						
+						cropResultImage.attr("src", "");
+						uploadDiv.show();
+						
+						eraseButton.hide();
+						step3.hide();
+						
+						cropResultInput.val("");
+					});
+					
+					commitDatabase.on("click", function (ev) {
+						
+						//console.log('Here is the content - '+photoCropped);
+						
+						
+						Visualforce.remoting.Manager.invokeAction(
+							'{!$RemoteAction.DCE_OrgDetails_Controller.photoUpload}',
+							photoCropped.replace('data:image/png;base64,',''),
+							function(result, event){
+								if(event.status){
+									//$("[id$=uploadProcessStartButton]").show();
+									eraseButton.hide();
+									step3.hide();
+									
+									commitDatabase.hide();
+									step4.hide();
+									$("[id*='logoUploadAlertText']").text('Your image has been uploaded');
+				         			$("[id*='logoUploadAlert']").addClass('alert-success');
+				         			$("[id*='logoUploadAlert']").show('fast');
+								} else {
+									$("[id*='logoUploadAlertText']").text('There was an error uploading your image - '+event.message);
+				         			$("[id*='logoUploadAlert']").addClass('alert-danger');
+				         			$("[id*='logoUploadAlert']").show('fast');
+								}
+							}
+						);
+						
+						
+					});
+				}
+			</script>
+			<c:visualstrapblock >
+				<apex:form id="theForm">
+					<script>
+						function isLocked(){
+							if({!isLockedForApproval}){
+								$( "#orgDetails :input" ).prop('disabled', true);
+							} else {
+								$( "#orgDetails :input" ).prop('disabled', false);
+							}
+						}
+					</script>
+					<c:DCE_Navbar />
+					<c:row >
+						<c:column type="col-md-1"/>
+						<c:column type="col-md-10">
+							<c:well >
+								<div style="margin-bottom:1em;" class="clearfix">
+								<!--<h3><span class="label label-default">Our Organisation Details</span></h3>-->
+									<span class="sectionHeading">Our Organisation Details</span>
+								
+									<apex:outputpanel layout="inline" rendered="{!partnerLoadSuccess}">
+									
+										<span style="float:right;margin-right:1em;">
+											<apex:outputLink styleClass="btn btn-primary" value="{!URLFOR($Page.DCE_Dashboard)}" ><c:glyph icon="home" html-aria-hidden="true"/><span class="sr-only">Home</span></apex:outputLink>
+											<apex:commandLink styleClass="btn btn-primary" onclick="return false;" rendered="{!NOT(isLockedForApproval)}" html-data-toggle="modal" html-data-target="#discardModal"><c:glyph icon="trash" html-aria-hidden="true"/></apex:commandLink>&nbsp;
+											<apex:commandLink styleClass="btn btn-primary" action="{!save}" status="status" rerender="theForm" rendered="{!NOT(isLockedForApproval)}" oncomplete="prepFields();"><c:glyph icon="save" html-aria-hidden="true"/>&nbsp;Save</apex:commandLink>&nbsp;
+											<apex:commandLink styleClass="btn btn-primary" onclick="return false;" rendered="{!NOT(isLockedForApproval)}" id="submitApprovalButton"><c:glyph icon="lock" html-aria-hidden="true"/>&nbsp;Approval</apex:commandLink>&nbsp; <!--  html-data-toggle="modal" html-data-target="#approvalModal" -->
+											<apex:commandButton styleClass="btn-primary" value="Recall from Approval" onclick="return false;" rendered="{!isLockedForApproval}"  id="recallApprovalButton" html-data-toggle="modal" html-data-target="#approvalModal"/>
+										</span>
+									</apex:outputpanel>
+								</div>
+								<div>
+									<p>Edit the details of your organisation here.</p>
+									<p>If you are submitting a service on behalf of another person in your organisation, please ensure that you have their permission to do so.</p>
+								</div>
+								
+								<apex:outputpanel layout="none" rendered="{!displayPageMessage}">
+									<apex:outputPanel layout="block" styleClass="alert {!pageMessageType}">
+									    <apex:outputText value="{!pageMessage}" escape="false"/>
+									</apex:outputPanel>
+								</apex:outputpanel>
+								
+								<div class="alert alert-danger alert-dismissible fade" role="alert" id="javascriptAlert" style="display:none;">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									 <span id="javascriptAlertText"></span>
+								</div>
+								
+								<div id="orgDetails">
+									
+									<apex:outputpanel layout="inline" rendered="{!partnerLoadSuccess}">
+								
+										<c:formblock alignment="horizontal" style="margin-top:5px;padding:10px">
+								    		<c:row >
+								    			<c:column type="col-md-6">
+								    				<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+										        		<apex:outputLabel for="orgName">Organisation Name</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+										        		<apex:inputText value="{!partner.Name__c}" styleClass="form-control" id="orgName" html-data-requiredForApproval="true"/>
+										        		<span class="help-block">{!$ObjectType.DCE_OrgAmend__c.fields.Name__c.inlineHelpText}</span>
+										    		</c:formgroup>
+										    		<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+										        		<apex:outputLabel for="phone">{!$ObjectType.DCE_OrgAmend__c.fields.Phone__c.Label}</apex:outputLabel>
+										        		<apex:inputText value="{!Partner.Phone__c}" styleClass="form-control" id="phone"/>
+										        		<span class="help-block">{!$ObjectType.DCE_OrgAmend__c.fields.Phone__c.inlineHelpText}</span>
+										    		</c:formgroup>
+										    		<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+										        		<apex:outputLabel for="officeContact">{!$ObjectType.DCE_OrgAmend__c.fields.Office_Contact_Hours__c.Label}</apex:outputLabel>
+										        		<apex:inputText value="{!partner.Office_Contact_Hours__c}" styleClass="form-control" id="officeContact"/>
+										        		<span class="help-block">{!$ObjectType.DCE_OrgAmend__c.fields.Office_Contact_Hours__c.inlineHelpText}</span>
+										    		</c:formgroup>
+										    	</c:column>
+								    			<c:column type="col-md-6">
+										    		<c:row >
+										    			<c:column type="col-md-12">
+										    				<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+										    					<apex:outputLabel >Address</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+										    					<apex:outputLabel styleclass="sr-only" for="street">{!$ObjectType.DCE_OrgAmend__c.fields.BillingStreet__c.Label}</apex:outputLabel><apex:inputText id="street" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Street*" value="{!partner.BillingStreet__c}" html-data-requiredForApproval="true"/>
+						    									<apex:outputLabel styleclass="sr-only" for="town">{!$ObjectType.DCE_OrgAmend__c.fields.BillingCity__c.Label}</apex:outputLabel><apex:inputText id="town" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Town/City*" value="{!partner.BillingCity__c}" html-data-requiredForApproval="true"/>
+						    									<apex:outputLabel styleclass="sr-only" for="state">{!$ObjectType.DCE_OrgAmend__c.fields.BillingState__c.Label}</apex:outputLabel><apex:inputText id="state" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="County" value="{!partner.BillingState__c}"/>
+						    									<apex:outputLabel styleclass="sr-only" for="postcode">{!$ObjectType.DCE_OrgAmend__c.fields.BillingPostalCode__c.Label}</apex:outputLabel><apex:inputText id="postCode" styleClass="form-control" html-placeholder="Postcode*" value="{!partner.BillingPostalCode__c}" html-data-requiredForApproval="true"/>
+										    					<apex:outputLabel styleclass="sr-only" for="country">{!$ObjectType.DCE_OrgAmend__c.fields.BillingCountry__c.Label}</apex:outputLabel><apex:inputText id="country" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Country*" value="{!partner.BillingCountry__c}" html-data-requiredForApproval="true"/>
+										    					<link rel="stylesheet" type="text/css" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=kb59-yz47-hj67-xf67" />
+										    					<script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=kb59-yz47-hj67-xf67"></script>
+										    					<script type="text/javascript">
+																	
+																	var fields = [
+																		{ element: "{!$Component.street}", field: "Line1" },
+																		{ element: "{!$Component.town}", field: "City", mode: pca.fieldMode.POPULATE },
+																		{ element: "{!$Component.county}", field: "Province", mode: pca.fieldMode.POPULATE },
+																		{ element: "{!$Component.postCode}", field: "PostalCode" },
+																		{ element: "{!$Component.country}", field: "{HomeNation}", mode: pca.fieldMode.POPULATE },
+	
+																	];
+																		
+																	var options = {key: "KB59-YZ47-HJ67-XF67", countries: { codesList: "GBR" }, culture:"en_GB" };
+	
+																	var control = new pca.Address(fields, options);
+																	//control.listen("load", function(){control.setCountry("GBR");});
+																</script>
+										    				</c:formgroup>
+										    			</c:column>
+										    		</c:row>
+										    	</c:column>
+								    		</c:row>
+								    	</c:formblock>
+								    </apex:outputpanel>
+							    </div>
+							</c:well>
+							
+							<c:well >
+								<div style="margin-bottom:1em;">
+								
+									<span class="sectionHeading">Our Organisation Logo</span>
+								</div>
+								<c:row >
+									<c:column type="col-md-1"/>
+									<c:column type="col-md-10">
+										<div class="alert alert-dismissible alert-dismissible fade in" role="alert" id="logoUploadAlert" style="display:none;">
+										 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										 	<span id="logoUploadAlertText"></span>
+										</div>
+									</c:column>
+									<c:column type="col-md-1"/>
+								</c:row>
+								
+								<c:row >
+									<c:column type="col-sm-6">
+										<apex:image value="/servlet/servlet.FileDownload?file={!orgLogo.id}" rendered="{!NOT(ISNULL(orgLogo))}" id="companyLogo" styleClass="centredImage"/>
+							
+										<div id="upload-demo"></div>
+								
+										<div id="CroppieDiv">
+											<img id="crop-result" src="" class="centredImage"/>
+											<input type="hidden" id="crop_result_input"/>
+										</div>
+									</c:column>
+									
+									<c:column type="col-sm-4 col-xs-10 col-xs-offset-1">
+										<c:row >
+											<h5>Want to update or change your logo?</h5><br/><br/>
+										</c:row>
+										<span id="hideIE9">
+											
+											<c:row >
+												<h4><small>Step 1</small></h4>
+												<span class="btn btn-primary btn-file pull-right" id="uploadProcessStartButton">
+													Upload a new/different logo<input type="file" id="upload" accept="image/*"/>
+												</span>
+											</c:row>
+											<c:row >
+												<h4 id="step2"><small>Step 2</small></h4>
+												<apex:commandLink id="crop_button" styleClass="btn btn-primary pull-right" onclick="return false;">Preview your logo before uploading</apex:commandLink>
+											</c:row>
+											<c:row >
+												<h4 id="step3"><small>Step 3</small></h4>
+												<span class="pull-right">
+													<apex:commandLink id="erase_button" styleClass="btn btn-primary" onclick="return false;">Resize</apex:commandLink>
+													<h4 id="step4"><small>or</small>&nbsp;</h4>
+													<apex:commandLink id="databaseUpload" styleClass="btn btn-success" onclick="return false;">Upload</apex:commandLink>
+												</span>
+											</c:row>
+											
+										</span>
+										<span id="showIE9">
+											<p/>
+										</span>
+									</c:column>
+										
+									
+								</c:row>
+							
+							</c:well>
+							
+							
+							<apex:actionRegion id="theRegion">
+								<c:well >
+									<div style="margin-bottom:1em;" class="clearfix">
+										<span class="sectionHeading">Our Organisation Administrators</span>
+										<span style="float:right;margin-right:1em;">
+											<apex:commandButton styleClass="btn-primary" value="Update" action="{!updateAdmins}" status="status" rerender="theForm" oncomplete="prepFields();"/>
+										</span>
+									</div>
+									
+									<c:row >
+										<c:column type="col-sm-6">
+											<div style="margin-bottom:0.5em;">
+											<!--<h4><span class="label label-default">Active</span></h4>-->
+												<span class="sectionHeadingSmall">Active</span>
+											</div>
+											<c:panel >
+												<apex:dataTable value="{!activeUsers}" var="u" styleClass="table table-condensed">
+										            <apex:column headerValue="Active" width="20%">
+										            	<apex:inputcheckbox value="{!u.Active__c}" rendered="{!u.Contact__c != userWithDCEDetails.contactId}"/>
+										            </apex:column>
+										            <apex:column headerValue="Name">
+										            	<!--{!u.User.Name}-->{!u.Name__c}
+										            </apex:column>
+										        </apex:dataTable>
+											</c:panel>
+										</c:column>
+										<c:column type="col-sm-6">
+											<div style="margin-bottom:0.5em;">
+											<!--<h4><span class="label label-default">Inactive</span></h4>-->
+												<span class="sectionHeadingSmall">Inactive</span>
+											</div>
+											<c:panel >
+												<apex:dataTable value="{!inActiveUsers}" var="u" styleClass="table table-condensed" rendered="{!inActiveUsers.size > 0}">
+										            <apex:column headerValue="Active" width="20%">
+										            	<apex:inputcheckbox value="{!u.Active__c}"/>
+										            </apex:column>
+										            <apex:column headerValue="Name">
+										            	<!--{!u.User.Name}-->{!u.Name__c}
+										            </apex:column>
+										        </apex:dataTable>
+										        <apex:outputtext rendered="{!inActiveUsers.size == 0}" style="font-style: italic;" value="Your Organisation has no inactive users"/>
+											</c:panel>
+										</c:column>
+									</c:row>
+									
+								</c:well>
+							</apex:actionRegion>
+						</c:column>
+						<c:column type="col-md-1"/>
+					</c:row>
+					
+					<!-- APPROVAL CONFIRMATION MODAL -->
+					
+					<c:modal title="Confirm" id="approvalModal" html-role="dialog" html-aria-labelledby="ApprovalActions">
+						<div class="modal-dialog" role="document">
+							<div class="modalText">
+								<p id="ApprovalActions" class="lead">Approval actions</p>
+								<apex:outputpanel layout="none" rendered="{!NOT(isLockedForApproval)}">
+									<p>This record will be locked to prevent further edits during the approval process.</p>
+									<p>You will be able to recall the record from approval and unlock it using the <strong>Recall record from Approval</strong> button</p>
+								</apex:outputpanel>
+								
+								<apex:outputpanel layout="none" rendered="{!isLockedForApproval}">
+									<p>Recalling this record will cancel the approval process and unlock the record.</p>
+									<p>You will then be able to edit the record and make any changes required before re-submitting for Approval.</p>
+								</apex:outputpanel>
+								
+								
+								<apex:commandButton value="Cancel" styleClass="btn-cancel" html-data-dismiss="modal"/>&nbsp;<!--  onclick="manuallyClearDiv();" -->
+					        	<apex:commandButton value="Confirm" action="{!commitApproval}" status="status" html-data-dismiss="modal" rerender="theForm" styleClass="btn-success" oncomplete="prepFields();isLocked();" rendered="{!NOT(isLockedForApproval)}"/>
+					        	<apex:commandButton value="Confirm" action="{!recallApproval}" status="status" html-data-dismiss="modal" rerender="theForm" styleClass="btn-success" oncomplete="prepFields();isLocked();" rendered="{!isLockedForApproval}"/>
+			        		</div>
+			        	</div>
+					</c:modal>
+					
+					<!-- DISCARD DRAFT APPROVAL MODAL -->
+					
+					<c:modal title="Confirm" id="discardModal" html-role="dialog" html-aria-labelledby="confirmDiscard">
+						<div class="modal-dialog" role="document">
+							<div class="modalText">
+								<p id="confirmDiscard">Are you sure you want to discard this draft?</p>
+								<p>Any changes you have made will be lost. Next time you edit the service, all values will be based upon the live details we have for your Organisation.</p>
+							</div>
+							<span>
+								<apex:commandButton value="Cancel" styleClass="btn-cancel" html-data-dismiss="modal"/>&nbsp;
+				        		<apex:commandButton value="Confirm" action="{!discardDraft}" status="status" html-data-dismiss="modal" rerender="theForm" oncomplete="prepFields();" styleClass="btn-success"/>
+				        	</span>
+				        </div>
+					</c:modal>
+				</apex:form>
+			</c:visualstrapblock>
+			<c:DCE_LoadingSpinner />
+		</body>
+	</html>
+</apex:page>

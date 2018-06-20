@@ -1,0 +1,15 @@
+.THIS .invisible-field{
+   visibility:hidden;
+    height:0px; 
+}
+
+.THIS .has-error {
+   visibility:hidden;
+    height:0px;
+}
+
+.THIS .invisible-field {
+   visibility:hidden;
+    float:left;
+    width:0px;
+}

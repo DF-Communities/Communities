@@ -1,0 +1,38 @@
+<apex:page showHeader="false" controller="DF_WEBC_Recaptcha2Handler" extensions="DF_WEBC_Recaptcha2LightningRetrofitter"> 
+    
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        </head>
+        
+        <style> span {
+            color: #a94442;
+        }
+        
+        </style> <style> .df-background {
+        background-color: #F4F4F4; 
+        }
+        
+        html {
+            background-color: #F4F4F4;
+        }
+
+        </style> 
+        
+        <div class="row df-background"> 
+            <div class="col-md-12"> 
+                <div class="row"> 
+                    <div class="col-md-8 column">
+                        <c:DF_WEBC_Recaptcha2 recaptchaAttributes="onload=onloadCallback&render=explicit"
+                        					  destHostUrl="{!ltngCmpOriginUrl}"/>
+                            </div>
+                        <div class="col-lg-12">
+                            <div style="color:green" id="captcha-usrfriendly-response"></div>
+                            <div style="color:red" id="responseErrors"></div>
+                            
+                            </div>
+                            </div>
+                            </div>
+                            
+                            </div>
+        
+    </apex:page>

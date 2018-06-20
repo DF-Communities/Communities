@@ -1,0 +1,714 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBChampion" action="{!loginRedirect}">
+   <head>
+      <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script> 
+
+       <apex:includeLightning />
+      <style type="text/css">
+         ul.pushMessages {
+         list-style-type:none;
+         }
+         ul.videoOptions{
+         list-style-type:none;
+         }
+         ul.videoOptions li{
+         list-style-image: none;
+         }
+         ul.pushMessages li{
+         position: absolute;
+         background-color:#d9edf7;
+         }
+         .rso{
+         border-top: solid #5681ac;
+         border-right: solid #5681ac;
+         border-left: solid #5681ac;
+         border-bottom: solid #5681ac;
+         }
+         .card{
+         margin: 0 auto 2rem;
+         padding: 1rem;
+         background-color:#d9edf7;
+         word-wrap: break-word;
+         box-shadow: 0 0.0625em 0.1875em 0 rgba(0, 0, 0, 0.1), 0 0.5em 0 -0.25em #f2f2f2, 0 0.5em 0.1875em -0.25em rgba(0, 0, 0, 0.1), 0 1em 0 -0.5em #e5e5e5, 0 1em 0.1875em -0.5em rgba(0, 0, 0, 0.1);
+         }
+         .red{
+         background-color:red;   
+         }
+         .override-ltng-zoomfactor {
+         display: block;
+         width: 100%;
+         font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+         font-size: 14px;
+         line-height: 1.42857143;
+         }
+      </style>
+   </head>
+   <body>
+      <apex:variable value="{!IF(isChampionConverted, '', 'inactive')}" var="activeClass"/>
+      <apex:variable value="{!IF(isChampionConverted, 'primary', 'inactive')}" var="activeButtonClass"/>
+      <apex:variable value="{!IF(isChampionConverted, '','<i class=\"fa fa-lock\"></i>')}" var="lockIcon"/>
+      <c:DF_WEBR_WebMeta />
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WP9HW4"
+         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <div class="container">
+      <c:DF_WEBR_WebHeader showCounter="Y"/>
+      <c:DF_WEBR_WebNavbar />
+      <!--c:DF_WEBC_FriendVideo /--> 
+      <div class="row *.css">
+         <div class="col-md-12">
+            <div class="row *.css">
+               <div class="col-md-9 column col-md-push-3">
+                  <apex:outputPanel rendered="{!!isChampionVerified}">
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!(isChampionDeclined)||(isChampionSuspended)}">
+                     <h5>Your Dementia Friends Champion account has been deactivated. If you wish to resume the role please contact the Dementia Friends team through the Contact Us page above or call 0300 222 5855.
+                     </h5>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!isChampionRetired}">
+                     <!--    <h2><apex:outputtext value="{!currentdfc.Status__c}"/> &nbsp;Champion Status </h2>-->
+                     <h5>We’ve noticed that you’ve not logged any Information Sessions recently – because of this your access to your Dementia Friends Champion account has been limited. If you would like to would like to start volunteering again, please contact the Dementia Friends team through the Contact Us page above or call 0300 222 5855.
+                     </h5>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!isChampionHiatus}">
+                     <h5>As you are taking a break from your Dementia Friends Champions role your account is currently on hold. If you are ready to resume volunteering, please contact the Dementia Friends team through the Contact Us page above or call 0300 222 5855.
+                     </h5>
+                  </apex:outputPanel>
+                  <!-- START WITHDRAWAL CONFIRMATION ALERT -->
+                  <apex:outputPanel rendered="{!confirmWithdrawal}">
+                     <div id="withdrawal-confirm" class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        You have successfully withdrawn an Information Session
+                     </div>
+                  </apex:outputPanel>
+                  <!-- END WITHDRAWAL CONFIRMATION ALERT -->
+                  <!-- START WITHDRAWAL CONFIRMATION ALERT -->
+                  <apex:outputPanel rendered="{!sessionDropped}">
+                     <div id="dropped-session-confirm" class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        You have been removed from the Information Session
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!fdBackSubmitted}">
+                     <div id="dropped-session-confirm" class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        Your Information Session feeback has been recorded - thank you.
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!IF(ISBLANK(messageArea),FALSE,TRUE)}" >
+                     <div class="alert {!messageAreaClass}">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                        {!messageArea}        
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!orgRegisterSuccess}">
+                     <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        Thanks for registering your organisation with Dementia Friends. We will be in touch by email to confirm your registration soon. Please contact programmepartnerships@alzheimers.org.uk with queries.            
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!newChampionRegistration}" >
+                     <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                        You have successfully converted to a Dementia Friends Champion            
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!registeredAsChampion}" >
+                     <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        Now you have entered your code you can create a <a href="/WEBCreateEditSession">Friends Information Session</a>            
+                     </div>
+                  </apex:outputPanel>
+                  <!--apex:outputPanel rendered="{!showReportingPrompt}" >
+                     <div class="alert alert-info">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        You have <a href="/WEBChampionSessionFeedback">Information Sessions</a> that need to be reported on            
+                     </div>
+                  </apex:outputPanel-->
+                  <apex:outputPanel rendered="{!and(showReportingPrompt, !isBlockedFromInfoSessions, isSuperChampion)}" >
+                     <div id="sessions-in-champ-radius" class="alert alert-info" style="display: none;">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        There are Information Session requests in your area
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!showChangeDetailsPrompt}" >
+                     <div class="alert alert-warning">
+                        We have noticed that your contact details have recently been updated through one of our Alzheimer’s Society channels.   
+                        <a href="/DF_WEBC_InboundChangesToDFC" class="alert-link"  >Click here</a> to accept or reject the changes on your Dementia Friends record
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!defaultSearchRadius==null}">
+                     <div id="missing-search-radius" class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                        </button>
+                        In order to use the info session search below, please enter the distance you are willing to travel to host information sessions <a href="/edit-details">here</a>.
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!showSaveConfirmation}">
+                     <div id="message-center">
+                        <div class="alert alert-info">
+                           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                           </button>
+                           Your account details have successfully been updated.            
+                        </div>
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!showActionShare}">
+                     <div class="alert alert-success">
+                        Tell the world about your #DementiaFriends action – share it on social media 
+                        <br/><br/>
+                        <c:DF_WEBC_SocialLinks displaytext="My #DementiaFriends action – join me bit.ly/DFriends" />
+                     </div>
+                  </apex:outputPanel>
+                  <apex:form >
+                     <apex:outputPanel id="pushMessagesList2">
+                        <apex:outputPanel id="championmessages2" rendered="{!champMessages.size>0}" >
+                           You have messages 
+                           (<a href="/DF_WEBC_PushMessages" target="" >{!champMessages.size}</a>)
+                        </apex:outputPanel>
+                     </apex:outputPanel>
+                     <apex:outputPanel id="pushMessagesList">
+                        <apex:outputPanel id="championmessages" rendered="{!champMessages.size>0}" >
+                           <div class="modal" id="myMessagesModal">
+                              <div class="modal-dialog">
+                                 <div class="modal-content">
+                                    <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                       <h4 class="modal-title">My messages</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                       You have messages 
+                                       (<a href="/DF_WEBC_PushMessages" target="" >{!champMessages.size}</a>)
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </apex:outputPanel>
+                     </apex:outputPanel>
+                  </apex:form>
+                  <br/> 
+                  <apex:outputPanel rendered="{!isChampionConverted}" layout="none">
+                     <div class="row *.css">
+                        <div class="col-md-3 column">
+                           <div class="dashboard-block rounded">
+                              <h3>Sessions</h3>
+                              <p>Manage your existing Sessions here<br/><br/><br/></p>
+                              <p>
+                                 <apex:outputPanel layout="none" rendered="{!dfcW.isChampionConverted || dfcW.isChampionRetired || isChampionHiatus}">
+                                    <a class="btn btn-dashboard btn-block" href="WEBChampionManageMySessions">
+                                    Manage my<br/>Sessions
+                                    </a>
+                                 </apex:outputPanel>
+                              </p>
+                              <p>
+                                 <apex:outputPanel layout="none" rendered="{!!(dfcW.isChampionConverted || dfcW.isChampionRetired || isChampionHiatus)}" >
+                                    <span class="btn btn-inactive btn-block">
+                                    <i class="fa fa-lock"></i>
+                                    Manage my Sessions
+                                    </span>
+                                 </apex:outputPanel>
+                              </p>
+                           </div>
+                        </div>
+                        <div class="col-md-3 column">
+                           <div class="dashboard-block rounded">
+                              <h3>Resources</h3>
+                              <apex:outputPanel layout="none" rendered="{!isChampionProspective }">
+                                 <p>Access useful resources before you attend induction<br/><br/><br/></p>
+                                 <p>
+                                    <a class="btn btn-dashboard btn-block" href="WEBChampionPreTrainingMaterials">
+                                    Pre-induction<br/>Materials
+                                    </a>
+                                 </p>
+                              </apex:outputPanel>
+                              <apex:outputPanel rendered="{!!(isChampionConverted || isChampionProspective)}" layout="none">
+                                 <p>Download resources to help run Information Sessions<br/><br/><br/></p>
+                                 <p>
+                                    <span class="btn btn-inactive btn-block" >
+                                    <i class="fa fa-lock"></i>
+                                    Pre-induction Materials
+                                    </span>
+                                 </p>
+                              </apex:outputPanel>
+                              <apex:outputPanel layout="none" rendered="{!isChampionConverted}">
+                                 <p>Download resources to help run Information Sessions<br/><br/></p>
+                                 <p>
+                                    <a class="btn btn-dashboard btn-block" href="WEBChampionSessionResources">
+                                    Session<br/>resources
+                                    </a>
+                                 </p>
+                              </apex:outputPanel>
+                           </div>
+                        </div>
+                        <div class="col-md-6 column">
+                           <apex:outputPanel layout="none" rendered="{!(dfcW.isChampionConverted || dfcW.isChampionRetired || dfcw.isChampionHiatus)}" >
+                              <div class="well rounded">
+                                 <c:DF_WEBC_RSODetails />
+                              </div>
+                           </apex:outputPanel>
+                        </div>
+                     </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!!isChampionConverted}" layout="none">
+                     <div class="row *.css">
+                        <div class="col-md-3 column">
+                           <div class="dashboard-block rounded">
+                              <h3>Welcome</h3>
+                              <p>Create a Session and get started<br/><br/><br/></p>
+                              <p>
+                                 <apex:outputPanel rendered="{!!isChampionConverted}" layout="none">
+                                    <span class="btn btn-inactive btn-block" >
+                                    <i class="fa fa-lock"></i>
+                                    Create a<br/>Session
+                                    </span>
+                                 </apex:outputPanel>
+                              </p>
+                           </div>
+                        </div>
+                        <div class="col-md-4 column">
+                           <div class="dashboard-block rounded">
+                              <h3>Resources</h3>
+                              <apex:outputPanel layout="none" rendered="{!isChampionProspective }">
+                                 <p>Access useful resources before you attend induction<br/><br/><br/></p>
+                                 <p>
+                                    <a class="btn btn-dashboard btn-block" href="WEBChampionPreTrainingMaterials">
+                                    Pre-induction<br/>Materials
+                                    </a>
+                                 </p>
+                              </apex:outputPanel>
+                              <apex:outputPanel rendered="{!!(isChampionConverted || isChampionProspective)}" layout="none">
+                                 <p>Download resources to help run Information Sessions<br/><br/><br/></p>
+                                 <p>
+                                    <span class="btn btn-inactive btn-block" >
+                                    <i class="fa fa-lock"></i>
+                                    Pre-induction Materials
+                                    </span>
+                                 </p>
+                              </apex:outputPanel>
+                           </div>
+                        </div>
+                        <div class="col-md-5 column">
+                           <!--  <div class="dashboard-block rounded">
+                              <h3>Sessions</h3>
+                              <p>Manage your existing Sessions here<br/><br/><br/></p>
+                              <p>
+                              <apex:outputPanel layout="none" rendered="{!dfcW.isChampionRetired || isChampionHiatus}">
+                              
+                              <a class="btn btn-primary btn-block" href="WEBChampionManageMySessions">
+                              Manage my<br/>Sessions
+                              </a>
+                              </apex:outputPanel>
+                              </p>
+                              <p>
+                              <apex:outputPanel layout="none" rendered="{!!(dfcW.isChampionConverted || dfcW.isChampionRetired || isChampionHiatus)}" >
+                              
+                              <span class="btn btn-inactive btn-block">
+                              <i class="fa fa-lock"></i>
+                              Manage my Sessions
+                              </span>
+                              </apex:outputPanel>
+                              </p>
+                              
+                              </div>-->
+                           <apex:outputPanel layout="none" rendered="{!(dfcW.isChampionConverted || dfcW.isChampionRetired || dfcw.isChampionHiatus)}" >
+                              <div class="well rounded">
+                                 <c:DF_WEBC_RSODetails />
+                              </div>
+                           </apex:outputPanel>
+                        </div>
+                     </div>
+                  </apex:outputPanel>
+                  <div class="row *.css">
+                     <div class="col-md-12 column">
+                        <apex:outputPanel rendered="{!friendCount!=0 && (showActionShare=False)}">
+                           <div class="well well-primarynew" >
+                              <b>You’ve created {!friendCount} {! IF(AND(NOT(ISBLANK(friendCount)),friendCount >1), 'Dementia Friends','Dementia Friend')} in {!sessionCount} {! IF(AND(NOT(ISBLANK(sessionCount)),sessionCount >1), 'Information Sessions.','Information Session.')}</b><br/> 
+                              Why not share your success on social media?
+                              <div class="row *.css">
+                                 <div class="col-md-3 column">
+                                 </div>
+                                 <div class="col-md-7 column" align="centre">
+                                    <br/> 
+                                    <c:DF_WEBC_SocialLinks displaytext="I’ve created {!friendCount} {! IF(AND(NOT(ISBLANK(friendCount)),friendCount >1), 'Dementia Friends','Dementia Friend')} in {!sessionCount} {! IF(AND(NOT(ISBLANK(sessionCount)),sessionCount >1), 'Information Sessions','Information Session')}" />
+                                 </div>
+                                 <div class="col-md-2 column">
+                                 </div>
+                              </div>
+                           </div>
+                        </apex:outputPanel>
+                     </div>
+                  </div>
+                  <!--<div class="row *.css">
+                     <div class="col-md-12">
+                         <apex:outputPanel rendered="{!((isChampionConverted)||(isChampionHiatus))&&(!isExchangeBlocked)}">
+                             <div class="well">
+                                 
+                                 <c:ExchangeTopicsList />
+                                     </div>
+                                 </apex:outputPanel>
+                                 </div>
+                                 </div>-->
+                  
+                  <apex:outputPanel rendered="{!and(isSuperChampion)}">
+                     <div class="row *.css">
+                        <div class="col-md-12 column">
+                           <div class="well">
+                              <h3>Find Information Sessions needing a Champion near you</h3>
+                              <div id="infoSessionSearchApp"/>
+                                 <script>
+                                    $Lightning.use("c:DF_searchInfoSessionsApp", function() {
+                                        $Lightning.createComponent("c:DF_searchInfoSessions",
+                                                                   { useSlds : "false" },
+                                                                   "infoSessionSearchApp",
+                                                                   $A.eventService.addHandler(
+                                                                       { "event": "c:DF_PublishNoEventsInChampRadius", 
+                                                                        "handler" : visualForceFunction
+                                                                       }
+                                                                   ));
+                                    });
+                                 </script>
+                              </div>
+                           </div>
+                        </div>
+                  </apex:outputPanel>
+                  <div class="row *.css">
+                  <div class="col-md-12 column">
+                  <div class="well">
+                  <h3>My Dementia Friends Champion status</h3>
+                  <ul class="status">
+                  <li>Registered an account</li>
+                  <li class="{!IF(isChampionConverted,'complete','incomplete')}">Book your Champions induction
+                  <apex:outputPanel rendered="{!!isChampionConverted}" layout="none">                               
+                  <apex:form styleClass="form-inline" forceSSL="true" style="display:inline-block; margin-right: 10px">
+                  <div class="form-group">
+                  <a class="btn-primary btn-xs" href="WEBTraining">Find inductions <i class="fa fa-chevron-right light pull-right"></i></a>
+                  </div>                            
+                  </apex:form>                    
+                  </apex:outputPanel>
+                  </li>
+                  <!--   <li class="{!IF(isChampionVerified,'complete','incomplete')}">{!championCodeText}
+                     <apex:outputPanel rendered="{!!isChampionVerified}" layout="none">                               
+                     <apex:form styleClass="form-inline" forceSSL="true" style="display:inline-block; margin-right: 10px">
+                     <div class="form-group">
+                     <apex:inputText id="code" value="{!championCode}" styleClass="form-control" style="width:auto; margin : 15px;" html-autocapitalize="off"/>
+                     </div>
+                     <apex:commandButton action="{!registerCode}" id="submit" value="Submit" styleClass="btn-primary btn-xs" />                              
+                     </apex:form>                    
+                     </apex:outputPanel>
+                     
+                     </li>
+                     --> 
+                  <li id="video" class="dropdown">
+                  <span>
+                  Watch the video now 
+                  </span>
+                  <button class="btn btn-link parent"  type="button" ><i class="fa fa-play-circle-o"></i></button>
+                  <ul class="dropdown-menu videoOptions" >
+                  <li class="vDropDown" id="video-link1"><a href ="//www.youtube.com/embed/OX4qqey5ynM?autoplay=1">Standard Video</a></li>
+                  <li class="vDropDown" id="video-link2"><a href="//www.youtube.com/embed/fync5IKMgnk?autoplay=1">British Sign Language Video</a></li>
+                  </ul>
+                  </li>  
+                  <!--<li id="video-link"   >
+                     <span>
+                     Watch the video now 
+                     
+                     </span> 
+                     <a href ="//www.youtube.com/embed/xYckSvnMys0?autoplay=1"> <i class="fa fa-play-circle-o"></i></a>
+                     </li> -->
+                  <li class="{!IF(sessionCount > 0, 'complete', 'incomplete')}">Sessions completed: <strong>{!sessionCount}</strong>
+                  </li>
+                  <li class="{!IF(friendCount > 0, 'complete', 'incomplete')}">Dementia Friends you've got involved: <strong>{!friendCount}</strong>
+                  </li>
+                  <li class="{!IF(hasActions,'','incomplete')}">{!actionText}</li>
+                  </ul>
+                  </div>
+                  </div>
+                  <!-- 
+                     <div class="col-md-4 column">
+                     
+                     <apex:outputPanel rendered="{!(isChampionProspective)}" >
+                     <p><a class="btn btn-primary btn-block" href="WEBTraining">Find inductions <i class="fa fa-chevron-right light pull-right"></i></a></p>
+                     <p><a class="btn btn-primary btn-block" href="WEBChampionPreTrainingMaterials">Pre-induction material <i class="fa fa-chevron-right light pull-right"></i></a></p>
+                     </apex:outputPanel>
+                     
+                     </div>
+                     --> 
+                  </div>
+                  <!-- Dementia Friemdly Community Info - if any -->
+                  <c:DF_WEBC_CommunityLink dfcW="{!dfcW}" rendered="{!dfcW.communities!=null}"/>
+                  <c:DF_WEBC_PartnerDashboardLink dfcW="{!dfcW}" rendered="{!(dfcW.partners!=null || dfcW.orgleads.size>0)}"/>   
+                  <!--           <apex:outputPanel rendered="{!isChampionConverted}" >
+                     <div class="row *.css">
+                     <div class="col-md-12 column">                    
+                     
+                     <div id="actions">
+                     <apex:form >
+                     
+                     <apex:outputPanel rendered="{!AND(isChampionConverted,!hasActions)}" layout="none">
+                     <a class="btn btn-primary call-to-action pull-right" href="WEBCreateActions">Tell us your actions <i class="icon-play icon-white"></i></a>
+                     </apex:outputPanel>
+                     <apex:outputPanel rendered="{!hasActions}">
+                     <a class="btn btn-primary call-to-action pull-right" href="WEBCreateActions">Edit your actions <i class="icon-play icon-white"></i></a>
+                     </apex:outputPanel>                        
+                     
+                     </apex:form>
+                     </div>
+                     </div>
+                     </div>
+                     
+                     <div class="row *.css">
+                     <div class="col-md-12 column">                    
+                     <hr/>
+                     </div>
+                     </div>    
+                     
+                     
+                     </apex:outputPanel> -->
+                  <!-- Events Tables -->
+                  <apex:outputPanel rendered="{!upcomingEvents.size > 0}" >
+                  <div class="row *.css">
+                  <div class="col-md-12 column">
+                  <h1>My Sessions</h1>
+                  <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover">
+                  <tbody>
+                  <apex:repeat value="{!upcomingEvents}" var="event">
+                  <tr class="">                        
+                  <td class="col-xs-12 single-cell">
+                  <div class="col-md-2 col-sm-12 col-xs-12">   
+                  <strong> 
+                  <!--apex:outputText value="{0,date,dd MMM yyyy HH:mm }"><apex:param value="{!event.Event_Date_Time__c+currentUserOffset}"/></apex:outputText>
+                     ...or...<br></br-->
+                  <apex:outputField value="{!event.Event_Date_Time__c}"/>
+                  </strong>
+                  </div>
+                  <div class="col-lg-7 col-md-7 col-sm-7-sm hidden-xs">           
+                  <span class="col-xs-12 col-md-3">Location:</span>
+                  <span class="col-xs-12 col-md-9"><strong>{!event.City__c}</strong>, <strong>{!event.Postcode__c}</strong></span>
+                  <span class="col-xs-12 col-md-3">Link:</span>
+                  <span class="col-xs-12 col-md-9"><a href="WEBSessionDetails?id={!event.Id}" target="_blank"  style="overflow-wrap: break-word;" title="Opens in new window">
+                  {!event.Name}
+                  </a></span>
+                  </div>           
+                  <div class="col-lg-3 col-md-3 col-sm-10 hidden-xs btn-group btn-stacked">
+                  <apex:outputPanel rendered="{!(isChampionConverted || isChampionProspective)}">
+                  <a class="btn-primary btn-xs" href="WEBCreateEditSession?eventId={!event.Id}">Edit Session</a><br/>
+                  </apex:outputPanel>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-10 hidden-xs btn-group">
+                  <apex:outputPanel rendered="{!(isChampionConverted || isChampionProspective)}">
+                  <a class="btn-primary btn-xs" href="WEBChampionSessionPrintAttendees?eventId={!event.Id}">View attendees</a>
+                  </apex:outputPanel>
+                  </div>
+                  <div class="hidden-md hidden-lg hidden-sm col-xs-12">           
+                  <strong>{!event.City__c}</strong>, <strong>{!event.Postcode__c}</strong><br/>                                                
+                  <a href="WEBSessionDetails?id={!event.Id}"  style="overflow-wrap: break-word;" target="_blank" title="Opens in new window">
+                  {!event.Name}
+                  </a><br/>
+                  </div>       
+                  <div class="hidden-lg hidden-md hidden-sm col-xs-12">
+                  <br/>
+                  <a class="btn-primary btn-xs" href="WEBCreateEditSession?eventId={!event.Id}">Edit session</a>
+                  <a class="btn-primary btn-xs" href="WEBChampionSessionPrintAttendees?eventId={!event.Id}">Print attendees</a>
+                  </div>
+                  </td>
+                  </tr> 
+                  </apex:repeat>                                
+                  </tbody>
+                  </table>
+                  </div>
+                  </div>    
+                  </div>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!(myTraining.size>0 && !isChampionConverted && !isChampionRetired)}">    
+                  <div class="row *.css">
+                  <div class="col-md-12 column">
+                  <h1>My Champion induction booking</h1>
+                  <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover">
+                  <tbody>
+                  <!-- APEX REPEAT TAG GOES HERE -->
+                  <apex:repeat value="{!myTraining}" var="event">
+                  <tr>
+                  <td class="col-xs-12 single-cell">
+                  <div class="col-md-2 col-sm-12 col-xs-12">   
+                  <strong> 
+                  <!--apex:outputText value="{0,date,dd MMM yyyy HH:mm}"><apex:param value="{!event.DF_Event__r.Event_Date_Time__c+currentUserOffset}"/></apex:outputText-->
+                  <apex:outputField value="{!event.DF_Event__r.Event_Date_Time__c}"/>
+                  </strong>
+                  </div>
+                  <div class="col-lg-7 col-md-7 col-sm-7-sm hidden-xs">           
+                  <span class="col-xs-12 col-md-3">Location:</span>
+                  <span class="col-xs-12 col-md-9"><strong>{!event.DF_Event__r.City__c}</strong>, <strong>{!event.DF_Event__r.Postcode__c}</strong></span>
+                  </div>           
+                  <apex:outputPanel rendered="{!showViewDetailsButton}" layout="none">
+                  <div class="col-lg-3 col-md-3 col-sm-10 hidden-xs btn-single">
+                  <apex:outputPanel rendered="{!isSession}" layout="none">
+                  <a href="WEBSessionDetails?Id={!event.DF_Event__r.Id}" class="btn-primary btn-xs">View details</a>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!isTraining}" layout="none">
+                  <a href="WEBTrainingDetails?Id={!event.DF_Event__r.Id}" class="btn-primary btn-xs">View details</a>
+                  </apex:outputPanel>
+                  </div>
+                  </apex:outputPanel>
+                  <div class="hidden-md hidden-lg hidden-sm col-xs-12">           
+                  <strong>{!event.DF_Event__r.City__c}</strong>, <strong>{!event.DF_Event__r.Postcode__c}</strong><br/>                                                
+                  <br/>
+                  </div>       
+                  <apex:outputPanel rendered="{!showViewDetailsButton}" layout="none">
+                  <div class="hidden-lg hidden-md hidden-sm col-xs-12 btn-single">
+                  <br/>
+                  <apex:outputPanel rendered="{!isSession}" layout="none">
+                  <a href="WEBSessionDetails?Id={!event.DF_Event__r.Id}" class="btn-primary btn-xs">View details</a>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!isTraining}" layout="none">
+                  <a href="WEBTrainingDetails?Id={!event.DF_Event__r.Id}" class="btn-primary btn-xs">View details</a>
+                  </apex:outputPanel>
+                  </div>
+                  </apex:outputPanel>
+                  </td>
+                  </tr>
+                  </apex:repeat>
+                  <!-- END OF APEX REPEAT TAG -->
+                  </tbody>
+                  </table>
+                  </div>
+                  </div>
+                  </div>
+                  </apex:outputPanel>     
+                  </div>
+                  <c:DF_WEBC_ChampionNav activeValue="DASHBOARD" dfcW="{!dfcW}"/>
+               </div>
+            </div>
+         </div>
+         <c:DF_WEBR_WebFooter />
+      </div>
+
+      <!-- START PAGE LOAD "TELL US ABOUT YOUR SESSIONS" MODAL (WEBChampionSessionFeedback)-->
+      <div class="modal fade" id="sessionsToReportModal">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Tell us about your sessions</h4>
+               </div>
+               <div class="modal-body">
+                  <p>You have Sessions that need to be reported on. <br/> 
+                     Please <a href="/WEBChampionManageMySessions"> tell us about your Sessions.</a>
+                  </p>
+               </div>
+               <div class="modal-footer">
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- END PAGE LOAD "TELL US ABOUT YOUR SESSIONS MODAL -->
+
+      <script type="text/javascript">
+         
+         var hasWatchedVideo ={!hasWatchedVideo};
+         
+         function videoLinkClosed() {
+             $('[id$=video-link]')
+             .show()
+             .removeClass('incomplete')
+             .find('span')
+             .text('You have watched the video');
+         }
+         
+         $(window).load(function () {
+
+             var webcTellUs = {!showReportingPrompt}; 
+             var myMessages = {!champMessages.size>0};
+               
+             console.log('webcTellUs: ' + webcTellUs);
+             jQuery.noConflict();
+             
+             if (webcTellUs) { $('#sessionsToReportModal').modal('show'); }
+             if (myMessages) { $('#myMessagesModal').modal('show'); }
+             
+             hasWatchedVideo ?
+                 $('[id$=video]').show()
+             .removeClass('incomplete')
+             .find('span')
+             .text('You have watched the video') 
+             
+             :  $('[id$=video]').show()
+             .addClass('incomplete')
+             .find('span')
+             .text('Watch the video now')
+             .addClass('incomplete') ;
+             
+             $('.parent').click(function(e) {
+                 
+                 $('.videoOptions').show();
+                 $('.vDropDown').show();
+                 e.stopPropagation();
+             });
+             $(document).click(function () {
+                 
+                 $('.videoOptions').hide();
+             });   
+    
+             });
+             
+             var visualForceFunction = function(event){ 
+             console.log("In visualForceFunction with event: " + JSON.stringify(event));
+             //messageArea = 'HERE WE GO';
+             //messageAreaClass = null;
+             var eventData = event.getParam("noSessionsInChampRadius"); 
+             console.log(eventData); 
+             if(eventData > 0) {
+                 // Show the sessions alert
+                 var target = document.getElementById("sessions-in-champ-radius");
+                 target.style.display = "block";
+                 //console.log('has it worked with element: ' + target);
+             }
+             
+             var confirmWithdrawal = event.getParam("confirmWithdrawal"); 
+             if(confirmWithdrawal == true) {
+                 // Show the sessions alert
+                 var target = document.getElementById("withdrawal-confirm");
+                 target.style.display = "block";
+                 //console.log('has it worked with element: ' + target);
+             }
+             
+             var sessionDropped = event.getParam("sessionDropped"); 
+             if(sessionDropped == true) {
+                 // Show the sessions alert
+                 var target = document.getElementById("dropped-session-confirm");
+                 target.style.display = "block";
+             }
+         }; 
+         
+      </script>
+   </body>
+   <footer>
+      <!-- Set styles to override the default SLDS system that cannot be blocked -->
+      <style>
+         .slds-scope h1, .slds-scope h2, .slds-scope h3, .slds-scope h4, .slds-scope h5, .slds-scope h6, .slds-scope th, .slds-scope td {
+         font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+         }
+         tr th {
+         font-size: 14px;
+         }
+         table {
+         border-collapse: collapse;
+         border-radius: 1em;
+         border-color: black;
+         overflow: hidden;
+         }
+         th, td {
+         padding: 1em;
+         border-bottom: 1px solid black; 
+         }
+      </style>
+   </footer>
+</apex:page>

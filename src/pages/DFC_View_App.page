@@ -1,0 +1,168 @@
+<apex:page controller="Dfc_ApplyController" 
+           showHeader="false" 
+           standardStylesheets="false" 
+           sidebar="false" 
+           applyBodyTag="false" 
+           applyHtmlTag="false" 
+           docType="html-5.0" >
+
+
+<!--   action="{!checkCommunityStatus}"  *-->
+<html>
+<head> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/> 
+
+    <title>{!community.Name__c}</title>
+    <apex:stylesheet value="/resource/DFC_Draft_Community_css"/>
+    <c:DF_WEBR_WebMeta />
+    
+    <link rel="icon" href="{!URLFOR($Resource.DF_WEBR_Assets, 'img/favicon.png')}"/>
+   
+<style>
+.btn-action:hover {
+    color: #1C1463 !important;
+    background: #FFDE00 !important;
+}
+  .message p { font-size:16px; }
+  .message ul {
+     list-style-type: none;
+     padding: 0;
+     margin: 0;    
+  }
+
+  .message li  {
+      background-image: url('/resource/DF_WEBR_Assets/img/flower-icon.png');
+      background-repeat: no-repeat;
+      background-position: 0px 3px;
+      padding: 4px 0 6px 32px;
+      list-style: none;  
+      font-size: 15px;
+      min-height: 26px;
+      margin-bottom:2px;
+  }
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+
+    a[href]:after {
+    content: none !important;
+    }
+}
+
+  /* Phones:  */
+  @media (max-width: 767px) {
+    .breadcrumb {display:none;}
+    #header-spacer { display:none; }
+    h1 { font-size:24px}
+  }
+
+
+  @keyframes spin {
+    to 
+      { transform: rotate(1turn); 
+       -webkit-transform: rotate(1turn);
+      }
+  }
+
+  #dfc-loading, .dfc-loading {
+      display:block;  
+      width:100%;
+      text-align:center;
+      padding-top:8em;
+  }
+          
+  div:empty + #dfc-loading {
+      display:block ;
+  }
+
+  .dfc-progress {
+    display:inline-block;
+    width: 124px;
+    height: 124px;
+    /*   background-image: url('/resource/dfc_images/dfc_loading.gif'); */
+      background-image: url('/resource/DF_WEBR_Assets/img/dfc_loading.gif');
+    background-repeat: no-repeat;
+  }
+
+ 
+
+
+</style>
+
+</head>
+
+<body>
+  <div class="container">
+    <c:DF_WEBR_WebHeader logoPrefix="dfc"/>
+    <c:DF_WEBR_WebNavbar />
+
+    <div class="row">
+      <div class="col-md-12" style="min-height:calc(100vh - 350px)">
+
+      <ol class="breadcrumb no-print" style="margin-bottom:13px;">
+          <li><a href="/">Home </a></li>
+          <li><a href="/user-home">My Dashboard </a></li>
+          <li>My Dementia Friendly Community Application</li>
+      </ol>
+
+        <!-- Lightning component container -->
+        <div id="dfc" style="border 1px solid black" class="hide">
+          <c:DFC_ViewCommunity />
+
+        </div>
+          
+        <!-- Display spinner whil page is loading -->
+        <div id="dfc-loading" class="hide">
+          <div class="dfc-progress"></div>
+        </div>
+        
+      </div>
+    </div>
+
+          
+     <c:DF_WEBR_WebFooter />
+ 
+
+<script>
+        if (!window.console) window.console = { log:function(){}, warn:function(){}, error:function(){} };
+
+          document.getElementById("alz-footer-link").className = 'hide';    
+          document.getElementById("newsletter-subscribe").className = 'hide';
+
+          /* Workaround for IE repaint bug */
+          var timer = setInterval(function(){
+            
+             document.getElementById("dfc-loading").className = 'hide';    
+             clearInterval(timer);
+             document.getElementById("dfc").className = '';
+          },800);
+  
+          DFC = {};
+
+           var dfcid   = '{!$CurrentPage.parameters.dfcid}';               // Query string parameter with community oid
+           if (dfcid=='') {
+
+              console.log('No query string param for community id , redirecting to dashboard');
+              window.location.replace('user-home');
+           }    
+           else{
+
+            document.getElementById("dfc-loading").className = '';
+          }
+      
+      
+ </script>
+ 
+ </div>
+</body>
+<script src="{!$Resource.DFC_Draft_Community_js}"></script>     
+<script src="{!$Resource.cke_action_service_js}"></script>
+</html>
+
+
+</apex:page>

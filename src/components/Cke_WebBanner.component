@@ -1,0 +1,43 @@
+<apex:component layout="none" controller="EdtPageController">
+
+    <apex:attribute description="the class for the header that controls the image" default="yellow" name="bannerClass" required="false" type="String"/>
+    <apex:attribute description="year of the banner image to display" default="" name="year" required="false" type="String"/>
+
+    <div id="maincontent"> </div>    
+
+    <header  class="header sub {!bannerClass}">    
+        <div class="container">     
+            <div class="row">               
+
+
+            <apex:outputPanel layout="none" rendered="{!year==''}">    
+
+            <!-- HEADER SECTION START -->
+            <div class="col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-6 col-xs-push-6">
+                <div class="assoc visible-xs-block hidden-sm"><span><c:EdtText group="cke-banner" key="image-alt-text" context="{!edtContext}" text="In assoc with Women and Home"/></span></div>
+            
+                <div class="graphic hidden-xs visible-sm-block visible-md-block visible-lg-block"><span><c:EdtText group="cke-banner" key="image-alt-text" context="{!edtContext}" text="Cupcake day"/></span></div>
+            </div>
+            <!-- HEADER SECTION END -->
+
+            </apex:outputPanel>
+
+
+            <apex:outputPanel layout="none" rendered="{!year!=''}">    
+
+            <!-- HEADER SECTION START -->
+            <div class="col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-6 col-xs-push-6">
+                <div class="assoc visible-xs-block hidden-sm" style="background-image: url({!URLFOR($Resource.Cke_Assets, '/img/layout/info-' + year + '.png')});"><span><c:EdtText group="cke-banner" key="image-alt-text" context="{!edtContext}" text="16th June - in assoc with Women and Home"/></span></div>
+            
+                <div class="graphic hidden-xs visible-sm-block visible-md-block visible-lg-block" style="background-image: url({!URLFOR($Resource.Cke_Assets, '/img/layout/sub-logo_white-' + year + '.png')});"><span><c:EdtText group="cke-banner" key="image-alt-text" context="{!edtContext}" text="Cupcake day"/></span></div>
+            </div>
+            <!-- HEADER SECTION END -->
+
+            </apex:outputPanel>
+
+
+            </div>          
+        </div> 
+    </header>
+
+</apex:component>

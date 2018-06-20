@@ -1,0 +1,5 @@
+<aura:component extends="c:serviceComponent">
+	
+    <c:CsqPromiseService aura:id="promiseService"/>
+      
+</aura:component>

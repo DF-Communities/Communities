@@ -1,0 +1,232 @@
+<apex:component >
+
+	<!--  Component to go in the header
+		  In development
+	 -->
+
+ <a href="#" class="btn btn-primary" id = "subscribe-action">Subscribe to our newsletter</a>
+ <div id = "subscribe-form-container">
+
+	<span id ='subscribe-confirm-container'>
+	 	<h2> Thanks for subscribing to the Newsletter. </h2>
+		<input id="confirm-subscribe-action" type="submit" name="confirm-subscribe-action" value="OK" class=" btn btn-primary input-submit btn"/>
+	</span>                                                          
+
+	<span id ='subscribe-form-inner-container'>
+	<apex:form styleClass="subscribe-form aerian-form" forceSSL="true" id="subscribe-form">
+			                            
+		<fieldset id="fieldset-subscribe-form" class="display-group">
+
+			<div class="control-group element-type-text short-form-group required">
+			    <div class="controls short-form-controls">
+			        <label for="subscribe_firstName">First Name <span id="subscribe_firstNameError" class="text-error"></span> </label>
+			        <input id="subscribe_firstName" type="text" name="subscribe_firstName" class=" input-text input"/>		        
+			    </div>                                  
+			</div>                                  
+
+			<div class="control-group element-type-text short-form-group required">
+			    <div class="controls short-form-controls">
+			        <label for="subscribe_firstName">Last Name <span id="subscribe_lastNameError" class="text-error"></span></label>
+			        <input id="subscribe_lastName" type="text" name="subscribe_lastName" class=" input-text input"/>		        
+			        
+			    </div>                                  
+			</div>
+
+			<div class="control-group element-type-text short-form-group required">
+			    <div class="controls short-form-controls">
+			        <label for="subscribe_EmailAddress">Email <span id="subscribe_emailAddressError" class="text-error"></span></label>
+			        <input id="subscribe_emailAddress" type="text" name="subscribe_emailAddress" class=" input-text input"/>		        
+			                                       
+			    </div>
+			</div>
+
+			<div class="control-group element-type-text short-form-group required">
+			    <div class="controls short-form-controls">
+			        <label for="subscribe_EmailAddress2">Confirm Email</label>
+			        <input id="subscribe_emailAddress2" type="text" name="subscribe_emailAddress2" class=" input-text input"/>		        
+			    </div>
+			</div>
+
+			<div class="control-group element-type-checkbox short-form-group required">
+			    <div class="controls short-form-controls">
+			        <label for="subscribe_newsletter">I agree to receive communications from Alzheimer's Society 
+						<input id="subscribe_newsletter" type="checkbox" name="subscribe_newsletter" checked="checked" class=" input-checkbox input"/>
+			        </label>                           
+			    </div>
+			</div>
+
+			<input id="save-subscribe-form" type="submit" name="save-subscribe-form" value="Submit" class=" btn btn-primary input-submit btn"/>                                                                        
+			<div id="subscribeServerError"></div>
+
+			</fieldset>
+
+		</apex:form>
+	</span>
+
+	</div>
+
+	<script>
+
+	$(document).ready(function() {	
+
+	    _webc.clearErrors();
+	    
+	    $('#subscribe-confirm-container').hide();
+	    $('#subscribe-form-inner-container').show();
+
+	     /* Hook actions up with their click actions */ 
+	    $('#save-subscribe-form').click(
+	       
+			function() {
+                                                        
+            _webc.clearErrors();
+            
+            if (!validateSubscribeForm()) {
+                return false;
+            }
+            
+            submitSubscribeForm();                  
+            return false;
+	    
+	    });
+	       
+	    $('#confirm-subscribe-action').click(
+	       
+			function() {                                                        
+       		confirmSubscribeAction();
+       		return false;	       				    	       		
+		});
+		
+		$('#subscribe-action').click() {
+		
+			$('#subscribe-form-container').fadeIn();
+			
+		)};
+		
+
+	});
+
+
+	function confirmSubscribeAction()
+	{
+		$('#subscribe-form-container').hide();
+	}
+
+	function completeSubscribeAction()
+	{
+
+		$('#subscribe-confirm-container').show();
+	    $('#subscribe-form-inner-container').hide();	
+	}	
+
+	function validateSubscribeForm()
+    {
+    
+        var isError = false;
+        if (_webc.isNull('subscribe_firstName')) {
+            _webc.setErrorMessage('subscribe_firstName', "** Please enter First Name");
+            isError= true;
+        }
+        
+        if (_webc.isNull('subscribe_lastName')) {
+            _webc.setErrorMessage('subscribe_lastName', "** Please enter Last Name");
+            isError= true;
+        }
+        
+        if (_webc.isNull('subscribe_emailAddress')) {
+            _webc.setErrorMessage('subscribe_emailAddress', "** Please enter your email address");
+            isError= true;
+        }
+        
+        if ( _webc.getFieldValue('subscribe_emailAddress') !== _webc.getFieldValue("emailAddress2") ) {
+            _webc.setErrorMessage('subscribe_emailAddress', "** Email Addresses do not match");
+            isError= true;
+        }
+
+        if ( !_webc.isValidEmail('subscribe_emailAddress') ) {
+            _webc.setErrorMessage('subscribe_emailAddress', "** Email Address is a not a valid format");
+            isError= true;
+        }
+                
+        return !isError;            
+                
+    }
+
+
+	function submitSubscribeForm()
+        {
+        
+            var message = "";
+            _webc.clearErrors();
+
+            _webc.disableForm('subscribe-form');
+
+            var formData = {};
+            formData['data'] = {};
+
+            formData.data['firstName'] = _webc.getFieldValue('subscribe_firstName');
+            formData.data['lastName'] = _webc.getFieldValue('subscribe_lastName');
+            formData.data['emailAddress'] = _webc.getFieldValue('subscribe_emailAddress');
+            
+            var b = _webc.isChecked('subscribe_newsletter');
+            formData.data['newsletter'] = b;          
+            
+            /* This is a simple update. Do not error out on a duplicate record, just update */            
+            formData.data['isSimpleUpdate'] = true;  
+
+            var sJson = JSON.stringify(formData);
+            
+            $.ajax({
+                url: "services/apexrest/friend/subscribe",
+                type: "POST",
+                contentType: "application/json",
+                data: sJson,
+                processData:false,
+                dataType: "json",
+                success: function (response, textStatus, jqXHR) {
+            
+                    if (response.returnCode == 0) {
+    
+                        message = "Oops! Something went wrong. Please try again.";
+                        _webc.setErrorMessage('subscribeServer', message);
+
+                    }
+                    
+                    else if ( response.returnCode == -2 || response.returnCode == 1 ) {
+    
+                    	completeSubscribeAction();
+    
+                    }
+                    
+                    else {
+
+                        _webc.setErrorMessage('subscribeServer', message) 
+                        _webc.enableForm('subscribe-form');
+
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    
+                    alert(jqXHR.responseText);                    
+                    _webc.setErrorMessage('subscribeServer', errorThrown) 
+                    _webc.enableForm('subscribe-form');
+
+                    
+                },
+                
+                // callback handler that will be called on completion
+                // which means, either on success or error
+                complete: function () {
+                
+                }
+
+            })
+            
+        
+        }
+    </script>    
+
+    <c:WEBC_Utils_js />
+
+</apex:component>

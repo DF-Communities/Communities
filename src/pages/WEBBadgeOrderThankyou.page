@@ -1,0 +1,62 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBBadgeOrder" action="{!loginRedirect}">
+    
+   <c:DF_WEBR_WebMeta />
+
+
+  <div class="container">
+   <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+    
+    
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+  <div class="row *.css">
+        <div class="col-md-12">
+            <div class="row *.css">
+                
+                
+                
+
+                <div class="col-md-9 column col-md-push-3">
+                
+   
+           
+                <div id="message-center">
+                    <apex:outputPanel rendered="{!IF(ISBLANK(messageArea),FALSE,TRUE)}" >
+                        <div class="alert {!messageAreaClass}">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {!messageArea}        
+                        </div>
+                    </apex:outputPanel>                 
+                </div> 
+
+            
+                        <h1>Order Placed</h1>
+                          <div class="well">
+
+                            <p><strong>Many thanks for ordering your Champions materials. </strong></p>
+
+                           
+                            <p>Your order will be delivered in the next 10 working days.</p>
+                            <p>We’ve recently combined the infocard and mailer into one resource called the action card  – watch <a href="https://vimeo.com/166210241" target="_blank"> this video</a> to find out more about the change.</p>
+                            <p>Please note that if you are a Dementia Friends Champion in Wales you will continue to receive the separate infocards and action mailers.</p>
+                        </div>
+                    
+
+
+                     </div>
+
+            <c:DF_WEBC_ChampionNav activeValue="" dfcW="{!dfcW}"/>
+            
+           </div>
+           
+          </div>
+        
+        </div>
+   
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+   <c:DF_WEBR_WebFooter />
+
+  </div>
+
+</apex:page>

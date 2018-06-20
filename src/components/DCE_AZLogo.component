@@ -1,0 +1,4 @@
+<apex:component >
+	<apex:attribute name="Width" description="The width component for the logo" type="String" required="false" default="30%"/>
+	<apex:image id="AZLogo" value="{!$Resource.DCE_AZLogo_Full}" width="{!Width}" style="display:block;margin-left:auto;margin-right:auto;margin-top:2em;margin-bottom:2em;" alt="Alzheimers Society Logo"/>
+</apex:component>

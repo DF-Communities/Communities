@@ -1,0 +1,17 @@
+<apex:component >
+    <apex:attribute name="activeValue" description="Which menu is active ?" type="String" required="false" default=""/>    
+                <ul class="navigation">
+                    <li class="{!IF(activeValue=='DASHBOARD','active','')}">
+                        <a href="/user-home">Dashboard home</a>
+                    </li>
+                    <li class="{!IF(activeValue=='EDIT','active','')}">
+                        <a href="/edit-details">Edit my details</a>
+                    </li>
+                    <li class="{!IF(activeValue=='PASSWORD','active','')}">
+                        <a href="/change-password">Change my password</a>
+                    </li>
+                    <li class="{!IF(activeValue=='CONVERT','active','')}">
+                        <a href="WEBFriendConvertToChampion">Convert to a Dementia Friends Champion</a>
+                    </li>
+                </ul>    
+</apex:component>

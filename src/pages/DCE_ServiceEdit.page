@@ -1,0 +1,825 @@
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_ServiceEditController" action="{!loginRedirect}" title="{!service.Name} - Edit - Dementia Connect" applyHtmlTag="false" applyBodyTag="false">  
+	<html>
+		<head>
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.css" />
+			<script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.js"/>
+			<script>
+			
+				$(document).ready(function() {
+				
+					readyPage();
+					
+				})
+				
+				var activeTab;
+				
+				function setActiveTab(newActiveTab){
+					//console.log('The active tab is now '+newActiveTab);
+					activeTab = newActiveTab;
+				}
+				
+				function displayCorrectTab(){
+					//console.log('The tab I should display now '+activeTab);
+					if(activeTab=='Description'){
+						
+						$("div[id$='Description']").addClass("active in");
+						$("li[id$='tabThree']").addClass("active");
+						
+						$("div[id$='home']").removeClass("active in");
+						$("li[id$='tabOne']").removeClass("active");
+						
+					} else {
+						
+						$("div[id$='home']").addClass("active in");
+						$("li[id$='tabOne']").addClass("active");
+						
+						$("div[id$='Description']").removeClass("active in");
+						$("li[id$='tabThree']").removeClass("active");
+					}
+				
+				}
+				
+				function readyPage(){
+					isLocked();
+					
+					displayCorrectTab();
+					
+					$("[id$=serviceDays]").select2({
+		                   						
+						placeholder: "Please select one or more days of the week",
+						//width:"element",
+						minimumResultsForSearch:-4
+						
+					});
+					
+					$("[id*='submitApprovalButton']").on('click',function(){
+				         
+						var requiredFields = $("[data-requiredForApproval='true']");
+						var hasError = false;
+						$("a[aria-controls='home'] span, a[aria-controls='Description'] span").removeClass("badge");
+						$("a[aria-controls='home'] span, a[aria-controls='Description'] span").text("");
+				         
+						HomeFieldsMissing = 0;
+						DescriptionFieldsMissing = 0;
+				         
+						for(i=0; i < requiredFields.length; i++){
+				         	
+							var thisField = $(requiredFields[i]);
+							var fieldError = false;
+							
+							console.log(thisField.attr('id'));
+							console.log(thisField.val());
+							
+							if(thisField.attr('id').indexOf(":serviceWhereOperated_selected") !== -1){
+								
+								var Options = thisField.find("option");
+								
+								if(Options.length == 0){ fieldError = true; }
+							
+							} else {
+								
+								console.log('Not - '+thisField.attr('id'));
+								console.log(thisField.val());
+							
+								if(thisField.val() == ''){ fieldError = true; }
+								
+							}
+							
+							if(fieldError){
+								thisField.closest("div.form-group").addClass("has-error");
+				         		
+				         		var tab = thisField.closest("[role='tabpanel']").attr('id');
+				         		
+				         		if(tab=='home'){
+				         			HomeFieldsMissing++;
+				         		} else if (tab=='Description') {
+				         			DescriptionFieldsMissing++;
+				         		}
+				         		
+				         		hasError = true;
+				         	}
+				         	
+						}
+				         
+						
+						
+						
+						if(checkOpeningTimes()){
+							var panel = $("#openingTimesSection");
+				         	var panelhelptext = $("h6[id$='openingTimesHelp']");
+				         	
+				         	panel.removeClass("panel-default");
+				         	panel.addClass("panel-danger");
+				         	
+				         	panelhelptext.addClass("text-danger");
+				         	
+				         	HomeFieldsMissing++;
+				         	hasError = true;
+						}
+				         
+						if(hasError){
+							$("[id*='javascriptAlertText']").text("Please complete the highlighted fields before submitting.");
+				         	$("[id*='javascriptAlert']").show('fast');
+				         	$("[id*='javascriptAlert']").addClass('in');
+				         	
+				         	if(HomeFieldsMissing > 0){
+				         		$("a[aria-controls='home'] span").addClass("badge")
+				         		$("a[aria-controls='home'] span").text(HomeFieldsMissing);
+				         	}
+				         	
+				         	if(DescriptionFieldsMissing > 0){
+				         		$("a[aria-controls='Description'] span").addClass("badge")
+				         		$("a[aria-controls='Description'] span").text(DescriptionFieldsMissing);
+				         	}
+				         	
+				         } else {
+				         	$("[id*='javascriptAlert']").hide();
+				         	$("[id*='javascriptAlert']").removeClass('in');
+				         	$("[id*='approvalModal']").modal('show');
+				         }
+				         
+				    });
+				    
+				    $("[data-requiredForApproval='true']").change(function(){
+				    	$(this).closest("div.form-group").removeClass("has-error");
+				    });
+				    
+				    
+				    $("#openingOptions1 :input").not(".select2-search-field :input").change(function(){
+				    	sortOpeningTimesClass();
+				    });
+				    
+				    $("[id$='serviceOpeningTimeOther'], [id$='serviceFurtherContact']").change(function(){
+				    	sortOpeningTimesClass();
+				    });
+				    
+					$("textarea").bind("input propertychange", function (e){
+						var maxLength = $(this).attr('maxlength');
+						
+						//console.log("Character length - "+$(this).val().length);
+						
+						
+						if ($(this).val().length > maxLength) {  
+                			$(this).val($(this).val().substring(0, maxLength));  
+            			}
+						
+					});
+				    
+					$('#approvalModal, #discardModal').on('hidden.bs.modal', function (e) {
+						$(".modal-backdrop").remove();
+					})
+					
+					$("td.multiSelectPicklistCell a img").removeClass('form-control').removeAttr( 'data-requiredforapproval' );
+					$("[id$=':serviceWhereOperated_unselected'],[id$=':serviceWhereOperated']").removeAttr( 'data-requiredforapproval' );
+				
+				}
+				
+				function checkOpeningTimes(){
+				
+					var standardOpeningFields = $("#openingOptions1 :input").not(".select2-search-field :input");
+					var hasError = false;
+					
+					var numOption1Populated = 0;
+					
+					for(i=0; i < standardOpeningFields.length; i++){
+						//console.log('Here is the value - '+$(standardOpeningFields[i]).val()+' - id: '+$(standardOpeningFields[i]).attr('id'));
+						if($(standardOpeningFields[i]).val()){ 
+							numOption1Populated++;
+						}
+					}
+					
+					
+					var option1Incomplete = false;
+					
+					if(numOption1Populated > 0 && numOption1Populated < standardOpeningFields.length){
+						option1Incomplete = true;
+					}
+					
+					//console.log('numOption1Populated - '+numOption1Populated);
+					//console.log('standardOpeningFields.length - '+standardOpeningFields.length);
+					//console.log('option1Incomplete - '+option1Incomplete);
+					//console.log('serviceOpeningTimeOther - '+$("[id$='serviceOpeningTimeOther']").val());
+					//console.log('serviceFurtherContact - '+$("[id$='serviceFurtherContact']").val());
+					
+					/*if(option1Incomplete ||(numOption1Populated==0 && !$("[id$='serviceOpeningTimeOther']").val() && !$("[id$='serviceFurtherContact']").val() )){
+						hasError = true;
+					}*/
+					if(option1Incomplete ||(numOption1Populated==0 && !$("[id$='serviceOpeningTimeOther']").val() )){
+						hasError = true;
+					}
+					
+					
+					if(numOption1Populated > 0 && $("[id$='serviceOpeningTimeOther']").val() ){
+						hasError = true;
+					}
+					
+					
+					//console.log('Has Error - '+hasError);
+					return hasError;
+				
+				}
+				
+				function sortOpeningTimesClass(){
+					if(!checkOpeningTimes()){
+						var panel = $("#openingTimesSection");
+				        var panelhelptext = $("h6[id$='openingTimesHelp']");
+				        
+						panel.removeClass("panel-danger");
+						panel.addClass("panel-default");
+						
+						panelhelptext.removeClass("text-danger");
+						
+					}
+				}
+			</script>
+				
+			<c:DCE_CSS />
+			<style>
+				span.hideCurrDate span.dateInput span.dateFormat{
+		           display:none;
+		        }
+		        
+		        span.private{
+		        	color: red;
+					font-size: 90%;
+					font-weight: bold;
+					margin-left: 0.5em;
+		        }
+			</style>
+		</head>
+		<body>
+			<c:importvisualstrap />  
+			<c:visualstrapblock >
+				<apex:form id="theForm">
+					<apex:outputpanel layout="none" id="jsLock">
+						<script>
+							function isLocked(){
+								if({!isLockedForApproval}){
+									$( "#tabContents :input" ).prop('disabled', true);
+								} else {
+									$( "#tabContents :input" ).prop('disabled', false);
+								}
+							}
+						</script>
+					</apex:outputpanel>
+					<c:DCE_Navbar />
+					
+					<!-- START - The modals for the page -->
+					
+					<c:modal title="Confirm" id="approvalModal" html-role="dialog" html-aria-labelledby="ApprovalActions">
+						<div class="modal-dialog" role="document">
+							<div class="modalText">
+								<p class="lead" id="ApprovalActions">Approval Actions</p>
+								<apex:outputpanel layout="none" rendered="{!NOT(isLockedForApproval)}">
+									<p>You are about to submit a service for approval. By submitting this request you are giving Alzheimer’s Society permission to publish the information on Dementia Connect, which will be available to anyone using it on our website of approved third party websites.</p>
+									<p>This record will be locked to prevent further edits during the approval process.</p>
+									<p>You will be able to recall the record from approval and unlock it using the <strong>Recall record from Approval</strong> button</p>
+								</apex:outputpanel>
+								
+								<apex:outputpanel layout="none" rendered="{!isLockedForApproval}">
+									<p>Recalling this record will cancel the approval process and unlock the record.</p>
+									<p>You will then be able to edit the record and make any changes required before re-submitting for Approval.</p>
+								</apex:outputpanel>
+							</div>
+							
+							<span>
+								<apex:commandButton value="Cancel" styleClass="btn-primary" html-data-dismiss="modal"/>&nbsp;
+				        		<apex:commandButton value="Confirm" action="{!commitApproval}" status="status" html-data-dismiss="modal" rerender="theForm" styleClass="btn-success" rendered="{!NOT(isLockedForApproval)}" oncomplete="readyPage();isLocked();"/> <!--oncomplete="readyPage();LockAll();"--> 
+				        		<apex:commandButton value="Confirm" action="{!recallApproval}" status="status" html-data-dismiss="modal" rerender="theForm" styleClass="btn-success" rendered="{!isLockedForApproval}" oncomplete="readyPage();isLocked();"/> <!--oncomplete="readyPage();unlockAll();"--> 
+				        	</span>
+				        </div>
+					</c:modal>
+					<c:modal title="Confirm" id="discardModal" html-role="dialog" html-aria-labelledby="confirmDiscard">
+						<div class="modal-dialog" role="document">
+							<div class="modalText">
+								<p id="confirmDiscard">Are you sure you want to discard this draft?</p>
+								<p>Any changes you have made will be lost. The next time you edit the service the information will be based upon the live service.</p>
+							</div>
+							<span>
+								<apex:commandButton value="Cancel" styleClass="btn-primary" html-data-dismiss="modal"/>&nbsp;
+				        		<apex:commandButton value="Confirm" action="{!discardDraft}" html-data-dismiss="modal" rerender="theForm" styleClass="btn-success"/>
+				        	</span>
+				        </div>
+					</c:modal>
+					
+					<!-- END - Modals -->
+					
+					
+					<c:row >
+						<c:column type="col-md-1"/>
+						<c:column type="col-md-10">
+							<div style="margin-bottom:1em;" class="clearfix">
+							<!--<h3><span class="label label-default">{!IF(ISNULL(service.ServiceId__c), 'Create a new Service','Edit your Service')}</span></h3>-->
+								<span class="sectionHeading">{!IF(ISNULL(service.ServiceId__c), 'Create a new Service','Edit your Service')}</span>
+								
+								<span style="float:right;margin-right:1em;">
+									<apex:outputLink styleClass="btn btn-primary" value="{!URLFOR($Page.DCE_Dashboard)}" ><c:glyph icon="home" html-aria-hidden="true"/></apex:outputLink>
+									<apex:commandLink styleClass="btn btn-primary" onclick="return false;" rendered="{!AND(NOT(isLockedForApproval),NOT(ISBLANK(service.id)))}" html-data-toggle="modal" html-data-target="#discardModal"><c:glyph icon="trash" html-aria-hidden="true"/><span class="sr-only">Home</span></apex:commandLink>&nbsp;
+									<apex:commandLink styleClass="btn btn-primary" action="{!save}" rerender="theForm" rendered="{!NOT(isLockedForApproval)}" oncomplete="readyPage();" status="status"><c:glyph icon="save" html-aria-hidden="true"/>&nbsp;Save</apex:commandLink>&nbsp;
+									<apex:commandlink styleClass="btn btn-primary" action="{!cloneRecord}"><c:glyph icon="duplicate" html-aria-hidden="true"/>&nbsp;Clone</apex:commandLink>
+									<apex:commandLink styleClass="btn btn-primary" onclick="return false;" rendered="{!NOT(isLockedForApproval)}" id="submitApprovalButton"><c:glyph icon="lock" html-aria-hidden="true"/>&nbsp;Approval</apex:commandLink>&nbsp;
+									<apex:commandButton styleClass="btn btn-primary" value="Recall from Approval" onclick="return false;" rendered="{!isLockedForApproval}"  id="recallApprovalButton" html-data-toggle="modal" html-data-target="#approvalModal" disabled="{!$User.Id != service.ServiceOwner__c}"/>
+								</span>
+							</div>
+							
+							<div style="margin-top:2em;margin-bottom:1em;">
+								<p>Edit the details of your service before submitting it for approval. Approved changes will then be uploaded to our Dementia Connect database and may be published on the <a href="https://www.alzheimers.org.uk/local-information/dementia-connect/" target="_blank">Dementia Connect online directory</a>.</p>
+								<p>By completing or editing this form you are giving Alzheimer's Society permission to publish the information on the Dementia Connect Online Directory, which will be available to anyone using it on our website or approved third party websites, except where otherwise indicated (marked with <span class="private">Private</span>). The information you provide may also be used by Alzheimer’s Society staff and volunteers for signposting or to contact you about your service or the activities of your organisation. Please make sure you check the information you provide as we can’t be held responsible for the accuracy of information.</p>
+								<p>If you are submitting a service on behalf of another person in your organisation, please ensure that you have their permission to do so.</p>
+							</div>
+							
+							<apex:outputpanel layout="none" id="messages">
+								<apex:outputpanel layout="none" rendered="{!displayPageMessage}">
+									<apex:outputPanel layout="block" styleClass="alert {!pageMessageType} alert-dismissible fade in">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									    <apex:outputText value="{!pageMessage}" escape="false"/>
+									</apex:outputPanel>
+								</apex:outputpanel>
+								
+								<div class="alert alert-danger alert-dismissible fade" role="alert" id="javascriptAlert" style="display:none;">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									 <span id="javascriptAlertText"></span>
+								</div>
+							</apex:outputpanel>
+							
+							<apex:outputpanel layout="none" rendered="{!NOT(ISNULL(service))}">
+							
+								<ul class="nav nav-tabs" role="tablist">
+									<li role="presentation" class="active" id="tabOne"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" onclick="setActiveTab('home')">Basic Info&nbsp;<span ></span></a></li>
+									<li role="presentation" id="tabThree"><a href="#Description" aria-controls="Description" role="tab" data-toggle="tab" onclick="setActiveTab('Description')">Further Info&nbsp;<span ></span></a></li>
+								</ul>
+									
+									
+								<div class="tab-content" id="tabContents">
+									<div role="tabpanel" class="tab-pane fade in active" id="home" style="padding-top:1.5em;">
+										<c:panel title="Basic Info">
+											<c:formblock alignment="horizontal" style="margin-top:5px;padding:10px">
+									    		<c:row >
+									    			
+									    			<c:column type="col-md-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceName">{!$ObjectType.DCE_ServiceAmend__c.fields.Name.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputfield value="{!service.Name}" styleClass="form-control" required="true" html-data-requiredForApproval="true" id="serviceName"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Name.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+									    			
+									    			
+									    			<c:column type="col-md-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="ServiceOwner">{!$ObjectType.DCE_ServiceAmend__c.fields.ServiceOwner__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:selectList value="{!service.ServiceOwner__c}" multiSelect="false" size="1" styleClass="form-control" required="true" html-data-requiredForApproval="true" id="ServiceOwner">
+											        			<apex:selectOptions value="{!accountUserSelectList}"/>
+											        		</apex:selectList>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.ServiceOwner__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+									    			
+									    		</c:row>
+									    		<c:row >
+									    		
+									    			<c:column type="col-md-6">
+											    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceType">{!$ObjectType.DCE_ServiceAmend__c.fields.service_type__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputfield value="{!service.service_type__c}" styleClass="form-control" html-data-requiredForApproval="true" id="serviceType"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.service_type__c.inlineHelpText}</span>
+											    		</c:formgroup>
+											    		
+											    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceType">{!$ObjectType.DCE_ServiceAmend__c.fields.Where_does_this_service_operate__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputfield value="{!service.Where_does_this_service_operate__c}" styleClass="form-control" html-data-requiredForApproval="true" id="serviceWhereOperated"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Where_does_this_service_operate__c.inlineHelpText}</span>
+											    		</c:formgroup>
+											    	</c:column>
+											    	
+											    	<c:column type="col-md-6">
+											    	
+												    	<c:column type="col-lg-12">
+										    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+												        		<apex:outputLabel styleclass="control-label" for="StartDate">{!$ObjectType.DCE_ServiceAmend__c.fields.Advertising_Start_Date__c.Label}</apex:outputLabel>
+												        		<span class="hideCurrDate">
+												        			<apex:inputfield value="{!service.Advertising_Start_Date__c}" styleClass="form-control" id="StartDate"/>
+																</span>
+												        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Advertising_Start_Date__c.inlineHelpText}</span>
+												    		</c:formgroup>
+										    			</c:column>
+										    			
+										    			<c:column type="col-lg-12">
+										    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+												        		<apex:outputLabel styleclass="control-label" for="StartDate">{!$ObjectType.DCE_ServiceAmend__c.fields.Advertising_end_date__c.Label}</apex:outputLabel>
+												        		<span class="hideCurrDate">
+												        			<apex:inputfield value="{!service.Advertising_end_date__c}" styleClass="form-control" id="StartDate"/>
+																</span>
+												        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Advertising_end_date__c.inlineHelpText}</span>
+												    		</c:formgroup>
+										    			</c:column>
+										    			
+										    			<apex:outputpanel layout="none" rendered="{!service.service_status__c != 'Pending'}">
+											    			<c:column type="col-lg-12">
+											    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+													        		<apex:outputLabel styleclass="control-label" for="closeDate">{!$ObjectType.DCE_ServiceAmend__c.fields.service_closedate__c.Label}</apex:outputLabel>
+													        		<span class="hideCurrDate">
+													        			<apex:inputfield value="{!service.service_closedate__c}" styleClass="form-control" id="closeDate"/>
+													        		</span>
+													        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.service_closedate__c.inlineHelpText}</span>
+													    		</c:formgroup>
+											    			</c:column>
+											    		</apex:outputpanel>
+											    	
+											    	</c:column>
+											    </c:row>
+											    <c:row >
+											    	<c:column type="col-md-6">
+											    		<c:row >
+											    			<c:column type="col-md-12">
+											    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											    					<apex:outputLabel styleclass="control-label">Address</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											    					<apex:outputLabel styleclass="sr-only" for="street">Street</apex:outputLabel><apex:inputTextArea id="street" styleClass="form-control" style="height:90px;margin-bottom:0.2em;" html-placeholder="Street*" value="{!service.service_street__c}" html-data-requiredForApproval="true" html-maxlength="255"/>
+											    					<apex:outputLabel styleclass="sr-only" for="town">Town</apex:outputLabel><apex:inputText id="town" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Town/City*" value="{!service.service_city__c}" html-data-requiredForApproval="true"/>
+											    					<apex:outputLabel styleclass="sr-only" for="county">County</apex:outputLabel><apex:inputText id="county" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="County" value="{!service.service_county__c}"/>
+											    					<apex:outputLabel styleclass="sr-only" for="postCode">Postcode</apex:outputLabel><apex:inputText id="postCode" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Postcode*" value="{!service.service_postcode__c}" html-data-requiredForApproval="true"/>
+											    					<apex:outputLabel styleclass="sr-only" for="country">Country</apex:outputLabel><apex:inputText id="country" styleClass="form-control" html-placeholder="Country*" value="{!service.service_country__c}" html-data-requiredForApproval="true"/>
+											    					<span class="help-block">Please provide an address for the service, not for the organisation.</span>
+											    					<link rel="stylesheet" type="text/css" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=kb59-yz47-hj67-xf67" />
+											    					<script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=kb59-yz47-hj67-xf67"></script>
+											    					<script type="text/javascript">
+																		
+																		var fields = [
+																			{ element: "{!$Component.street}", field: "Line1" },
+																			{ element: "{!$Component.town}", field: "City", mode: pca.fieldMode.POPULATE },
+																			{ element: "{!$Component.county}", field: "Province", mode: pca.fieldMode.POPULATE },
+																			{ element: "{!$Component.postCode}", field: "PostalCode" },
+																			{ element: "{!$Component.country}", field: "{HomeNation}", mode: pca.fieldMode.POPULATE },
+
+																		];
+																			
+																		var options = {key: "KB59-YZ47-HJ67-XF67", countries: { codesList: "GBR" }, culture:"en_GB" };
+
+																		var control = new pca.Address(fields, options);
+																	</script>
+											    					
+											    				</c:formgroup>
+											    			</c:column>
+											    		</c:row>
+											    	</c:column>
+											    	
+											    	<c:column type="col-md-6">
+											    		<c:row >
+											    			<c:column type="col-md-12">
+											    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+													        		<apex:outputLabel styleclass="control-label" for="serviceEmail">{!$ObjectType.DCE_ServiceAmend__c.fields.service_email__c.Label}</apex:outputLabel>
+													        		<apex:inputfield value="{!service.service_email__c}" styleClass="form-control" id="serviceEmail"/>
+													        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.service_email__c.inlineHelpText}</span>
+													    		</c:formgroup>
+													    		
+													    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+													        		<apex:outputLabel styleclass="control-label" for="serviceTelephone">{!$ObjectType.DCE_ServiceAmend__c.fields.service_telephone__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+													        		<apex:inputfield value="{!service.service_telephone__c}" styleClass="form-control" html-data-requiredForApproval="true" id="serviceTelephone"/>
+													        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.service_telephone__c.inlineHelpText}</span>
+													    		</c:formgroup>
+													    		
+													    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+													        		<apex:outputLabel styleclass="control-label" for="serviceTelephoneTwo">{!$ObjectType.DCE_ServiceAmend__c.fields.Secondary_telephone_number__c.Label}</apex:outputLabel><span class="private">Private</span>
+													        		<apex:inputfield value="{!service.Secondary_telephone_number__c}" styleClass="form-control" id="serviceTelephoneTwo"/>
+													        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Secondary_telephone_number__c.inlineHelpText}</span>
+													    		</c:formgroup>
+											    			</c:column>
+											    		</c:row>
+											    		
+											    	</c:column>
+											    </c:row>
+											</c:formblock>
+										</c:panel>
+										<div class="panel panel-default" id="openingTimesSection">
+									        <apex:outputPanel layout="block" styleClass="panel-heading">
+									            <h3 class="panel-title">Opening Times<span class="private">Private</span></h3>
+									        </apex:outputPanel>
+									        <div class="panel-body">
+									            <p><h6 id="openingTimesHelp"><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>Before approval, please fill in either of the Opening Times options A or B. You can also include additional information in Option C if you wish.</h6></p>
+												<span id="openingOptions1">
+													<h4>Option A <small>For services that run regularly at set times</small></h4>
+													<c:row style="margin-top:1em;">
+														<c:column type="col-md-6">
+															<c:formgroup style="margin-left:1em;margin-right:1em;">
+												        		<apex:outputLabel styleclass="control-label" for="serviceRecurrence">This service takes place</apex:outputLabel>
+												        		<apex:inputfield value="{!service.Recurrence__c}" styleclass="form-control" id="serviceRecurrence"/>
+												        	</c:formgroup>
+														</c:column>
+														<c:column type="col-md-6">
+															 <c:formgroup style="margin-left:1em;margin-right:1em;">
+												        		<apex:outputLabel styleclass="control-label" for="serviceDays">This service takes place on the following day(s)</apex:outputLabel>
+												        		<apex:selectlist value="{!daysChosen}" multiselect="true" style="width:75%" id="serviceDays"><apex:selectOptions value="{!recurrenceDays}"/></apex:selectlist>
+												      		</c:formgroup>
+														</c:column>
+													</c:row>
+													<c:row style="margin-bottom:1.5em;">
+														<c:column type="col-sm-6">
+															<c:formgroup style="margin-left:1em;margin-right:1em;">
+												        		<c:row >
+												        			<c:column type="col-xs-6">
+													        			<apex:outputLabel styleclass="control-label">The service start at:</apex:outputLabel>
+													        			<div class="input-group" style="width:100%">
+													        				<apex:outputLabel styleclass="sr-only" for="startHour">Start time (Hour)</apex:outputLabel><apex:inputfield value="{!service.Start_time_Hours__c}" styleclass="form-control" style="width:50%" id="startHour"/>
+													        				<apex:outputLabel styleclass="sr-only" for="startMin">Start time (Minute)</apex:outputLabel><apex:inputfield value="{!service.Start_time_Minutes__c}" styleclass="form-control" style="width:50%" id="startMin"/>
+													        			</div>
+													        		</c:column>
+													        		<c:column type="col-xs-6">
+													        			<apex:outputLabel styleclass="control-label">and ends at:</apex:outputLabel>
+													        			<div class="input-group" style="width:100%">
+													        				<apex:outputLabel styleclass="sr-only" for="endHour">End time (Hour)</apex:outputLabel><apex:inputfield value="{!service.End_time_Hours__c}" styleclass="form-control" style="width:50%" id="endHour"/>
+												        					<apex:outputLabel styleclass="sr-only" for="endMin">End time (Minute)</apex:outputLabel><apex:inputfield value="{!service.End_time_Minutes__c}" styleclass="form-control" style="width:50%" id="endMin"/>
+													        			</div>
+													        		</c:column>
+												        		</c:row>
+												        	</c:formgroup>
+														</c:column>
+													</c:row>
+												</span>
+												<h4>Option B <small>For services which don't fit option A</small></h4>
+												<c:row style="margin-top:1em;margin-bottom:1.5em;">
+													<c:column type="col-md-12">
+														<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceOpeningTimeOther">{!$ObjectType.DCE_ServiceAmend__c.fields.Opening_times_Other__c.Label}</apex:outputLabel>
+											        		<apex:inputtextArea value="{!service.Opening_times_Other__c}" styleClass="form-control" style="height:90px;" id="serviceOpeningTimeOther" html-maxlength="{!$ObjectType.DCE_ServiceAmend__c.fields.Opening_times_Other__c.Length}"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Opening_times_Other__c.inlineHelpText}</span>
+											    		</c:formgroup>
+													</c:column>
+												</c:row>
+												<h4>Option C <small>Please select an appropriate option if you would like to add a further contact requirement.</small></h4>
+												<c:row style="margin-top:1em;">
+													<c:column type="col-md-6">
+														<apex:repeat value="{!contactOptions}" var="o">
+															<apex:outputpanel rendered="{!o.value != ''}" layout="block">
+																<c:row >
+																	<c:column type="col-xs-3 col-sm-2">
+																		<span class="help-block" style="display:inline;">{!o.label}</span>
+																	</c:column>
+																	<c:column type="col-xs-9 col-sm-10">
+																		"{!o.value}"
+																	</c:column>
+																</c:row>
+															</apex:outputpanel>
+														</apex:repeat>
+													</c:column>
+													<c:column type="col-md-6">
+														<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceFurtherContact">{!$ObjectType.DCE_ServiceAmend__c.fields.Further_contact_requirements__c.Label}</apex:outputLabel>
+											        		<apex:selectlist size="1" multiselect="false" value="{!service.Further_contact_requirements__c}" styleClass="form-control" id="serviceFurtherContact">
+											        			<apex:selectOptions value="{!contactOptions}"/>
+											        		</apex:selectlist>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Further_contact_requirements__c.inlineHelpText}</span>
+											    		</c:formgroup>
+													</c:column>
+												</c:row>
+									        </div>
+									    </div>
+										<!--
+										<c:panel title="Opening Times" id="openingTimesSection"><span class="private">Private</span>
+											<p><h6 id="openingTimesHelp"><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>Before approval, please fill in Option A, B or C</h6></p>
+											<span id="openingOptions1">
+												<h4>Option A <small>For services that run regularly at set times</small></h4>
+												<c:row style="margin-top:1em;">
+													<c:column type="col-md-6">
+														<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceRecurrence">This service takes place</apex:outputLabel>
+											        		<apex:inputfield value="{!service.Recurrence__c}" styleclass="form-control" id="serviceRecurrence"/>
+											        	</c:formgroup>
+													</c:column>
+													<c:column type="col-md-6">
+														 <c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceDays">This service takes place on the following day(s)</apex:outputLabel>
+											        		<apex:selectlist value="{!daysChosen}" multiselect="true" style="width:75%" id="serviceDays"><apex:selectOptions value="{!recurrenceDays}"/></apex:selectlist>
+											      		</c:formgroup>
+													</c:column>
+												</c:row>
+												<c:row style="margin-bottom:1.5em;">
+													<c:column type="col-sm-6">
+														<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<c:row >
+											        			<c:column type="col-xs-6">
+												        			<apex:outputLabel styleclass="control-label">The service start at:</apex:outputLabel>
+												        			<div class="input-group" style="width:100%">
+												        				<apex:outputLabel styleclass="sr-only" for="startHour">Start time (Hour)</apex:outputLabel><apex:inputfield value="{!service.Start_time_Hours__c}" styleclass="form-control" style="width:50%" id="startHour"/>
+												        				<apex:outputLabel styleclass="sr-only" for="startMin">Start time (Minute)</apex:outputLabel><apex:inputfield value="{!service.Start_time_Minutes__c}" styleclass="form-control" style="width:50%" id="startMin"/>
+												        			</div>
+												        		</c:column>
+												        		<c:column type="col-xs-6">
+												        			<apex:outputLabel styleclass="control-label">and ends at:</apex:outputLabel>
+												        			<div class="input-group" style="width:100%">
+												        				<apex:outputLabel styleclass="sr-only" for="endHour">End time (Hour)</apex:outputLabel><apex:inputfield value="{!service.End_time_Hours__c}" styleclass="form-control" style="width:50%" id="endHour"/>
+											        					<apex:outputLabel styleclass="sr-only" for="endMin">End time (Minute)</apex:outputLabel><apex:inputfield value="{!service.End_time_Minutes__c}" styleclass="form-control" style="width:50%" id="endMin"/>
+												        			</div>
+												        		</c:column>
+											        		</c:row>
+											        	</c:formgroup>
+													</c:column>
+												</c:row>
+											</span>
+											<h4>Option B <small>For services which don't fit option A</small></h4>
+											<c:row style="margin-top:1em;margin-bottom:1.5em;">
+												<c:column type="col-md-12">
+													<c:formgroup style="margin-left:1em;margin-right:1em;">
+										        		<apex:outputLabel styleclass="control-label" for="serviceOpeningTimeOther">{!$ObjectType.DCE_ServiceAmend__c.fields.Opening_times_Other__c.Label}</apex:outputLabel>
+										        		<apex:inputtextArea value="{!service.Opening_times_Other__c}" styleClass="form-control" style="height:90px;" id="serviceOpeningTimeOther" html-maxlength="{!$ObjectType.DCE_ServiceAmend__c.fields.Opening_times_Other__c.Length}"/>
+										        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Opening_times_Other__c.inlineHelpText}</span>
+										    		</c:formgroup>
+												</c:column>
+											</c:row>
+											<h4>Option C <small>Please select an appropriate option for services which don't fit options A or B or if you would like to add a further contact requirement.</small></h4>
+											<c:row style="margin-top:1em;">
+												<c:column type="col-md-6">
+													<apex:repeat value="{!contactOptions}" var="o">
+														<apex:outputpanel rendered="{!o.value != ''}" layout="block">
+															<c:row >
+																<c:column type="col-xs-3 col-sm-2">
+																	<span class="help-block" style="display:inline;">{!o.label}</span>
+																</c:column>
+																<c:column type="col-xs-9 col-sm-10">
+																	"{!o.value}"
+																</c:column>
+															</c:row>
+														</apex:outputpanel>
+													</apex:repeat>
+												</c:column>
+												<c:column type="col-md-6">
+													<c:formgroup style="margin-left:1em;margin-right:1em;">
+										        		<apex:outputLabel styleclass="control-label" for="serviceFurtherContact">{!$ObjectType.DCE_ServiceAmend__c.fields.Further_contact_requirements__c.Label}</apex:outputLabel>
+										        		<apex:selectlist size="1" multiselect="false" value="{!service.Further_contact_requirements__c}" styleClass="form-control" id="serviceFurtherContact">
+										        			<apex:selectOptions value="{!contactOptions}"/>
+										        		</apex:selectlist>
+										        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Further_contact_requirements__c.inlineHelpText}</span>
+										    		</c:formgroup>
+												</c:column>
+											</c:row>
+										</c:panel> -->
+										<c:panel title="Basic Description">
+											<c:formblock alignment="horizontal" style="margin-top:5px;padding:10px">
+												<c:row >
+											    	<c:column type="col-md-12">
+											    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceDescription">{!$ObjectType.DCE_ServiceAmend__c.fields.service_description__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputtextArea value="{!service.service_description__c}" styleClass="form-control" style="height:90px;" html-data-requiredForApproval="true" id="serviceDescription" html-maxlength="{!$ObjectType.DCE_ServiceAmend__c.fields.service_description__c.Length}"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.service_description__c.inlineHelpText}</span>
+											    		</c:formgroup>
+											    	</c:column>
+											    </c:row>
+											    
+											    <c:row >
+											    	
+											    	<c:column type="col-md-12">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceCriteria">{!$ObjectType.DCE_ServiceAmend__c.fields.Service_Criteria__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputtextArea value="{!service.Service_Criteria__c}" styleClass="form-control" style="height:90px;" html-data-requiredForApproval="true" id="serviceCriteria" html-maxlength="{!$ObjectType.DCE_ServiceAmend__c.fields.Service_Criteria__c.Length}"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Service_Criteria__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+								    			
+								    			</c:row>
+								    			
+								    			<c:row >
+											    	
+											    	<c:column type="col-md-12">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="serviceReach">{!$ObjectType.DCE_ServiceAmend__c.fields.Reach__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputtextArea value="{!service.Reach__c}" styleClass="form-control" style="height:90px;" html-data-requiredForApproval="true" id="serviceReach" html-maxlength="{!$ObjectType.DCE_ServiceAmend__c.fields.Reach__c.Length}"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Reach__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+								    			
+								    			</c:row>
+								    			
+											</c:formblock>
+											
+										</c:panel>
+									</div>
+									
+									<div role="tabpanel" class="tab-pane fade" id="Description" style="padding-top:1.5em;">
+										<c:panel title="Further Info">
+											<c:formblock alignment="horizontal" style="margin-top:5px;padding:10px">
+									    		<c:row >
+									    			<c:column type="col-md-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="servicePrimaryContact">{!$ObjectType.DCE_ServiceAmend__c.fields.Primary_Contact_External__c.Label}</apex:outputLabel><span class="private">Private</span>
+											        		<apex:inputfield value="{!service.Primary_Contact_External__c}" styleClass="form-control" html-placeholder="Primary Contact" id="servicePrimaryContact"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Primary_Contact_External__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+									    			
+									    			<c:column type="col-md-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="website">{!$ObjectType.DCE_ServiceAmend__c.fields.service_website__c.Label}</apex:outputLabel>
+											        		<apex:inputfield value="{!service.service_website__c}" styleClass="form-control" html-placeholder="www.example-website.co.uk" id="website"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.service_website__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+									    		</c:row>
+									    		
+									    		<c:row >
+									    			
+									    			<c:column type="col-md-12">
+											    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="funderRestriction">{!$ObjectType.DCE_ServiceAmend__c.fields.Funder_restriction__c.Label}</apex:outputLabel>
+											        		<apex:inputtextArea value="{!service.Funder_restriction__c}" styleClass="form-control" style="height:90px;" id="funderRestriction" html-maxlength="{!$ObjectType.DCE_ServiceAmend__c.fields.Funder_restriction__c.Length}"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Funder_restriction__c.inlineHelpText}</span>
+											    		</c:formgroup>
+											    	</c:column>
+											    	
+											   		<c:column type="col-md-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="NationalService">{!$ObjectType.DCE_ServiceAmend__c.fields.National_Service__c.Label} &nbsp;&nbsp;<apex:inputcheckBox value="{!service.National_Service__c}" id="NationalService"/></apex:outputLabel>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.National_Service__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+								    				
+								    				<c:column type="col-md-6">
+														<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="referralOnly">{!$ObjectType.DCE_ServiceAmend__c.fields.Referral_only__c.Label} &nbsp;&nbsp;<apex:inputcheckBox value="{!service.Referral_only__c}" id="referralOnly"/></apex:outputLabel>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Referral_only__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+										    	
+									    			<c:column type="col-md-12">
+											    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="gettingThere">{!$ObjectType.DCE_ServiceAmend__c.fields.Getting_There__c.Label}</apex:outputLabel><span class="private">Private</span>
+											        		<apex:inputtextArea value="{!service.Getting_There__c}" styleClass="form-control" style="height:90px;" id="gettingThere" /> <!--html-maxlength="" {!$ObjectType.DCE_ServiceAmend__c.fields.Getting_There__c.Length} -->
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Getting_There__c.inlineHelpText}</span>
+											    		</c:formgroup>
+											    	</c:column>
+											    	
+											    </c:row>
+											    
+									    		<c:row >
+									    			
+									    			<c:column type="col-md-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="price">{!$ObjectType.DCE_ServiceAmend__c.fields.Price__c.Label}</apex:outputLabel><span class="private">Private</span>
+											        		<apex:inputfield value="{!service.Price__c}" styleClass="form-control" id="price"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Price__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+									    		
+									    		</c:row>
+									    		<c:row >
+									    			
+									    			<c:column type="col-lg-3 col-sm-6">
+											    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="parking">{!$ObjectType.DCE_ServiceAmend__c.fields.Parking__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputField value="{!service.Parking__c}" styleClass="form-control" html-data-requiredForApproval="true" id="parking"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Parking__c.inlineHelpText}</span>
+											    		</c:formgroup>
+											    	</c:column>
+									    			
+									    			<c:column type="col-lg-3 col-sm-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="refreshments">{!$ObjectType.DCE_ServiceAmend__c.fields.Refreshments__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputfield value="{!service.Refreshments__c}" styleClass="form-control" html-data-requiredForApproval="true" id="refreshments"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Refreshments__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+									    			
+									    			<c:column type="col-lg-3 col-sm-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="toiletFac">{!$ObjectType.DCE_ServiceAmend__c.fields.Toilet_Facilities__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputfield value="{!service.Toilet_Facilities__c}" styleClass="form-control" html-data-requiredForApproval="true" id="toiletFac"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Toilet_Facilities__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+									    			
+									    			<c:column type="col-lg-3 col-sm-6">
+									    				<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="accessibility">{!$ObjectType.DCE_ServiceAmend__c.fields.Accessibility__c.Label}</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+											        		<apex:inputfield value="{!service.Accessibility__c}" styleClass="form-control" html-data-requiredForApproval="true" id="accessibility"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Accessibility__c.inlineHelpText}</span>
+											    		</c:formgroup>
+									    			</c:column>
+									    	</c:row>
+									    	<c:row >
+									    			
+									    			<c:column type="col-md-12">
+											    		<c:formgroup style="margin-left:1em;margin-right:1em;">
+											        		<apex:outputLabel styleclass="control-label" for="additionalInfo">{!$ObjectType.DCE_ServiceAmend__c.fields.Additional_Information__c.Label}</apex:outputLabel><span class="private">Private</span>
+											        		<apex:inputtextArea value="{!service.Additional_Information__c}" styleClass="form-control" style="height:90px;" id="additionalInfo" html-maxlength="{!$ObjectType.DCE_ServiceAmend__c.fields.Additional_Information__c.Length}"/>
+											        		<span class="help-block">{!$ObjectType.DCE_ServiceAmend__c.fields.Additional_Information__c.inlineHelpText}</span>
+											    		</c:formgroup>
+											    	</c:column>
+									    		</c:row>
+									    	</c:formblock>
+									    </c:panel>
+									</div>
+								</div>
+							
+							</apex:outputpanel>
+						
+						</c:column>
+						<c:column type="col-md-1"/>
+					</c:row>
+				</apex:form>
+			</c:visualstrapblock>
+			<c:DCE_LoadingSpinner />
+		</body>
+	</html>
+</apex:page>

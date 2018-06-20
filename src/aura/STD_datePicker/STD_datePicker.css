@@ -1,0 +1,9 @@
+.THIS .dpk-anomaly[readonly] {
+    background-color:#fff;
+    opacity: 1;
+}
+
+.THIS .dpk-anomaly[disabled] {
+    background-color:#eee;
+    opacity: 1;
+}

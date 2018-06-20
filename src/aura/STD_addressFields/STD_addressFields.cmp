@@ -1,0 +1,58 @@
+<aura:component >
+    
+    <aura:method name="getAllParams" action="{!c.getAllInputValues}"/>
+    <aura:attribute name="name" type="String" default="STD_addressFieldsCmp"/>
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:attribute name="auraIdsToValidate" type="Object[]" default="[{auraId: 'addressDetailInput', isCustomCmp: false}]"/>
+    
+    <aura:handler event="c:SldsVsCustomStylingEvt" action="{!c.handleStylingFramework}"/>
+    <aura:attribute name="useSlds" type="Boolean"/>
+    
+    <!-- Handle the application event that is fired from the top-most component of the application after
+   capturing the postmessage API message from the embedded VF page -->
+    <aura:handler event="c:STD_addressChangeEvt" action="{!c.handleApplicationEvent}"/>
+    
+    <aura:attribute name="extStreet1Value" type="String"/> 
+    <aura:attribute name="extStreet2Value" type="String"/> 
+    <aura:attribute name="extStreet3Value" type="String"/> 
+    <aura:attribute name="extCityValue" type="String"/> 
+    <aura:attribute name="extCountyValue" type="String"/> 
+    <aura:attribute name="extPostcodeValue" type="String"/> 
+    
+    <aura:registerEvent name="STD_addressDetailsValidityEvt" description="The validity checks are" type="c.STD_addressDetailsValidityEvt"/>
+    
+    <aura:attribute name="label" type="String" required="true" default="Placeholder label"/>
+    
+    <table style="visibility:hidden;height:0px;">
+        
+        <ui:inputText label="" 
+                      required="true"
+                      value="{!v.extStreet1Value}"
+                      class="invisible-field"
+                      aura:id="addressDetailInput"/>
+        
+        <ui:inputText label="" 
+                      value="{!v.extStreet2Value}"
+                      class="invisible-field"/>
+        
+        <ui:inputText label="" 
+                      required="true"
+                      value="{!v.extCityValue}"
+                      class="invisible-field"
+                      aura:id="addressDetailInput"/>
+        
+        <ui:inputText label=""
+                      value="{!v.extCountyValue}"
+                      class="invisible-field"
+                      aura:id="invisible-field"/>
+        
+        <ui:inputText label=""
+                      required="true"
+                      value="{!v.extPostcodeValue}"
+                      class="invisible-field"
+                      aura:id="addressDetailInput"/>
+        
+    </table>
+    
+</aura:component>

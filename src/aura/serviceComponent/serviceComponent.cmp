@@ -1,0 +1,9 @@
+<aura:component extensible="true" abstract="true">
+	
+   <aura:attribute name="instance" type="Object"/>
+
+   <aura:handler name="init" value="{!this}" action="{!c.initHandler}" /> 
+    
+     <span></span>
+    
+</aura:component>

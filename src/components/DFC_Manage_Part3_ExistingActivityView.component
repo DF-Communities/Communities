@@ -1,0 +1,45 @@
+<apex:component >
+
+<div ng-show="!value.editMode">
+   <span class="no-print pull-right">
+   <button class="btn btn-action" ng-click="onClickToggleActivityView(value.activityId)">Edit</button>
+   <button class="btn btn-action" ng-click="onClickAttachFile(value.activityId)">Attach file</button>
+   <button class="btn btn-action" ng-click="onClickRemoveActivity(value.activityId)">Remove</button>
+   </span>
+   <div class="focus-area clearfix" >{{value.focusArea}}&nbsp;&nbsp;</div>
+   <div class="dfc-activity-body">
+      <h4>
+         <span class="uiOutputDateTime">{{value.startDateUiTitle}}</span>
+      </h4>
+      <h5>{{value.title}}</h5>
+      <p class="dfc-text">{{value.description}}</p>
+   </div>
+   <div class="dfc-att clearfix" ng-repeat="attachment in value.attachments">
+      <span>
+      <i class="fa fa-file-text-o"></i>
+      <a href="/services/apexrest/dfc/attachment?id={{attachment.SignedId}}" target="_blank">{{attachment.Name}}</a>
+      <i class="fa fa-close" ng-click="onClickRemoveAttachment(value.activityId, attachment.Id)" ></i>
+      </span>
+   </div>
+   <div class="cDfcUpload" ng-show="value.showFileUploadSection">
+      <div class="cDfcUpload">
+         <div class="dfc-upload">
+            <form style="padding:6px;position: relative;">
+               <input type="file" ng-attr-id ="myFileField-{{value.activityId}}" ng-hide="false" style="position: absolute; text-align: right; -moz-opacity:0 ; filter:alpha(opacity: 0); opacity: 0; z-index: 2;height:100%"/>     
+               <div class="fileUpload btn" >
+                  <span>Choose file</span>
+               </div>
+               <div style="float:right">
+                  <button ng-click="onClickUploadFile(value.activityId)" class = "att-upload-btn-primary upload-btn upload-input-submit">Upload File</button>         
+               </div>
+               <div style="float:right;margin-right:6px">
+                  <input type="submit" class="att-upload-btn-primary" value="Cancel" ng-click="onClickCancelAttachment(value.activityId)"/>          
+               </div>
+            </form>
+            <div class="emsg"></div>
+         </div>
+      </div>
+   </div>
+</div>
+
+</apex:component>

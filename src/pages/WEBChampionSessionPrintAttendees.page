@@ -1,0 +1,213 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false"  docType="html" controller="WEBChampionSessionPrintAttendees">
+    
+    <head>
+        <link href="{!$Site.CurrentSiteUrl}apex/WEBCSS" media="screen" rel="stylesheet" type="text/css" /> 
+     <style type="text/css">
+@page {
+    size: A4;
+    body { font-family: Arial Unicode MS; }
+    
+    margin-top: 4.6cm;
+    margin-left: 0.8cm;
+    margin-right: 1cm;
+    margin-bottom: 1.1cm;
+}
+
+#container
+{
+margin: 0px;
+font-size: 17px;
+position: absolute;
+}
+
+#main
+{
+height: 21cm;
+margin: 0px;
+padding: 0px;
+}
+
+#left
+{
+float: left;
+margin: 0;
+padding: 0;
+width: 9cm;
+}
+
+#right
+{
+float: left;
+margin: 0;
+padding: 0px 1em;
+width: 9cm;
+}
+
+#bottom
+{
+clear: both;
+margin: 0;
+padding: 0;
+}
+
+#divoptimes
+{
+clear: both;
+margin: 0px;
+padding: 0px;
+padding-top: 20px;
+}
+
+#divcomments
+{
+clear: both;
+margin: 0;
+padding: 0px;
+padding-top: 20px;
+}
+
+#divdisclaimer
+{
+clear: both;
+margin: 0;
+padding: 0;
+height: 0.5cm;
+}
+
+body {
+    font-family: "FS Albert", Arial, sans-serif;
+    padding: 0px;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-bottom: 0px;
+}
+
+h1 {
+    margin-top: 2px;
+}
+
+h3 {
+    margin-top: 0px;
+}
+
+h4 {
+    margin-top: 25px;
+}
+
+.heading {
+    font-weight: normal;
+}
+
+#disclaimer {
+    font-weight: bold;
+    font-size: 10px;
+    margin-top: 0px;
+}
+</style>
+    
+    </head>
+    <!-- CHECK THIS ON THE ORIGONAL PAGE FOR NEW CLASSES -->
+    <body class="">       
+
+    <header class="page-header">
+        <div class="wrapper">
+            <div class="logo"><a href="/">
+                <img src="{!URLFOR($Resource.img, 'img/f/logo.png')}" height="103" width="259" alt="Dementia Friends" /></a>
+            </div>
+        </div>
+    </header>
+    <div id="page_content"></div>
+    
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+    <section class="page-content" id="page_content">  
+        <div class="wrapper">
+            <section class="secondary-content">
+                <a class="btn btn-primary" href="javascript:window.print()">Print This Page</a>
+            </section>
+            <section class="main-content">
+                <div id="message-center">
+                    <apex:outputPanel rendered="{!IF(ISBLANK(messageArea),FALSE,TRUE)}" >
+                        <div class="alert {!messageAreaClass}">
+                            <button type="button" class="close" data-dismiss="alert">�</button>
+                            {!messageArea}        
+                        </div>
+                    </apex:outputPanel>
+                </div>
+                <div class="intro">
+                    <h1><apex:outputText value="{!event.Name}" id="evt" /></h1>
+                </div>
+                
+                <apex:pageblock mode="edit">
+                  <apex:pageblocksection columns="1">
+                                         
+                     
+                     
+                     <apex:pageBlocksectionItem >
+                     <apex:outputLabel value="Date/Time" for="date"/>
+                          <apex:outputText label="Date/Time" value="{0,date,dd MMMM yyyy  'at' HH:mm}" id="date">
+                           <apex:param value="{!event.Event_Date_Time__c+offset}" />
+                          </apex:outputText> 
+                      </apex:pageBlocksectionItem>
+                      
+                    <apex:pageBlocksectionItem >  
+                      <apex:outputLabel value="Location" for="loc"/>
+                         <apex:outputText value="{!event.Street__c}, {!event.City__c}, {!event.County__c}, {!event.Postcode__c}" id="loc"/>
+                    </apex:pageBlocksectionItem>
+                   </apex:pageblocksection>                    
+                  
+                </apex:pageblock>
+                <h3>Session Attendees</h3>
+                <div class="row-fluid">
+                    <apex:outputPanel rendered="{!IF(noOfAttendees == 0, 'TRUE', 'FALSE')}">
+                        <div class="dash-mod-header">
+                            <p>This Session currently has no attendees</p>
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF(noOfAttendees > 0, 'TRUE', 'FALSE')}">
+                        <div class="dash-mod-content dash-mod-content-table">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="100%">Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>  
+                                    <apex:repeat value="{!attendees}" var="attendee" id="attendees">
+                                        <tr class="">                                              
+                                            <td>{!attendee.DF_Contact__r.Title__c}&nbsp;{!attendee.DF_Contact__r.First_Name__c}&nbsp;{!attendee.DF_Contact__r.Last_Name__c}</td>
+                                        </tr> 
+                                    </apex:repeat>               
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </apex:outputPanel>
+                </div>
+            </section>
+            <div class="clear-both"></div>
+        </div>
+    </section>
+    
+
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <footer class="page-footer">
+        <div class="wrapper">
+            <div class="alzheimers-logo"><a href="http://www.alzheimers.org.uk/"><img src="{!URLFOR($Resource.img, 'img/f/alzheimers-logo.png')}" width="133" height="66" alt="Alzheimer's Society" /></a>
+            </div>
+            <div class="partners">
+                <p>Dementia Friends is an Alzheimer's Society initiative</p>
+            </div>
+
+            <div class="legal-info">
+                <p>&copy; 2015 Alzheimer's Society</p>
+                <p>Alzheimer's Society is a registered Charity No. 296645</p>
+            </div>
+
+        </div>        
+    </footer>
+
+    </body>
+
+</apex:page>

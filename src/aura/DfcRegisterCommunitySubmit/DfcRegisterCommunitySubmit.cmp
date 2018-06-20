@@ -1,0 +1,41 @@
+<aura:component >
+    
+  	<aura:attribute name="context" type="Object" required="true"/>
+    <aura:attribute name="step" type="Object" required="true"/>
+    
+    <aura:attribute name="message" type="String" access="GLOBAL"/>
+    
+    <aura:handler event="c:DfcValidationChange" action="{!c.onValidationChange}"/>
+
+    <c:DfcCommunityService aura:id="communityService" />
+
+    <div>
+    
+    <div class="{!v.context.hasErrors?'hide':'submit-panel'}">
+            <h3>Please confirm that in submitting this application you agree to the following:</h3>
+			<div class="well">
+     		   <c:DfcSnippet group="dfc_apply" key="dfc-apply-agree-submit"/>
+                <div style="width:100%;text-align:center;margin-top:16px;margin-bottom:20px">
+	               <button  class="btn btn-primary" onclick="{!c.submitApplication}">Agree and Submit</button>
+                </div>
+			<p class="message">{!v.message}</p>
+        	</div>
+    </div>
+
+    <div class="{!v.context.hasErrors?'error-panel':'hide'}">
+			<div class="well">
+            <p><strong>Some sections of the form have missing or invalid data</strong></p>
+				<ul style="margin:20px 0">
+                    <aura:iteration items="{!v.context.steps}" var="step" indexVar="index">
+                    	<li style="list-style:none;" class="{!step.errors.length?'':'hide'}">
+                            <span class="badge">{!step.errors.length}</span> 
+                            <span><strong>STEP {!index+1}</strong>&nbsp;&nbsp;{!step.label}</span>
+                        </li>    
+                    </aura:iteration>
+				</ul>    
+              <p><strong>Please amend the form before submitting.</strong></p>
+     	   </div>
+      </div>
+
+   </div>
+</aura:component>

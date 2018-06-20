@@ -1,0 +1,34 @@
+<aura:component >
+	
+    <aura:attribute name="question" type="Object" access="GLOBAL"/>
+    <aura:attribute name="otherText" type="String" access="GLOBAL"/>
+   
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+
+    <label class="required question-text">{!v.question.Question_Text__c}</label>
+    
+    <div class="option-list">
+        
+      <aura:iteration items="{!v.question.Options__c}" var="opt">
+         <label class="radioLabel">
+            <ui:inputRadio name="{!'dfc-answer-'+v.question.Id}" text="{!opt}" change="c.onSelectionChange"/>
+            {!opt}
+          </label><br/>
+      </aura:iteration>
+
+     <div class="{!v.question.Include_Other__c?'':'hide'}">
+     <label class="radioLabel dfc-other">
+       <ui:inputRadio name="{!'dfc-answer-'+v.question.Id}" text="-@other@-" change="c.onSelectionChange" aura:id="other"/>
+       <span class="{!v.question.Other_Selected__c||v.otherText!=null?'hide':''}">{!v.question.Other_Option_Label__c}</span>   
+       <ui:inputText class="{!v.question.Other_Selected__c||v.otherText!=null?'':'hide'}" placeholder="please specify" value="{!v.otherText}" updateOn="keyup" keyup="c.onOtherTextChange"/>
+     </label><br/>
+     </div>
+
+     <c:CsqValidateRequired value="{!v.question.Entered_Answer__c}" message="Please select an option"/>
+        
+     <c:DfcAssessmentExtraInfo question="{!v.question}"/>
+
+    </div>   
+    
+</aura:component>

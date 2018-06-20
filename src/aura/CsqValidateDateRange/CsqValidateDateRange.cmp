@@ -1,0 +1,9 @@
+<aura:component extends="c:CsqValidationComponent">
+    
+    <aura:attribute name="isAfter" type="String" required="true"/>
+    <aura:attribute name="strict" type="Boolean" default="true"/>
+    <aura:attribute name="format" type="String" default="D MMM YYYY"/>
+    <aura:set attribute="defaultMessage" value="Invalid date order"/>
+    <aura:handler name="change" value="{!v.isAfter}" action="c.onChange"/>
+    
+</aura:component>

@@ -1,0 +1,181 @@
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_newUserRegisterController"  title="New User Setup - Dementia Connect"  applyHtmlTag="false" applyBodyTag="false">  <!-- action="{!autologin}" -->
+    <html>
+        <head>
+        
+            <c:DCE_CSS />
+            <script>
+                $(document).ready(function(){
+                    
+                    $("[id$='password1'],[id$='password2']").prop('required',true);
+                    
+                    $("[id*='submitRequestButton']").on('click', function(){
+                         
+                         var requiredFields = $('input,textarea').filter('[required]:visible');
+                         var hasError = false;
+                         $("[id*='emailError']").text("");
+                         
+                         for(i=0; i < requiredFields.length; i++){
+                            
+                            if(requiredFields[i].value == ''){
+                                $(requiredFields[i]).closest("div.form-group").addClass("has-error");
+                                hasError = true;
+                            }
+                            
+                         }
+                         
+                         var emailValue = $("[id*='emailInput']").val();
+                         
+                         if( !validateEmail(emailValue)) {
+                            $("[id*='emailInput']").closest("div.form-group").addClass("has-error");
+                            $("[id*='emailError']").text("Please enter valid email");
+                            hasError = true;
+                         }
+                         
+                         if(hasError){
+                            $("[id*='javascriptAlertText']").text("Please complete the highlighted fields before submitting.");
+                            $("[id*='javascriptAlert']").show('fast');
+                         } else {
+                            $("[id*='javascriptAlert']").hide();
+                         }
+                         
+                    });
+                   
+                    $('input,textarea').filter('[required]:visible').change(function(){
+                         $(this).closest("div.form-group").removeClass("has-error");
+                    });
+                    
+                    
+                    $("[id*='password2']").change(function(){
+                        $(this).closest("div.form-group").removeClass("has-error");
+                        $("[id*='javascriptAlert']").hide('fast');
+                        
+                        var p1 = $("[id*='password1']").val();
+                        var p2 = $("[id*='password2']").val();
+                        
+                        if(p2.length > 0 && p1 != p2){
+                            $("[id*='javascriptAlertText']").text("Please ensure passwords match.");
+                            $("[id*='javascriptAlert']").show('fast');
+                            $(this).closest("div.form-group").addClass("has-error");
+                        }
+                    });
+                    
+                });
+                
+                function validateEmail($email) {
+                    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                    return emailReg.test( $email );
+                }
+                
+            </script>
+            <c:importvisualstrap />
+        </head>
+        <body>
+            <c:visualstrapblock >
+                <apex:form forceSSL="true">
+                    <c:DCE_AZLogo />
+                    <c:row >
+                    </c:row>
+                    <c:row >
+                        <c:column type="col-md-1"/>
+                        <c:column type="col-md-10">
+                            
+                            <c:panel >
+                                <div style="margin-bottom:1em;">
+                                <!--<h3><div class="label label-default" style="margin-bottom:1em;">Complete your registration with the Dementia Connect Portal</div></h3>-->
+                                	<div class="sectionHeading">Complete your registration with the Dementia Connect Portal</div>
+                                </div>
+                                <p>Thank you for submitting a request to join the Dementia Connect Portal. Your request has been approved. </p>
+                                <p>Please confirm and complete the following details in order to register with the Dementia Connect Portal.</p>
+                                
+                                <div class="alert alert-danger alert-dismissible" role="alert" id="javascriptAlert" style="display:none;">
+                                     <span id="javascriptAlertText"></span>
+                                </div>
+                                
+                                <apex:outputpanel layout="inline" rendered="{!displayPageMessage}" id="messagePanel">
+                                    <apex:outputPanel layout="block" styleClass="alert alert-danger" id="messageBlock">
+                                        <apex:outputText value="{!pageMessage}" escape="false"/>
+                                    </apex:outputPanel>
+                                </apex:outputpanel>
+                                
+                                <c:row >
+                                    <c:column type="col-md-6">
+                                    
+                                        <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+                                            <apex:outputLabel styleclass="control-label">Name</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+                                            <apex:outputLabel styleclass="sr-only" for="firstName">First Name</apex:outputLabel><apex:inputfield value="{!user.FirstName}" html-placeholder="First Name" styleClass="form-control" style="margin-bottom:0.2em;" id="firstName"/>
+                                            <apex:outputLabel styleclass="sr-only" for="lastName">Last Name</apex:outputLabel><apex:inputfield value="{!user.LastName}" html-placeholder="Last Name" styleClass="form-control" required="true" id="lastName"/>
+                                        </c:formgroup>
+                                        
+                                        <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+                                            <apex:outputLabel styleclass="control-label" for="emailInput">Email</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+                                            <apex:inputfield value="{!user.Email}" html-placeholder="Email" styleClass="form-control" required="true" id="emailInput"/>
+                                            <span class="help-block" id="emailError"></span>
+                                        </c:formgroup>
+                                        
+                                        <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+                                            <apex:outputLabel styleclass="control-label" for="phone">Phone</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+                                            <apex:inputfield value="{!user.Phone}" html-placeholder="Phone" styleClass="form-control" required="true" id="phone"/>
+                                        </c:formgroup>
+                                        
+                                        <div class="help-block" style="margin-top:2.5em;margin-left:0.5em;">Your password must be at least eight characters long and must contain a mix of letters and numbers.</div>
+                                        
+                                        <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+                                            <apex:outputLabel styleclass="control-label" for="password1">Password</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+                                            <apex:inputsecret value="{!password1}" html-placeholder="Password" styleClass="form-control" required="true" id="password1"/>
+                                        </c:formgroup>
+                                        
+                                        <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+                                            <apex:outputLabel styleclass="control-label" for="password2">Confirm password</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+                                            <apex:inputsecret value="{!password2}" html-placeholder="Confirm password" styleClass="form-control" required="true" id="password2"/>
+                                        </c:formgroup>
+                                        
+                                    </c:column>
+                                    
+                                    <c:column type="col-md-6">
+                                        
+                                        <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+                                            <apex:outputLabel >Address</apex:outputLabel>
+                                            <apex:outputLabel styleclass="sr-only" for="street">Street</apex:outputLabel><apex:inputText id="street" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Street" value="{!user.Street}"/>
+                                            <apex:outputLabel styleclass="sr-only" for="town">Town</apex:outputLabel><apex:inputText id="town" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Town/City" value="{!user.City}" />
+                                            <apex:outputLabel styleclass="sr-only" for="state">County</apex:outputLabel><apex:inputText id="state" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="County" value="{!user.State}" />
+                                            <apex:outputLabel styleclass="sr-only" for="postcode">Postcode</apex:outputLabel><apex:inputText id="postCode" styleClass="form-control" html-placeholder="Country" value="{!user.PostalCode}"/>
+                                            <apex:outputLabel styleclass="sr-only" for="country">Country</apex:outputLabel><apex:inputText id="country" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Postcode" value="{!user.Country}"/>
+                                            
+                                            <link rel="stylesheet" type="text/css" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=kb59-yz47-hj67-xf67" />
+                                            <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=kb59-yz47-hj67-xf67"></script>
+                                            <script type="text/javascript">
+                                                
+                                                var fields = [
+                                                    { element: "{!$Component.street}", field: "Line1" },
+                                                    { element: "{!$Component.town}", field: "City", mode: pca.fieldMode.POPULATE },
+                                                    { element: "{!$Component.state}", field: "Province", mode: pca.fieldMode.POPULATE },
+                                                    { element: "{!$Component.postCode}", field: "PostalCode" },
+                                                    { element: "{!$Component.country}", field: "{HomeNation}", mode: pca.fieldMode.POPULATE },
+
+                                                ];
+                                                    
+                                                var options = {key: "KB59-YZ47-HJ67-XF67", countries: { codesList: "GBR" }, culture:"en_GB" };
+
+                                                var control = new pca.Address(fields, options);
+                                                //control.listen("load", function(){control.setCountry("GBR");});
+                                            </script>
+                                        
+                                        </c:formgroup>
+                                        
+                                    </c:column>
+                                    
+                                </c:row>
+                                <c:row >
+                                    <span style="float:right;margin-right:1em;">
+                                        <apex:commandButton styleClass="btn-primary" value="Submit request" action="{!registerUser}" id="submitRequestButton"></apex:commandButton>
+                                    </span>
+                                </c:row>
+                            </c:panel>
+                        </c:column>
+                        <c:column type="col-md-1"/>
+                    </c:row>
+                </apex:form>
+            </c:visualstrapblock>
+        </body>
+    </html>
+</apex:page>

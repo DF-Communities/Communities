@@ -1,0 +1,94 @@
+<aura:component >
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="demographicInstance" type="Demographic_information__c"/>
+    <aura:attribute name="proximitySelectionArr" type="String[]" default="[]"/>
+    
+    <div class="col-md-12 zero-indent form-group" style="margin-bottom:0px;">
+        <label class="col-md-3 control-label required" for="ethnicGroup" style="padding-left: 3px;">Further information (optional)</label>
+        <div class="col-md-8">
+            <c:STD_dynamicPicklist name="ethnicity"
+                                   label="Please indicate how you prefer to describe your ethnic group?" 
+                                   value="{!v.demographicInstance.Ethnic_Group__c}" 
+                                   sObjectApiName="Demographic_information__c" 
+                                   sObjectFieldApiName="Ethnic_Group__c"/>
+            <p style="padding-top: 10px;">This will help us to monitor the effectiveness of equality, diversity and inclusion. The information you supply will be used for statistical purposes only.</p>
+            
+        </div>
+        
+        <div class="form-group" id="proximity-container">
+            
+            <label class="col-md-3 control-label required" for="proxcheckboxes"></label>
+            
+            <div class="col-md-8 checkbox" id="proxcheckboxes"> 
+                
+                <label class="fLabel" style="padding-left: 0px;font-weight: 700;">Please let us know your connection to dementia (please tick all that apply)</label>         
+                
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                    <ui:inputCheckbox text="{!v.proximitySelectionArr}"
+                                      name="I have dementia"
+                                      value="false"
+                                      change="{!c.captureProximity}"/>
+                    <div>I have dementia</div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                    <ui:inputCheckbox text="{!v.proximitySelectionArr}"
+                                      name="I am a family member or friend of someone with dementia"
+                                      value="false"
+                                      change="{!c.captureProximity}"/>
+                    <div>I am a family member or friend of someone with dementia</div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                    <ui:inputCheckbox text="{!v.proximitySelectionArr}"
+                                      name="I was a family member or friend of someone who had dementia"
+                                      value="false"
+                                      change="{!c.captureProximity}"/>
+                    <div>I was a family member or friend of someone who had dementia</div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                    <ui:inputCheckbox text="{!v.proximitySelectionArr}"
+                                      name="I am a carer of someone with dementia"
+                                      value="false"
+                                      change="{!c.captureProximity}"/>
+                    <div>I am a carer of someone with dementia</div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                    <ui:inputCheckbox text="{!v.proximitySelectionArr}"
+                                      name="I used to be a carer of someone with dementia"
+                                      value="false"
+                                      change="{!c.captureProximity}"/>
+                    <div>I used to be a carer of someone with dementia</div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;">
+                    <ui:inputCheckbox text="{!v.proximitySelectionArr}"
+                                      name="I am a dementia professional"
+                                      value="false"
+                                      change="{!c.captureProximity}"/>
+                    <div>I am a dementia professional</div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 25px;margin-bottom:0px;">
+                    <ui:inputCheckbox text="{!v.proximitySelectionArr}"
+                                      name="I am generally interested in dementia"
+                                      value="false"
+                                      change="{!c.captureProximity}"/>
+                    <div>I am generally interested in dementia</div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 zero-indent">
+                <p class="help-block" style="margin-top:10px;margin-bottom:0px;"> We want to ensure that we send you relevant communications. We won’t use your details unnecessarily and we won't pass them to third parties.</p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="hidden-field">
+            <ui:inputText aura:id="multiSelectProximityValueStore"
+                          value="{!v.demographicInstance.Proximity_to_dementia__c}"/>    
+        </div>
+    </div>
+</aura:component>

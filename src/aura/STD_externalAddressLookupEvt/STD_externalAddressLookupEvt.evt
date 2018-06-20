@@ -1,0 +1,6 @@
+<aura:event type="APPLICATION" description="Event template" access="global">
+    <aura:attribute name="street" type="String"/>
+    <aura:attribute name="city" type="String"/>
+    <aura:attribute name="county" type="String"/>
+    <aura:attribute name="postcode" type="String"/>
+</aura:event>

@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Publish the output of the contact details component">
+    <aura:attribute name="areContactDetailsValid" type="Boolean" default="false" description="Setting false by default prevents submission of form with untouched fields"/>
+    <aura:attribute name="valuesMap" type="Map"/>
+    <aura:attribute name="password" type="String"/>
+</aura:event>

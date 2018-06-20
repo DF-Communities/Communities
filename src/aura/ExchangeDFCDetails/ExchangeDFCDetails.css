@@ -1,0 +1,19 @@
+.THIS.editfm{
+   display: none; 
+}
+.THIS.viewfm{
+   display: none; 
+}
+
+.THIS .dynamic{
+    height: 102px;
+}
+.THIS .slds-panel{
+    background-color:#F4F4F4;
+}
+ .THIS .toggle {
+   display: none;
+ }
+.THIS .interests{
+    content: str-replace($string, ';', ',');
+}

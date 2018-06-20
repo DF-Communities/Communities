@@ -1,0 +1,59 @@
+<aura:component extensible="true">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:handler event="c:SldsVsCustomStylingEvt" action="{!c.handleStylingFramework}"/>
+    <aura:attribute name="useSlds" type="Boolean" default="false"/>
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:method name="reset" action="{!c.resetComponent}"/>
+    
+    <!-- If a standard component has an init method, fire out the relevant value in an event so that it can be retrieved from the parent components-->
+    <aura:registerEvent name="STD_datePickerSelectionEvt" type="c:STD_datePickerSelectionEvt"/> 
+    <aura:handler name="STD_datePickerSelectionEvt" event="c:STD_datePickerSelectionEvt" action="{!c.setDateValueOnSelection}"/>
+    <aura:handler name="change" value="{!v.value}" action="{!c.setDate}"/>
+    
+    <aura:attribute name="daysOffsetFromToday" type="Integer" default="0"/>
+    <aura:attribute name="maxDaysFromNowSelectionRestriction" type="Integer" default="99999"/>
+    <aura:attribute name="enforceOffset" type="Boolean" default="true"/>
+    <aura:attribute name="setDate" type="Date" default=""/>
+    <aura:attribute name="name" type="String" default="Placeholder Datepicker Name"/>
+    <aura:attribute name="label" type="String" default="Date"/>
+    <aura:attribute name="value" type="Date" required="true"/>
+    <aura:attribute name="required" type="Boolean" required="true"/>
+    <aura:attribute name="disabled" type="Boolean" default="false"/>
+    
+    <aura:if isTrue="{!v.useSlds}">
+        <aura:set attribute="else">
+            <ltng:require scripts="{!join(',',
+                                   $Resource.LightningBootstrapDatepicker   + '/jquery-3.2.1.min.js',
+                                   $Resource.LightningBootstrapDatepicker + '/bootstrap-datepicker.min.js' )}"
+                          afterScriptsLoaded="{!c.setScriptLoaded}"/>
+            <ltng:require styles="{!$Resource.LightningBootstrapDatepicker + '/bootstrap-datepicker.css'}"/>
+
+        </aura:set>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.useSlds}">
+        <lightning:input type="date" 
+                         aura:id="dateField" 
+                         label="{!v.label}" 
+                         required="{!v.required}"
+                         disabled="{!v.disabled}"
+                         value="{!v.setDate}" 
+                         onchange="{!c.verifyDateInRange}"/>    
+        
+        <aura:set attribute="else">
+            <div data-dateoffset="{!v.daysOffsetFromToday}">
+                <label for="datepicker">{!v.label}</label>
+                <input type="text" 
+                       id="{!'datepicker-' + v.name}"
+                       class="as-datepicker form-control dpk-anomaly"
+                       required="{!v.required}"
+                       disabled="{!v.disabled}"
+                       readonly="true"
+                       aura:id="dateField"/> 
+
+            </div>  
+        </aura:set>
+    </aura:if>
+</aura:component>

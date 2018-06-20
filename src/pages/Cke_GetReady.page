@@ -1,0 +1,197 @@
+<apex:page showHeader="false" sidebar="false" controller="EdtPageController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+    
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>Cupcake Day 3 simple steps: Alzheimer's Society</title>
+    <c:Cke_CommonHead ogUrl="get-ready"/>
+
+</head>    
+    
+<body class="sub">
+
+   <c:Cke_CommonBody pageUrl="get-ready"/>
+   <c:Cke_WebMainNav pageUrl="get-ready"/>
+   <c:Cke_WebBanner bannerClass="blue"/>
+
+ <main>   
+        <div class="intro">
+            <article id="intro">   
+                <div class="container">
+                    <div class="row">  
+                    <!-- INTRO SECTION START -->
+                        <div class="col-xs-12">
+                            <h1><c:EdtText group="cke-getready" key="block-title-1" context="{!edtContext}" text="Recipe for a delicious day"/></h1>                
+                        </div>
+                        <div class="col-xs-12">
+                            <p><c:EdtText group="cke-getready" key="block-text-1" context="{!edtContext}" text="It&rsquo;s time to start planning your Cupcake Day. Invite your family, friends and colleagues to join in (and remember to ask the baking lovers who&rsquo;ll jump at the chance to get their pinnies on). Here are a few simple steps to whisk up a delicious day."/></p>
+                        </div>
+                    <!-- INTRO SECTION END -->
+                    </div>        
+                </div>                             
+            </article>
+        </div>
+        <div class="challenge">
+            <article id="challenge" class="blue-hundreds">
+                <!-- SECTION 1 START -->
+
+                <div class="container">
+                    <div class="row">     
+                        <div class="col-sm-12">
+                            <h2><c:EdtText group="cke-getready" key="get-kit-title" context="{!edtContext}" text="Get your Cupcake Kit"/></h2>
+                                <p><c:EdtText group="cke-getready" key="get-kit-text-1" context="{!edtContext}" text="We&rsquo;ll pack your kit full of vital ingredients for the day &ndash; all you&rsquo;ll need to add is the cupcakes themselves."/> </p>
+                                <p><c:EdtText group="cke-getready" key="get-kit-text-2" context="{!edtContext}" text='Circle 16 June in your diary and invite as many people as you like. Next, home in on the friends or colleagues who live for baking and ask them to bring their cupcakes to the table – remember to share the delicious recipes from <a href="http://www.womanandhome.com/">woman&amp;home</a> with them.'/> </p>
+                                <p><c:EdtText group="cke-getready" key="get-kit-text-3" context="{!edtContext}" text="Get the cupcake party started and encourage everyone to donate as much as possible."/> </p>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="container">
+                    <div class="row">                   
+                        <div class="col-sm-6 col-xs-12 center">
+                        <c:EdtImage group="cke-getready" key="Cakekit-image" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/forms/cakes.jpg')}" alt="Instagram cake pictures" />
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <p><c:EdtText group="cke-getready" key="get-kit-bullet-title" context="{!edtContext}" text="We&rsquo;ll stir the following into your Cupcake Kit:"/></p>
+                            <ul>
+                            <li><c:EdtText group="cke-getready" key="get-kit-bullet-1" context="{!edtContext}" text="A donation box for those all&ndash;important cupcake donations"/></li>
+                            <li><c:EdtText group="cke-getready" key="get-kit-bullet-2" context="{!edtContext}" text="A poster to put up and spread the word"/></li>
+                            <li><c:EdtText group="cke-getready" key="get-kit-bullet-3" context="{!edtContext}" text="Cake toppers to add a Cupcake Day finish to the table"/></li>
+                            <li><c:EdtText group="cke-getready" key="get-kit-bullet-4" context="{!edtContext}" text="Fundraising ideas and games to play on the day"/></li>
+                            <li><c:EdtText group="cke-getready" key="get-kit-bullet-5" context="{!edtContext}" text='Delicious recipes from our friends at <a href="http://www.womanandhome.com/">woman&amp;home</a>'/></li>
+                            </ul>
+                            <a href="request-a-pack" class="btn btn-primary"><c:EdtText group="cke-getready" key="button-get-kit-text" context="{!edtContext}" text="Get a Cupcake Kit" hideEditPrompt="true"/> </a>
+                        </div>
+                    </div>    
+                </div>                     
+                <!-- SECTION 1 END -->
+            </article>
+        </div>        
+        <div>
+            <article class="green-hundreds">
+                <!-- SECTION 2 START -->
+
+                <div class="container">
+                    <div class="row">     
+                        <div class="col-sm-12">
+                            <h2><c:EdtText group="cke-getready" key="secret-title" context="{!edtContext}" text="The secret ingredient"/></h2>
+                            <c:EdtText group="cke-getready" key="secret-text" context="{!edtContext}" text="<p>The date is set. Your Cupcake Kit is on its way. There&rsquo;s just one vital ingredient still to add &ndash; your unique style. Because no one can host Cupcake Day like you.</p><p>If you want fresh flowers on the table and sugared flowers on your cupcakes, you can. Or bunting and doilies galore &ndash; that&rsquo;s so you. And when the table&rsquo;s set, you can start raising money to help defeat dementia. </p>"/>
+                        </div>
+                    </div>    
+                </div>                    
+                <div class="container">
+                    <div class="row flags">                 
+                        <div class="col-sm-12">
+                            <h3><c:EdtText group="cke-getready" key="funding-title" context="{!edtContext}" text="A sprinkling of fundraising ideas"/></h3>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="col-xs-3 ">
+                                <c:EdtImage group="cke-getready" key="funding-image-1" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/about/blue-left.png')}" alt="blue flag" html-class="img-responsive"/>
+                            </div>
+                            <div class="col-xs-9 ">
+                            <c:EdtText group="cke-getready" key="funding-text-1" context="{!edtContext}" text="<p><strong>Whisk in</strong> as many friends and colleagues as you can. Even if they only have five minutes to spare and &pound;1 to spend &ndash; it all counts.</p>"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="col-xs-3 ">
+                                <c:EdtImage group="cke-getready" key="funding-image-2" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/about/green.png')}" alt="green flag" html-class="img-responsive"/>
+                            </div>
+                            <div class="col-xs-9 ">
+                            <c:EdtText group="cke-getready" key="funding-text-2" context="{!edtContext}" text="<p><strong>Mix up</strong> as many donations as you can, by placing your donation box on the Cupcake Day table. You&rsquo;ll find your donation box in your Cupcake Kit.</p>"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="col-xs-3 ">
+                                <c:EdtImage group="cke-getready" key="funding-image-3" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/about/blue-right.png')}" alt="another blue flag" html-class="img-responsive"/>
+                            </div>
+                            <div class="col-xs-9 ">
+                            <c:EdtText group="cke-getready" key="funding-text-3" context="{!edtContext}" text="<p><strong>Blind taste test</strong> a selection of cupcakes in teams. Ask your cupcake tasters to make a donation if they get it wrong.</p>"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="col-xs-3 ">
+                                <c:EdtImage group="cke-getready" key="funding-image-4" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/about/two-flags.png')}" alt="two flags" html-class="img-responsive"/>
+                            </div>
+                            <div class="col-xs-9 ">
+                            <c:EdtText group="cke-getready" key="funding-text-4" context="{!edtContext}" text="<p><strong>Ice it nicely</strong> with a buttercream tutorial. Ask the best baker to show your other party-goers how to ice a cupcake perfectly.</p>"/>
+                            </div>
+                        </div>
+                    </div>    
+                </div> 
+                <div class="container">
+                    <div class="row">                   
+                        <div class="col-xs-12">
+                            <h2><c:EdtText group="cke-getready" key="recipe-title" context="{!edtContext}" text="What will you bring?"/></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- RECIPES START -->
+                        <div class="col-md-3rds col-sm-3rds col-xs-3rds drop-shadow first-recipe">
+                            <div class="thumbnail recipes">
+                            <c:EdtImage group="cke-getready" key="recipe-image-1" context="{!edtContext}" src="{!URLFOR($Resource.cke_recipes_2, 'RuthJones/RuthJones_229x229.jpg')}"  alt="Ruth Jones' Cupcakes" html-class="img-responsive img-100"/>
+                            <div class="caption">
+                                <p><c:EdtText group="cke-getready" key="recipe-text-1" context="{!edtContext}" text="Ruth Jones' favourite cupcakes"/></p>
+                                <c:EdtDownload group="cke-getready" key="recipe-download-1" context="{!edtContext}" link-text="Get Recipe &gt;" html-class="btn btn-primary" 
+                                                      href="{!URLFOR($Resource.cke_recipes_2, 'RuthJones/CupcakeDay_CelebrityRecipe_RuthJones.pdf')}" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3rds col-sm-3rds col-xs-3rds drop-shadow">
+                            <div class="thumbnail recipes">
+                            <c:EdtImage group="cke-getready" key="recipe-image-2" context="{!edtContext}" src="{!URLFOR($Resource.cke_recipes_2, 'LorrainePascale/LorrainePascale_229x229.jpg')}" alt="Pastel Cupcakes" html-class="img-responsive img-100"/>
+                            <div class="caption">
+                                <p><c:EdtText group="cke-getready" key="recipe-text-2" context="{!edtContext}" text="Lorraine Pascale's favourite cupcakes"/>  </p>
+                                <c:EdtDownload group="cke-getready" key="recipe-download-2" context="{!edtContext}" link-text="Get Recipe &gt;" html-class="btn btn-primary" 
+                                                      href="{!URLFOR($Resource.cke_recipes_2, 'LorrainePascale/CupcakeDay_CelebrityRecipe_LorrainePascale.pdf')}" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3rds col-sm-3rds col-xs-3rds drop-shadow">
+                            <div class="thumbnail recipes">
+                            <c:EdtImage group="cke-getready" key="recipe-image-3" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/getready/p3.jpg')}" alt="Sweeties Cupcakes" html-class="img-responsive img-100"/>
+                            <div class="caption">
+                                <p><c:EdtText group="cke-getready" key="recipe-text-3" context="{!edtContext}" text="Sweetie Cupcakes"/></p>
+                                <c:EdtDownload group="cke-getready" key="recipe-download-3" context="{!edtContext}" link-text="Get Recipe &gt;" html-class="btn btn-primary" 
+                                                      href="{!URLFOR($Resource.Cke_Downloads, 'recipe_sweetie_cupcakes.pdf')}" /> 
+                            </div>
+                            </div>
+                        </div>
+                        <!-- RECIPES END -->
+                    </div>
+                </div>
+                <!-- SECTION 2 END -->
+                <!-- SECTION 3 START -->
+                
+                <div class="container sect3">
+                    <div class="row">     
+                        <div class="col-sm-12">
+                            <h2><c:EdtText group="cke-getready" key="icing-title" context="{!edtContext}" text="The icing on the cake"/></h2>
+                            <c:EdtText group="cke-getready" key="icing-text" context="{!edtContext}" text="<p>When all that&rsquo;s left are cupcake cases and crumbs, when the last cup of tea has been drunk and the table cleared, there&rsquo;s one final thing we need you to do. Return the money you&rsquo;ve raised. </p><p>Everything you bring to the table &ndash; from the cupcakes themselves, to the fun and games on the day &ndash; helps us get closer to a world without dementia. Return every penny and it’ll help give more people with dementia the support they need &ndash; and help fund the next generation of research that will defeat it. </p>"/>
+                            <a href="pay-in" class="btn btn-primary">Pay in here</a>
+                        </div>
+                    </div>          
+                </div>
+    
+                <div class="container">                 
+                    <div class="row">     
+                        <div class="col-xs-12">
+                            <h2><c:EdtText group="cke-getready" key="end-title" context="{!edtContext}" text="Got Cupcake questions&#x3F;"/></h2>
+                            <p><c:EdtText group="cke-getready" key="end-text" context="{!edtContext}" text='You can find the answer in our cupcake <a href="faqs">FAQs.</a>'/></p>
+                            <a href="faqs" class="btn btn-primary">Read our FAQs</a>
+                        </div>
+                    </div>                  
+                </div>     
+                <!-- SECTION 3 END -->
+            </article>
+        </div>
+    </main>
+
+    
+    <c:Cke_CommonDonateAside />
+    <c:Cke_CommonFooter />    
+    <c:Cke_CommonScripts />
+
+</body>
+
+</html>
+    
+</apex:page>

@@ -1,0 +1,41 @@
+<apex:component controller="DF_WEBC_Register_Remoter">
+
+<script src="https://www.youtube.com/iframe_api" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.min.js"></script>
+
+<script> 
+
+ $(document).ready( function() {
+
+    _webc.invokeShortSubmitAction = function (sJson) {
+          Visualforce.remoting.Manager.invokeAction (
+                '{!$RemoteAction.DF_WEBC_Register_Remoter.handleDigitalFriendJson}', 
+                sJson, 
+                _webc.handleShortResult
+           );
+     };
+
+    _webc.invokeSubmitAction = function (sJson) { 
+          Visualforce.remoting.Manager.invokeAction (
+                '{!$RemoteAction.DF_WEBC_Register_Remoter.handleFriendJson}', 
+                sJson, 
+                _webc.handleResult
+           );
+     };
+
+    _webc.invokeMakeDDFAction = function (sJson) { 
+          Visualforce.remoting.Manager.invokeAction (
+                '{!$RemoteAction.DF_WEBC_Register_Remoter.handleMakeDDFJson}', 
+                sJson, 
+                _webc.handleMakeDDFResult
+           );
+     };
+
+
+ });
+
+
+</script>
+
+
+</apex:component>

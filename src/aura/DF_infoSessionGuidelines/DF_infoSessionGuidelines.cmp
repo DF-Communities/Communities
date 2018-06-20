@@ -1,0 +1,62 @@
+<aura:component >
+    
+    <aura:handler event="c:SldsVsCustomStylingEvt" action="{!c.handleStylingFramework}"/>
+    <aura:attribute name="useSlds" type="Boolean" default="true"/>
+    
+    <aura:attribute name="isLoading" type="Boolean" default="true"/>
+    <aura:registerEvent name="DF_proceedToFormEvt" type="c:DF_proceedToFormEvt"/>
+    
+    <div>
+        <p> 
+            Thank you for contacting us to request a Dementia Friends Information Session. 
+            Before continuing, it is important that you and your group understand a little more about what the Information Session will entail.
+        </p>
+        <h1>
+            What is Dementia Friends?
+        </h1>
+        <p>
+            Dementia Friends aims to give people a better understanding of dementia and the small things we can all do to make a difference to the lives of people affected by dementia. Dementia Friends is led by Alzheimer’s Society and is one strand of its work to create Dementia Friendly Communities. By attending a Dementia Friends Information Session, you have the opportunity to join this national social action movement to change the way the nation thinks, acts and talks about the condition. 
+        </p>
+        <h1>
+            What is an Information Session?
+        </h1>
+        <p>
+            A Dementia Friends Information Session is a fun, interactive way to learn a little about dementia and how it can affect people’s lives.  Led by a volunteer Dementia Friends Champion, the Session lasts 45-60 minutes and covers five key messages that everyone should know about dementia, through activities and discussion. At the end of the Information Session, participants have the opportunity to turn their understanding into action by committing to a dementia-friendly action. No action is too big or small – from wearing a Dementia Friends badge to spreading the word on social media.
+            Please note: A Dementia Friends Information Session is not training; volunteer Champions are not dementia experts, will not be able to provide further information or advice and are not DBS-checked.
+        </p>
+        <h1>
+            What will happen next?
+        </h1>
+        <p>
+            Once you submit your request, it will be made available to volunteer Champions in the area who will then be able to sign up to deliver the Session. Once matched with a Champion, you will be put in contact with the Champion so you can communicate directly and finalise details.
+            Please click the Proceed button below to confirm that you agree to these conditions and that your contact details will be passed to a Champion once they sign up to deliver your Session.
+        </p>
+        <p>
+            Please be aware:
+        </p>
+        <ul>
+            <li>
+                <p>Dementia Friends cannot guarantee that a Dementia Friends Champion will be available to deliver the Information Session. 
+                    If we are unable to provide a volunteer Champion for the requested date, we may ask you to provide alternative dates for the Session.</p>
+            </li>
+            <li>
+                <p>Dementia Friends and/or Champions retain the right to cancel or end the Information Session at any time.</p>
+            </li>
+            <li>
+                <p>Information Sessions should only be requested if you have a group of 10 or more people wanting to attend. If your group is fewer than 10 people, <a href="/WEBSession">take a look at the public Sessions</a> being run in your area.</p>
+            </li>
+        </ul>
+        <aura:if isTrue="{!v.isLoading}">
+            <ui:spinner aura:id="loadingSpinner" />
+            
+            <aura:set attribute="else">
+                <div style="padding-top: 20px; padding-bottom: 20px;">
+                    <span>
+                        <a class="btn-primary" onclick="{!c.proceedToForm}">Proceed</a>
+                    </span>
+                </div> 
+            </aura:set>
+        </aura:if>
+    </div>
+    
+</aura:component>

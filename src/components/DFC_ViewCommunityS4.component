@@ -1,0 +1,34 @@
+<apex:component >
+
+
+      <h3>Areas for Action</h3>
+
+              <p>  <c:DFC_PageSnippets group="dfc_apply" uniqueKey="dfc-apply-action-areas"/> </p>
+        
+             <div  ng-repeat="area in community.Action_Areas__r">
+                   
+
+                    <div ng-show="area.Selected__c">
+
+                        <div class="well">
+
+                         <div class="form-group">
+                                <div>
+                                    <label style="margin-right:12px;">
+                                      <span>{{area.Action_Area__r.Name}}</span>
+                                    </label>
+                                </div>
+
+                                <div class="form-control uiOutputTextArea" ng-bind="area.Description__c" >
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+   
+        
+</apex:component>

@@ -1,0 +1,122 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_RegisterNewsletter_Controller">
+    
+ <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+    <c:DF_WEBC_RegisterNewsletter_js />
+        
+    <div class="row *.css">
+        <div class="col-md-12">
+
+                    <div id = "success-container" style="display:none">
+                    <h1>Thank you</h1>
+                    <p>
+                       You have now successfully signed up to our monthly e-newsletter.
+                    </p>
+                    </div>
+
+                    <div id = "form-container">
+                        
+                        <h1>Email sign up</h1>
+    
+                        <p>
+    
+	
+                            <!--    
+    					    Sign up to our monthly e-newsletter. It has all the latest news, updates and tips on how we are making more dementia friendly communities.<br/>  
+							Please join us because, together we can really change the nations perceptions of dementia.  
+                            -->
+                            <apex:outputText value="{!newsletterSignupText.Body_Text__c}" escape="false"/>
+    
+    
+                        </p>
+                        
+                        <apex:form styleClass="form-horizontal well" forceSSL="true" id="short-form">
+                            
+                            <div class="form-group required ">
+                                <label for="firstName" class="control-label col-md-3">First Name</label>        
+                                <div class="col-md-8">                                                                   
+                                    <apex:inputText value="{!firstName}" id="firstName" styleClass="form-control"/>
+                                    <span id="firstNameError" class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="lastName" class="control-label col-md-3">Last Name</label>
+                                <div class="col-md-8">
+                                    <span id="lastNameError" class="help-block"></span>
+                                    <apex:inputText value="{!lastName}" id="lastName" styleClass="form-control"/>                      
+                                </div>
+                            </div>
+                            <div class="form-group required ">
+                                <label for="emailAddress" class="control-label col-md-3">Email</label>
+                                <div class="col-md-8">
+                                   <apex:inputText value="{!emailAddress}" id="emailAddress" styleClass="form-control"/>
+                                   <span id="emailAddressError" class="help-block"></span>    
+                                </div>
+                            </div>
+                            
+                            <div class="form-group required ">
+                                <label for="emailAddress2" class="control-label col-md-3">Confirm Email</label>
+                                <div class="col-md-8">
+                                    <apex:inputText value="{!emailAddress2}" id="emailAddress2" styleClass="form-control"/>
+                                </div>
+                            </div>
+                            
+                             <div class="form-group">
+                                    <label for="lastName" class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-8">
+                                        <p style="padding-left: 0px;">We&#x2019;d love to stay in touch with you about Dementia Friends and everything Alzheimer&#x2019;s Society is doing; from fundraising, campaigning, services and research to volunteering.<br/><br/>
+                                            It&#x2019;s totally up to you &#x2013; you can update what you get at any time and we will never sell your details to third parties. We will use your details so we can keep in touch with you about your Session. To find out more about how we use your personal information please take a look at our supporter <a href="https://www.dementiafriends.org.uk/WEBArticle?page=privacy-policy">privacy statement</a></p>
+                                    </div>
+                                </div>    
+                                
+                                <div class="form-group">
+                                    <label for="email-short-form" class="col-sm-3 control-label">I'd like to receive updates by email</label>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" id="email-short-form"/>
+                                    </div>
+                                </div>
+
+                        <hr/>
+        
+                        <c:DF_WEBC_Recaptcha2 />
+                        
+                            <div class="form-group">
+                            <div class="col-md-10">
+                                <input id="save-short-form" type="submit" name="save-short-form" value="Submit" class="btn btn-primary"/>
+                            </div>
+                            </div>
+
+
+                           <div class="has-error"> 
+                               <div id="shortServerError" class="help-block"></div>                                          
+                           </div>
+
+                        
+                        </apex:form>
+
+                    </div>
+                </div>
+            </div>
+                        
+        
+    <c:DF_WEBR_WebFooter />
+
+    </div>
+    
+    
+    
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            _webc.RegisterNewsletter_init();
+        });
+
+    </script>
+
+    
+
+</apex:page>

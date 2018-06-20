@@ -1,0 +1,120 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBFriendConvertToChampion" action="{!loginRedirect}">
+    
+  <c:DF_WEBR_WebMeta />
+    
+  <style>
+  .datepicker.dropdown-menu { background : #ccc;}
+  </style>
+<apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+
+  <div class="container">
+   <c:DF_WEBR_WebHeader showCounter="Y"/>
+    <c:DF_WEBR_WebNavbar />
+    
+  <div class="row *.css">
+           
+          <div class="col-md-9 column col-md-push-3">       
+            
+            <div class="well">
+                <div id="message-center"></div>                    
+                <h1>Convert to a Dementia Friends Champion</h1>
+                <apex:form styleClass="form-horizontal" forceSSL="true">
+                <div class="form-group">  
+                        <div class="control-group element-birthdate element-type-text required {!IF(LEN(birthDateError)>0,'has-error','')}">
+                                 <label for="birthDate" class="control-label col-md-3 required">Birth Date (dd/mm/yyyy)</label>
+                                 <div class="col-sm-8">
+                                     
+                                     <small>You must be over 16 years of age to be a Dementia Friends Champion</small>
+                                     <apex:inputText id="birthDate" styleClass="as-datepicker form-control"  value="{!birthDateString}"/>
+                                     <apex:outputText value="{!birthDateError}" rendered="{!LEN(birthDateError)>0}" styleClass="help-block"/>
+                                      
+                                 </div>
+                        </div>
+                     </div>
+
+                     <div class="form-group required" id="whychampion-container" >
+                        <div class="control-group element-whychampion element-type-text required {!IF(LEN(whychampionError)>0,'has-error','')}">
+                           <label for="whychampion" class="col-md-3 control-label required">Why do you want to volunteer as a Champion?</label>
+                           
+                           <div class="col-md-8">
+                           
+                           <small>remaining characters&nbsp;<input disabled="disabled"  tabindex="999" maxlength="3" size="3" value="255" id="counter" style="border: none;background: transparent;" /></small>
+                           <apex:inputHidden value="{!whychampion}" id="myHiddenVar" />
+                            <textarea class="form-control" rows="5" id="whychampion" maxlength="255" onblur="document.getElementById('{!$Component.myHiddenVar}').value = this.value;"></textarea>
+                            <apex:outputText value="{!whychampionError}" rendered="{!LEN(whychampionError)>0}" styleClass="help-block"/>
+                              </div>
+                           </div>
+                          
+                       </div>
+                
+                <h2>Are you sure you want to change?</h2>
+                                  
+                        <h3>What's involved in being a Champion?</h3>
+                                                          
+                            <ul class="status">
+                                <li>Genuinely have the time to run Dementia Friends Information Sessions and reach around 100 people</li>
+                                <li>Be over 16 years old</li>
+                                <li>Be a good communicator and speak objectively about dementia</li>
+                                <li>Enjoy talking to groups of people</li>
+                                <li>Have access to the internet and be willing to record the number of Friends you reach by the website</li>
+                                <li>Keen to set up Information Sessions in workplaces and your local community</li>
+                                <li>Enthusiastic about Dementia Friends</li>
+                                <li>Voluntarily attend a whole day induction session </li>
+                             </ul>  
+                                
+                      
+                      <apex:commandButton action="{!convertToChampion}" styleClass="btn btn-primary" value="Convert to a Champion" id="submit-button"/> <div class="hidden-md hidden-lg"> <br/></div>      
+                        <a class="arrow" href="/WEBArticle?page=what-is-a-champion">What is a Champion?</a>
+                    </apex:form>
+                    
+                    </div>
+                                
+            </div>
+
+            <c:DF_WEBC_FriendNav activeValue="WebFriendtoChamp" dfcW="{!dfcW}"/>               
+
+          </div>
+        
+       
+    
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:DF_WEBR_WebFooter />
+    <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
+ <script> 
+
+
+
+        $(document).ready(function() {
+           
+        $('#whychampion').keyup(    
+        function ()
+       {
+            var field= $('[id$=whychampion]').val();
+            var maxlimit = 255;
+            if ( field.length > 255 ) {
+            field = field.substring( 0,5 );
+            return false;
+         } else {
+         
+          $('[id$=counter]').val(maxlimit - field.length);
+        }
+      }); 
+          
+            $( ".datepicker" ).datepicker({     
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-80:+0"
+            });
+
+        });
+        
+         $(".as-datepicker").datepicker({
+            format: 'dd/mm/yyyy'
+        });
+
+    </script>
+    </div>
+
+</apex:page>

@@ -1,0 +1,51 @@
+<apex:page showHeader="false" sidebar="false" controller="EdtPageController" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+    
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+
+<head>
+    <title>Cupcake Day: Oops!</title>
+    <c:Cke_CommonHead />
+    <link rel="shortcut icon" type="image/x-icon" href="{!URLFOR($Resource.Cke_Assets, 'img/layout/favicon.ico')}" />
+    <link REL="icon" HREF="{!URLFOR($Resource.Cke_Assets,'img/layout/favicon.ico')}" type="img/x-icon"/>
+</head>    
+    
+<body class="sub">
+    
+   <c:Cke_CommonBody pageUrl="error"/>
+   <c:Cke_WebMainNav pageUrl="error"/>
+
+    <div class="container" style="padding-top:25px;">
+                <div class="row">  
+         
+            <article id="form" >
+                           <div class="col-md-12 center">
+                        <h2>Ooops &ndash; there&rsquo;s something strange in the mix!</h2>                
+                    </div>
+                    <div class="col-md-12  center">
+                        <!-- ERR NO START -->
+                        <p><strong>{!IF($Site.ErrorMessage!='', $Site.ErrorMessage, 'This page was not found or there was an error')}</strong><br />
+                        <!-- ERR NO END -->
+                        <!-- EXPLAIN START -->                                          
+                        <span style = "display:none">{!$Site.ErrorDescription}</span>
+                        Please check your url and try again or contact us at the address or phone number below for help.
+                        </p>
+                        <br /><br /><p><a href="home" class="btn btn-primary">Return to Cupcake Day</a></p>
+                        <!-- EXPLAIN END -->
+                        <br /><br /><p><img src="{!URLFOR($Resource.Cke_Assets, 'img/errorpage/cherry.png')}" alt="Cherry cupcake" class="img-auto" /></p>
+                    </div>                
+            </article>
+        </div>
+    </div>
+            
+
+
+    
+    <c:Cke_CommonDonateAside />
+    <c:Cke_CommonFooter />    
+    <c:Cke_CommonScripts />
+
+</body>
+
+</html>
+    
+</apex:page>

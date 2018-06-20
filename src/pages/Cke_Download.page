@@ -1,0 +1,13 @@
+<apex:page showHeader="false" sidebar="false" controller="CkeDownloadController" action="{!go}">
+
+<!-- This page is a placeholder that redirects the user off to a download
+     
+     It's here to make sure that a proper error page is displayed if the a buff URL is provided
+     The page redirects to the standard servlet url for an Attachment.
+
+     REST Services have ugly URLs and the URLRewriter is not able to rdirect to them, so it's not
+     possible to define short urls for web services.  
+
+-->     
+
+</apex:page>

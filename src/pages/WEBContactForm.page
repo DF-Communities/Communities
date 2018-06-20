@@ -1,0 +1,113 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBContactForm" >
+    
+   <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+    <script>
+  /*  $(document).ready(function(){
+        $( ".aerian-form" ).submit(function() {
+            var px_subject = $('#subject option:selected').text();
+            _gaq.push(['_trackPageview', '/contact/success/'+ px_subject]); 
+        });
+    });
+  */  
+    </script>
+ <c:DF_WEBR_WebMeta />
+
+
+  <div class="container">
+   <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+    
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+    
+                    <h1>Contact us</h1>
+                   
+                    <p>
+                    <apex:outputText value="{!contactFormText.Body_Text__c}" escape="false"/>
+                    </p>
+                   
+                    <!-- FORM GOES IN HERE -->
+                    <apex:form styleClass="form-horizontal" forceSSL="true">
+                  
+                     <apex:outputPanel rendered="{!LEN(standardErrorMsg)>0}">
+                       <p><apex:outputText value="{!standardErrorMsg}" styleClass="form-inerror-message alert"/></p>
+                    </apex:outputPanel>
+                    <div class="form-group required {!firstNameErrorClass}">
+                        <label for="firstName" class="col-sm-2 control-label required">First Name</label>
+                   <div class="col-sm-7">
+                        <apex:inputText value="{!firstName}" id="firstName"  styleClass="form-control"/>
+                        <apex:outputText value="{!firstNameError}" rendered="{!LEN(firstNameError)>0}" styleClass="text-error"/>
+                    </div>
+                    </div>
+                    <div class="form-group required {!lastNameErrorClass}">
+                        <Label for="lastName"  class="col-sm-2 control-label required">Last Name</Label>
+                        <div class="col-sm-7">
+                            <apex:inputText value="{!lastName}" id="lastName" styleClass="form-control"/>
+                            <apex:outputText value="{!lastNameError}" rendered="{!LEN(lastNameError)>0}" styleClass="text-error"/>                        
+                        </div>
+                    </div>
+                    <div class="form-group required {!emailErrorClass}">
+                        <Label for="email" class="col-sm-2 control-label required">Email </Label>
+                        <div class="col-sm-7">
+                            <apex:inputText value="{!email}" id="email" styleClass="form-control"/>
+                            <apex:outputText value="{!emailError}" rendered="{!LEN(emailError)>0}" styleClass="text-error"/>                        
+                        </div>
+                    </div>
+                    <!-- Address fields -->
+                    <div class="form-group optional">
+                        <Label for="addressStreet" class="col-sm-2 control-label optional">Address Street</Label>
+                        <div class="col-sm-7"><apex:inputText value="{!addressStreet}" id="df_pca_street" styleClass="form-control"/></div>
+                    </div>
+                    <div class="form-group optional">
+                        <Label for="addressCity" class="col-sm-2 control-label optional"> Address City </Label>
+                        <div class="col-sm-7"><apex:inputText value="{!addressCity}" id="df_pca_city" styleClass="form-control"/></div>
+                    </div>
+                    <div class="form-group optional">
+                        <Label for="addressCounty" class="col-sm-2 control-label optional"> Address County </Label>
+                        <div class="col-sm-7"><apex:inputText value="{!addressCounty}" id="df_pca_county" styleClass="form-control"/></div>
+                    </div>
+                    <div class="form-group optional">
+                        <Label for="addressPostcode" class="col-sm-2 control-label optional"> Address Post Code </Label>
+                        <div class="col-sm-3"><apex:inputText value="{!addressPostcode}" id="df_pca_postcode" styleClass="form-control"/></div>
+                    </div>
+                    <!-- End of Address fields -->
+                    <div class="form-group optional">
+                        <Label for="contactPhone" class="col-sm-2 control-label optional"> Contact Phone </Label>
+                        <div class="col-sm-7"><apex:inputText value="{!phone}" id="contactPhone" styleClass="form-control"/></div>
+                    </div>
+                    <div class="form-group required {!webSubjectErrorClass}">
+                        <Label for="subject"  class="col-sm-2 control-label required"> Subject</Label>
+                        <div class="col-sm-4">
+                        <apex:selectList value="{!webSubject}" styleClass="form-control" size="1">
+                            <apex:selectOptions value="{!subjectList}"/>
+                        </apex:selectList>
+                        <p><apex:outputText value="{!webSubjectError}" rendered="{!LEN(webSubjectError)>0}" styleClass="text-error"/></p>
+                        </div>
+                    </div>
+                    <div class="form-group optional">
+                        <Label for="message" class="col-sm-2 control-label required"> Message </Label>
+                        <div class="col-sm-7"><apex:inputTextArea cols="50" rows="5" value="{!webMessage}" id="message" styleClass="form-control"/></div>
+                    </div>
+                    
+                    <div class="form-group optional" style="margin-left:17%">
+                    <c:DF_WEBC_Recaptcha2 />
+
+                    <p>
+                        <apex:outputText value="{!reCAPTCHAError}" rendered="{!LEN(reCAPTCHAError)>0}" styleClass="text-error"/>
+                    </p>   
+                    </div>
+
+                    <div class="button-set">
+                        <apex:commandButton styleClass="btn btn-primary" value="Submit" action="{!submitContactForm}"/>
+                    </div>
+                    
+                    </apex:form>
+                    <!-- FORM ENDS HERE -->
+          
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:DF_WEBR_WebFooter />
+
+  </div>
+   <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"></script>    
+
+</apex:page>

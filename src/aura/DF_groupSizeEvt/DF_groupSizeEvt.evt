@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="This event to determine if user can request a private session or select from the existing public sessions" >
+    <aura:attribute name="isShowFindSessionSearch" type="Boolean"/>
+</aura:event>

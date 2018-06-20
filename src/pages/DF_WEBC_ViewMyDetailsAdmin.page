@@ -1,0 +1,82 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBC_EditMyDetailsAdmin_Controller">
+    
+    <c:DF_WEBR_WebMeta />
+    
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="row clearfix">
+                
+    
+              <div class="col-md-9 column col-md-push-3">
+              
+
+              <div id="message-center">             
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Your password was successfully changed.            
+                </div>                    
+              </div>  
+
+              <h1>Personal details</h1>
+
+                <table class="table view">
+                	<tr>
+                		<td>Organisation</td>
+                        <td>{!Account.Name}</td>
+
+                	</tr>	
+                    <tr>
+                        <td>Title</td>
+                        <td>{!Contact.Title}</td>
+                    </tr>        
+                    <tr>
+                        <td>First name</td>
+                        <td>{!Contact.FirstName}</td>
+                    </tr>        
+                    <tr>
+                        <td>Last name</td>
+                        <td>{!Contact.LastName}</td>
+                    </tr>        
+                    <tr>
+                        <td>Email</td>
+                        <td>{!Contact.Email}</td>
+                    </tr>        
+                    <tr>
+                        <td>Address</td>
+                        <td>{!Account.ShippingStreet}</td>
+                    </tr>              
+                    <tr>
+                        <td>Town City</td>
+                        <td>{!Account.ShippingCity}</td>
+                    </tr>        
+                    <tr>
+                        <td>County</td>
+                        <td>{!Account.ShippingState}</td>
+                    </tr>        
+                    <tr>
+                        <td>Postcode</td>
+                        <td>{!Account.ShippingPostalcode}</td>
+                    </tr>        
+
+                </table>                
+
+            </div>
+
+            <c:DF_WEBC_AdminNavigationMenu activeValue="EDIT"/>
+
+            </div>
+            </div>
+            </div>
+          
+    <c:DF_WEBR_WebFooter />
+
+   </div>
+
+
+</apex:page>

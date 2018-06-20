@@ -1,0 +1,126 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBArticle">
+    <strong><center>NOTE : THIS IS A PREVIEW PAGE ONLY</center></strong>
+    <!--  <c:WEBMeta title="{!thisPage.Title__c}" isPreview="TRUE"/> -->
+    <c:WEBMetaNoCSS title="{!thisPage.Title__c}" isPreview="TRUE"/>
+    <!-- <c:WEBMeta title="Dementia Friend" /> -->
+    <!-- NEW CSS CODE -->
+    <apex:stylesheet value="{!URLFOR($Resource.WEBCSS,'WEBCSS.css')}" />
+    <!-- END OF NEW CSS CODE -->
+    
+    <body class="">
+    <div id="skip">
+        <a href="#page_content">Skip to Main Content</a>
+    </div>        
+
+    <c:WEBHeader activeValue="{!thisPage.Active_Menu__c}" />
+    <div id="page_content"></div>
+    
+    <!-- YOUR CONTENT GOES AFTER HERE -->
+    <div id="page_content"></div>
+    <section class="page-content">
+        <section class="about-detail">
+            <div class="wrapper">
+
+                <section class="secondary-navigation">
+                <apex:outputPanel rendered="{!thisPage.Unique_text__c != 'what-is-dementia' && thisPage.Unique_text__c != 'partners'}">
+                    <h3>Friends</h3>
+                        <ul class="navigation">
+                            <li class="{!IF(thisPage.Title__c=='What is a Dementia Friend?','active','')}">
+                                <a href="WEBArticle?page=what-is-a-friend">What is a Friend?</a>
+                            </li>
+                            <li class="{!IF(thisPage.Active_Menu__c=='FRIEND AM I ELIGIBLE','active','')}">
+                                <a href="WEBArticle?page=friend-am-eligible">Am I eligible?</a>
+                            </li>
+                            <li class="{!IF(thisPage.Active_Menu__c=='FRIEND HOW ELSE CAN I HELP','active','')}">
+                                <a href="WEBArticle?page=friend-how-else-can-i-help">How else can I help?</a>
+                            </li>
+                            <li>
+                                <a href="../../session.html">Find sessions</a>
+                            </li>
+                        </ul>                    
+                    <h3>Champions</h3>
+                    <ul class="navigation">
+                        <li>
+                            <a href="WEBArticle?page=what-is-a-champion">What is a Champion?</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=champions-training">Champions' induction</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=after-the-training">After the induction</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=champion-am-eligible">Am I eligible?</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=what-should-i-consider">What should I consider?</a>
+                        </li>
+                        <li>
+                            <a href="../../session/trainingcourses.html">Find inductions</a>
+                        </li>
+                        <li>
+                            <a href="WEBArticle?page=champion-how-else-can-i-help">How else can I help?</a>
+                        </li>
+                    </ul>                            
+                </apex:outputPanel>
+                </section>
+
+                <section class="main-content">
+                    <apex:outputPanel rendered="{!thisPage.Use_Breadcrumb__c}">
+                        <ul class="breadcrumb">
+                            <li class="item"><a href="../../index.html">Home</a> &gt;</li>
+                            <li class="item"><a href="../../about.html">Get involved</a> &gt;</li>
+                            <li class="item">{!thisPage.Title__c}</li>
+                        </ul>
+                    </apex:outputPanel>
+<!-- 2014-02-27 : SM : New title code -->
+                    <apex:outputPanel rendered="{!thisPage.Title__c != ''}">
+                        <h1>{!thisPage.Title__c}</h1>
+                    </apex:outputPanel>
+<!-- End of new title code -->                    
+                    <apex:repeat value="{!pageSections}" var="section">
+                    <apex:outputPanel rendered="{!section.Display_Order__c != '1' || thisPage.Unique_text__c = 'about'}">
+                    <h2>{!section.Heading__c}</h2>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(section.Intro_Paragraph__c))}">
+                        <p><apex:outputText value="{!section.Intro_Paragraph__c}" escape="false"/>
+                        </p>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(section.Body_Text__c))}">
+                        <p><apex:outputText value="{!section.Body_Text__c}" escape="false"/>
+                        </p>                    
+                    </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(section.Link_URL__c))}">
+                            <a class="btn btn-primary" href="{!section.Link_URL__c}">{!section.Link_Title__c}</a>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                </section>
+
+                <section class="secondary-content">
+                    <apex:repeat value="{!pageSnippets}" var="snippet">                    
+                        <section class="{!snippet.Page_Snippet__r.CSS_Class__c}">
+                            <header class="header">
+                                <h2>{!snippet.Page_Snippet__r.Name__c}</h2>
+                            </header>
+                            <div class="snippet snippet-rich_text rte">
+                                <p><apex:outputText value="{!snippet.Page_Snippet__r.Body_Text__c}" escape="false" /></p>    
+                            </div>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(snippet.Page_Snippet__r.Link_URL__c))}">
+                                <a class="btn btn-primary" href="{!snippet.Page_Snippet__r.Link_URL__c}">{!snippet.Page_Snippet__r.Link_Title__c}</a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{IF(snippet.Name==pageSnippets[pageSnippets.size()-1].Name, 'TRUE', 'FALSE')}">
+                                <span class="bg"></span>
+                            </apex:outputPanel>
+                        </section>  
+                    </apex:repeat>  
+                </section>           
+            </div>
+        </section>
+    </section>
+    
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+    <c:WEBFooter />
+
+    </body>
+
+</apex:page>

@@ -1,0 +1,9 @@
+.THIS {
+   height: 320px;
+   width: 100%;
+   overflow: hidden;
+}
+ 
+.THIS img {
+   max-width: initial;
+}

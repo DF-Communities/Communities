@@ -1,0 +1,9 @@
+<apex:component >
+        <!-- Linked to request a session -->
+        
+        <div class="sidebar-block">
+            <h3>Can't find an Information Session to attend? Why not request a Session instead?</h3>
+            <a class="btn btn-primary" href="WEBRequestInfoSession">Request a Session</a>
+        </div>
+        
+</apex:component>

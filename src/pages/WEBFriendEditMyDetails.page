@@ -1,0 +1,320 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBFriendEditMyDetails">
+    
+    <apex:stylesheet value="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=tr79-fy95-yb55-ge89" />  
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css"/>
+    
+    <style>
+        
+        label.fLabel { 
+        padding: padding-left: 0px;
+        padding-bottom: 10px;
+        display: inline-block;max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 700;
+        padding-left: 0px
+        }
+        .checkbox td label{
+        padding-left: 0px;
+        
+        }
+    </style>
+    <c:DF_WEBR_WebMeta />
+    
+    
+    <div class="container">
+        <c:DF_WEBR_WebHeader showCounter="Y"/>
+        <c:DF_WEBR_WebNavbar />
+        
+        <!-- YOUR CONTENT GOES AFTER HERE -->
+        
+        
+        <div class="row *.css">
+            
+            <div class="col-md-9 column col-md-push-3">
+                
+                <apex:outputPanel rendered="{!LEN(standardErrorMsg)>0}">
+                    <p><apex:outputText value="{!standardErrorMsg}" styleClass="form-inerror-message alert"/></p>
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!showChangeDetailsPrompt}" >
+                    <div class="alert alert-danger">
+                        
+                        We have noticed that your contact details have recently been updated through one of our Alzheimer’s Society channels. 
+                        <a href="/DF_WEBC_InboundChangesToDFC" class="alert-link"  >click here</a> to accept or reject the changes on your Dementia Friends record
+                        before edit your details.
+                        
+                    </div>
+                </apex:outputPanel>
+                
+                <h1>Edit my details</h1>
+                
+                <div class="well">
+                    <apex:form styleClass="form-horizontal">
+                        
+                        <div class="form-group">      
+                            <div class="control-group element-email element-type-text required {!IF(LEN(emailError)>0,'has-error','')}">
+                                <label for="email" class="control-label col-sm-2">Email address</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText id="email" value="{!dfContactRecord.Email__c}" maxlength="11"  styleClass="form-control" />
+                                    <apex:outputText value="{!emailError}" rendered="{!LEN(emailError)>0}" styleClass="help-block"/>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form-group">  
+                            <div class="control-group element-title element-type-select required">
+                                <label for="title" class="control-label col-sm-2 required">Title</label>
+                                <div class="col-sm-3">
+                                    <apex:selectList value="{!title}" size="1" id="title" styleClass="form-control"  >
+                                        <apex:selectOptions value="{!titleList}"/>
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group"> 
+                            <div class="control-group element-title element-type-select" id="title-other-container">
+                                <label for="titleOther" class="control-label col-sm-2">Other Title</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText value="{!titleOther}" size="1" id="titleOther" styleClass="form-control"/> 
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group"> 
+                            <div class="control-group element-firstName element-type-text required {!IF(LEN(firstNameError)>0,'has-error','')}">
+                                <label for="firstName" class="control-label col-sm-2 required">First name</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText id="firstName" value="{!dfContactRecord.First_Name__c}" styleClass="form-control" />
+                                    <apex:outputText value="{!firstNameError}" rendered="{!LEN(firstNameError)>0}" styleClass="help-block"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="control-group element-lastName element-type-text required {!IF(LEN(lastNameError)>0,'has-error','')}">
+                                <label for="lastName" class="control-label col-sm-2 required">Last name</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText id="lastName" value="{!dfContactRecord.Last_Name__c}" styleClass="form-control" />
+                                    <apex:outputText value="{!lastNameError}" rendered="{!LEN(lastNameError)>0}" styleClass="help-block"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group">  
+                            <div class="control-group element-lastName element-type-text optional {!IF(LEN(birthDateError)>0 ,'has-error','')}">
+                                <label for="birthDate" class="control-label col-sm-2 optional">Birth Date (dd/mm/yyyy)</label>
+                                <div class="col-sm-10">
+                                    
+                                    <apex:inputText id="birthDate" styleClass="as-datepicker form-control"  value="{!birthDateString}"/>
+                                    <apex:outputText value="{!birthDateError}" rendered="{!LEN(birthDateError)>0}" styleClass="help-block"/>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="control-group element-postcode element-type-text optional">
+                                <label for="postcode" class="control-label col-sm-2 optional">Post Code</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText id="df_pca_postcode" value="{!dfContactRecord.Postcode__c}" styleClass="form-control" />
+                                    <!-- <input type="text" name="county" id="county" value="" class="input-xxlarge aerian input-text input" maxlength="100" /> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="control-group element-address1 element-type-text optional">
+                                <label for="address1" class="control-label col-sm-2 optional">Address</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText id="df_pca_street" value="{!dfContactRecord.Street__c}" styleClass="form-control" />
+                                    <!-- <input type="text" name="address1" id="address1" value="" class="input-xxlarge aerian input-text input" maxlength="100" /> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="control-group element-townCity element-type-text optional">
+                                <label for="townCity" class="control-label col-sm-2 optional">Town / City</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText id="df_pca_city" value="{!dfContactRecord.City__c}" styleClass="form-control" />
+                                    <!-- <input type="text" name="townCity" id="townCity" value="" class="input-xxlarge aerian input-text input" maxlength="100" /> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="control-group element-county element-type-text optional">
+                                <label for="county" class="control-label col-sm-2 optional">County</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText id="df_pca_county" value="{!dfContactRecord.County__c}" styleClass="form-control" />
+                                    <!-- <input type="text" name="county" id="county" value="" class="input-xxlarge aerian input-text input" maxlength="100" /> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <div class="control-group element-county element-type-text optional">
+                                <label for="country" class="control-label col-sm-2 optional">Country</label>
+                                <div class="col-sm-10">
+                                    <apex:inputText id="df_pca_country" value="{!dfContactRecord.Country__c}" styleClass="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">                        
+                            <div class="control-group element-contactNumber element-type-text optional {!IF(LEN(phoneError)>0,'has-error','')}">
+                                <label for="contactNumber" class="control-label col-sm-2 optional">Telephone</label>
+                                <div class="col-sm-5">
+                                    <apex:inputText id="contactNumber" value="{!dfContactRecord.Contact_Number__c}" styleClass="form-control" />
+                                    <apex:outputText value="{!phoneError}" rendered="{!LEN(phoneError)>0}" styleClass="help-block"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group"> 
+                            <div class="control-group element-title element-type-select optional">
+                                <label for="ethnicGroup" class="control-label col-sm-2 optional">Further information (optional)</label>
+                                <div class="col-sm-10">
+                                    <label class ="fLabel">Please indicate how you prefer to describe your ethnic group</label>
+                                    
+                                    <apex:inputField value="{!clientDgData.Ethnic_Group__c}" id="ethnicGroup" onchange="togglEthnicGroupOther();" styleClass="form-control"/>
+                                    <p class="help-block"> This will help us to monitor the effectiveness of equality, diversity and inclusion. The information you supply will be used for statistical purposes only.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group"> 
+                            <div class="control-group element-title element-type-select" id="ethnicGroup-other-container">
+                                <label for="ethnicGroupOther" class="control-label col-sm-2"></label>
+                                <div class="col-sm-10">
+                                    <label id="ethnicOtherLabel" class ="fLabel">Ethnic Group - Other</label>
+                                    <apex:inputText value="{!clientDgData.Ethnic_Group_Other__c}" size="1" id="ethnicGroupOther" styleClass="form-control"/> 
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group"> 
+                            <div class="control-group element-proximity element-type-checkbox optional">
+                                <label for="proximity" class="control-label col-sm-2 optional"> </label>
+                                <div class="checkbox col-sm-10">
+                                    <label class ="fLabel">Please let us know your connection to dementia (please tick all that apply)</label><br/>
+                                    
+                                    
+                                    <label >
+                                        
+                                        <apex:selectCheckBoxes layout="pageDirection"  value="{!proximity}" id="proximity"   >
+                                            <apex:selectOptions value="{!ProxmityOptions}"/>
+                                            
+                                        </apex:selectCheckBoxes>
+                                        
+                                    </label>
+                                    
+                                    <p class="help-block">We want to ensure that we send you relevant communications. We won’t use your details unnecessarily and we won't pass them to third parties.</p>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <c:GDPR_Preferences emailPref="{!emailOptIn}" telPref="{!telephoneOptIn}" textPref="{!textMessageOptIn}"
+                                            socialPref="{!socialMediaOptIn}" postPref="{!postOptOut}"
+                                            isVisualforceApexOnly="true"/>
+
+                        <apex:outputPanel rendered="{!!showChangeDetailsPrompt}" >
+                            
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <apex:commandButton id="save" action="{!saveUserDetails}" value="Save changes" styleClass="btn-primary input-submit btn" />
+                                    <a href="WEBFriend" class="btn">Cancel</a>
+                                </div> 
+                            </div>  
+                            
+                            <div class="form-group">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    If you’d like to change what you receive from us, please call customer care on 0300 222 5855.
+                                </div>
+                            </div>
+                        </apex:outputPanel> 
+                        
+                    </apex:form>
+                </div>
+            </div> 
+            
+            <c:DF_WEBC_FriendNav activeValue="EditDetails" dfcW="{!dfcW}"/>               
+            
+        </div> 
+        
+        
+        
+        
+        <!-- YOUR CONTENT GOES BEFORE HERE -->
+        <c:DF_WEBR_WebFooter />
+        
+    </div>
+    
+    <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=tr79-fy95-yb55-ge89"></script>
+    <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
+        
+        <script type="text/javascript">
+            if (typeof Sarissa != 'undefined' && Sarissa.originalXMLHttpRequest)
+            pca.XMLHttpRequest = Sarissa.originalXMLHttpRequest;
+    </script>
+    
+    
+    <script>
+    
+    function toggleTitleOther() {
+        
+        if ( $('[id$=title]').val()=='Other' ) { 
+            
+            $('#title-other-container').show();
+            
+        } else {
+            
+            $('#title-other-container').hide();
+            
+        }
+        
+    }
+    
+    
+    function togglEthnicGroupOther() {
+        
+        if ( $('[id$=ethnicGroup]').val().indexOf("please specify")>-1)  { 
+            
+            $('#ethnicGroup-other-container').show();
+            document.getElementById('ethnicOtherLabel').innerHTML = $('[id$=ethnicGroup]').val();
+            
+        } else {
+            
+            $('#ethnicGroup-other-container').hide();
+            $('#ethnicGroup-other-container input').val("");
+        }
+        
+    }
+    
+    $(document).ready(function() {
+        
+        toggleTitleOther();                            
+        togglEthnicGroupOther();
+        /* Hook the titleOther field up to the value of title */ 
+        $('[id$=title]').change( function() {               
+            toggleTitleOther();                            
+        });
+        
+    });
+    
+    $(".as-datepicker").datepicker({
+        format: 'dd/mm/yyyy'
+    });
+    
+    </script>
+    
+    
+    
+</apex:page>

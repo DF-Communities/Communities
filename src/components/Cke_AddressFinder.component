@@ -1,0 +1,83 @@
+<apex:component layout="none">
+    
+    <apex:attribute name="showCountry" type="Boolean" default="false" description="This boolean determines whether the country field will be shown"/>
+    
+    <div class="form-group">
+        <div class="form-group addressLookup">
+        
+            <div class="col-md-12">
+                <label for="firstname">Address finder <span id="pca-asterisk" style="color: red; font-weight: bold">*</span></label>
+                <input type="text" name="addressfinder" placeholder="Enter a postcode or address"  
+                       class="form-control grey" data-ng-disabled="waiting" maxlength="40"
+                       onchange="showAddressFields()"/>
+            </div>
+        </div>
+        <div id="manual-address-entry" class="col-lg-12 col-md-12 col-sm-12" onclick="showAddressFields()">
+            <a href="" style="float: right;text-decoration: underline;">Enter address manually</a>
+        </div>
+        <div id="address-field-set" style="display:none">
+            <div class="col-xs-12 col-md-12">
+                <label for="address1">Address line 1 <span style="color: red; font-weight: bold">*</span></label>
+                <input type="text" id="address1" name="address1" class="form-control" placeholder="" data-ng-required="true" 
+                       data-ng-model="data.addressLine1" data-ng-disabled="waiting" data-ng-blur="onAddressBlur()" maxlength="40"/>
+                <span data-ng-class="{active:err.addrInvalid}" id="invalid-address1" class="ui-state-error message">Please tell us the first line of your address</span>                                                                                 
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <label for="address2">Address line 2 </label>
+                <input type="text" id="address2" name="address2" class="form-control" data-ng-model="data.addressLine2" data-ng-disabled="waiting" 
+                data-ng-blur="onAddressBlur()" maxlength="40"/>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <label for="address3">Address line 3 </label>
+                <input type="text" id="address3" name="address3" class="form-control" data-ng-model="data.addressLine3" 
+                data-ng-disabled="waiting" data-ng-blur="onAddressBlur()" maxlength="40"/>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <label for="towncity">Town or City <span style="color: red; font-weight: bold">*</span> </label>
+                <input type="text" id="towncity" name="towncity" class="form-control" ng-required="true"   
+                ng-model="data.city" ng-disabled="waiting" ng-blur="onAddressBlur()" maxlength="40"/>
+                <span ng-class="{active:err.cityInvalid}" id="invalid-towncity" class="ui-state-error message">Please tell us the town</span>                                                                                   
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <label for="county" class="ng-cloak">{{isGreaterUk()?'County':'State/Province'}}</label>
+                <input type="text" name="county" id="county" ng-model="data.county" maxlength="40" class="form-control"/>
+                <span class="ui-state-error message">&nbsp;</span>
+            </div>
+            <div class="col-sm-6 col-xs-7">
+                <label for="postcode" class="ng-cloak" >{{isGreaterUk()?'Postcode':'Postal code'}}</label>
+                <!--span style="color: red; font-weight: bold" ng-hide="!isGreaterUk()">*</span-->
+                <span style="color: red; font-weight: bold">*</span>
+                <input type="text" name="postcode" id="postcode" ng-model="data.postcode" ng-required="true" ng-blur="onPostcodeBlur()" maxlength="11" ck-upper-case="isGreaterUk()" ng-pattern="isGreaterUk()?postcodePattern:null" class="form-control" ng-disabled="waiting"/>
+                <span ng-class="{active:err.postcodeInvalid}" id="invalid-postcode" class="ui-state-error message">Please tell us the postcode (e.g. EC3N 2AE)</span>                                                                                   
+            </div>
+        </div>
+        
+        <div class="col-md-12 col-sm-12 col-xs-12" ng-show="{active:form.postcode.$invalid&&(form.postcode.$touched || showErrors)}">
+            <span ng-class="{active:form.postcode.$invalid&&(form.postcode.$touched || showErrors)}" class="ui-state-error message">Valid address required</span>                                                                                                                           
+        </div> 
+        <div id="country-field" style="display:none;">
+            <div class="col-xs-12 col-md-12">
+                <label for="country">Country <span style="color: red; font-weight: bold">*</span></label>
+                <select ng-Model="data.countryCode" id="country" name="countryCode" class="form-control" ng-required="true" ng-options="c.code as c.name for c in countryCodes">
+                </select>
+            </div>
+        <div class="col-xs-12 "><span id="invalid-country" class="ui-state-error message">Please tell us the country</span></div> 
+        </div>
+                         
+    </div>
+    
+    <script>
+        var showCountryOnFieldExposure = {!showCountry};
+        var showFields = false;
+        function showAddressFields() {
+            // Show address fields
+            document.getElementById("address-field-set").style.display = "block";
+            // Show optional country field
+            if(showCountryOnFieldExposure) {document.getElementById("country-field").style.display = "block";}
+            // Hide manual entry hyperlink
+            document.getElementById("manual-address-entry").style.display = "none";
+            document.getElementById("pca-asterisk").style.display = "none";
+            showFields = true;
+        }
+    </script>
+</apex:component>

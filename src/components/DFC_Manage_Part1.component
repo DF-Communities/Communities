@@ -1,0 +1,55 @@
+<apex:component >
+
+<div class="DESKTOP cDfcManageOverview">
+   <h3>Community Details</h3>
+   <div class="well">
+      <div class="form-group" ng-hide="part1data.Country__c==null">
+         <label>Country</label>
+         <div><span class="form-control uiOutputText" ng-bind="part1data.Country__c"></span>
+         </div>
+      </div>
+      <span class="form-group" ng-hide="part1data.DA_Alliance__r.Name==null">
+         <div class="form-group">
+            <label>Dementia Action Alliance</label>
+            <div><span class="form-control uiOutputText" ng-bind="part1data.DA_Alliance__r.Name"></span>
+            </div>
+         </div>
+         <div class="form-group" ng-hide="part1data.Region__r.Name==null">
+            <label>County</label>
+            <div><span class="form-control uiOutputText" ng-bind="part1data.Region__r.Name"></span>
+            </div>
+         </div>
+         <div class="form-group" ng-hide="part1data.Location__c==null">
+            <label>Community Location</label>
+            <div><span class="form-control uiOutputTextArea" ng-bind="part1data.Location__c"></span>
+            </div>
+         </div>
+      </span>
+      <div class="dfc-col2 clearfix" ng-hide="part1data.Population__c==null">
+         <div class="form-group">
+            <label>Population</label>
+            <div ><span class="form-control uiOutputText" ng-bind="part1data.Population__c"></span>
+            </div>
+         </div>
+         <div class="form-group" ng-hide="part1data.Location_Type__c==null">
+            <label>Location Type</label>
+            <div><span class="form-control uiOutputText" ng-bind="part1data.Location_Type__c">N/A</span>
+            </div>
+         </div>
+      </div>
+      <div class="dfc-col2 clearfix" ng-hide="part1data.Date_Submitted__c==null">
+         <div class="form-group">
+            <label>Date Submitted</label>
+            <div><span class="form-control uiOutputDateTime" ng-bind="part1data.Date_Submitted__c | date:'dd/MM/yyyy'"></span>
+            </div>
+         </div>
+         <div class="form-group" ng-hide="part1data.Date_Approved__c==null">
+            <label>Date Approved</label>
+            <div><span class="form-control uiOutputDateTime" ng-bind="part1data.Date_Approved__c | date:'dd/MM/yyyy'">Invalid date time value</span>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+</apex:component>

@@ -1,0 +1,38 @@
+<aura:component controller="ExchangeDFCDetailController" implements="forceCommunity:availableForAllPageTypes,forceCommunity:profileMenuInterface" access="global" >
+    <aura:attribute name="userId" type="String" access="global"/>
+    <aura:attribute name="username" type="String" access="global"/>
+    <aura:attribute name="stub_url" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="loggedin" type="Boolean" default="true"  access="global"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+     <aura:renderIf isTrue="{!v.loggedin}">
+    <ui:menu >
+      
+        <ui:menuTriggerLink class="slds-dropdown-trigger" aura:id="trigger" title="{!v.username}">
+        
+         <a href="" class="slds-context-bar__label-action btncontent">
+         {!v.username}
+            <div class="slds-dropdown-triggerslds-dropdown-trigger--hover" aria-haspopup="true" >  
+          <lightning:icon iconName="utility:down" size="xx-small" alternativeText="Open profile menu"/>
+             </div>
+             </a>
+            
+        
+        </ui:menuTriggerLink>
+         <ui:menuList class="actionMenu" aura:id="actionMenu">
+             
+                  
+      
+              <ui:actionMenuItem aura:id="item1" label="Home" click="{!c.gotoHome}"/>
+              <ui:actionMenuItem aura:id="item2" label="My Profile" click="{!c.gotoProfile}"/>
+              <ui:actionMenuItem aura:id="item3" label="Email Preferences" click="{!c.gotoSettings }"/>
+              <ui:actionMenuItem aura:id="item4" label="Log Out" click="{!c.gotoLogout}"/>
+              
+              
+          </ui:menuList>
+         
+    </ui:menu>
+                <aura:set attribute="else">
+                    <a href="/login" class="slds-button btncontent" >Sign in </a>
+           </aura:set>
+   </aura:renderIf>
+</aura:component>

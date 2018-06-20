@@ -1,0 +1,7 @@
+<aura:component extends="c:CsqValidationComponent">
+	
+    <aura:attribute name="max" type="Integer" required="true"/>
+
+    <aura:set attribute="defaultMessage" value="{!'Text is too long (exceeds '+v.max+' words)'}"/>
+    
+</aura:component>

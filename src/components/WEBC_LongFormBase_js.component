@@ -1,0 +1,372 @@
+<apex:component >
+
+<apex:outputPanel rendered="{!($Label.Development_Environment=='Development')}" layout="none">
+
+
+ <script>   
+
+ /*============ Registration Specific Base methods for base data ========*/
+
+   _webc.setupLongFormEvents = function() {
+
+        /* Hook the titleOther field up to the value of title */ 
+        $('[id$=title-select]').change(
+           
+            function() {
+                
+                if ( $(this).val()=='Other' ){ 
+                    $('#title-other-container').show();
+                } else {
+                    $('#title-other-container').hide();
+                }
+        
+        });
+        
+         $('[id$=ethnicGroup]').change(
+        function () {
+
+            
+            
+            if ( $('[id$=ethnicGroup]').val().indexOf("please specify")>-1)  { 
+
+                $('#ethnicGroup-other-container').show();
+                document.getElementById('ethnicOtherLabel').innerHTML = $('[id$=ethnicGroup]').val();
+
+            } else {
+
+                $('#ethnicGroup-other-container').hide();
+                $('#ethnicGroup-other-container input').val("");
+            }
+
+        
+
+        });
+        
+        $('[id$=sector]').change(
+          function () {
+
+            
+            
+            if ( $('[id$=sector]').val().indexOf("please specify")>-1)  { 
+
+                $('#sector-other-container').show();
+                document.getElementById('sectorOtherLabel').innerHTML = 'please specify';
+
+            } else {
+
+                $('#sector-other-container').hide();
+                $('#sector-other-container input').val("");
+            }
+
+        
+
+        });
+            
+       $('#whychampion').keyup(    
+        function ()
+       {
+            var field= $('[id$=whychampion]').val();
+            var maxlimit = 255;
+            if ( field.length > 255 ) {
+            field = field.substring( 0,5 );
+            return false;
+         } else {
+         
+          $('[id$=counter]').val(maxlimit - field.length);
+        }
+      });
+     
+        /* Hook the submit up to the action button */ 
+        $('#save-long-form').click(
+            
+            function() {
+                                                    
+                _webc.clearErrors();
+                
+                if (!_webc.validateLongForm()) {
+                    _webc.setErrorMessage('longServer', "Please correct the errors displayed above");
+                    return false;
+                }
+                
+                _webc.submitLongForm();     
+                           
+                return false;
+            
+        });
+
+        $('#password').focusout(function() { 
+
+        _webc.validatePasswordOK();
+
+        });
+
+        $('#emailAddress2').focusout(function() {
+
+          _webc.validateEmailOK(true);        
+
+        });
+
+        $('#password2').focusout(function() { 
+
+          _webc.validatePasswordOK(true);
+
+        });
+        
+         $('#password2').change(function(){         
+          _webc.validatePasswordOK(true);
+
+        });
+         
+         
+        
+        $("button").click(function(){
+            var values = [];
+            $('#proxcheckboxes input:checked').each(function(){            
+                values.push(this.name);
+            });
+            alert("My options are: " +values.join(";"));
+        });
+       
+      //  alert($('#save-long-form').click(function(){_webc.getCheckboxListValues('proxcheckboxes')}));
+           
+               
+        
+    };
+       
+
+    _webc.putRegistrationBaseData = function(formData, bExcludeCaptcha) {
+
+        formData.data['userid'] = _webc.getFieldValue('userid');
+                
+        var title = ( 
+            _webc.getFieldValue('title-select')=='Other' ? _webc.getFieldValue('titleOther') : _webc.getFieldValue('title-select') );            
+
+        formData.data['title'] = title;            
+        formData.data['firstName'] = _webc.getFieldValue('firstName');
+        formData.data['lastName'] = _webc.getFieldValue('lastName');
+        formData.data['emailAddress'] = _webc.getFieldValue('emailAddress');
+        formData.data['emailAddress2'] = _webc.getFieldValue('emailAddress2');
+        formData.data['postCode'] = _webc.getFieldValue('df_pca_postcode');
+        formData.data['street'] = _webc.getFieldValue('df_pca_street');
+        formData.data['city'] = _webc.getFieldValue('df_pca_city');
+        formData.data['county'] = _webc.getFieldValue('df_pca_county');
+        formData.data['country'] = _webc.getFieldValue('df_pca_country');
+        formData.data['telephone'] = _webc.getFieldValue('telephone');
+        formData.data['password'] = _webc.getFieldValue('password');
+        formData.data['password2'] = _webc.getFieldValue('password2');    
+        
+        if ( !bExcludeCaptcha ) { 
+                    
+            formData.data['recaptcha_challenge'] = _webc.getFieldValue('recaptcha_challenge_field');
+            formData.data['recaptcha_response'] = _webc.getFieldValue('recaptcha_response_field');
+        
+        }
+
+    };
+
+    _webc.handleEmailCheck = function(response, event) {
+      
+        if ( response ) {
+
+            _webc.setErrorMessage('emailAddress', 'Email is already registered. Please sign in to continue.');
+            $('#save-long-form').hide();
+            return; 
+
+        };
+            
+        if ( _webc.validateEmailOK() ) {                  
+            $('#save-long-form').show();                    
+        };
+
+    };
+
+  _webc.isExistingOrg = function(response, event) {
+    console.log('enter is existing org'+response);
+        if ( response==true ) {
+
+            _webc.setErrorMessage('orgName', 'Organisation is already registered. Please contact your administrator or programmepartnerships@alzheimers.org.uk for more information.');
+            $('#save-long-form').hide();
+            return; 
+
+        }
+            
+        else {
+            _webc.clearErrors('orgName');                   
+            $('#save-long-form').show();                    
+        }
+
+    };
+ 
+
+ 
+   
+ _webc.validateEmailOK = function(bWithConfirm) {
+
+        var rtn = true;
+        
+        if ( !_webc.isValidEmail('emailAddress') ) {
+
+            _webc.setErrorMessage('emailAddress', "Email Address is a not a valid format");
+            rtn = false;                
+
+        } else {
+
+            _webc.clearErrors('emailAddress'); 
+
+        }
+
+        if ( bWithConfirm ) { 
+            
+            if ( _webc.getFieldValue('emailAddress') !== _webc.getFieldValue("emailAddress2") ) {
+    
+                _webc.setErrorMessage('emailAddress2', "Email Addresses do not match");
+                rtn = false;                    
+    
+            } else {
+    
+                _webc.clearErrors('emailAddress2');
+    
+            }
+    
+        }
+        
+        return rtn;
+
+    };
+
+    _webc.validatePasswordOK = function(bWithConfirm) {
+
+        var rtn = true;    
+            
+        if ( !_webc.isValidPassword('password', 'emailAddress') ) {        
+                    
+            _webc.setErrorMessage('password', "Passwords must be numbers and letters and at least 8 characters. Your password may not contain the word 'password' or your email address name");
+            rtn=false;
+                
+        } else {
+
+            _webc.clearErrors('password'); 
+
+        }
+
+        if ( bWithConfirm ) { 
+
+             if ( _webc.getFieldValue('password') !== _webc.getFieldValue("password2") ) {
+
+                _webc.setErrorMessage('password2', "Passwords do not match");
+                rtn=false;                
+
+             } else {
+
+                _webc.clearErrors('password2');
+            
+            }
+        
+        }
+
+        return rtn;
+
+    };
+
+    _webc.validateLongFormBaseData = function() {
+    
+    
+        var isError = false;
+   
+        if (_webc.getFieldValue('title-select')=='NULL') {
+            _webc.setErrorMessage('title', "Please select your title");
+            isError= true;
+        }
+   
+        if (_webc.getFieldValue('title-select')=='Other' && _webc.isNull('titleOther')) {
+            _webc.setErrorMessage('titleOther', "Please enter your title");
+            isError= true;
+        }
+   
+        if (_webc.isNull('firstName')) {
+            _webc.setErrorMessage('firstName', "Please enter First Name");
+            isError= true;
+        }
+        
+        if (_webc.isNull('lastName')) {
+            _webc.setErrorMessage('lastName', "Please enter Last Name");
+            isError= true;
+        }
+        
+
+        if (_webc.isNull('df_pca_postcode')) {
+            _webc.setErrorMessage('postcode', "Please enter your postcode");
+            isError= true;
+        }
+         
+        if (_webc.isNull('df_pca_street')) {
+            _webc.setErrorMessage('street', "Please enter your street");
+            isError= true;
+        } 
+        
+        if (_webc.isNull('df_pca_city') && _webc.isNull('df_pca_county')) {
+            _webc.setErrorMessage('city', "Please enter your city or county");
+            isError= true;
+        }
+         
+        if (_webc.isNull('df_pca_country')) {
+            _webc.setErrorMessage('country', "Please enter your county");
+            isError= true;
+        } 
+         if(!_webc.isValidPhone('telephone')){
+          _webc.setErrorMessage('telephone', "Phone number must be 11 digits starting with 0");
+            isError= true;
+        
+        }
+
+        if (! _webc.validateEmailOK() ) {
+            isError=true;
+        }
+
+        if (! _webc.validatePasswordOK() ) {
+            isError= true;    
+        }
+                    
+        return isError;            
+                
+    };
+        
+        /*==================== Register Friend Error Management ======================================*/
+
+    _webc.populateLongFormBaseErrors = function(response) {
+    
+        _webc.setErrorMessage('longServer',response.standardErrorMsg);
+        _webc.setErrorMessage('title',response.titleError);
+        _webc.setErrorMessage('firstName',response.firstNameError);
+        _webc.setErrorMessage('lastName',response.lastNameError);
+        _webc.setErrorMessage('emailAddress',response.emailAddressError);
+        _webc.setErrorMessage('postCode',response.postCodeError);
+        _webc.setErrorMessage('street',response.streetError);
+        _webc.setErrorMessage('city',response.cityError);
+        _webc.setErrorMessage('county',response.countyError);
+        _webc.setErrorMessage('country',response.countryError);
+        _webc.setErrorMessage('telephone',response.telephoneError);
+        _webc.setErrorMessage('password',response.passwordError);
+        _webc.setErrorMessage('reCAPTCHA',response.reCAPTCHAError);                                             
+
+    };
+    
+
+    /*======================== DG Data Methods =======================================================*/
+    // These methods are relevant where the DF_WEBC_RegisterDemoInfo component is used
+
+    _webc.putDemoInfoData = function(formData) {
+    
+        formData.data['ethnicGroup']= _webc.getFieldValue('ethnicGroup');  
+        formData.data['ethnicOther']= _webc.getFieldValue('ethnicOther'); 
+        formData.data['proximity']= _webc.getCheckboxListValues('proxcheckboxes');
+    }
+
+    /*======================== DG Data Methods =======================================================*/
+      
+    
+ </script>   
+    
+ </apex:outputPanel>   
+    
+</apex:component>

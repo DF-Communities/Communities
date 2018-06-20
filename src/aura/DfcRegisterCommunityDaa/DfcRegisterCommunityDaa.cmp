@@ -1,0 +1,231 @@
+<aura:component >
+    
+  	<aura:attribute name="context" type="Object" required="true" access="GLOBAL"/>
+    <aura:attribute name="step"    type="Object" required="true" access="GLOBAL"/>
+
+    <aura:attribute name="communitiesForDaa" type="Object[]"     access="GLOBAL"/>
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.initHandler}" /> 
+
+    <aura:handler name="changeCentral" value="{!v.context.community.Central_Location__c}" action="{!c.onCentralChange}" /> 
+
+    <aura:handler name="change" value="{!v.context.community.DA_Alliance__c}" action="{!c.onAllianceChange}" /> 
+  
+
+    <c:CsqLodashService aura:id="lodashService" />
+
+     <div class="{!$Browser.formFactor}">
+            
+    <c:DfcCommunityService aura:id="communityService" />
+
+  <!--   <h3>Select your associated Dementia Action Alliance</h3> -->
+  <h3>Community Location</h3>
+
+  <!--
+        <p>
+         <c:DfcSnippet group="dfc_apply" key="dfc-apply-select-daa-intro"/>
+        </p>  -->
+
+     
+        <p>
+         <c:DfcSnippet group="dfc_apply" key="dfc-apply-country-options"/>
+        </p> 
+
+   
+         <div style="margin-bottom:20px">
+
+		      <label class="{!v.context.community.Country__c?'':'hide'}">Where is your community ?</label> 
+
+           <!-- If a Country has been selected, Display the selected Country with button to change -->
+           <div class="{!v.context.community.Country__c?'dfc-selected-region':'hide'}">
+                <div>
+                    <div>{!v.context.community.Country__c}</div>
+                    <div><button class="btn btn-primary" onclick="{!c.onChangeCountry}">Change</button> </div>  
+                   
+                </div>
+           </div> 
+
+           <!-- Select the Country -->
+           <div class="{!v.context.community.Country__c?'hide':'one-col-list'}">
+            <c:DfcRequired value="{!v.context.community.Country__c}" group="{!v.step}" hide="{!v.step.pristine}" message="Please select a Country"/>
+               <label class="required">Select the country where your community is located</label>  
+                 <div class="dfc-countries">
+            
+                          <div onclick="{!c.onCountrySelect}" data-country="England">
+                              <div>England</div>
+                          </div>
+
+                          <div onclick="{!c.onCountrySelect}" data-country="Wales">
+                              <div>Wales</div>
+                          </div>
+                     
+                  </div>
+           </div>
+
+  
+
+        <!-- Select whether this community has a fixed location or not -->
+        <span class="{!v.context.community.Country__c?'':'hide'}"> 
+          
+               <c:DfcRequired value="{!v.context.community.Central_Location__c}" 
+                               group="{!v.step}" 
+                               hide="{!v.step.pristine}" 
+                               message="Please select an option"/>
+
+               <label>Does your community have a fixed location in {!v.context.community.Country__c} ?</label>
+               <div class="{!v.context.community.Central_Location__c?'hide':'dfc-regions'}">
+                    <div onclick="{!c.onCentralSelect}" data-option="Yes"><div>Yes</div></div>
+                    <div onclick="{!c.onCentralSelect}" data-option="No"> <div>No</div></div> 
+               </div> 
+            
+        </span>
+
+        <!-- Display the selected Central Location option with button to change -->
+        <div class="{!v.context.community.Central_Location__c?'dfc-selected-region':'hide'}" style="margin-bottom:50px">
+                <div>
+                    <div>{!v.context.community.Central_Location__c} </div>
+                    <div>    <button class="btn btn-primary" onclick="{!c.onChangeCentral}">Change</button></div> 
+                </div>
+        </div> 
+
+    <div class="{!v.context.community.Central_Location__c=='No'?'':'hide'}" >
+         <div class="form-group">
+            <label class="required">Please explain why your community has no fixed location</label>
+            <div style="margin-bottom:10px">
+                <ui:inputTextArea value="{!v.context.community.Why_No_Central_Location__c}" updateOn="keyup" class="form-control" placeholder="Explain why your community has no fixed location, e.g. Online community" /> 
+            </div>
+            <c:DfcRequired value="{!v.context.community.Why_No_Central_Location__c}" 
+                           group="{!v.step}" 
+                           hide="{!v.step.pristine}"
+                           disregard="{!v.context.community.Central_Location__c=='Yes'}"
+                           />
+        </div>
+
+        </div>
+      
+
+          <!-- If a Country is selected and a Region is selected, display the selected Region -->
+     <!--     <label class="{!and(v.context.community.Central_Location__c, v.context.community.Region__c)?'':'hide'}">Region</label>  -->
+
+<label class="{!and(v.context.community.Central_Location__c, v.context.community.Region__c)?'':'hide'}">Region</label> 
+
+
+           <div class="{!and(v.context.community.Central_Location__c, v.context.community.Region__c)?'dfc-selected-region':'hide'}">
+                <div>
+               
+                    <div >
+                         <div class="{!v.context.community.Country__c eq 'Wales' ? '' : 'hide'}"> 
+                         Region
+                         </div>   
+                         <div class="{!v.context.community.Country__c eq 'England' ? '' : 'hide'}"> 
+                            <img src="{!'resource/dfc_images/'+v.context.selectedRegion.Image_Name__c}"/>
+                         </div>   
+                    </div> 
+                    <div>{!v.context.community.Region__r.Name} 
+                      <button class="btn btn-primary" onclick="{!c.onChangeRegion}">Change</button>
+                    </div> 
+                </div>
+           </div> 
+        
+  <!-- If a Country is selected, and there is a central location, show the list of regions-->
+  <span class="{!and(v.context.community.Country__c, 
+                     v.context.community.Central_Location__c=='Yes')?'':'hide'}">
+
+           <div class="{!and(v.context.community.Country__c, 
+                             v.context.community.Region__c)?'hide':''}">
+
+            <c:DfcRequired value="{!v.context.community.Region__c}" 
+                           group="{!v.step}" 
+                           hide="{!v.step.pristine}" 
+                           message="Please select a region"
+                           disregard="{!v.context.community.Central_Location__c=='No'}"
+                           />
+
+               <label>Select the Region where your community is located</label>  
+                 <div class="dfc-regions">
+                      <aura:iteration items="{!v.context.community.Country__c=='England'?v.context.regionsEngland:v.context.regionsWales}" var="region">
+                          <div onclick="{!c.onRegionSelect}" data-id="{!region.Id}">
+                              <div class="{!v.context.community.Country__c=='Wales'?'hide':''}">
+                                  <img src="{!'resource/dfc_images/'+region.Image_Name__c}" />
+                              </div>
+                              <div>{!region.Name}</div>
+                          </div>
+                      </aura:iteration>
+                  </div>
+           </div>
+
+     
+         
+
+
+        
+           <!-- If a Region has been selected, select the Alliance -->
+          
+           <div class="{!and(and(v.context.community.Region__c,v.context.community.Country__c eq 'England'), !v.context.community.DA_Alliance__c)?'one-col-list':'hide'}"> 
+
+
+        <!--   <p>You can optionally link your Dementia Friendly Community to a Dementia Action Alliance in your region</p> 
+               <c:DfcRequired value="{!v.context.community.DA_Alliance__c}" hide="{!v.step.pristine}" group="{!v.step}" disregard="{! !v.context.selectedRegion}" message="Please select a DAA"/>
+
+                -->
+                  <label>If your community is connected to a Local Dementia Action Alliance,  please select it from the list below)</label>   
+                  <!-- Display a message about what to do if no relevant alliance -->
+                               
+                  <div>
+                      <aura:iteration items="{!v.context.selectedRegion.alliances}" var="alliance">
+                          <div data-id="{!alliance.Id}" onclick="{!c.onAllianceSelect}">{!alliance.Name}</div>
+                      </aura:iteration>
+                  </div>
+
+                   <p style="margin-top:20px">
+                   <c:DfcSnippet group="dfc_apply" key="dfc-apply-no-relevant-alliance"/>  </p>  
+           </div>
+
+         
+          <label class="{!v.context.community.DA_Alliance__c?'':'hide'}">My Community is linked with this Dementia Action Alliance</label> 
+           <!-- Button to Change the selected Alliance - Hide if this is not the selected Alliance -->  
+           <div class="{!v.context.community.DA_Alliance__c?'dfc-selected-daa':'hide'}">
+            
+              <div >
+                  <div>{!v.context.community.DA_Alliance__r.Name}</div>
+                  <div><button class="btn btn-primary" onclick="{!c.onEditAlliance}">Change</button> </div>
+              </div>
+           </div>
+             
+           <!-- If there are existing communities linked to the selected DAA, user must confirm tht there is no overlap-->  
+           <div class="{!and(and(v.context.community.DA_Alliance__c, v.communitiesForDaa.length>0), !v.context.community.Duplicate_Confirmation__c)?'dfc-dup-conf':'hide'}"> 
+           
+              <div class="clearfix" style="padding:10px 6px 10px 6px;">
+                   <c:DfcRequired value="{!not(and(and(v.context.community.DA_Alliance__c, v.communitiesForDaa.length>0), !v.context.community.Duplicate_Confirmation__c))}" message="Please confirm there is no overlap with these existing communities" group="{!v.step}"/>
+              </div>
+              
+              <!-- List of Communities already linked to the selected DAA -->
+              <div class="dfc-dup-list">
+                  <div>
+                  <aura:iteration items="{!v.communitiesForDaa}" var="comm">
+                     <p>
+                      <span>{!comm.Name__c}</span>
+                      <span>{!comm.Location__c}</span>
+                      <span>{!comm.Status__c}</span>
+                     </p>
+                  </aura:iteration>
+                  </div> 
+              </div>
+              
+             <div class="clearfix" style="padding:10px 6px 10px 6px;">
+                 <div><c:DfcSnippet group="dfc_apply" key="dfc-apply-overlap"/></div>
+                 <button class="btn btn-primary" onclick="{!c.onDupConfirm}" style="margin-right:20px">Confirm no overlap</button>
+              </div>
+              
+           </div><!--End of duplicate confirmation -->
+    </span> 
+
+        </div>
+	<div>
+        
+    </div>		
+    
+ </div>
+    
+</aura:component>

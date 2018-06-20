@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DFC Assessment Reminder TODAY HTML</name>
+    <style>none</style>
+    <subject>Dementia-Friendly Communities Annual Assessment Reminder – {{xM_reminder}} !</subject>
+    <textOnly>Hi {{contact_name}},
+
+Congratulations on your progress towards becoming dementia-friendly in {{community_name}}.
+
+As part of the Dementia-Friendly Communities recognition process you are required to complete an online self-assessment questionnaire to provide an update on the progress your community has made so far towards becoming dementia-friendly.
+
+To complete the annual self-assessment questionnaire, please follow the link below to complete
+
+before  {{assessment_due_date}}
+{{survey_url}}
+
+We look forward to hearing from you and do not hesitate to get in touch if you have any further questions.
+
+Best wishes
+
+The Dementia Friendly Communities Team
+
+Alzheimer&apos;s Society 
+43-44 Crutched Friars 
+LONDON 
+EC3N 2AE
+dementiafriendlycommunities@alzheimers.org.uk
+020 7423 1050
+
+Leading the fight against dementia</textOnly>
+    <type>custom</type>
+</EmailTemplate>

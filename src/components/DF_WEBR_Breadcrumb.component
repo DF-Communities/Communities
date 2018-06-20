@@ -1,0 +1,27 @@
+<apex:component >
+
+	<apex:attribute name="thisPage" type="Page__c" required="false" description="the backing page" />
+
+<!-- BREADCRUMB -->
+<apex:outputPanel rendered="{!IF(thisPage==null,false,true)}" layout="none">
+
+	<ol class="breadcrumb">
+	
+	  <li><a href="/">Home / </a></li>
+	  
+	  <apex:outputPanel rendered="{!IF(thisPage.Parent_Page__r.Unique_text__c==null, false, true)}" layout="none">
+	  	<li>
+	  		<apex:outputLink value="WEBArticle?page={!thisPage.Parent_Page__r.Unique_text__c}">
+	  			<apex:outputText value="{!thisPage.Parent_Page__r.Title__c}"/> /
+	  		</apex:outputLink>		  		
+	  	</li>
+	  </apex:outputPanel>	
+	  
+	  <li class="active"><apex:outputText value="{!thisPage.Title__c}"/></li>
+	
+	</ol>
+
+</apex:outputPanel>
+<!-- BREADCRUMB -->
+
+</apex:component>

@@ -1,0 +1,38 @@
+<aura:component Implements="flexipage:availableForRecordHome">
+  
+    <ltng:require scripts="{!$Resource.LightningCodeLibrary}"/>
+    
+    <aura:method name="validateRequiredFields" action="{!c.validateComponent}"/>
+    <aura:attribute name="auraIdsToValidate" type="Object[]" default="[{auraId: 'requiredInputField', isCustomCmp: false},
+                                                                       {auraId: 'sessionTimePreference-1', isCustomCmp: true},
+                                                                       {auraId: 'sessionTimePreference-2', isCustomCmp: true},
+                                                                       {auraId: 'sessionTimePreference-3', isCustomCmp: true}]"/>
+    
+    <aura:registerEvent name="STD_dynRowCountEvt" type="c:STD_dynRowCountEvt"/>
+    
+    <aura:attribute name="useSlds" type="Boolean" default="true"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.loadInitialRow}"/>
+    
+    <aura:handler event="c:STD_dynCreateComponentEvt" action="{!c.handleRowEvent}"/>
+
+	<aura:attribute name="name" type="String"/>	
+    <aura:attribute name="totalNoRows" type="Integer" default="0"/>
+    
+    <aura:attribute name="isLoading" type="Boolean" default="true"/>
+    
+    <aura:if isTrue="{!v.isLoading}">
+        <ui:spinner aura:id="loadingSpinner" />
+    </aura:if>
+             
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">    
+        <tbody>
+            <!--set component in the variable {!v.body}-->
+            <div aura:id="cmpBody">
+                {!v.body}
+            </div>
+                
+        </tbody>
+    </table>
+    <br/>
+</aura:component>

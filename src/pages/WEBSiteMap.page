@@ -1,0 +1,79 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html">
+  
+    <c:DF_WEBR_WebMeta />
+   
+    <div class="container">
+    
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar activeValue="" /> 
+            <h1><apex:outputtext value="Site map"/></h1>
+
+            
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/WEBAboutPage">Get involved</a>
+                    <ul>
+                        <li>What is a Friend?
+                            <ul>
+                                <li><a href="/WEBArticle?page=what-is-a-friend">What is a Dementia Friend?</a></li>
+                                <li><a href="/WEBArticle?page=friend-am-eligible">Am I eligible?</a></li>
+                                <li><a href="/WEBArticle?page=friend-how-else-can-i-help">How else can I help?</a></li>
+                                <li><a href="/WEBSession">Find sessions</a></li>
+                            </ul>
+                        </li>
+                        <li>What is a Champion?
+                            <ul>
+                                <li><a href="/WEBArticle?page=what-is-a-champion">What is a Dementia Friends Champion?</a></li>
+                                <li><a href="/WEBArticle?page=champions-training">Champions' induction</a></li>
+                                <li><a href="/WEBArticle?page=after-the-training">After the induction</a></li>
+                                <li><a href="/WEBArticle?page=champion-am-eligible">Am I eligible?</a></li>
+                                <li><a href="/WEBArticle?page=what-should-i-consider">What should I consider?</a></li>
+                                <li><a href="/WEBTraining">Find inductions</a></li>
+                                <li><a href="/WEBArticle?page=champion-how-else-can-i-help">How else can I help?</a></li>
+                            </ul>
+                        </li>
+                        <li>Organisations
+                            <ul>
+                                <li><a href="/register-admin">Register an organisation </a></li>
+                                <li><a href="/WEBArticle?page=about-partner-organisations">How can organisations be involved?</a></li>
+                                <li><a href="/DF_WEBC_PartnerVideos?page=videos-for-organisations">Watch our videos for organisations</a></li>
+                                <li><a href="/WEBArticle?page=organisation-case-studies">Case studies</a></li>
+                                <li><a href="/WEBArticle?page=organisation-further-activity">Further activity</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+                <li><a href="/WEBFAQs">FAQs</a></li>
+                <li><a href="/WEBArticle?page=what-is-dementia">What is dementia?</a></li>
+                <li><a href="/WEBNews">News &amp; Press</a></li>
+                <li><a href="/WEBContactForm">Contact</a></li>
+            </ul>
+
+            <ul>
+                <li><a href="/login">Sign in</a></li>
+                <li><a href="/register">Register</a>
+                    <ul>
+                     <li><a href="/register-friend">Register as a Dementia Friend and book on a session </a></li>
+                        <li><a href="/register-digital-friend">Register as a Dementia Friend and watch the video </a></li>
+                        <li><a href="/register-champion">Register as a Dementia Friends Champion</a></li>
+                    </ul>
+                </li>
+                <li><a href="/subscribe">e-Newsletter sign up</a></li>
+            </ul>
+
+            <ul>
+                <li><a href="/WEBArticle?page=terms-and-conditions">Terms &amp; Conditions</a></li>
+                <li><a href="/WEBArticle?page=privacy-policy">Privacy policy</a></li>
+            </ul>
+
+            
+       
+      
+
+
+    <!-- YOUR CONTENT GOES BEFORE HERE -->
+     <c:DF_WEBR_WebFooter />
+
+  </div>
+</apex:page>

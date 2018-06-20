@@ -1,0 +1,124 @@
+<apex:component >
+
+
+<script>
+
+    $(document).ready(function() {
+    	_webc.WebHeader_init();    		
+    });
+
+</script>
+
+
+<apex:outputPanel rendered="{!($Label.Development_Environment=='Development')}" layout="none">
+
+<script>
+
+        /*==================== PAGE SETUP =====================================*/
+        
+        _webc.WebHeader_init = function() {
+                                          		 
+                                    
+            /* Hook the submit up to the action button */ 
+            $('#webheader-subscribe-button').click(
+                
+                function() {
+                      
+                    afToggleSubscription(true);                                                                    
+                    //_webc.doSubscribeAction(true);  
+                    //_webc.isSubscriber = true;                
+                    return false;
+                
+             });
+                
+             /* Hook the submit up to the action button */ 
+            $('#webheader-un-subscribe-button').click(
+                
+                function() {
+                    
+                    afToggleSubscription(false);                                                        
+                    //_webc.doSubscribeAction(false);
+                    //_webc.isSubscriber = false;                  
+                    return false;
+                
+             });
+             
+	          /*==================== HANDLE SUBSCRIBE BUTTON  =====================================*/
+	          
+	          /*=========== SET TOGGLE FUNCTION ==================*/
+	          _webc.toggleSubscribeDisplay = function(option) {
+            
+                if ( option ) {
+
+					$('[id$=webheader-un-subscribe-container]').show();
+					$('[id$=webheader-subscribe-container]').hide();
+                 
+                 } else {
+                 
+                 	$('[id$=webheader-un-subscribe-container]').hide();
+                 	$('[id$=webheader-subscribe-container]').show();
+                 
+                 }            
+            
+            };
+
+			/*=========== DO TOGGLE ==================*/
+			_webc.toggleSubscribeDisplay(_webc.isSubscriber);            
+            
+            _webc.doSubscribeAction = function (option) {           
+            
+                var message = "";
+
+                var formData = {};
+                formData['data'] = {};    
+              	formData.data['action'] = (option ? 'on' : 'off');
+                
+                var sJson = JSON.stringify(formData);
+                
+                $.ajax({
+                    url: "services/apexrest/friend/toggle-subscribe",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: sJson,
+                    processData:false,
+                    dataType: "json",
+                    beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', "OAuth " + _webc.token); },
+                    success: function (response, textStatus, jqXHR) {
+                
+                        if (response.returnCode == 0) {
+        
+							alert (response.message);
+                        }
+                                            
+                        else {
+                             
+             				_webc.toggleSubscribeDisplay(option);
+                            
+                        }
+    
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        
+                        alert(jqXHR.responseText);                    
+                        
+                    },
+                    
+                    // callback handler that will be called on completion
+                    // which means, either on success or error
+                    complete: function () {
+                    
+                    }
+    
+                })
+                
+            
+          	};
+    
+        
+        } /* End _webc.WebHeaderSubscribe_init */
+
+</script>        
+
+</apex:outputPanel>
+        
+</apex:component>

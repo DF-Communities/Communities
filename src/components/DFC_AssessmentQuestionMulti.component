@@ -1,0 +1,27 @@
+<apex:component >
+    <apex:attribute name="question" description="" type="String" required="false" default=""   />
+    
+    <label class="required question-text">{{question.Question_Text__c}}</label>
+
+    <div class="option-list">
+
+      <div ng-repeat="opt in question.selectedMultiValues "  >
+      
+  <label class="radioLabel">
+   <input
+    type="checkbox"
+    ng-model="opt.selected"
+    ng-value="opt"
+    ng-change= "question.Entered_Answer__c=opt.selected==true?question.Entered_Answer__c+'\n\r'+opt.name:question.Entered_Answer__c.replace(opt.name, '') ; "
+  /> {{opt.name}}
+   </label>
+             
+      </div>
+    </div>   
+
+  <span ng-show="isSubmit && (question.Entered_Answer__c==null || question.Entered_Answer__c=='')" class="validation" >Please select at least one option</span>
+ 
+        
+     <c:DFC_AssessmentExtraInfo question="{{question}}"/>
+  
+</apex:component>

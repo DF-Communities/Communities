@@ -1,0 +1,32 @@
+<apex:component controller="Dfc_PublicResources"  access="global">
+
+   <apex:outputPanel rendered="{!resources.size >0}">
+      <h1>Resources</h1>
+   </apex:outputPanel>
+     <div>
+
+                        
+        <apex:repeat value="{!resources}" var="resource" >
+
+        <h4>{!resource.Title__c}</h4>   
+
+         <p style="margin-bottom:0px">{!resource.Description__c}</p>
+
+         <div style="margin-bottom:10px">
+
+                 <a href="{!URLFOR($Action.Attachment.Download, attachmentsMap[resource.Id].Id)}">  
+                 Download</a> &nbsp;
+
+              
+                 <c:Dfc_BytesToKbMbGbComponent componentValue1="{!attachmentsMap[resource.Id].BodyLength}"
+                        componentValue2="{!attachmentsMap[resource.Id].ContentType}"  
+                        componentValue3="{!resource.Title__c}"    
+                        />     
+
+           </div>        
+        </apex:repeat>   
+
+                       
+       </div>
+
+</apex:component>

@@ -1,0 +1,131 @@
+<apex:component controller="DF_EventsCommonController">
+    <apex:attribute name="isRequestedSession" type="Boolean" description="" assignTo="{!isRequestedInfoSession}" required="true"/>
+    <apex:attribute name="events" type="DF_Event__c[]" description="" assignTo="{!dfEvents}" required="true"/>
+    <apex:attribute name="dfContactId" type="String" description="" assignTo="{!dfcId}" required="true"/>
+    <apex:attribute name="defaultSessionOrganiser" type="String" description="" assignTo="{!placeholderOrganiserId}"  required="true"/>
+    <apex:attribute name="isChampion" type="Boolean" description="" assignTo="{!isChamp}" required="true"/>
+    <apex:attribute name="forceCountOnLoad" type="Boolean" description="" assignTo="{!showListing}" required="true"/>
+    
+    <apex:outputPanel layout="none" rendered="{!OR(isChampion, AND(!isChampion, events.size >0))}" >
+    <div class="col-md-12 column">
+        <h4>Upcoming {!IF(isRequestedInfoSession,"requested ","")} Sessions</h4>
+        
+        <apex:outputPanel rendered="{!IF(noEvents>0,'true','false')}" >
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    
+                    <tbody>
+                        
+                        <apex:repeat value="{!dfEvents}" var="event">
+                            
+                            <tr class="">       
+                                
+                                <td class="col-xs-12 single-cell">
+                                    
+                                    <apex:outputPanel rendered="{!!event.Requested_Info_Session__c}">
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
+                                            <strong>
+                                                <apex:outputField value="{!event.Event_Date_Time__c}"/> 
+                                            </strong>
+                                        </div>
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel rendered="{!event.Requested_Info_Session__c}">
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">   
+                                            <apex:outputPanel rendered="{!!event.Requested_Info_Session__c && event.Session_Requester__c == dfcId}">
+                                                <strong><apex:outputField value="{!event.Event_Date_Time__c}"/></strong>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!event.Requested_Info_Session__c && event.Request_Status__c == 'Matched with champion'}">
+                                                <strong><apex:outputField value="{!event.Event_Date_Time__c}"/></strong>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!event.Requested_Info_Session__c && event.Request_Status__c != 'Matched with champion'}">
+                                                <apex:outputPanel rendered="{!!ISNULL(event.Preference_1_Date__c)}">
+                                                    <strong><apex:outputField value="{!event.Preference_1_Date__c}"/></strong><br/>
+                                                    <apex:outputField value="{!event.Preference_1_Period__c}"/><br/><br/>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!!ISNULL(event.Preference_2_Date__c)}">
+                                                    <strong> <apex:outputField value="{!event.Preference_2_Date__c}"/></strong><br/>
+                                                    <apex:outputField value="{!event.Preference_2_Period__c}"/><br/><br/>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!!ISNULL(event.Preference_3_Date__c)}">
+                                                    <strong><apex:outputField value="{!event.Preference_3_Date__c}"/></strong><br/>
+                                                    <apex:outputField value="{!event.Preference_3_Period__c}"/>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </apex:outputPanel>
+                                    
+                                    <div class="col-lg-5 col-md-5 col-sm-7-sm hidden-xs">   
+                                                                                
+                                        <span class="col-xs-12 col-md-4">Location:</span>
+                                        <span class="col-xs-12 col-md-8"><strong>{!event.City__c}</strong>, <strong>{!event.Postcode__c}</strong></span>
+                                        
+                                        <span class="col-xs-12 col-md-4">Link:</span>
+                                        <span class="col-xs-12 col-md-8"><a href="WEBSessionDetails?id={!event.Id}" target="_blank" title="Opens in new window">
+                                            {!event.Name}
+                                            </a></span>
+                                        
+                                        <apex:outputPanel rendered="{!event.Requested_Info_Session__c}">
+                                            <span class="col-xs-12 col-md-4">Status:</span>
+                                            <span class="col-xs-12 col-md-8">{!event.Request_Status__c}</span>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!!event.Requested_Info_Session__c}">
+                                            <span class="col-xs-12 col-md-4">Status:</span>
+                                            <span class="col-xs-12 col-md-8">{!event.Event_Status__c}</span>
+                                        </apex:outputPanel>
+                                        
+                                    </div>           
+                                    
+                                    <!-- START Buttons for Champ -->
+                                    <apex:outputPanel rendered="{!IF(isChamp,'true','false')}">
+                                        <div class="col-lg-3 col-md-3 col-sm-10 col-xs-12 btn-stacked" style="margin-top: 15px">
+                                            <div style="padding-bottom:10px;">
+                                                <a class="btn-primary btn-xs btn-stacked" href="WEBCreateEditSession?eventId={!event.Id}">
+                                                    <apex:outputText value="{!IF((dfcId == event.Session_Requester__c || !event.Requested_Info_Session__c || (dfcId != event.Session_Organiser__c && event.Requested_Info_Session__c)),'Edit session','View / Drop Session')}" escape="false"/>
+                                                </a>
+                                            </div>
+                                            <br/>
+                                            <a class="btn-primary btn-xs btn-stacked" style="margin-top:0px;" href="WEBChampionSessionPrintAttendees?eventId={!event.Id}">
+                                                <apex:outputText value="View attendees" escape="false"/>
+                                            </a>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <!-- END Buttons for Champ -->
+                                    
+                                    
+                                    
+                                    <!-- START Friend Requested Session Buttons -->
+                                    <apex:outputPanel rendered="{!IF(!isChamp, 'true', 'false')}">
+                                        <div style="margin-top: 8px">
+                                            
+                                        <a class="btn-primary btn-xs" href="WEBCreateEditSession?eventId={!event.Id}">
+                                            <apex:outputText value="Edit session" escape="false"/>
+                                        </a>
+                                            </div>
+                                    </apex:outputPanel>
+                                    <!-- END Friend Requested Session Buttons -->
+                                    
+                                    <div class="hidden-md hidden-lg hidden-sm col-xs-12">           
+                                        <strong>{!event.City__c}</strong>, <strong>{!event.Postcode__c}</strong><br/>                                                
+                                        <a href="WEBSessionDetails?id={!event.Id}" style="overflow-wrap: break-word;" 
+                                           target="_blank" title="Opens in new window">
+                                            {!event.Name}
+                                        </a><br/>
+                                    </div>       
+                                </td>
+                            </tr> 
+                            
+                        </apex:repeat>                                
+                        
+                    </tbody>
+                </table>
+            </div>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!IF(noEvents<1,'true','false')}" >   
+            <div class="alert alert-info"> You have no upcoming Sessions. </div>
+        </apex:outputPanel>
+        
+    </div>    
+    </apex:outputPanel>
+</apex:component>

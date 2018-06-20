@@ -1,0 +1,104 @@
+<aura:component >
+  
+    <aura:attribute name="context"  type="Object" required="true" access="GLOBAL"/>
+    <aura:attribute name="step"     type="Object" required="true" access="GLOBAL"/>
+
+    <aura:attribute name="counties" type="DFC_County__c"  access="GLOBAL"/>
+   
+    <aura:attribute name="types"    type="String[]" default="Rural,Village,Town,City,Mixed" access="GLOBAL"/>
+
+<!--
+     <aura:handler name="change" value="{!v.context.community.DA_Alliance__r.Region__c}" action="{!c.onRegionChange}" />
+     -->
+
+
+    
+    <c:DfcCommunityService aura:id="communityService" />
+ 
+    <h3>Community Details</h3>
+
+    <div class="well">
+       
+        <div class="form-group">
+            <label class="required">What is the name of your Dementia Friendly Community</label>
+            <div>
+                <ui:inputText value="{!v.context.community.Name__c}" updateOn="keyup" class="form-control" placeholder="Community Name" /> 
+            </div>
+
+            <c:DfcRequired value="{!v.context.community.Name__c}" 
+                           group="{!v.step}" 
+                           hide="{!v.step.pristine}"/>         
+        </div>
+
+
+    <div class="{!v.context.community.Central_Location__c!='No' ? '' : 'hide'}"> 
+       
+       <div class="form-group"> 
+          <label class="required">Select the County where your Community is located</label>
+            <div>    
+                
+                <aura:if isTrue="{!v.context.counties.length}">
+                
+               <ui:inputSelect aura:id="county" value="{!v.context.community.County__c}" class="form-control" disabled="{!!v.context.community.Country__c}">
+                    <ui:inputSelectOption text="" label="Select County" class="mimic-placeholder"/>
+                    <aura:iteration items="{!v.context.community.Country__c =='Wales'? v.context.countiesWales : 
+                                                                                       v.context.countiesEngland}" var="county">
+                        <ui:inputSelectOption text="{!county.Id}" label="{!county.Name}"/>
+                    </aura:iteration>
+                </ui:inputSelect>
+                    
+                </aura:if>
+                    
+           </div>
+           <c:DfcRequired value="{!v.context.community.County__c}" 
+                          group="{!v.step}" 
+                          hide="{!v.step.pristine}" 
+                          message="Please select a county"
+                          disregard="{!v.context.community.Central_Location__c=='No'}"
+                          />
+        </div>
+        
+       <div class="form-group">
+            <label class="required">Where is your community located</label>
+            <div>
+                <ui:inputTextArea value="{!v.context.community.Location__c}" updateOn="keyup" class="form-control" placeholder="Describe the geographic area covered by your community" /> 
+            </div>
+            <c:DfcRequired value="{!v.context.community.Location__c}" 
+                           group="{!v.step}" 
+                           hide="{!v.step.pristine}"
+                           disregard="{!v.context.community.Central_Location__c=='No'}"
+                           />
+        </div>
+
+        <div class="form-group"> 
+          <label class="required">Is this community best described as predominantly</label>
+            <div> 
+                 <aura:iteration items="{!v.types}" var="type">
+                     <ui:inputRadio name="locationType" updateOn="none" label="{!type}" value="{!v.context.community.Location_Type__c==type}" change="{!c.locationTypeChangeHandler}" />
+                </aura:iteration>
+            </div>   
+            <c:DfcRequired value="{!v.context.community.Location_Type__c}" 
+                           group="{!v.step}" 
+                           hide="{!v.step.pristine}"
+                           disregard="{!v.context.community.Central_Location__c=='No'}"/>
+        </div>
+
+        </div>
+
+
+
+       <div class="form-group">
+            <label for="population" class="required">Approximate Population</label>
+            <div>
+                <ui:inputText value="{!v.context.community.Population__c}" updateOn="keyup" class="form-control" placeholder="Approximate population size, e.g. 50000" /> 
+            </div>
+            <c:DfcInteger value="{!v.context.community.Population__c}" group="{!v.step}" positive="true" message="Please enter the approximate population as a number, e.g. 10000 "/>
+            <c:DfcRequired value="{!v.context.community.Population__c}" 
+                           group="{!v.step}" 
+                           hide="{!v.step.pristine}"/>
+        </div>
+
+    </div>
+
+    
+</aura:component>

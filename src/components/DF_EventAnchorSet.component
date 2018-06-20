@@ -1,0 +1,109 @@
+<apex:component >
+    <style>
+        .top-return{
+        border:1px solid #1C1463; 
+        position:fixed; 
+        bottom:0; 
+        right:0; 
+        width:110px; 
+        z-index:10000;
+        text-align: center !important;
+        font-weight: bold;
+        background: #1C1463;
+        color:#ffff !important;
+        padding: 0.571em 1.071em;
+        border-radius: 5px !important;
+        text-decoration: none !important;
+        border: 0pt none;
+        
+        }
+        
+        .top-return:hover{
+        background: #FFDE00;
+        text-decoration: none !important;
+        }
+        
+        .top-btn {
+        text-decoration:none !important; 
+        color:FFDE00 !important";
+        background: #1C1463;
+        color:#FFDE00 !important;
+        padding: 0.571em 1.071em;
+        border-radius: 5px !important;
+        text-decoration: none !important;
+        border: 0pt none;
+        text-align: center;
+        padding-left: 0px;
+        }
+        
+        .top-btn:hover {
+        color: #1C1463 !important;
+        }
+        
+        @media (max-width: 800px) {
+          .right-inset {
+            margin-right: 20px;
+            }
+        }
+        
+        @media (min-width: 801px) {
+            .right-inset {
+            margin-right: 15px;
+            }        
+        }
+        
+        .bottom-spacer {
+            margin-bottom: 10px;
+        }
+        
+        .anchor-title {
+        text-align:left;
+        color: #ffffff;
+        padding-left:15px;
+        }
+        
+    </style>
+    
+    <apex:attribute name="showRequestedAnchors" type="Boolean" description="" required="true"/>
+    
+    <div class="row *.css">
+        <a name="top-of-page"></a>
+        <div class="dashboard-block rounded">
+            <div class="row">
+                <h4 class="anchor-title" style="color: #ffffff;">Sessions I am delivering</h4>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 bottom-spacer">
+                    <a class="btn btn-dashboard btn-block" href="#created-feedback">Sessions awaiting reporting</a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 bottom-spacer">
+                    <a class="btn btn-dashboard btn-block" href="#created-upcoming">Upcoming Sessions</a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 bottom-spacer" style="padding-bottom:15px;">
+                    <a class="btn btn-dashboard btn-block" href="#created-past">Past Sessions</a>
+                </div>
+            </div>
+            <apex:outputPanel rendered="{!showRequestedAnchors}">
+            <div class="row">
+                <h4 class="anchor-title" style="color: #ffffff;">
+                    Sessions I have requested
+                </h4>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 bottom-spacer">
+                    <a class="btn btn-dashboard btn-block" href="#requested-feedback">Sessions awaiting reporting</a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 bottom-spacer">
+                    <a class="btn btn-dashboard btn-block" href="#requested-upcoming">Upcoming Sessions</a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 bottom-spacer" style="padding-bottom:15px;">
+                    <a class="btn btn-dashboard btn-block" href="#requested-past">Past Sessions</a>
+                </div>
+            </div>
+            </apex:outputPanel>
+        </div>
+    </div>
+    
+    <div class="top-return right-inset">
+        <a href="#top-of-page" class="top-btn">
+            <strong>Back to top</strong>
+        </a>
+    </div>
+    
+</apex:component>

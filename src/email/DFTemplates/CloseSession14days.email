@@ -1,0 +1,58 @@
+<messaging:emailTemplate subject="Dementia Friends - How did your Information Session go?" recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+Well done and thank you for running a Dementia Friends Information Session - I'd love to hear how it went!
+<br/><br/>
+I also wanted to drop you a quick reminder that you haven’t yet reported back on the Session on the Dementia Friends <a href="http://www.dementiafriends.org.uk/login">website</a>.  Remember after each one, you’ll need to return to the website and record the number of Friends you have made using the “Tell us about a Session” button.
+<br/><br/>
+Alternatively, if the Session didn’t take place, you should cancel it online too.
+<br/><br/>
+If you have any questions or need any help with reporting back on your Session, please get in touch and I’ll be happy to help.  Once again, thank you for all of your hard work running your Session.
+<br/><br/>
+Best wishes,
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Regional Support Officer - Dementia Friends<br/>
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+{!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+{!relatedTo.DF_Region__r.RSO__r.phone}<br/>
+
+
+<a href = "http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href ="https://www.facebook.com/DementiaFriends">Facebook</a><br/>
+Email Id:TEREF08
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+Well done and thank you for running a Dementia Friends Information Session - I'd love to hear how it went!
+
+I also wanted to drop you a quick reminder that you haven’t yet reported back on the Session on the Dementia Friends website: dementiafriends.org.uk/login.  Remember after each one, you’ll need to return to the website and record the number of Friends you have made using the “Tell us about a Session” button.
+
+Alternatively, if the Session didn’t take place, you should cancel it online too.
+
+If you have any questions or need any help with reporting back on your Session, please get in touch and I’ll be happy to help.  Once again, thank you for all of your hard work running your Session.
+
+Best wishes,
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Regional Support Officer - Dementia Friends
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}
+{!relatedTo.DF_Region__r.RSO__r.Email}
+{!relatedTo.DF_Region__r.RSO__r.phone}
+
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+Email Id:TEREF08
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,60 @@
+<aura:component >
+    <!--use boolean attribute for Store true/false value,
+    make default to "false" so modal box are not display on the load of component. 
+    --> 
+    <aura:attribute name="isOpen" type="boolean" default="true"/>
+    <aura:attribute name="modeConfirmSignup" type="boolean" default="true" />
+    <aura:attribute name="modeConfirmSuccess" type="boolean" default="false" />
+    
+    <aura:method name="signupMessage" description="Show Signup Result">
+        <aura:attribute name="isSuccess" type="Boolean" default="true" />
+        <aura:attribute name="errorMessage" type="String" default="" />
+    </aura:method>
+    
+    <aura:registerEvent name="DF_signUpConfirmEvt" type="c:DF_signUpConfirmEvt"/>
+    <aura:registerEvent name="DF_signUpCancelEvt" type="c:DF_signUpCancelEvt"/>
+    
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    
+                </h4>
+            </div>
+            <div class="modal-body">
+                <aura:if isTrue="{!v.modeConfirmSignup}" >
+                    By signing up to deliver this Information Session, you are committing to deliver the Session on the time and date specified at the specified location.<br/><br/> 
+                    Please note that your contact details (name and email address) will be passed on to the person who requested the Session and you will receive their contact details. This will allow you to do any further organising prior to the Session.<br/><br/> 
+                    Before confirming, make sure you have enough time to order the materials you will need to deliver the Session.<br/><br/> 
+                    Click to confirm that you understand these conditions and will deliver this Session.
+                    <aura:set attribute="else" >
+                        <aura:if isTrue="{!v.modeConfirmSuccess}" >
+                            <div aura:id="confirm-success" onclick="{!c.exit}">
+                                <ui:message title="Thank you!" severity="confirm">
+                                    You have been signed up to host this session.
+                                    An email has been sent to you with all the details
+                                    you will need
+                                </ui:message>
+                            </div>
+                            <aura:set attribute="else" >
+                                <div aura:id="confirm-error" onclick="{!c.exit}">
+                                    <ui:message title="Sign up unsuccessful" severity="error">
+                                        Sorry, this Session is no longer available to deliver. Please try an alternative Session.
+                                    </ui:message>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </aura:set>
+                </aura:if>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary pull-right" onclick="{!c.signupCancel}" >Cancel</button>
+                <aura:if isTrue="{!v.modeConfirmSignup}">
+                	<button class="btn-primary pull-right" style="margin-right: 15px" onclick="{!c.signupConfirm}">Sign me up!</button>
+                </aura:if>
+                
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

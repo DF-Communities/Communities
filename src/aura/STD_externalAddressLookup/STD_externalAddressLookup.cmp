@@ -1,0 +1,16 @@
+<aura:component >
+    
+    <aura:attribute name="street" type="String"/>
+    <aura:attribute name="city" type="String"/>
+    <aura:attribute name="county" type="String"/>
+    <aura:attribute name="postcode" type="String"/>
+    
+	<aura:handler event="c:STD_externalAddressLookupEvt" action="{!c.extractAddressFromEmbeddedVfPage}"/>
+    
+    
+    "HERE I AM: <lightning:formattedText value="{!v.street}"/>"
+    <lightning:formattedText value="{!v.city}"/>
+    <lightning:formattedText value="{!v.county}"/>
+    <lightning:formattedText value="{!v.postcode}"/>
+    
+</aura:component>

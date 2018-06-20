@@ -1,0 +1,165 @@
+<apex:component controller="EdtEnableController" layout="none" selfClosing="true">
+    
+<style>
+    
+.edt-yt-embed-responsive {
+    position: relative;
+    display: block;
+    height: 0;
+    padding: 0;
+    overflow: visible;
+}
+
+.edt-yt-embed-responsive-16by9 {
+    padding-bottom: 56.25%;
+}
+
+.edt-yt-container {
+   position: relative; 
+   height: 0px; 
+   width: 100%; 
+   padding-top: 56.25%;     
+   cursor: pointer; 
+   background-position:center center; 
+   background-repeat:no-repeat;
+   background-size:cover
+}
+    
+.edt-yt-play {
+    opacity:0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 85px;
+    height: 94px;
+    display: block;
+    margin-left: -43px;
+    margin-top: -47px;
+    background: #59ae3a;
+    border-radius: 30%;
+    width: 68px;
+    height: 48px;
+    margin-left: -34px;
+    margin-top: -24px;
+}
+
+.edt-yt-button {
+    width: 0;
+    height: 0;
+    position:relative;
+    top:12px;
+    left:25px;
+    border-style: solid;
+	border-width: 12px 0 12px 24px;
+	border-color: transparent transparent transparent white;
+    -webkit-transform:rotate(360deg) /* for better anti-aliasing in webkit browser */
+}
+    
+.edt-yt-embed-responsive, 
+.edt-yt-embed-responsive *
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.edt-toolbar {
+	position:fixed;
+    top:8px;
+    left:10px;
+    z-index:999;
+    background:white;
+    border: 1px solid #999;
+    padding:8px;
+    border-radius:3px;
+}
+    
+</style>    
+    
+    
+    <apex:outputPanel rendered="{!editEnabled}" layout="block" styleClass="edt-toolbar"> 
+        
+        ksjfskdjfkdsjfkdsjfdk
+    
+    
+    </apex:outputPanel>
+    
+    
+    
+<script>
+
+(function($) {
+    
+    $(function(){
+        if ($('.edt-yt-container').length) enableVideo();
+    });
+
+    var playerMap = {};
+    
+    function enableVideo() 
+    {
+        window.onYouTubeIframeAPIReady = function() {
+ 	      $('.edt-yt-container').each(function(){
+            setupVideo($(this));
+          });
+        };
+        var tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+    
+    function setupVideo(element)
+    {
+		element.on('click', function (e) 
+        {
+			e.preventDefault();
+        	var v = element.children().eq(1);
+            var id = v.attr('id');
+          	if (v.prop("tagName")=='IFRAME') {
+    			v.show();    
+                playerMap[id].playVideo();
+          	}
+          	else {
+	        	playerMap[id] = createPlayer(v);
+          	}
+		});
+        element.children('.edt-yt-play').css('opacity', 1);
+	}
+
+    function createPlayer(element) 
+    {
+      var id = element.attr('id');
+      data = JSON.parse(element.attr('data-edt-video'));
+      return new YT.Player(id, {
+        	width: 0,
+        	height: 0,
+        	videoId: data.videoId,
+        	playerVars: data.playerVars,
+        	events: {
+          	  'onReady': onPlayerReady,
+          	  'onStateChange': onPlayerStateChange
+        	}
+      });
+    }
+    
+    function onPlayerReady(event) 
+    {
+        event.target.playVideo();
+    }
+    
+    function onPlayerStateChange(event) 
+    {
+        var player = event.target;
+        var state = player.getPlayerState();
+        if (state===0) {
+			var iframe = player.getIframe();
+            var container = iframe.parentElement;
+            $(iframe).fadeOut();
+        }
+    }
+
+})(jQuery);
+    
+</script>
+</apex:component>

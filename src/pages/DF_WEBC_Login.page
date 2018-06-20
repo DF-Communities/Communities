@@ -1,0 +1,65 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="DF_WEBC_Login_Controller">
+
+    <c:DF_WEBR_WebMeta />
+
+    <div class="container">
+
+    <c:DF_WEBR_WebHeader />
+    <c:DF_WEBR_WebNavbar />
+    
+    <div class="row clearfix">
+        <div class="col-md-12">
+          
+            <h1>Sign in</h1>
+            <p>Please enter your email address / user name and password.</p>
+          
+            <apex:form forceSSL="true">
+
+            <div class="row clearfix">
+              
+                <div class="col-md-8 column">
+                    <div class="well">
+
+                          <apex:outputPanel rendered="{!LEN(standardErrorMsg)>0}">
+
+                            <div class="has-error">
+                                  <p class="help-block"> <i class="fa fa-exclamation-triangle"></i> The email or user name and/or password have not been recognised. Please ensure you have entered them correctly. Otherwise <a href="/register">register here</a>.</p>
+
+                            </div>    
+                                      
+                          </apex:outputPanel>
+
+                          <div class="form-group">
+                            <label for="email">Email address / user name</label>
+                            <apex:inputText id="email" value="{!emailAddress}" styleClass="form-control"/>       
+                          </div>
+                          <div class="form-group">
+                            <label for="password">Password</label>
+                            <apex:inputSecret id="password" value="{!password}" styleClass="form-control" />
+                          </div>
+                          <apex:commandButton action="{!login}" id="Submit" value="Sign in" styleClass="btn btn-primary" />
+                          <a href="/forgot-password" class="pull-right">Forgotten your password?</a>
+
+                     </div>
+                </div>
+
+                <div class="col-md-4 column">
+                    <p>
+                        <i class="fa fa-info-circle primary" style="font-size:24px;"></i> If you are accessing your account for the first time, an email has been sent to the email address you used to register – please use this email to verify your account before logging in.
+                    </p>
+                   <!--   <p>
+                        <i class="fa fa-info-circle primary" style="font-size:24px;"></i> If you are logging in with your organsiation details, remember to use your user name, not your email address.
+                    </p>-->
+                </div>
+    
+            </div>
+
+            </apex:form>
+    
+        </div>    
+    </div>
+
+    <c:DF_WEBR_WebFooter />
+    </div>
+
+</apex:page>

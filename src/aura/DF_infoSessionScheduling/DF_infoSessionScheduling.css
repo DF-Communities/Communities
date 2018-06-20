@@ -1,0 +1,17 @@
+.THIS.df-required {
+    color: red;	
+}
+
+.THIS .group-size-err {
+	float:left; 
+    padding-right:15px;
+    color: #a94442;
+}
+
+.THIS.uiInput.uiInputSelect.uiInput--default.uiInput--select.cSTD_contactDetails {
+    display:inline-block;
+}
+
+.THIS .col-md-8 {
+    padding-bottom: 15px;
+}
