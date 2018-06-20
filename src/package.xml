@@ -17,120 +17,6 @@
         <name>CustomMetadata</name>
     </types>
     <types>
-        <members>DF_Community_Emails</members>
-        <members>DF_Community_Emails/DF_Community_Admin_Invite</members>
-        <members>DF_Community_Emails/DF_Community_Admin_Verification_Request</members>
-        <members>DF_Community_Emails/DF_Community_Admin_Verification_Request_HTML</members>
-        <members>DF_Community_Emails/DF_Community_Representive_Invite_HTML</members>
-        <members>DF_Community_Emails/DF_Community_Request_Notification</members>
-        <members>DF_Community_Emails/DF_Confirmation_of_Request_Submitted</members>
-        <members>DF_Community_Emails/DF_Confirmation_of_Request_Submitted_HTML</members>
-        <members>DF_Community_Emails/DF_Forgot_Password</members>
-        <members>DF_Community_Emails/DF_Verification_Request</members>
-        <members>DF_Community_Emails/DFC_Assessment_Reminder_HTML</members>
-        <members>DF_Community_Emails/DFC_Assessment_Reminder_OD_HTML</members>
-        <members>DF_Community_Emails/DFC_Assessment_Reminder_TODAY_HTML</members>
-        <members>DF_Community_Emails/DFC_assessment_submitted</members>
-        <members>DF_Community_Emails/DFC_Community_Approval_Request</members>
-        <members>DF_Community_Emails/DFC_Community_Approved_Internal_Notification</members>
-        <members>DF_Community_Emails/DFC_Community_Approved_Notification</members>
-        <members>DF_Community_Emails/DFC_Community_Rejected_Notification</members>
-        <members>DF_Community_Emails/DFC_Invite_Representative</members>
-        <members>unfiled$public</members>
-        <members>unfiled$public/CommunityChangePasswordEmailTemplate</members>
-        <members>unfiled$public/CommunityForgotPasswordEmailTemplate</members>
-        <members>unfiled$public/CommunityLockoutEmailTemplate</members>
-        <members>unfiled$public/CommunityWelcomeEmailTemplate</members>
-        <members>unfiled$public/ContactFollowUpSAMPLE</members>
-        <members>unfiled$public/CustomerPortalChangePwdEmail</members>
-        <members>unfiled$public/CustomerPortalNewUserEmail</members>
-        <members>unfiled$public/CustomerPortalSelfRegUserEmail</members>
-        <members>unfiled$public/LeadsNewassignmentnotificationSAMPLE</members>
-        <members>unfiled$public/LeadsWebtoLeademailresponseSAMPLE</members>
-        <members>unfiled$public/SUPPORT%3A Self-Service New Comment Notification %28SAMPLE%29</members>
-        <members>unfiled$public/SUPPORT%3A Self-Service New User Login Information %28SAMPLE%29</members>
-        <members>unfiled$public/SUPPORT%3A Self-Service Reset Password %28SAMPLE%29</members>
-        <members>unfiled$public/SUPPORTCaseescalationnotificationSAMPLE</members>
-        <members>unfiled$public/SUPPORTCaseResponsewithSolutionSAMPLE</members>
-        <members>unfiled$public/SUPPORTNewassignmentnotificationSAMPLE</members>
-        <members>unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE</members>
-        <members>unfiled$public/SUPPORTSelfServiceNewUserLoginInformationSAMPLE</members>
-        <members>unfiled$public/SUPPORTSelfServiceResetPasswordSAMPLE</members>
-        <members>unfiled$public/SUPPORTWebtoCaseemailresponseSAMPLE</members>
-        <members>DementiaConnectExtranet</members>
-        <members>DementiaConnectExtranet/ApprovalAmendmentApproved</members>
-        <members>DementiaConnectExtranet/ApprovalAmendmentRejected</members>
-        <members>DementiaConnectExtranet/ApprovalAmendmentSubmitted</members>
-        <members>DementiaConnectExtranet/DCE_Existing_User</members>
-        <members>DementiaConnectExtranet/DCE_Verification_Request</members>
-        <members>DementiaConnectExtranet/DCECommunityChangePasswordEmailTemplate</members>
-        <members>DementiaConnectExtranet/DCEService_Ownership_Change</members>
-        <members>DementiaConnectExtranet/DCEServiceReviewDigest</members>
-        <members>DementiaConnectExtranet/Leads_New_Lead_created_for_DCE</members>
-        <members>DementiaConnectExtranet/Service_Amendment_Submitted</members>
-        <members>DementiaConnectExtranet/User_Management_Active_status_changed</members>
-        <members>DFTemplates</members>
-        <members>DFTemplates/Champion_Training_Booked</members>
-        <members>DFTemplates/Champion_Training_Unregistered</members>
-        <members>DFTemplates/ChampsNoSessionsRunIn10M</members>
-        <members>DFTemplates/ChampsNoSessionsRunIn2M</members>
-        <members>DFTemplates/ChampsNoSessionsRunIn4M</members>
-        <members>DFTemplates/ChampsNoSessionsRunIn6M</members>
-        <members>DFTemplates/ChampsNoSessionsRunIn8M</members>
-        <members>DFTemplates/CloseSession14days</members>
-        <members>DFTemplates/CloseSession30days</members>
-        <members>DFTemplates/CloseSession45days</members>
-        <members>DFTemplates/DF_Admin_Notification_New_Info_Session</members>
-        <members>DFTemplates/DF_Admin_Verification_Request</members>
-        <members>DFTemplates/DF_Champion_Training_Booked_HTML</members>
-        <members>DFTemplates/DF_Champion_Training_Unregistered_HTML</members>
-        <members>DFTemplates/DF_Contact_Change_Notification_HTML</members>
-        <members>DFTemplates/DF_Contact_Change_Notification_HTML_v2</members>
-        <members>DFTemplates/DF_Custom_Verification_Request</members>
-        <members>DFTemplates/DF_DigitalFriend_Verification_Request</members>
-        <members>DFTemplates/DF_Friend_Session_Booking_Confirmed_HTML</members>
-        <members>DFTemplates/DF_Friend_Session_Cancelled_HTML</members>
-        <members>DFTemplates/DF_New_Attendee_On_Session_HTML</members>
-        <members>DFTemplates/DF_Partner_Admin_Registerd</members>
-        <members>DFTemplates/DF_Partner_Admin_Verification_Request</members>
-        <members>DFTemplates/DF_Session_Attendee_Cancellation_HTML</members>
-        <members>DFTemplates/DF_Session_Attendee_Cancelled_HTML</members>
-        <members>DFTemplates/DF_Updated_Session_Information_HTML</members>
-        <members>DFTemplates/DFCTrainingCourseReminder</members>
-        <members>DFTemplates/DFCTrainingUpdate</members>
-        <members>DFTemplates/DFCwelcomeemail</members>
-        <members>DFTemplates/DFSessionReminder</members>
-        <members>DFTemplates/Friend_Session_Booking_Confirmed</members>
-        <members>DFTemplates/Friend_Session_Cancelled</members>
-        <members>DFTemplates/NeverRunSessions1M</members>
-        <members>DFTemplates/NeverRunSessions2M</members>
-        <members>DFTemplates/NeverRunSessions3M</members>
-        <members>DFTemplates/NeverRunSessions4M</members>
-        <members>DFTemplates/New_Attendee_On_Session</members>
-        <members>DFTemplates/New_DF_Organisation_Lead</members>
-        <members>DFTemplates/New_DF_Partner_Organisation</members>
-        <members>DFTemplates/New_Information_Sessions</members>
-        <members>DFTemplates/New_User_Template</members>
-        <members>DFTemplates/PHE_Email</members>
-        <members>DFTemplates/Session_Attendee_Cancellation</members>
-        <members>DFTemplates/TEREF04activatechampacc</members>
-        <members>DFTemplates/TEREF16Thankyouforreachingxnooffriends</members>
-        <members>DFTemplates/Thankyouforreachingxfriendsandcert</members>
-        <members>DFTemplates/Updated_Session_Information</members>
-        <members>DFTemplates/Updated_Session_Information_OLD</members>
-        <members>DFTemplates/VF_Champion_Training_Booked</members>
-        <members>DFTemplates/VF_Champion_Training_Unregistered</members>
-        <members>DFTemplates/VF_Friend_Session_Booking_Confirmed</members>
-        <members>DFTemplates/VF_Friend_Session_Cancelled</members>
-        <members>DFTemplates/VF_New_Attendee_On_Session</members>
-        <members>DFTemplates/VF_New_Information_Sessions</members>
-        <members>DFTemplates/VF_New_User_Template</members>
-        <members>DFTemplates/VF_Session_Attendee_Cancellation</members>
-        <members>DFTemplates/VF_Updated_Session_Information</members>
-        <members>DFTemplates/VFDFSuperChampionEmail</members>
-        <name>EmailTemplate</name>
-    </types>
-    <types>
         <members>*</members>
         <name>Layout</name>
     </types>
@@ -141,66 +27,6 @@
     <types>
         <members>*</members>
         <name>CustomPermission</name>
-    </types>
-    <types>
-        <members>Account</members>
-        <members>AccountBrand</members>
-        <members>AccountContactRole</members>
-        <members>Activity</members>
-        <members>Asset</members>
-        <members>AssetRelationship</members>
-        <members>AssistantProgress</members>
-        <members>Campaign</members>
-        <members>CampaignMember</members>
-        <members>Case</members>
-        <members>CaseContactRole</members>
-        <members>CollaborationGroup</members>
-        <members>CollaborationGroupMember</members>
-        <members>Contact</members>
-        <members>ContentVersion</members>
-        <members>Contract</members>
-        <members>ContractContactRole</members>
-        <members>DuplicateRecordItem</members>
-        <members>DuplicateRecordSet</members>
-        <members>EmailMessage</members>
-        <members>Event</members>
-        <members>ExchangeUserMapping</members>
-        <members>FeedItem</members>
-        <members>ForecastingCategoryMapping</members>
-        <members>Idea</members>
-        <members>Individual</members>
-        <members>Lead</members>
-        <members>Macro</members>
-        <members>MacroAction</members>
-        <members>MacroInstruction</members>
-        <members>NetworkMember</members>
-        <members>Opportunity</members>
-        <members>OpportunityCompetitor</members>
-        <members>OpportunityContactRole</members>
-        <members>OpportunityLineItem</members>
-        <members>PartnerRole</members>
-        <members>Pricebook2</members>
-        <members>PricebookEntry</members>
-        <members>Product2</members>
-        <members>QuickText</members>
-        <members>RecordAction</members>
-        <members>RequestsForAccessSIQ</members>
-        <members>Scorecard</members>
-        <members>ScorecardAssociation</members>
-        <members>ScorecardMetric</members>
-        <members>Site</members>
-        <members>SocialPersona</members>
-        <members>SocialPost</members>
-        <members>Solution</members>
-        <members>StreamActivityAccess</members>
-        <members>StreamingChannel</members>
-        <members>Task</members>
-        <members>Topic</members>
-        <members>TopicAssignment</members>
-        <members>User</members>
-        <members>UserProvisioningRequest</members>
-        <members>*</members>
-        <name>CustomObject</name>
     </types>
     <types>
         <members>*</members>
@@ -217,6 +43,18 @@
     <types>
         <members>*</members>
         <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <!--members>DFTemplates/VF_Updated_Session_Information</members-->
+        <name>EmailTemplate</name>
     </types>
     <version>38.0</version>
 </Package>
