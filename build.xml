@@ -26,14 +26,14 @@
     <target name="validate" description="validates the project metadata upon the target server">
         <echo>SFDC Validation [STARTED]</echo>
         <sf:deploy 
-            username="${sf.username}" 
-            password="${sf.password}" 
-            serverurl="${sf.serverurl}" 
-            maxPoll="${sf.maxPoll}" 
-            pollWaitMillis="${sf.pollWaitMillis}" 
+            username="${env.username}" 
+            password="${env.password}" 
+            serverurl="${env.serverurl}" 
+            maxPoll="${env.maxPoll}" 
+            pollWaitMillis="${env.pollWaitMillis}" 
             deployRoot="${deployRoot}" 
             checkOnly="true" 
-            testlevel="${sf.testLevel}" />
+            testlevel="${env.testLevel}" />
         <echo>Validating project metadata against server [COMPLETED]</echo>
     </target>
     
@@ -41,14 +41,14 @@
     <target name="deploy" description="deploys all project metadata to the target server">
         <echo>SFDC Deployment [STARTED]</echo>
         <sf:deploy 
-            username="${sf.username}" 
-            password="${sf.password}" 
-            serverurl="${sf.serverurl}" 
-            maxPoll="${sf.maxPoll}" 
-            pollWaitMillis="${sf.pollWaitMillis}" 
+            username="${env.username}" 
+            password="${env.password}" 
+            serverurl="${env.serverurl}" 
+            maxPoll="${env.maxPoll}" 
+            pollWaitMillis="${env.pollWaitMillis}" 
             deployRoot="${deployRoot}"
             checkOnly="false"
-            testlevel="${sf.testLevel}" />
+            testlevel="${env.testLevel}" />
         <echo>Deploying project metadata to server [COMPLETED]</echo>
     </target>
 
@@ -56,10 +56,10 @@
     <target name="quickDeploy" description="deploys all project metadata to the target server based on the given validation Id">
         <echo>SFDC Quick Deployment [STARTED]</echo>
         <sf:deployRecentValidation
-            username="${sf.username}" 
-            password="${sf.password}" 
-            serverurl="${sf.serverurl}" 
-            maxPoll="${sf.maxPoll}" 
+            username="${env.username}" 
+            password="${env.password}" 
+            serverurl="${env.serverurl}" 
+            maxPoll="${env.maxPoll}" 
             recentValidationId="${sf.VALIDATIONID}" />
         <echo>Quick deployment project metadata to server [COMPLETED]</echo>
     </target>
@@ -68,11 +68,11 @@
     <target name="destructiveChanges" description="applies the destructive changes upon the target server">
         <echo>Deploying destructive changes to server [STARTED]</echo>
         <sf:deploy 
-            username="${sf.username}" 
-            password="${sf.password}" 
-            serverurl="${sf.serverurl}" 
-            maxPoll="${sf.maxPoll}" 
-            pollWaitMillis="${sf.pollWaitMillis}" 
+            username="${env.username}" 
+            password="${env.password}" 
+            serverurl="${env.serverurl}" 
+            maxPoll="${env.maxPoll}" 
+            pollWaitMillis="${env.pollWaitMillis}" 
             deployRoot="${destructiveChangesDir}" 
             ignoreWarnings="true" />
         <echo>Deploying destructive changes to server [COMPLETED]</echo>
@@ -82,11 +82,11 @@
     <target name="retrieve" depends="clean" description="retrieves all project metadata from the target server">
         <echo>Retrieving project metadata [STARTED]</echo>
         <sf:retrieve 
-            username="${sf.username}" 
-            password="${sf.password}" 
-            serverurl="${sf.serverurl}" 
-            maxPoll="${sf.maxPoll}" 
-            pollWaitMillis="${sf.pollWaitMillis}" 
+            username="${env.username}" 
+            password="${env.password}" 
+            serverurl="${env.serverurl}" 
+            maxPoll="${env.maxPoll}" 
+            pollWaitMillis="${env.pollWaitMillis}" 
             retrieveTarget="${deployRoot}" 
             unpackaged="${deployRootPackage}" />
         <antcall target="correctMetadata" />
@@ -102,11 +102,11 @@
         </copy>
         <!-- Deploy the activation -->
         <sf:deploy 
-            username="${sf.username}" 
-            password="${sf.password}" 
-            serverurl="${sf.serverurl}" 
-            maxPoll="${sf.maxPoll}" 
-            pollWaitMillis="${sf.pollWaitMillis}" 
+            username="${env.username}" 
+            password="${env.password}" 
+            serverurl="${env.serverurl}" 
+            maxPoll="${env.maxPoll}" 
+            pollWaitMillis="${env.pollWaitMillis}" 
             deployRoot="${toggleFlowsDir}" 
             ignoreWarnings="true" />
         <echo>Activating all Flows (Process Builders) upon the server [COMPLETE]</echo>
@@ -127,11 +127,11 @@
         </replaceregexp>
         <!-- Deploy the deactivation -->
         <sf:deploy 
-            username="${sf.username}" 
-            password="${sf.password}" 
-            serverurl="${sf.serverurl}" 
-            maxPoll="${sf.maxPoll}" 
-            pollWaitMillis="${sf.pollWaitMillis}" 
+            username="${env.username}" 
+            password="${env.password}" 
+            serverurl="${env.serverurl}" 
+            maxPoll="${env.maxPoll}" 
+            pollWaitMillis="${env.pollWaitMillis}" 
             deployRoot="${toggleFlowsDir}" 
             ignoreWarnings="true" />
         <echo>Deactivating all Flows (Process Builders) upon the server [COMPLETE]</echo>
@@ -143,11 +143,11 @@
         <!-- Generates the Destructive Flows XML -->
         <script language="javascript" src="config/scripts/destructive_flows.js"></script> 
         <sf:deploy 
-            username="${sf.username}" 
-            password="${sf.password}" 
-            serverurl="${sf.serverurl}" 
-            maxPoll="${sf.maxPoll}" 
-            pollWaitMillis="${sf.pollWaitMillis}" 
+            username="${env.username}" 
+            password="${env.password}" 
+            serverurl="${env.serverurl}" 
+            maxPoll="${env.maxPoll}" 
+            pollWaitMillis="${env.pollWaitMillis}" 
             deployRoot="${destructiveFlowsDir}" 
             ignoreWarnings="true" />
         <echo>Removing all Flows (Process Builders) upon the server [COMPLETED]</echo>
