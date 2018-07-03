@@ -7,6 +7,6 @@ ENVIRONMENTS_DIR="$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd )/../environment
 # Start the build
 case "$CIRCLE_NODE_INDEX" in
   0)
-    ENVIRONMENT=uk_integration ant ci
+    ENVIRONMENT=development ant build
     ;;
 esac
