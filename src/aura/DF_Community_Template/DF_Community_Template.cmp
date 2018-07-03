@@ -1,0 +1,23 @@
+<aura:component implements="forceCommunity:themeLayout"  >
+    
+    <aura:attribute name="pageHeader" type="Aura.Component[]" />
+    <aura:attribute name="pageBody" type="Aura.Component[]" />
+    <aura:attribute name="pageFooter" type="Aura.Component[]" />
+    
+    <div class="slds-grid slds-grid_vertical" >
+    	<div class="slds-col">
+            <!-- Header -->
+            {!v.pageHeader}
+        </div>
+        <div class="slds-col">
+             <!-- main content -->
+            {!v.pageBody}
+        </div>
+        <div class="slds-col">
+             <!-- Footer content -->
+            {!v.pageFooter}
+        </div>
+    </div>
+    
+	
+</aura:component>

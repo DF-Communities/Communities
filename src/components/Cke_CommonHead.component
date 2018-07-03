@@ -4,9 +4,9 @@
     <apex:variable value="{!IF($Site.BaseCustomUrl=='', 'https://' + $Site.Domain, $Site.BaseCustomUrl)}" var="baseResourceUrl"/>
     <apex:variable value="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" var="baseUrl"/>
  
-    <apex:attribute name="ogDescription" default="Whether you’re a baker or a faker, get ready to rise against dementia this Cupcake Day. Sign up today and help raise lots of ‘dough’ for Alzheimer’s Society." type="String" required="false" description="og-description"/> 
+    <apex:attribute name="ogDescription" default="Wooden spoons at the ready! Cupcake Day 2017 is being mixed, whisked and baked. Register your interest in taking part today." type="String" required="false" description="og-description"/> 
     <apex:attribute name="ogImage" default="fb.jpg" type="String" required="false" description="og-image"/> 
-    <apex:attribute name="ogTitle" default="Sign up to Cupcake Day!" type="String" required="false" description="og-title"/> 
+    <apex:attribute name="ogTitle" default="Join Cupcake Day 2017!" type="String" required="false" description="og-title"/> 
     <apex:attribute name="ogUrl" default="home" type="String" required="false" description="og-url"/> 
 
     <meta charset="utf-8"/>    
@@ -74,62 +74,5 @@
     <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js'></script>
     <script src="https://use.fontawesome.com/4250acf4f6.js"></script>
 
-    <!-- Tooltip additions -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
-    
-    <script>
-    .fa-question-circle {
-                  color: #1b1464;
-                }
-                
-                .tooltip:hover .tooltiptext {
-                    visibility: visible;
-                    background-color: #1b1464;
-                }
-                        
-                
-                .tooltip .tooltiptext {
-                    visibility: hidden;
-                    width: 120px;
-                    color: #fff;
-                    text-align: center;
-                    border-radius: 6px;
-                    padding: 5px 0;
-                
-                    /* Position the tooltip */
-                    position: absolute;
-                    z-index: 1;
-                }
-                
-                .tooltip:hover .tooltiptext {
-                    visibility: visible;
-                    background-color: #1b1464;
-                }
-                
-                .tooltip-inner {
-                background-color: #00acd6 !important;
-                /*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
-                color: #fff;
-                }
-                
-                .tooltip.top .tooltip-arrow {
-                border-top-color: #00acd6;
-                }
-                
-                .tooltip.right .tooltip-arrow {
-                border-right-color: #00acd6;
-                }
-                
-                .tooltip.bottom .tooltip-arrow {
-                border-bottom-color: #00acd6;
-                }
-                
-                .tooltip.left .tooltip-arrow {
-                border-left-color: #00acd6;
-                }
-    </script>
-    
-    
-   
-     
+           
 </apex:component>

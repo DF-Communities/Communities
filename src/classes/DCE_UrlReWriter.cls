@@ -92,7 +92,6 @@ global class DCE_UrlReWriter implements Site.UrlRewriter {
     		urlMappings.put('/ServiceEdit', '/DCE_ServiceEdit');
     		urlMappings.put('/ServiceView', '/DCE_ServiceView');
     		urlMappings.put('/my-details', '/DCE_UserDetails');
-            urlMappings.put('/privacy', '/DCE_privacyNotice');
     		
     		
     		return urlMappings;

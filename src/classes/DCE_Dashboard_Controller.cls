@@ -3,7 +3,6 @@ public with sharing class DCE_Dashboard_Controller extends DCE_ControllerUtils{
     public void initiation(){
     	loginRedirect();
     	services = services;
-    	//initiateServices();
     	
     	/*
     	if(pageMessage != null){
@@ -12,11 +11,11 @@ public with sharing class DCE_Dashboard_Controller extends DCE_ControllerUtils{
     	}*/
     }
 	
-	public list<serviceHolder> services {
+	public list<serviceHolder> services{
     	public get{
     		if(services != null){ return services; }
     		
-    		//First query live Salesforce for the latest versions of all this partner's services
+    		/*First query live Salesforce for the latest versions of all this partner's services*/
     		string queryEndPoint = WEBC_CommunityWrapper.getCustomSetting('RestEndpoint','DCE')+'/services/data/v35.0/query';
 			queryEndPoint += '?q='+EncodingUtil.urlEncode('select id, Name, Service_Type__c, last_reviewed__c, Service_Reference__c, service_status__c from Services__c where Operated_By__c = \''+CRSAccountId+'\'', 'UTF-8'); //where Operated_By__c = \'0013E000001QUSy\'
 			
@@ -34,7 +33,7 @@ public with sharing class DCE_Dashboard_Controller extends DCE_ControllerUtils{
 	    		
 	    		system.debug('Here is the map - '+m);
 	    		
-	    		//Here are the returned records from live
+	    		/*Here are the returned records from live*/
 	    		list<Object> returnedRecords = (list<Object>)m.get('records');
 	    		
 	    		services = new list<serviceHolder>();
@@ -48,10 +47,10 @@ public with sharing class DCE_Dashboard_Controller extends DCE_ControllerUtils{
 	    			system.debug('rMap for this record - '+rMap);
 	    			system.debug('Existing Amendment - '+amendmentMap.get((string)rMap.get('Id')));
 	    			
-	    			//Get the version of the amend that is in the portal
+	    			/*Get the version of the amend that is in the portal*/
 	    			DCE_ServiceAmend__c amend = amendmentMap.get((string)rMap.get('Id'));
 	    			
-	    			//If there isn't a version in the portal, create a basic version of it now
+	    			/*If there isn't a version in the portal, create a basic version of it now*/
 	    			if(amend == null){
 	    				
 	    				system.debug('No existing amendment in the portal');
@@ -75,30 +74,23 @@ public with sharing class DCE_Dashboard_Controller extends DCE_ControllerUtils{
     				system.debug('WE NEED TO ADD - '+notYetInPortal);
     				
     				list<Database.SaveResult> results = database.insert(notYetInPortal, false);
-    				system.debug('Save result size - '+results);
     				
     				for(integer i = 0 ; i <results.size() ; i++){
-    					
-    					system.debug('Here is the save result - '+results[i]);
     					
     					Database.SaveResult result = results[i];
     					
     					if(result.isSuccess()){
     						
-    						system.debug('Success');
-    							
     						DCE_ServiceAmend__c amend = notYetInPortal[i];
     						
     						services.add(new serviceHolder(amend.Name, amend.ServiceId__c, amend.service_type__c, amend.service_status__c, amend));
-    						
-    						system.debug('services after adding new - '+services);
     					}
     					
     				}
     			}
 			}
-		
-			//Pick up the amendments in the system that aren't yet in Dementia Connect
+			
+			/*Pick up the amendments in the system that aren't yet in Dementia Connect*/
 			for(DCE_ServiceAmend__c amend : Amendments){
 				
 				system.debug('Cycling through existing - '+amend);
@@ -183,14 +175,5 @@ public with sharing class DCE_Dashboard_Controller extends DCE_ControllerUtils{
     	}
     	
     }
-    
-    /*public string getBaseUrl(){
-    	return system.URL.getSalesforceBaseUrl().ToExternalForm();
-    }
-    
-    public string getBaseUrlHost(){
-    	return system.URL.getSalesforceBaseUrl().getHost();
-    }*/
-    
     
 }

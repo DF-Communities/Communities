@@ -89,7 +89,7 @@
                                                                     
                                                                 </p>
                                                                 <p><strong>Date:</strong><br/>
-                                                                    {!selectedEvent.eventDay} {!selectedEvent.eventMonth}</p>
+                                                                    {!selectedEvent.eventDay}{!selectedEvent.eventMonth}</p>
                                                                 <apex:outputPanel rendered="{!!selectedEvent.isRequestedSession || 
                                                                                             (CONTAINS(selectedEvent.theEvent.Request_Status__c, 'Matched with champion')
                                                                                             || CONTAINS(selectedEvent.theEvent.Request_Status__c, 'Completed'))}">
@@ -104,6 +104,7 @@
                                                                         <span>{!selectedEvent.eventEndHour}
                                                                             <span>{!selectedEvent.eventEndMin}</span>
                                                                         </span>
+                                                                        
                                                                     </p>
                                                                 </apex:outputPanel>
                                                                 
@@ -128,10 +129,10 @@
                                                                 <div id="address">
                                                                     <p><strong>Address</strong>
                                                                         <address>
-                                                                            <apex:outputText rendered="{!!ISBLANK(selectedEvent.theEvent.Location__c)}"><strong>{!selectedEvent.theEvent.Location__c}</strong><br/></apex:outputText>
+                                                                            <strong>{!selectedEvent.theEvent.Location__c}</strong><br/>
                                                                             {!selectedEvent.theEvent.Street__c}<br/>
                                                                             {!selectedEvent.theEvent.City__c}<br/>                        
-                                                                            <apex:outputText rendered="{!!ISBLANK(selectedEvent.theEvent.County__c)}">{!selectedEvent.theEvent.County__c}<br/></apex:outputText>
+                                                                            {!selectedEvent.theEvent.County__c}<br/>
                                                                             {!selectedEvent.theEvent.Postcode__c}<br/>
                                                                     </address>
                                                                 </p>

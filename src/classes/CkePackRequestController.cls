@@ -101,22 +101,27 @@ global without sharing class CkePackRequestController extends EdtPageController 
              Cke_Pack_Request__c item = buildRecord(cmd, isPartialSubmission);       
              System.debug('item is: ' + item );
 
-             // Prevent recording personal identifiable data before a full page submit
-            if(item.Email__c != null) {
-                item.Email__c = 'partialsubmission@mailinator.com';    
-            }
-            if(item.First_Name__c != null) {
-                item.First_Name__c = 'Anon';    
-            }
-            if(item.Last_Name__c != null) {
-                item.Last_Name__c = 'Anon';    
-            }
-            if(item.Phone__c != null ) {
-                item.Phone__c = '077777777777';    
-            }
-            if(item.Address_Line1__c != null) {
-                item.Address_Line1__c = 'Anon';    
-            }
+           // June 2018 - GG - THIS IF STATEMENT NOT YET DEPLOYED as of June 2018
+           if ( item.Status__c == null || item.Status__c != 'Completed') {
+
+               // Prevent recording personal identifiable data before a full page submit
+               if (item.Email__c != null) {
+                   item.Email__c = 'partialsubmission@mailinator.com';
+               }
+               if (item.First_Name__c != null) {
+                   item.First_Name__c = 'Anon';
+               }
+               if (item.Last_Name__c != null) {
+                   item.Last_Name__c = 'Anon';
+               }
+               if (item.Phone__c != null) {
+                   item.Phone__c = '077777777777';
+               }
+               if (item.Address_Line1__c != null) {
+                   item.Address_Line1__c = 'Anon';
+               }
+
+           }
 
             Database.UpsertResult dsr = Database.upsert(item, false);
            
@@ -156,6 +161,8 @@ global without sharing class CkePackRequestController extends EdtPageController 
 
     public static Cke_Pack_Request__c buildRecord(Command cmd, Boolean isPartialSubmission)
     {
+
+        System.debug('Submitted cmd:' + cmd);
 
         Cke_Pack_Request__c item;
         if ( cmd.id != null && cmd.id != '' ) {
@@ -197,11 +204,10 @@ global without sharing class CkePackRequestController extends EdtPageController 
         item.Company_Name__c = cmd.companyName;
         
         if(cmd.dob != '') {
+
             Datetime dobDt = Datetime.newInstance(Long.valueOf(cmd.dob));
             item.BirthDate__c = dobDt.date();
         }
-        
-        System.debug('HEADER REST AS: ' + item.Referer_Header__c);
 
         item.Time_Submitted__c = DateTime.now();         
         //if ( cmd.submitted == true ) { item.Status__c = 'Completed'; }
@@ -214,7 +220,7 @@ global without sharing class CkePackRequestController extends EdtPageController 
     
     }
 
-
+    /*
     private static Date getDate(String sDate) {
 
         try { 
@@ -234,6 +240,7 @@ global without sharing class CkePackRequestController extends EdtPageController 
         }
 
     }
+    */
 
     
     global class Command 

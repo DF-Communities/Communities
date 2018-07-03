@@ -1,0 +1,44 @@
+<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" controller="WEBChampionSessionFeedback" action="{!loginRedirect}" lightningStylesheets="false" cache="false"  standardStylesheets="false" docType="HTML-5.0"  >
+    
+    <head>
+        <apex:includeLightning />
+        <c:DF_WEBR_WebMeta />
+        <c:DF_WEBR_WebMeta_2 />
+    </head>   
+  
+    
+    <div class="container">
+        <c:DF_WEBR_WebHeader showCounter="Y"/>
+        <c:DF_WEBR_WebNavbar />
+        
+        <div class="row *.css">
+            <div class="col-sm-12">
+                <div class="row *.css">
+                    <div class="col-md-9 column col-md-push-3">
+                        <div id="infoSessionfeedback" width="100%"/> 
+    
+<script>        
+        $Lightning.use("c:EventFeedBackApp", function() {
+            $Lightning.createComponent("c:EventFeedBack",
+                                       { useSlds : "false" },
+                                       "infoSessionfeedback",
+                                       function(cmp) {
+                                           // do some stuff
+                                       });
+    	});
+</script>
+                   
+                    
+    </div>
+                    <c:DF_WEBC_ChampionNav activeValue="MANAGEMYSESSIONS" dfcW="{!dfcW}"/>
+                </div> 
+               
+            </div>
+        </div>
+
+    <c:DF_WEBR_WebFooter />
+    
+</div>
+    
+
+</apex:page>

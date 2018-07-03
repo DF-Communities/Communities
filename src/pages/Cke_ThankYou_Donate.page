@@ -48,7 +48,7 @@
                                 <h2><c:EdtText group="cke-donatethanks" key="intro-title-2" context="{!edtContext}" text="Share Cupcake Day with the world"/></h2>                
                             </div>
                             <div class="col-sm-12 col-xs-12 col-md-12">  
-                                <p><c:EdtText group="cke-donatethanks" key="intro-text-2" context="{!edtContext}" text="Help us spread the word about Cupcake Day by sharing #CupcakeDay on social media."/></p>
+                                <p><c:EdtText group="cke-donatethanks" key="intro-text-1" context="{!edtContext}" text="Help us spread the word about Cupcake Day by sharing #CupcakeDay on social media."/></p>
                             </div>
                             <div class="col-sm-6 col-xs-12 xs-center text-right">
                                 <a class="btn btn-social btn-twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Whether%20you%E2%80%99re%20a%20baking%20pro,%20cake%20mix%20cheater%20or%20shop%20bought%20lover,%20host%20a%20%23CupcakeDay%20and%20raise%20money%20for%20%40alzheimerssoc%20ow.ly/dExT309CPG4"><span class="fa fa-twitter"></span> Twitter</a>                   

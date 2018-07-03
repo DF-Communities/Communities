@@ -332,14 +332,14 @@ Org Admin users.
                                  Number_of_Friends_Influenced__c, Total_No_of_Friends_Created__c, Code_Verefied__c, Session_Code_Verified__c, Status__c, Created_As_Type__c,
                                  Partner_Organisation_Id__c,Partner_Organisation_Id__r.Internal_purpose__c,Partner_Organisation_Id__r.Name,
                                  Watched_Video_Type__c,Block_champion_exchange_access__c, Type_of_Champion__c, Has_Watched_Video__c,
-                                 Admin_block_from_requesting_info_session__c, Blocked_due_to_excessive_req_sessions__c, Info_Session_Search_Radius__c
+                                 Admin_block_from_requesting_info_session__c, Blocked_due_to_excessive_req_sessions__c
                                  from DF_Contact__c 
                                  where Email__c =: u.UserName LIMIT 1];
 
             return dfc;
             
         } catch (Exception x) {             
-            
+            System.assert(false, ' error ' + u.UserName + ' '+ x.getMessage());
             system.debug('DF UTILS User Contact Not Found : ' + u.id);
             system.debug(x.getMessage());
             return null;                
@@ -445,14 +445,6 @@ with a future method, so may not be immediately available */
         if ( dfc == null ) { return false; }
         if ( !isChampion(dfc) ) { return false; }
         return ( STATUS_HIATUS.equalsIgnoreCase(dfc.Status__c));
-        
-    }
-    
-    public static Decimal getDefaultSearchRadius (DF_Contact__c dfc) {
-        
-        if ( dfc == null ) { return null; }
-        if ( !isChampion(dfc) ) { return null; }
-        return ( dfc.Info_Session_Search_Radius__c);
         
     }
     

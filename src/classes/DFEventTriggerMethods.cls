@@ -547,7 +547,7 @@ rtMap.put(rt.Id, rt);
     @AuraEnabled
     public static DF_Event__c getEventInfo(String eventId) {
         
-        List<DF_Event__c> event = [SELECT Id, Name, Comments__c, Number_of_Attendees__c, Partner_Organisation__c  
+        List<DF_Event__c> event = [SELECT Id, Name, Comments__c, Number_of_Attendees__c  
                                    FROM DF_Event__c
                                    WHERE Id = :eventId];
         if(event.size()==1) {
@@ -569,7 +569,7 @@ rtMap.put(rt.Id, rt);
                                              c.Record_Type_Name__c, c.Blocked_due_to_excessive_req_sessions__c,
                                              c.Admin_block_from_requesting_info_session__c,
                                              (SELECT po.Id, po.Name, po.Partner_Organisation__c, po.Partner_Organisation__r.Name FROM PO_Administrators__r po),
-                                             (SELECT ev.Id, ev.Name, ev.Session_Requester__c, ev.Champion_Feedback_Submitted__c, ev.Partner_Organisation__c,
+                                             (SELECT ev.Id, ev.Name, ev.Session_Requester__c, ev.Champion_Feedback_Submitted__c, 
                                                      ev.Host_Feedback_Submitted__c, ev.Requested_Info_Session__c, ev.Number_of_Attendees__c 
                                              FROM DF_Events__r ev  WHERE 
                                              (ev.Id =:eventId ) OR (
@@ -584,8 +584,7 @@ rtMap.put(rt.Id, rt);
         Integer noRequestedEventsOpen = 0;
         if( String.isNotEmpty(eventId)) {
             existingEventData = [SELECT Session_Organiser__c, Session_Requester__c, Requested_Info_Session__c,
-                                 Host_Feedback_Submitted__c, Champion_Feedback_Submitted__c, Number_of_Attendees__c,
-                                 Partner_Organisation__c
+                                 Host_Feedback_Submitted__c, Champion_Feedback_Submitted__c, Number_of_Attendees__c 
                                  FROM DF_Event__c
                                  WHERE Id = :eventId];
             
@@ -718,8 +717,6 @@ rtMap.put(rt.Id, rt);
     public class DFEvent {
         @AuraEnabled public String name {get;set;} 
         @AuraEnabled public String recordId {get;set;} 
-        @AuraEnabled public String partnerOrgId {get;set;}
-        @AuraEnabled public Decimal nbrOfAttendees {get;set;}
         @AuraEnabled Boolean isRequester {get;set;}
         @AuraEnabled Boolean isRequestedSession {get;set;}
         @AuraEnabled Boolean isChampFdbackSubmitted {get;set;}
@@ -729,8 +726,6 @@ rtMap.put(rt.Id, rt);
         public DFEvent(DF_Event__c ev, Id requesterId) {
             this.name = ev.name;
             this.recordId = ev.id;
-            this.partnerOrgId = ev.Partner_Organisation__c;
-            this.nbrOfAttendees = ev.Number_of_Attendees__c;
             this.isRequester = (ev.Session_Requester__c == requesterId) ? true : false; //depricated
             this.isChampFdbackSubmitted = ev.Champion_Feedback_Submitted__c ;
             this.isHostFdbackSubmitted = ev.Host_Feedback_Submitted__c;

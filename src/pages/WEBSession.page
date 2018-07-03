@@ -306,7 +306,7 @@
                     </apex:outputPanel>
                     </apex:form>
                     </div>
-                    <c:DF_WEBC_RequestInfoSession />
+                    
                      <div class="row *.css">
                     
                             <div class="col-md-12 column">

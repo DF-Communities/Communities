@@ -33,7 +33,7 @@
         j$( datepickerId ).datepicker({
             format:'dd/mm/yyyy',
    			autoclose: true,
-            startDate  : new Date(), 
+            startDate  : targetDate, 
             endDate: maxDate,
             container: 'body',
             todayHighlight: true,
@@ -49,7 +49,7 @@
             component.set("v.value", dateStrFormat); 
             helper.verifyDateInRangeHelper(component, event, helper);
         });
-        j$( datepickerId ).datepicker('setDate', targetDate);
+        
         helper.setDefaultDate(component);   
 
     },
@@ -65,6 +65,7 @@
     
     setDate : function(component, event, handler) {
       //$A.get('e.force:refreshView').fire();
+      console.log(JSON.stringify(event));
     },
     
     validateComponent : function(component, event, helper) {

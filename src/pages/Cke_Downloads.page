@@ -226,7 +226,7 @@
                                         <c:EdtImage group="cke-getready" key="recipe-image-6" context="{!edtContext}" src="{!URLFOR($Resource.Cke_Assets, 'img/downloadspage/81_AlzSoc_CCD-2018_website-widgets_Tiramisu-cupcakes.jpg-min.png')}" alt="Tiramisu cupcake recipe image" html-class="img-responsive img-100"/>                            
                                     </div>
                                     <div class="billboard__content billboard__darkblue white-text">
-                                        <c:EdtDownload group="cke-getready" key="recipe-download-6" context="{!edtContext}" link-text="<strong>Tiramisu cupcakes ></strong>" html-class="white-text" 
+                                        <c:EdtDownload group="cke-getready" key="recipe-download-5" context="{!edtContext}" link-text="<strong>Tiramisu cupcakes ></strong>" html-class="white-text" 
                                                       href="{!URLFOR($Resource.Cke_Downloadables_Pt2, 'Tiramisu_cupcake_recipe.pdf')}" />                                             
                                     </div>
                                 </div>

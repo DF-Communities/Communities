@@ -61,7 +61,7 @@ public without sharing class WEBC_Recaptcha2Handler {
             
         }        
         
-        return false;
+        return true;
     }
     
     

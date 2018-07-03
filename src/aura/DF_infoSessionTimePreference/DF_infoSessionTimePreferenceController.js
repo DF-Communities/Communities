@@ -76,9 +76,8 @@
 
         if(component.get("v.totalNoRows") <= 3) {
             //var rowIsValid = helper.validateComponentHelper(component, event, helper)
-            console.log('In add row');
-            var rowIsValid = helper.verifyRequiredFieldsArePopulated(component, helper, component);
-			console.log('rowIsValid ' + rowIsValid);
+            var rowIsValid = helper.verifyRequiredFieldsArePopulated(component, event);
+
             if(rowIsValid) {
                 component.set("v.isValid", true);
                 helper.initiateRowAddOrRemove(component, event, helper, true);

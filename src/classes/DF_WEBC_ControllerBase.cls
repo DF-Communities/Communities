@@ -27,10 +27,9 @@ public abstract class DF_WEBC_ControllerBase extends WEBC_ControllerBase {
         get {
 
             if (!isLoggedIn) { return null;}
-
+			
             if (currentDfc !=null ) { return currentDfc; }          
             currentDfc = DF_Utils.getDFContactForUser(UserInfo.getUserId());
-
             if (currentDfc == null) { return null; }
 
             return currentDfc;

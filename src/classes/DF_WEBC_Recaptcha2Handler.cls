@@ -3,7 +3,6 @@ global with sharing class DF_WEBC_Recaptcha2Handler {
     private static final String CAPTCHA_VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify';
     private static final String CAPTCHA_LOAD_URL = 'https://www.google.com/recaptcha/api.js';
     
-    //public String captureParams {get;set;}
     public String fullRecaptchaUri {get;set;}
     
     public String captureParams;
@@ -73,7 +72,7 @@ global with sharing class DF_WEBC_Recaptcha2Handler {
         req.setEndpoint(CAPTCHA_VERIFY_URL);
         req.setMethod('POST');
         req.setBody (reqBody);
-        
+        System.debug('Body is: ' + reqBody);
         if (test.isRunningTest()){
             finalResp = new HTTPResponse();
             finalResp.setBody('{"key","object"}');
@@ -86,6 +85,7 @@ global with sharing class DF_WEBC_Recaptcha2Handler {
             }   
             
             String jsonResponse = finalResp.getBody();
+            System.debug('jsonResponse is: ' + jsonResponse);
             Map<String,Object> respObj =  (Map<String,Object>)JSON.deserializeUntyped(jsonResponse);
             
             if ( finalResp!= null ) {

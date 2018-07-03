@@ -107,7 +107,6 @@
                                 <div class="col-md-5 col-sm-12 col-xs-12"  style="margin-top: 15px;">
                                     <c:STD_datePicker name="startDate" 
                                                       label="From" 
-                                                      required="true"
                                                       setDate="{!v.startDate}"
                                                       aura:id="startDate"
                                                       value="{!v.startDate}"/>
@@ -117,9 +116,7 @@
                                     
                                     <c:STD_datePicker name="endDate" 
                                                       label="To"
-                                                      required="true"
                                                       setDate="{!v.endDate}"
-                                                      daysOffsetFromToday="61"
                                                       aura:id="endDate"
                                                       value="{!v.endDate}"/>
                                 </div>

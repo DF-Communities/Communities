@@ -4,65 +4,65 @@
                     description="These attributes are appended to the default recaptcha API string" 
                     assignTo="{!captureParams}"/>
                     
-                    <apex:attribute name="destHostUrl" type="String" description="The URL of the host on which the destination component is built" default=""/>
+    <apex:attribute name="destHostUrl" type="String" description="The URL of the host on which the destination component is built" default=""/>
     
     <apex:includeScript value="{!fullRecaptchaUri}" />
 
     <style>form .captcha .g-recaptcha { display : block; }</style>
     
     <div class="row captcha"> 
-        <div class="col-md-12">                    
+        <div class="col-md-12">     
             <div id="df-captcha" class="g-recaptcha" data-sitekey="{!captchaSite}"></div>
             <span id ="reCAPTCHAError" class="help-block"> </span>
         </div> 
     </div>  
     
-    <!-- FOLLOWING METHODS ARE ONLY RUN IF THE recaptchaAttributes IS SET TO "onload=onloadCallback&render=explicit" -->
-                                <script>   
-                                
-                                function interpretCaptchaResponse(rawResponse) {
-                                
-                                Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.DF_WEBC_Recaptcha2Handler.interpretCaptchaResponse}',
-                                    '{!captchaSecret}',
-                                    rawResponse,
-                                    function(result, event){
-                                        if (event.status) {
-                                            // Get DOM IDs for HTML and Visualforce elements like this
-                                            //document.getElementById('captcha-usrfriendly-response').innerHTML = result
-                                            var resultMap = {};
-                                            resultMap.cmp = 'captcha';
-                                            resultMap.body = result;
-                                            postOutcomeViaBrowserApi(resultMap);
-                                            
-                                        } else if (event.type === 'exception') {
-                                            document.getElementById("responseErrors").innerHTML = 
-                                                event.message + "<br/>\n<pre>" + event.where + "</pre>";
-                                            
-                                        } else {
-                                            document.getElementById("responseErrors").innerHTML = event.message;
-                                            
-                                        }
-                                    }, 
-                                    {escape: true}
-                                );
-                                
-                            }
-                            
-                            function postOutcomeViaBrowserApi(captchaMessage) {
-                                var lexOrigin = 'https://' + '{!destHostUrl}';
-                                parent.postMessage(captchaMessage, lexOrigin);
-                            }
+    <apex:outputPanel rendered="{!NOT(ISNULL(captureParams))}">
+    <script>   
+    // FOLLOWING METHODS ARE ONLY RUN IF THE recaptchaAttributes IS SET TO "onload=onloadCallback&render=explicit"
+    function interpretCaptchaResponse(rawResponse) {
         
-        var onloadCallback = function() {  
-            grecaptcha.render("df-captcha", {
-                'sitekey': '{!captchaSite}',
-                'callback': function() {
-                    var rawResponse = grecaptcha.getResponse();
-                    interpretCaptchaResponse(rawResponse);
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.DF_WEBC_Recaptcha2Handler.interpretCaptchaResponse}',
+            '{!captchaSecret}',
+            rawResponse,
+            function(result, event){
+                if (event.status) {
+                    // Get DOM IDs for HTML and Visualforce elements like this
+                    //document.getElementById('captcha-usrfriendly-response').innerHTML = result
+                    var resultMap = {};
+                    resultMap.cmp = 'captcha';
+                    resultMap.body = result;
+                    postOutcomeViaBrowserApi(resultMap);
+                    
+                } else if (event.type === 'exception') {
+                    document.getElementById("responseErrors").innerHTML = 
+                        event.message + "<br/>\n<pre>" + event.where + "</pre>";
+                    
+                } else {
+                    document.getElementById("responseErrors").innerHTML = event.message;
+                    
                 }
-            });
-        }
-        </script>
+            }, 
+            {escape: true}
+        );
+        
+    }
     
+    function postOutcomeViaBrowserApi(captchaMessage) {
+        var lexOrigin = 'https://' + '{!destHostUrl}';
+        parent.postMessage(captchaMessage, lexOrigin);
+    }
+    
+    var onloadCallback = function() {  
+        grecaptcha.render("df-captcha", {
+            'sitekey': '{!captchaSite}',
+            'callback': function() {
+                var rawResponse = grecaptcha.getResponse();
+                interpretCaptchaResponse(rawResponse);
+            }
+        });
+    }
+    </script>
+    </apex:outputPanel>
 </apex:component>

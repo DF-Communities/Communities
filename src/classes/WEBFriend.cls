@@ -4,7 +4,7 @@
 *  Purpose : APEX class for the WEBFriend VF Page
 *            
 *  Author  : CSL
-*  Date    : 27-02-2014 
+*  Date    : 27-02-2014
 *  Version : 1.0
 *
 *  Description:    WEBFriend class holds methods and properties used in the
@@ -383,7 +383,7 @@ public without sharing class WEBFriend extends DF_WEBC_ControllerBase {
             if ( dfcW.isFriendConverted ){
                 isFriendConverted = TRUE;
                 hasSessionCode = TRUE;
-                hasRegisteredForSession = (!events.isEmpty());
+                hasRegisteredForSession = TRUE;
                 registerText = REGISTERED;
                 sessionCodeText = SESSION_CODE_ENTERED;
             }
@@ -397,7 +397,7 @@ public without sharing class WEBFriend extends DF_WEBC_ControllerBase {
     
         offset = DF_Utils.offset;
         
-        Map<String,List<DF_Event__c>> champRequestedSessionMap = DF_EventListingHelper.getRequestedSessions(false, false, currentDfc.Id);
+        Map<String,List<DF_Event__c>> champRequestedSessionMap = DF_EventListingHelper.getRequestedSessions(true, currentDfc.Id);
             requestedEventsRequiringFeedback = champRequestedSessionMap.get('eventsAwaitingFeedback');
             upcomingRequestedEvents = champRequestedSessionMap.get('upcomingEvents');
             pastRequestedEvents = champRequestedSessionMap.get('pastEvents');

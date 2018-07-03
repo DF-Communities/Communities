@@ -2,12 +2,12 @@
     doInit : function(component, event, helper) {
     },
     onLoadEventArray : function(component, event ) {
-		console.log('## array change ' +  JSON.stringify(component.get("v.events")));
-        console.log('## eventId change ' +  JSON.stringify(component.get("v.eventId")));
+		//console.log('## array change ' +  JSON.stringify(component.get("v.events")));
+        //console.log('## eventId change ' +  JSON.stringify(component.get("v.eventId")));
         var dfEvents = component.get("v.events");
         var dfEventId = component.get("v.eventId");
         if (!$A.util.isEmpty(dfEventId)) {
-            for (var evt of dfEvents) {
+            for (var evt in dfEvents) {
                 if (evt.recordId == dfEventId) {
                     component.set("v.isFirstSubmission", evt.isFirstSubmission);
                     if (!$A.util.isEmpty(evt.partnerOrgId)) {
@@ -36,23 +36,7 @@
         var pOrgSection = component.find("porg-section");        
         $A.util.toggleClass(pOrgSection, "toggle");
     },
-    /*handleSaveRecord : function(component, event, helper) {
-        
-        console.log("In saverecord");
-        var objAsStr = JSON.stringify(component.get("v.simpleRecord"));
-        console.log("Attempting save with object: " + objAsStr);
-        console.log("Submitting: " + JSON.stringify(component.get("v.simpleRecord")));
-        var dfEvent = component.get("v.simpleRecord");
-        
-        if(component.get("v.userIsRequester")) {
-        	dfEvent.Host_Feedback_Submitted__c = true;
-        } if(!component.get("v.userIsRequester")) {
-            dfEvent.Champion_Feedback_Submitted__c = true;
-        } 
-        
-        helper.updateSfdcRecord(component, dfEvent);
-    }*/
-    
+
     handleSubmit : function(component, event, helper) {
         console.log("In here");
         if (!component.get("v.partnerOrgSelected")) {
@@ -73,7 +57,7 @@
     handleDFEventSelection : function(component, event, helper) {
        var eventRecord = component.get("v.simpleRecord");
        var events = component.get("v.events");
-       for (var dfEvent of events) {
+       for (var dfEvent in events) {
            if (dfEvent.recordId == eventRecord.Id) { 
                console.log('### matching record ' + JSON.stringify(dfEvent));
                //component.set("v.simpleRecord", dfEvent); 

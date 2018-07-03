@@ -370,9 +370,7 @@ public without sharing class WEBCreateEditSession extends DF_WEBC_ControllerBase
         monthTextMap = buildMonthTextMap();
         //isChampion = WEBController.isChampion;
         //isChampionConverted = WEBController.isChampionConverted;
-        System.debug('currentdfc.Type_Of_Champion__c: ' +  currentdfc.Type_Of_Champion__c);
-        System.debug('isChampion: ' +  currentdfc.Type_Of_Champion__c != '');
-        isChampion = (currentdfc.Type_Of_Champion__c != '' && currentdfc.Type_Of_Champion__c != null);
+        isChampion = currentdfc.Type_Of_Champion__c != '';
         isChampionConverted = currentdfc.Status__c == 'Converted';
         
         //list with duplicate partner name

@@ -43,6 +43,7 @@
 	
 	public String emailAddress {get;set;}
 	public String emailAddress2 {get;set;}
+     public Boolean emailOptIt {get;set;}
 
 	public Boolean newsletter {get;set;}
 	public User APIUser {get; set;}

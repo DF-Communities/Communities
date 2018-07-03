@@ -1,0 +1,137 @@
+<aura:component controller="DFEventTriggerMethods">
+	<!-- attribute -->
+    <aura:attribute name="simpleRecord" type="DF_Event__c" default="{'sObjectType':'DF_Event__c', 'Name':'' , 'Id':'', 'Partner_Organisation__c':''}"/>
+    <aura:attribute name="isReqSessionFirstSubmission" type="Boolean"/>
+    <aura:attribute name="isFirstSubmission" type="Boolean" default="true" />
+    <aura:attribute name="userIsChampion" type="Boolean" description="This determines which page to redirect to"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="partnerOrgSelected" type="Boolean" default="false"/>
+    <aura:attribute name="isUntouched" type="Boolean" default="true"/>
+    <aura:attribute name="isFriendsCreatedComplete" type="Boolean" default="true"/>
+    <aura:attribute name="events" type="Object"  />
+    <aura:attribute name="pOrgs" type="Object"  />
+    <aura:attribute name="eventId" type="String"/>
+    
+    <!--Event Registration -->
+    <aura:registerEvent name="DF_commonFdbackPgSubmit" type="c:DF_commonFdbackPgSubmit"/>
+    
+    <!--Event Handler -->    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler name="change" value="{!v.events}" action="{!c.onLoadEventArray}"/>
+    
+    
+    <form styleClass="form-horizontal">
+        <div class="form-group">
+            
+            <div class="control-group element-name element-type-text required">
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group ">
+                        <label class="col-md-3 control-label ">Session Name</label>
+                        <div class="col-md-8 spacer">
+                            <aura:if isTrue="{!not(v.isFirstSubmission)}"> 
+                                	<ui:outputText value="{!v.simpleRecord.Name}"/>
+                                	<aura:set attribute="else">                            
+                                        <ui:inputSelect label="" 
+                                            class="form-control"
+                                            value="{!v.simpleRecord.Id}"
+                                            change="{!c.handleDFEventSelection}"
+                                            aura:id="eventlist"  >
+                                            <ui:inputSelectOption text="" label="Please select..." value="true" />
+                                            <aura:iteration items="{!v.events}" var="evt">
+                                                <ui:inputSelectOption text="{!evt.recordId}" label="{!evt.name}"/>
+                                            </aura:iteration>
+                                        </ui:inputSelect>
+	                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group ">
+                        <label class="col-md-3 control-label ">Number of friends created</label>
+                        <div class="col-md-8 spacer">
+                            <ui:inputNumber value="{!v.simpleRecord.Number_of_Attendees__c}" 
+                                            class="form-control"
+                                            change="{!c.validateFieldAndRegisterEdit}"
+                                            maxlength="4"
+                                            aura:id="friendsCreated"/>
+                        </div>
+                    </div>
+                </div> 
+                <aura:if isTrue="{!not(empty(v.pOrgs))}"> 
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group control-label">
+                                <ui:inputCheckbox click="{!c.togglePartnerOrgs}" 
+                                                  value="{!v.partnerOrgSelected}"
+                                                  labelClass="chk-label-padding-left" 
+                                                  class="chk-label-right spacer" 
+                                                  label="Did you deliver the session to members of the organisation that you work for?" />
+                            </div>
+                    </div>
+                    <div aura:id="porg-section" class="{!v.partnerOrgSelected ? 'col-lg-12 col-md-12 col-sm-12 col-xs-12':'toggle col-lg-12 col-md-12 col-sm-12 col-xs-12'}">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label ">Partner Orgs</label>
+                                <div class="col-md-8 spacer">
+                                             <ui:inputSelect label="" 
+                                                    class="form-control"
+                                                    value="{!v.simpleRecord.Partner_Organisation__c}"
+                                                    aura:id="eventlist" >
+                                                    <ui:inputSelectOption text="" label="Please select..." value="true" />
+                                                    <aura:iteration items="{!v.pOrgs}" var="po">
+                                                        <ui:inputSelectOption text="{!po.recordId}" label="{!po.name}"/>
+                                                    </aura:iteration>
+                                             </ui:inputSelect>
+                                </div>
+                            </div>
+                    </div>
+                </aura:if>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group ">
+                        <label class="col-md-3 control-label ">Comments</label>
+                        <div class="col-md-8 spacer">
+                            <ui:inputTextArea value="{!v.simpleRecord.Comments__c}" 
+                                              label=""
+                                              resizable="false"
+                                              rows="3"
+                                              class="form-control"
+                                              change="{!c.registerFormEdit}"
+                                              aura:id="comments"/>
+                            <p class="help-block">Please note comments are limited to 500 characters.</p>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="clear:both;">
+            <aura:if isTrue="{!!v.isLoading}">
+                <aura:if isTrue="{!v.simpleRecord.Id != ''}">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p class="form-submit-err" style="color: #a94442">*Note: You must report an attendance at a Session of 1 or higher. If the Session did not happen please click the 'Session did not take place' button below.</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:15px;">                        
+                            <div onclick="{!c.handleSubmit}">
+                                <a class="btn-primary btn-xs" style="font-size: 14px;float:left; margin-right: 15px;margin-bottom: 15px;">
+                                    {!if(v.isReqSessionFirstSubmission, 'Next', 'Save')}
+                                </a>
+                            </div>                    
+                            <div onclick="{!c.handleCancelledSession}">
+                                <a class="btn-primary btn-xs" style="font-size: 14px;float:left;">
+                                    Session did not take place
+                                </a>
+                            </div>
+                    </div>
+                </aura:if>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.isLoading}">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding-bottom:15px;">  
+                    <ui:spinner aura:id="loadingSpinner" />
+                </div>
+            </aura:if>          
+        </div>
+        
+    </form>
+</aura:component>

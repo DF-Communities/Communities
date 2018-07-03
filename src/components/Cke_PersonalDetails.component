@@ -18,25 +18,19 @@
 
         <div class="col-xs-12 col-md-12">
             <label for="firstname">First name <span style="color: red; font-weight: bold">*</span></label>
-            <input type="text" id="firstname" data-ng-model="data.firstName" name="firstName" 
-                   data-ng-required="true" class="form-control" data-ng-disabled="waiting" 
-                   data-ng-pattern="textPattern" maxlength="40" data-ng-blur="validateName()"/>
+            <input type="text" id="firstname" data-ng-model="data.firstName" name="firstName" data-ng-required="true" class="form-control" data-ng-disabled="waiting" data-ng-pattern="textPattern" maxlength="40"/>
             <span data-ng-class="{active:form.firstName.$invalid&&(form.firstName.$touched || showErrors)}" class="ui-state-error message">Please enter your first name</span>
         </div>
 
         <div class="col-xs-12 col-md-12">
             <label for="surname">Last name <span style="color: red; font-weight: bold">*</span></label>
-            <input type="text" data-ng-model="data.lastName" id="surname" name="lastName" 
-                   data-ng-required="true" class="form-control" data-ng-disabled="waiting" 
-                   data-ng-pattern="textPattern" maxlength="40" data-ng-blur="validateName()"/>
+            <input type="text" data-ng-model="data.lastName" id="surname" name="lastName" data-ng-required="true" class="form-control" data-ng-disabled="waiting" data-ng-pattern="textPattern" maxlength="40"/>
             <span data-ng-class="{active:form.lastName.$invalid&&(form.lastName.$touched|| showErrors)}" class="ui-state-error message">Please enter your last name</span>
         </div>
 
         <div class="col-xs-12 col-md-12">
             <label for="email">Email address <span style="color: red; font-weight: bold">*</span></label>
-            <input type="email" name="email" value="" id="email"  class="form-control email" required="true" data-ng-model="data.email" 
-                   data-ng-class="{invalid:err.emailMismatch}" data-ng-change="onEmailChange()" 
-                   data-ng-disabled="waiting" data-ng-blur="quickSave()" data-ng-pattern="emailPattern"/>
+            <input type="email" name="email" value="" id="email"  class="form-control email" required="true" data-ng-model="data.email" data-ng-class="{invalid:err.emailMismatch}" data-ng-change="onEmailChange()" data-ng-disabled="waiting" data-ng-blur="quickSave()" data-ng-pattern="emailPattern"/>
             <span data-ng-class="{active:form.email.$invalid&&(form.email.$touched|| showErrors)}" class="ui-state-error message">Please enter your email</span>
         </div>
 

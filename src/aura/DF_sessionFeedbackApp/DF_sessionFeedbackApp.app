@@ -1,4 +1,4 @@
-<aura:application access="GLOBAL" extends="ltng:outAppUnstyled">
+<aura:application access="GLOBAL" extends="ltng:outApp">
     
     <aura:dependency resource="c:DF_infoSessionFeedback"/>
 

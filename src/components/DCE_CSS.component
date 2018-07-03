@@ -102,14 +102,8 @@
         .wordBreak{
         	word-break: break-all;
         }
-        
-        span.private{
-		        	color: red;
-					font-size: 90%;
-					font-weight: bold;
-					margin: 0.5em;
-				}
-	</style>
+                    
+    </style>
     
     <script>
         /*
