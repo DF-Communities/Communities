@@ -397,7 +397,7 @@ public without sharing class WEBFriend extends DF_WEBC_ControllerBase {
     
         offset = DF_Utils.offset;
         
-        Map<String,List<DF_Event__c>> champRequestedSessionMap = DF_EventListingHelper.getRequestedSessions(true, currentDfc.Id);
+        Map<String,List<DF_Event__c>> champRequestedSessionMap = DF_EventListingHelper.getRequestedSessions(false, false, currentDfc.Id);
             requestedEventsRequiringFeedback = champRequestedSessionMap.get('eventsAwaitingFeedback');
             upcomingRequestedEvents = champRequestedSessionMap.get('upcomingEvents');
             pastRequestedEvents = champRequestedSessionMap.get('pastEvents');
