@@ -1,4 +1,8 @@
-test:
- override:
- - ant -f build.xml -lib lib/ BUILD:
- timeout: 600
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.2-stretch-browsers
+    steps:
+      - checkout
+      - run: pip install -r lib/
