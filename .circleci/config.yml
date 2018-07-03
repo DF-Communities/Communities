@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: DF Deployment
-          command: echo Hello, world.
+          command: ./config/scripts/ci.sh
       - run:
           name: Print the Current Time
           command: date
