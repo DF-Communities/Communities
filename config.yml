@@ -1,4 +1,4 @@
-test:
-  override:
+version: 2.0
+build:
     - ant -lib lib/ Build: 
         timeout: 600
