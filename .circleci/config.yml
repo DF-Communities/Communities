@@ -4,11 +4,8 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/code
-    docker:
-      - image: circleci/android:api-25-alpha
     steps:
       - checkout
     - run:
           name: Deploy DF Communities
-          command: ../config/scripts/ci.sh
+          shell: ../config/scripts/ci.sh
