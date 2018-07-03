@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: install dependancy 
-          command: sudo yum install ant
+          command: ant -version
       - run:
           name: DF Deployment
           command: ./config/scripts/ci.sh
