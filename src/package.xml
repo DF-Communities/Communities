@@ -16,9 +16,5 @@
         <members>*</members>
         <name>ApexTrigger</name>
     </types>
-    <types>
-        <members>*</members>
-        <name>StaticResource</name>
-    </types>
     <version>39.0</version>
 </Package>
