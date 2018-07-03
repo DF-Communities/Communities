@@ -5,4 +5,4 @@ jobs:
       - image: circleci/python:3.6.2-stretch-browsers
     steps:
       - checkout
-      - run: pip install -r lib/ant-salesforce.jar
+      - run: ant BUILD -f build.xml -lib lib/ant-salesforce.jar
