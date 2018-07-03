@@ -1,11 +1,13 @@
-# NOW TV Help Site
-#
-# For more information visit: https://circleci.com/docs/configuration/
 version: 2
 jobs:
   build:
+    docker:
+      - image: debian:stretch
     steps:
       - checkout
-    - run:
-          name: Deploy DF Communities
-          shell: ../config/scripts/ci.sh
+      - run:
+          name: DF Deployment
+          command: echo Hello, world.
+      - run:
+          name: Print the Current Time
+          command: date
