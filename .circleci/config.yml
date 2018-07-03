@@ -2,16 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: java:openjdk7
     steps:
       - checkout
-      - run:
-          name: install dependancy 
-          shell: /bin/sh
-          command: echo $0
-      - run:
-          name: DF Deployment
-          command: ./config/scripts/ci.sh
+      - run: ./config/scripts/ci.sh
       - run:
           name: Print the Current Time
           command: date
