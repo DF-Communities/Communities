@@ -1,20 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="DF-Communities" xmlns:sf="antlib:com.salesforce" default="sf" basedir=".">
-  <target name="Build">
-    <echo>Continuous Integration Build</echo>
-    <taskdef resource="net/sf/antcontrib/antlib.xml" />
+<project name="Dementia Friends Communities Build" basedir="." xmlns:sf="antlib:com.salesforce">
+    <!-- Allows access OS-specific environment variables via the property name "env" -->
     <property environment="env" />
-    <echo>Branch: ${env.CIRCLE_BRANCH}</echo>
-    <property file="build.${env.CIRCLE_BRANCH}.properties" />
-    <echo>${build.cmd}</echo>
-    <antcall target="${build.cmd}" />
-  </target>
-  <target name="DeployAndCheckOnly">
-    <echo>Deploy Code CheckOnly in Org with username: ${env.username}</echo>
-    <sf:deploy username="${env.username}" password="${env.password}" serverurl="${env.serverurl}" maxPoll="${env.maxPoll}" deployRoot="./src" logType="Detail" checkOnly="${sf.checkOnly}" />
-  </target>
-  <target name="DeployAndRunAllTests">
-    <echo>Deploy and RunAllTests in Org with username: ${env.username}</echo>
-    <sf:deploy username="${env.username}" password="${env.password}" serverurl="${env.serverurl}" maxPoll="${env.maxPoll}" deployRoot="./src" logType="Detail" runallTests="${env.runallTests}" />
-  </target>
+    <!-- Load the environment specific properties -->
+    <property file="build.properties" />
+    <property file="config/environments/${env.ENVIRONMENT}.properties" />
+    <echo>Using config/environments/${env.ENVIRONMENT}.properties</echo>
+    <!-- Build classpath -->
+    <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
+        <classpath>
+            <pathelement location="lib/ant-salesforce.jar" />            
+        </classpath>
+    </taskdef>
+
+    <!-- Default build target -->
+    <target name="build" depends="deploy, destructiveChanges" />
+
+    <!-- Continuous Integration Build -->
+    <target name="ci">
+        <echo>Continuous Integration Build</echo>
+        <antcall target="${CI_CMD}" />
+    </target>
+
+    <!-- Validates the project metadata upon the server -->
+    <target name="validate" description="validates the project metadata upon the target server">
+        <echo>SFDC Validation [STARTED]</echo>
+        <sf:deploy 
+            username="${sf.username}" 
+            password="${sf.password}" 
+            serverurl="${sf.serverurl}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
+            deployRoot="${deployRoot}" 
+            checkOnly="true" 
+            testlevel="${sf.testLevel}" />
+        <echo>Validating project metadata against server [COMPLETED]</echo>
+    </target>
+    
+    <!-- Deploys the project metadata upon the server -->
+    <target name="deploy" description="deploys all project metadata to the target server">
+        <echo>SFDC Deployment [STARTED]</echo>
+        <sf:deploy 
+            username="${sf.username}" 
+            password="${sf.password}" 
+            serverurl="${sf.serverurl}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
+            deployRoot="${deployRoot}"
+            checkOnly="false"
+            testlevel="${sf.testLevel}" />
+        <echo>Deploying project metadata to server [COMPLETED]</echo>
+    </target>
+
+    <!-- Performs quick deployment of recent validation -->
+    <target name="quickDeploy" description="deploys all project metadata to the target server based on the given validation Id">
+        <echo>SFDC Quick Deployment [STARTED]</echo>
+        <sf:deployRecentValidation
+            username="${sf.username}" 
+            password="${sf.password}" 
+            serverurl="${sf.serverurl}" 
+            maxPoll="${sf.maxPoll}" 
+            recentValidationId="${sf.VALIDATIONID}" />
+        <echo>Quick deployment project metadata to server [COMPLETED]</echo>
+    </target>
+
+    <!-- Apply destructive changes upon the server -->
+    <target name="destructiveChanges" description="applies the destructive changes upon the target server">
+        <echo>Deploying destructive changes to server [STARTED]</echo>
+        <sf:deploy 
+            username="${sf.username}" 
+            password="${sf.password}" 
+            serverurl="${sf.serverurl}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
+            deployRoot="${destructiveChangesDir}" 
+            ignoreWarnings="true" />
+        <echo>Deploying destructive changes to server [COMPLETED]</echo>
+    </target>
+
+    <!-- Retrieves all project metadata from server -->
+    <target name="retrieve" depends="clean" description="retrieves all project metadata from the target server">
+        <echo>Retrieving project metadata [STARTED]</echo>
+        <sf:retrieve 
+            username="${sf.username}" 
+            password="${sf.password}" 
+            serverurl="${sf.serverurl}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
+            retrieveTarget="${deployRoot}" 
+            unpackaged="${deployRootPackage}" />
+        <antcall target="correctMetadata" />
+        <echo>Retrieving project metadata [COMPLETED]</echo>
+    </target>
+
+    <!-- Activate all Flows (Process Builders) upon the sever -->
+    <target name="activateFlows" description="activates all Flows (Process Builders) upon the target server">
+        <echo>Activating all Flows (Process Builders) upon the server [STARTED]</echo>
+        <!-- Copy all Flow Definitions -->
+        <copy todir="${toggleFlowsDefinitionsDir}" force="true" overwrite="true">
+            <fileset dir="${deployRoot}/flowDefinitions"/>
+        </copy>
+        <!-- Deploy the activation -->
+        <sf:deploy 
+            username="${sf.username}" 
+            password="${sf.password}" 
+            serverurl="${sf.serverurl}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
+            deployRoot="${toggleFlowsDir}" 
+            ignoreWarnings="true" />
+        <echo>Activating all Flows (Process Builders) upon the server [COMPLETE]</echo>
+    </target>
+
+    <!-- Deactive all Flows (Process Builders) upon the sever -->
+    <target name="deactivateFlows" description="deactivates all Flows (Process Builders) upon the target server">
+        <echo>Deactivating all Flows (Process Builders) upon the server [STARTED]</echo>
+        <!-- Copy all Flow Definitions -->
+        <copy todir="${toggleFlowsDefinitionsDir}" force="true" overwrite="true">
+            <fileset dir="${deployRoot}/flowDefinitions"/>
+        </copy>
+        <!-- Reset the active version to 0 -->
+        <replaceregexp match="&lt;activeVersionNumber&gt;(.*)&lt;/activeVersionNumber&gt;" 
+                        replace="&lt;activeVersionNumber&gt;0&lt;/activeVersionNumber&gt;"
+                        flags="gs" byline="false">
+                <fileset dir="${toggleFlowsDefinitionsDir}" includes="**/*.flowDefinition" />
+        </replaceregexp>
+        <!-- Deploy the deactivation -->
+        <sf:deploy 
+            username="${sf.username}" 
+            password="${sf.password}" 
+            serverurl="${sf.serverurl}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
+            deployRoot="${toggleFlowsDir}" 
+            ignoreWarnings="true" />
+        <echo>Deactivating all Flows (Process Builders) upon the server [COMPLETE]</echo>
+    </target>
+
+    <!-- Removes all Flows (Process Builders) from the sever -->
+    <target name="destructiveFlows" description="removes all Flows (Process Builders) from the target server">
+        <echo>Removing all Flows (Process Builders) upon the server [STARTED]</echo>
+        <!-- Generates the Destructive Flows XML -->
+        <script language="javascript" src="config/scripts/destructive_flows.js"></script> 
+        <sf:deploy 
+            username="${sf.username}" 
+            password="${sf.password}" 
+            serverurl="${sf.serverurl}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
+            deployRoot="${destructiveFlowsDir}" 
+            ignoreWarnings="true" />
+        <echo>Removing all Flows (Process Builders) upon the server [COMPLETED]</echo>
+     </target>
+
+    <!-- Generates a static resource zip file -->
+    <target name="generate-static-resources" description="generates a static resource file" >
+        <zip basedir="${assetsDir}" destfile="${helpStaticResource}" level="9" excludes="**/*.zip" />
+    </target>
+
+    <!-- Restores the project back to orignal state -->
+    <target name="clean" depends="clean-src, clean-config" />
+
+    <!-- Removes all files and folders from the src folder except package.xml -->
+    <target name="clean-src" description="removes all metadata from the source folder">
+        <echo>Removing all source files and folders in 'src' [STARTED]</echo>
+        <delete includeemptydirs="true">
+            <fileset dir="${deployRoot}">
+                <include name="**/*" />
+                <exclude name="package.xml" />
+            </fileset>
+        </delete>
+        <echo>Removing all source files and folders in 'src' [COMPLETED]</echo>
+    </target>
+
+    <!-- Removes all files and folders from the src folder except package.xml -->
+    <target name="clean-config" description="removes all generated config files">
+        <echo>Removing all generated files and folders in 'config' [STARTED]</echo>
+        <delete file="${destructiveFlowsXml}"/>
+        <delete dir="${toggleFlowsDefinitionsDir}"/>
+        <echo>Removing all generated files and folders in 'config' [COMPLETED]</echo>
+    </target>
+
+    <!-- Fixes modified metadata that is changed automatically by Salesforce -->
+    <target name="correctMetadata" description="corrects problems with retrieved metadata from the target server">
+        <!-- Remove User Permissions -->
+        <replaceregexp 
+            file="${deployRoot}/profiles/Admin.profile" 
+            match="&lt;userPermissions&gt;(.*)&lt;/userPermissions&gt;" 
+            replace="" flags="gs" byline="false">
+        </replaceregexp>
+        <replaceregexp 
+            file="${deployRoot}/profiles/NOW TV Help Profile.profile" 
+            match="&lt;userPermissions&gt;(.*)&lt;/userPermissions&gt;" 
+            replace="" flags="gs" byline="false">
+        </replaceregexp>
+        <!-- Remove User License from Help Site Profile-->
+        <replaceregexp 
+            file="${deployRoot}/profiles/NOW TV Help Profile.profile" 
+            match="&lt;userLicense&gt;(.*)&lt;/userLicense&gt;" 
+            replace="" flags="gs" byline="false">
+        </replaceregexp>
+        <!-- Help Site Clean up -->
+        <replaceregexp 
+            file="${deployRoot}/sites/NOW_TV_Help.site" 
+            match="(&lt;(siteAdmin)&gt;(.*)&lt;/(siteAdmin)&gt;|&lt;(subdomain)&gt;(.*)&lt;/(subdomain)&gt;)" 
+            replace="" flags="gs" byline="false">
+        </replaceregexp>
+        <!-- Reset Flows -->
+        <exec executable="git">
+            <arg value="checkout" />
+            <arg value="HEAD" />
+            <arg value="--" />
+            <arg value="${deployRoot}/flows" />
+            <arg value="${deployRoot}/flowDefinitions" />
+        </exec>
+    </target>
 </project>

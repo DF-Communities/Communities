@@ -1,0 +1,12 @@
+# NOW TV Help Site
+#
+# For more information visit: https://circleci.com/docs/configuration/
+
+machine:
+  java:
+    version: openjdk7
+
+test:
+  override:
+    - ./config/scripts/ci.sh:
+        parallel: true
