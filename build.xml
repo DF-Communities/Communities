@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project name="DF-Communities" xmlns:sf="antlib:com.salesforce" default="sf" basedir=".">
   <target name="Build">
     <echo>Continuous Integration Build</echo>
