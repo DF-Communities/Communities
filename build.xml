@@ -33,7 +33,7 @@
             pollWaitMillis="${sf.pollWaitMillis}" 
             deployRoot="${deployRoot}" 
             checkOnly="true" 
-            testlevel="${env.testLevel}" />
+            testlevel="${sf.testLevel}" />
         <echo>Validating project metadata against server [COMPLETED]</echo>
     </target>
     
@@ -48,7 +48,7 @@
             pollWaitMillis="${sf.pollWaitMillis}" 
             deployRoot="${deployRoot}"
             checkOnly="false"
-            testlevel="${env.testLevel}" />
+            testlevel="${sf.testLevel}" />
         <echo>Deploying project metadata to server [COMPLETED]</echo>
     </target>
 
