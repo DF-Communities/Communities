@@ -29,8 +29,8 @@
             username="${env.username}" 
             password="${env.password}" 
             serverurl="${env.serverurl}" 
-            maxPoll="${env.maxPoll}" 
-            pollWaitMillis="${env.pollWaitMillis}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
             deployRoot="${deployRoot}" 
             checkOnly="true" 
             testlevel="${env.testLevel}" />
@@ -44,8 +44,8 @@
             username="${env.username}" 
             password="${env.password}" 
             serverurl="${env.serverurl}" 
-            maxPoll="${env.maxPoll}" 
-            pollWaitMillis="${env.pollWaitMillis}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
             deployRoot="${deployRoot}"
             checkOnly="false"
             testlevel="${env.testLevel}" />
@@ -59,7 +59,7 @@
             username="${env.username}" 
             password="${env.password}" 
             serverurl="${env.serverurl}" 
-            maxPoll="${env.maxPoll}" 
+            maxPoll="${sf.maxPoll}" 
             recentValidationId="${sf.VALIDATIONID}" />
         <echo>Quick deployment project metadata to server [COMPLETED]</echo>
     </target>
@@ -71,8 +71,8 @@
             username="${env.username}" 
             password="${env.password}" 
             serverurl="${env.serverurl}" 
-            maxPoll="${env.maxPoll}" 
-            pollWaitMillis="${env.pollWaitMillis}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
             deployRoot="${destructiveChangesDir}" 
             ignoreWarnings="true" />
         <echo>Deploying destructive changes to server [COMPLETED]</echo>
@@ -85,8 +85,8 @@
             username="${env.username}" 
             password="${env.password}" 
             serverurl="${env.serverurl}" 
-            maxPoll="${env.maxPoll}" 
-            pollWaitMillis="${env.pollWaitMillis}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
             retrieveTarget="${deployRoot}" 
             unpackaged="${deployRootPackage}" />
         <antcall target="correctMetadata" />
@@ -105,8 +105,8 @@
             username="${env.username}" 
             password="${env.password}" 
             serverurl="${env.serverurl}" 
-            maxPoll="${env.maxPoll}" 
-            pollWaitMillis="${env.pollWaitMillis}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
             deployRoot="${toggleFlowsDir}" 
             ignoreWarnings="true" />
         <echo>Activating all Flows (Process Builders) upon the server [COMPLETE]</echo>
@@ -130,8 +130,8 @@
             username="${env.username}" 
             password="${env.password}" 
             serverurl="${env.serverurl}" 
-            maxPoll="${env.maxPoll}" 
-            pollWaitMillis="${env.pollWaitMillis}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
             deployRoot="${toggleFlowsDir}" 
             ignoreWarnings="true" />
         <echo>Deactivating all Flows (Process Builders) upon the server [COMPLETE]</echo>
@@ -146,8 +146,8 @@
             username="${env.username}" 
             password="${env.password}" 
             serverurl="${env.serverurl}" 
-            maxPoll="${env.maxPoll}" 
-            pollWaitMillis="${env.pollWaitMillis}" 
+            maxPoll="${sf.maxPoll}" 
+            pollWaitMillis="${sf.pollWaitMillis}" 
             deployRoot="${destructiveFlowsDir}" 
             ignoreWarnings="true" />
         <echo>Removing all Flows (Process Builders) upon the server [COMPLETED]</echo>
