@@ -1,12 +1,14 @@
 # NOW TV Help Site
 #
 # For more information visit: https://circleci.com/docs/configuration/
-
-machine:
-  java:
-    version: openjdk7
-
-test:
-  override:
-    - ../config/scripts/ci.sh:
-        parallel: true
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-25-alpha
+    steps:
+      - checkout
+    - run:
+          name: Deploy DF Communities
+          command: ../config/scripts/ci.sh
