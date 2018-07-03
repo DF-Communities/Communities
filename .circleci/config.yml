@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: install dependancy 
-          command: brew install ant
+          command: sudo apt-get install ant
       - run:
           name: DF Deployment
           command: ./config/scripts/ci.sh
