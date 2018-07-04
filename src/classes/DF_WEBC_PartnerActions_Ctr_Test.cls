@@ -59,8 +59,14 @@ private class DF_WEBC_PartnerActions_Ctr_Test {
     }
     
     static testMethod void myUnittest3(){
+        delete [SELECT  DF_Contact__c FROM PO_Administrator__c];
      List<Partner_Organisation__c> partner = [select id,name from Partner_Organisation__c where name='Test Partner Name' limit 1 ];
-     List<User> u  = [select id,name from User where email = 'test.testcontact3@myemail.com' limit 1]; 
+     DF_Contact__c dfc = [SELECT Id, Name, First_Name__c, Last_Name__c, Title__c, Contact_Number__c,
+		                            Email__c, Postcode__c, Street__c, City__c, County__c, Country__c, Newsletters__c,
+		                            Portal_Contact__c, Portal_User__c, RecordTypeId
+		                       FROM DF_Contact__c  limit 1 ];
+		                       
+     List<User> u  = [select id,name from User where email = :dfc.Email__c  limit 1]; 
         PageReference pageRef = Page.DF_WEBC_PartnerActions;
         pageRef.getParameters().put('id',partner[0].Id);
         test.setCurrentPage(pageRef);
