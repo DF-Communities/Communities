@@ -1,6 +1,0 @@
-<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
-<tr valign="top" height="400" >
-<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
-<![CDATA[<font face="Arial, sans-serif">Dear {!DF_Event__c.DF_Contact__r.Name__c},</font><div><font face="Arial, sans-serif"><br></font></div><div><span style="background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif">The Dementia Friends' Information Session you have registered for has been updated. Please &lt;a href="http://asdf.force.com/WEBSessioNDetails?id={!DF_Event__c.Id}"&gt;click here&lt;/a&gt; to view up-to-date details.&nbsp;</font></span></div><div><span style="background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif"><br></font></span></div><div><div><font face="Arial, sans-serif">Kind regards,</font></div><div><font face="Arial, sans-serif"><br></font></div><div><font face="Arial, sans-serif">Dementia Friends</font></div><div><font face="Arial, sans-serif">http://www.dementiafriends.org.uk</font></div></div>]]></td>
-</tr>
-</table>
