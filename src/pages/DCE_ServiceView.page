@@ -2,16 +2,6 @@
     <html>
         <head>
             <c:DCE_CSS />
-            
-            <style>
-				span.private{
-		        	color: red;
-					font-size: 90%;
-					font-weight: bold;
-					margin-left: 0.5em;
-		        }
-			</style>
-            
             <c:importvisualstrap />
         </head>
         <body>
@@ -32,7 +22,7 @@
                                 <c:row >
                                     
                                     <c:column type="col-sm-12 hidden-md hidden-lg">
-		                            	<p class="help-block text-center">The information on this page appears on the Dementia Connect online directory, which will be available to anyone using it on our website or approved third party websites, except where otherwise indicated (marked with<span class="private">Private</span>). <i>If you have any edits in progress on this service, they will not be shown here.</i></p>
+		                            	<p class="help-block text-center">The information on this page appears on the Dementia Connect Online Directory, which will be available to anyone using it on our website or approved third party websites, except where otherwise indicated (marked with<span class="private">Private</span>). The information may also be used by Alzheimer’s Society staff and volunteers for signposting or to contact you about your service or the activities of your organisation. <i>If you have any edits in progress on this service, they will not be shown here.</i></p>
 		                            </c:column>
                                     
                                     <c:column type="col-md-3">
@@ -54,7 +44,7 @@
                                     </c:column>  
                                 
                                 	<c:column type="col-md-12 hidden-sm hidden-xs">
-		                            	<p class="help-block text-center">The information on this page appears on the Dementia Connect online directory, which will be available to anyone using it on our website or approved third party websites, except where otherwise indicated (marked with<span class="private">Private</span>).<br/><i>If you have any edits in progress on this service, they will not be shown here.</i></p>
+		                            	<p class="help-block text-center">The information on this page appears on the Dementia Connect Online Directory, which will be available to anyone using it on our website or approved third party websites, except where otherwise indicated (marked with<span class="private">Private</span>). The information may also be used by Alzheimer’s Society staff and volunteers for signposting or to contact you about your service or the activities of your organisation. <i>If you have any edits in progress on this service, they will not be shown here.</i></p>
 		                            </c:column>
                                 
                                 </c:row>

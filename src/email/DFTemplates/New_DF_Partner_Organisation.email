@@ -1,0 +1,57 @@
+<span style="font-family: arial;">
+Hi {{contact_name}},<br/><br/>
+Thank you for registering a Dementia Friends account for {{partner_name}}.
+You will be pleased to know that you are moments away from being able to watch and share our online videos for organisations.<br/><br/>
+
+Please take a moment to read the below information as it may help answer any queries.<br/><br/>
+
+<b>Important information:</b>
+<br/>
+<ul>
+<li>You will be the main point of contact for  {{partner_name}}  If you want to add someone else as an admin for your organisation you can do so easily via your organisation dashboard</li>
+
+<li>On your Dementia Friends Organisation Dashboard, you can track the amount of people in {{partner_name}} who have become Dementia Friends.</li></ul><br/>
+
+<b>Log in details:</b>
+<br/>
+<ul>
+<li>To log into your dashboard, please click <a href="https://www.dementiafriends.org.uk/WEBLogin">here</a> and enter the email address and password you set up on registering. </li>
+
+<li>Your organisation code is <b>{{partner_code}}</b>. This is a unique code that can be distributed to your colleagues to enable them to access the Dementia Friends videos. They do not need your log in details. </li></ul><br/>
+
+<b>Communicating to colleagues:</b>
+<br/>
+<ul>
+
+<li>Tell colleagues to click <a href="https://www.dementiafriends.org.uk/DF_WEBC_PartnerVideos?page=videos-for-organisations"> here</a> and when prompted enter your code, the number of new people watching at that time, and the postcode from where they are watching.</li>
+
+<li>To become a Dementia Friend, colleagues have to watch ‘Understanding Dementia’ and at least one other video</li>
+
+<li>Please note we do not record names, just numbers and postcodes, so you will need to find a way to know who has watched the videos so you can send out a badge and actioncard to them. We recommend the viewer sending a screenshot from the final frame of the second video, by email, to someone internally. </li></ul><br/>
+
+<b>Badges and action cards:</b>
+<br/>
+<ul>
+
+<li>As the Organisation Administrator, you can request badges and action cards for your staff by emailing us with the following information: 1: Name of organisation, 2: Name and address to send badges to 3: Number of Dementia Friends created/target number of Friends 4: Number of required badges and action cards needed.</li></ul><br/>
+
+<b>Did you know:</b>
+<br/>
+<ul>
+
+<li>If you have staff who are Dementia Friends Champions, they can be linked to your account. If you wish to do so, please email us your unique code and the Champion's email address(es)</li>
+
+<li>If you are a larger organisation, there are other routes available to create Dementia Friends too – get in touch with us if you would like more information)</li></ul><br/>
+
+<b>Any queries:</b>
+<br/>
+<ul>
+
+<li>Email <a href="mailto:programmepartnerships@alzheimers.org.uk"> programmepartnerships@alzheimers.org.uk</a></li>
+
+</ul>
+
+Good luck with your rollout of Dementia Friends,<br/><br/>
+
+The Programme Partnerships Team
+</span>

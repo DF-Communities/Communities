@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Confirmation of Community Recognitiation Request Submitted</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DF Confirmation of Request Submitted HTML</name>
+    <style>freeForm</style>
+    <subject>Thanks for submitting your request to get your Community recognised as Dementia Friendly</subject>
+    <textOnly>Dear {!DFC_Community__c.OwnerFullName} 
+
+Your request to get {!DFC_Community__c.Name__c} recognised as a Dementia Friendly Community has been submitted with reference {!DFC_Community__c.Name}. 
+
+We will email you when your request has been reviewed so you can start recording your activity to work towards full recognition. We will respond within 14 working days. 
+
+
+Many thanks, 
+
+The Dementia Friendly Communities Team</textOnly>
+    <type>custom</type>
+</EmailTemplate>

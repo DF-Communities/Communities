@@ -140,10 +140,12 @@
 						</c:column>
 						<c:column type="col-md-3 hidden-sm hidden-xs">
 							<c:panel >
-								<p>Use this page to update your details in the Dementia Connect database</p>
+								<p>	Use this page to update your details in the Dementia Connect database</p>
 								<p><strong>Please note: </strong>If you update your email address, you will need to use your new email address to log-in to the Dementia Connect database.</p>
-								<p>Please ensure that, if changing your email, you choose a valid and operational address.</p>
-								<p>Details stored on this page will not be published on the Dementia Connect online directory and will only be used in case a member of our team needs to contact you.</p>
+								<p>	Please ensure that, if changing your email, you choose a valid and operational address.</p>
+								<p>	The information you have submitted, including your personal and business information, will be held by Alzheimer’s Society so we can access your information 
+									for signposting and to contact you about your services or the activities of your organisation. We may contact your organisation to provide updates to the 
+									information your organisation has submitted or to give you updates about the Dementia Connect Online Directory.</p>
 							</c:panel>
 						</c:column>
 					<c:column type="col-md-1 hidden-sm hidden-xs"/>

@@ -9,7 +9,7 @@
         console.log("Apex payload params set as: " + JSON.stringify(dfEvent));
         console.log("Still going");
          
-        action.setCallback(this, function(response){ 
+        action.setCallback(this, function(response){
             var state = response.getState();
             
             console.log("SALESFORCE APEX RETURNED: " + state);
@@ -42,11 +42,9 @@
        console.log('findDFEventFromCache... ');
        var events = component.get("v.events");
        var event;
-       console.log('events... ' + JSON.stringify(events));
-       console.log('dfEventId... ' + JSON.stringify(dfEventId));
-       for (var dfEvent in events) {
-           if (dfEvent.recordId == dfEventId) {  
-               event = dfEvent;
+       for (var index in events) {
+           if (events[index].recordId == dfEventId) {  
+               event = events[index];
                break;
            }
        }

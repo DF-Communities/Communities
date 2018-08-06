@@ -1,12 +1,10 @@
-<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" docType="HTML-5.0" controller="WEBChampionSessionFeedback" action="{!loginRedirect}">
-
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="HTML-5.0" controller="WEBChampionSessionFeedback" action="{!loginRedirect}">
     
     <head>
-    <apex:includeLightning />
+        <apex:includeLightning />
         <c:DF_WEBR_WebMeta />
         <c:DF_WEBR_WebMeta_2 />
-    </head>
-    
+    </head>   
     
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -61,12 +59,9 @@
         }
     }
     
-    if (!String.prototype.startsWith) {
-        String.prototype.startsWith = function(searchString, position){
-            return this.substr(position || 0, searchString.length) === searchString;
-        };
-    }
+    </script>
     
+    <script>
     
     $(document).ready(function () {
         showPartnerList();
@@ -76,10 +71,10 @@
     </script>
     
     
+    
     <div class="container">
         <c:DF_WEBR_WebHeader showCounter="Y"/>
         <c:DF_WEBR_WebNavbar />
-        
         
         <div class="row *.css">
             <div class="col-sm-12">
@@ -111,6 +106,5 @@
     <c:DF_WEBR_WebFooter />
     
 </div>
-    
-        
+
 </apex:page>

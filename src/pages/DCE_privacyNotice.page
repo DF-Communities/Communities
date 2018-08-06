@@ -1,0 +1,77 @@
+<apex:page showHeader="false" docType="html-5.0" title="Dementia Connect Portal - Privacy Notice"  applyHtmlTag="false" applyBodyTag="false">
+    <html>
+        <head>
+            <c:DCE_CSS />
+            <c:importvisualstrap />
+        </head>
+        <body>
+            <c:visualstrapblock >
+            <!--<c:DCE_Navbar />-->
+                <c:row >
+                    <c:column type="col-md-1 hidden-xs"/>
+                    <c:column type="col-md-10">
+                        <c:panel >
+                            <div style="margin-bottom:1em;"><div class="sectionHeading">Privacy Notice</div></div>
+                            
+                            <p>The information you have submitted, including your personal and business information will be held by Alzheimer’s Society so we can 
+                            access your information for signposting and to contact you about your services or the activities of your organisation. Should your 
+                            organisation be approved to list services in the Dementia Connect Online Directory, your information will be publicly accessible to those 
+                            wanting to access your services via the Dementia Connect Online Directory.</p>
+
+                            <p>Alzheimer’s Society takes care to ensure the security of your information in use, storage and transmission and that it is only accessed 
+                            by verified persons who have the necessary authority. All of our people who have access to your personal information are obliged to 
+                            respect the confidentiality of this information and we deliver training to make sure this happens. Your information is held in our internal 
+                            database and in the Dementia Connect Portal. The servers for our internal database and the Dementia Connect Portal are held in the European Economic Area.</p>  
+
+                            <p>Alzheimer’s Society uses your information under the lawful basis of Legitimate Interest. If you are listing services in the Dementia Connect 
+                            Online Directory and wish to remove any of your services from the online directory please enter a ‘Closed date’ and submit the change for approval. 
+                            By submitting information related to your services for approval you are giving Alzheimer's Society permission to publish the information on the Dementia 
+                            Connect Online Directory, which will be available to anyone using it on our website or approved third party websites, except where otherwise indicated 
+                            (marked with<span class="private">Private</span>).</p>
+                            
+                            <p>Your service provider information will be available publicly while your service is available or until you ask for it to be removed. At this 
+                            time it will be marked as inactive and maintained for statistical and auditing purposes.</p>
+
+                            <p>Should you leave the organisation you work for please contact us and we will make your record inactive.</p>
+                            
+                            <div style="margin-bottom:1em;"><div class="sectionHeading">Further rights</div></div>
+                            
+                            <p>If, at any time, you want to:
+                            <ul>
+                                <li>See what information we hold on you</li>
+                                <li>Receive a portable copy of your information</li>
+                                <li>Ask for corrections to be made</li>
+                                <li>Ask us to stop using your information in any way.</li>
+                            </ul>
+                            Please do contact us and we’ll do our best to respect your wishes.</p>
+                            
+                            <div style="margin-bottom:1em;"><div class="sectionHeading">How to contact us</div></div>
+                            <p>If you have any questions about how we are using your information then you can contact us as follows:
+                            <ul>
+                                <li>by phone to to 020 7423 1043</li>
+                                <li>in writing to Dementia Connect, Alzheimer’s Society, 43-44 Crutched Friars, London, EC3N 2AE</li>
+                                <li>or by email to <a href="mailto:enquiries.DementiaConnect@alzheimers.org.uk">enquiries.DementiaConnect@alzheimers.org.uk</a></li>
+                            </ul>
+                            There is also an online form for general enquiries on our website <a href="https://www.alzheimers.org.uk/contact-us/feedback-form">alzheimers.org.uk</a>.</p>
+                            
+                            <p>If you wish to receive a copy of your personal information or ask us to correct the information we hold about you or to stop using your information then please contact the Information Governance Team at:</p>
+                                <address>
+                                    <strong>Alzheimer's Society</strong><br/>
+                                    43-44 Crutched Friars<br/>
+                                    LONDON<br/>
+                                    EC3N 2AE<br/>
+                                </address>
+                            
+                            <p>Or send an email to: <a href="mailto:information.governance@alzheimers.org.uk">information.governance@alzheimers.org.uk</a></p>
+                            
+                            <div style="margin-bottom:1em;"><div class="sectionHeading">Complaints</div></div>
+                            <p>If you are unhappy with how we are processing your information then you can contact us using the details outlined above. If you are still unhappy after receiving our response, you can raise your concern with the <a href="mailto:enquiries.dementiaconnect@alzheimers.org.uk?subject=complaint">team</a> or the <a href="http://www.ico.org.uk/">Information Commissioner’s Office</a> for them to investigate.</p>
+
+                        </c:panel>
+                    </c:column>
+                    <c:column type="col-md-1 hidden-xs"/>
+                </c:row>
+            </c:visualstrapblock>
+        </body>
+    </html>
+</apex:page>

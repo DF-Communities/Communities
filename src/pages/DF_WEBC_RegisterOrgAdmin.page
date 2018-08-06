@@ -135,7 +135,7 @@
                     </div>
                  
                     <c:DF_WEBC_RegisterLongForm />  
-                    <c:DF_WEBC_RegisterDemoInfo />   
+                    <!--c:DF_WEBC_RegisterDemoInfo /-->   
                  
                    <!-- Successful Message -->
                 

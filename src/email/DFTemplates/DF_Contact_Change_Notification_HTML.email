@@ -1,0 +1,85 @@
+<img id="Logo" src="https://c.eu0.content.force.com/servlet/servlet.ImageServer?id=01520000001HfE1&oid=00D20000000CwQc" height="103" width="259"/>
+<br/>
+<span style="font-family: arial;">
+Dear {{FirstName}} ,
+
+<br/><br/>
+As you may know, Dementia Friends is an Alzheimer’s Society initiative and we have noticed that your contact details have recently been updated through one of our Alzheimer’s Society channels. <br/> <br/>
+ 
+You can choose to update your details or retain the information we hold for you on your Dementia Friends account too, by following the simple steps below. <br/> <br/>
+
+<table border="0" style="width:100%">
+  <tr>
+    <th align ="left">Current Details</th>
+    <th align ="left">Changes</th>    
+  </tr>
+<tr>
+    <td>{{dTitle__c}}</td>
+
+    <td>{{cTitle__c}}</td>    
+  </tr>
+
+<tr>
+    <td>{{dFirst_Name__c}}</td>
+
+    <td>{{cFirst_Name__c}}</td>    
+  </tr>
+
+<tr>
+    <td>{{dLast_Name__c}}</td>
+
+    <td>{{cLast_Name__c}}</td>    
+  </tr>
+<tr>
+    <td>{{dBirthDate__c}}</td>
+
+    <td>{{cBirthDate__c}}</td>    
+  </tr>
+
+<tr>
+    <td>{{dStreet__c}}</td>
+
+    <td>{{cStreet__c}}</td>    
+  </tr>
+<tr>
+    <td>{{dCity__c}}</td>
+
+    <td>{{cCity__c}}</td>    
+  </tr>
+<tr>
+    <td>{{dCounty__c}}</td>
+
+    <td>{{cCounty__c}}</td>    
+  </tr>
+<tr>
+    <td>{{dPostcode__c}}</td>
+
+    <td>{{cPostcode__c}}</td>    
+  </tr>
+<tr>
+    <td>{{dContact_Number__c}}</td>
+
+    <td>{{cContact_Number__c}}</td>    
+  </tr>
+
+</table>
+
+<br/><br/>
+
+<b>Retain your current details</b><br/>
+The left hand column above displays the contact details that we currently hold for you.If you would like these details stay the same, please log into your account on the Dementia Friends website (<a href="http://www.dementiafriends.org.uk/login">https://www.dementiafriends.org.uk/login</a>) and reject the changes.<br/><br/>
+
+<b>Update your details</b><br/>
+If you would like to update your contact details to those displayed in the right hand column above, , please log into your account on the Dementia Friends website (<a href="http://www.dementiafriends.org.uk/login">https://www.dementiafriends.org.uk/login</a>) and choose the ‘Accept’ option.<br/><br/>
+
+ If you have any questions, please email us at <a href= "mailto:DementiaFriends@Alzheimers.org.uk">DementiaFriends@Alzheimers.org.uk</a>.<br/><br/>
+
+Thank you,<br/>
+Dementia Friends Team<br/><br/>
+
+<a href="http://www.dementiafriends.org.uk">dementiafriends.org.uk</a>
+<br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a>
+<br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a>
+</span>

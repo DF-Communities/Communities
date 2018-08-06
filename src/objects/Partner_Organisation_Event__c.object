@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>A session where a partner organisation did something</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Dataloader__c</fullName>
+        <externalId>false</externalId>
+        <label>Dataloader</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>How_did_you_watch_the_videos__c</fullName>
+        <externalId>false</externalId>
+        <label>How did you watch the videos?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>DVD</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Downloaded Videos</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Presentation</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Partner booklet</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Other (please specify)</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Offline_Event_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Offline Event Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Other_please_specify__c</fullName>
+        <externalId>false</externalId>
+        <label>Other (please specify)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Participant_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Participant Count</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Organisation__c</fullName>
+        <externalId>false</externalId>
+        <label>Partner Organisation</label>
+        <referenceTo>Partner_Organisation__c</referenceTo>
+        <relationshipName>Organisation_Events</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>true</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Postcode__c</fullName>
+        <externalId>false</externalId>
+        <label>Post Code</label>
+        <length>12</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Partner Organisation Event</label>
+    <nameField>
+        <displayFormat>OE-{0000}</displayFormat>
+        <label>Reference</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Partner Organisation Events</pluralLabel>
+    <recordTypes>
+        <fullName>Partner_Offline_Event</fullName>
+        <active>true</active>
+        <label>Partner Offline Event</label>
+        <picklistValues>
+            <picklist>How_did_you_watch_the_videos__c</picklist>
+            <values>
+                <fullName>DVD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28please specify%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Partner_Online_Event</fullName>
+        <active>true</active>
+        <label>Partner Online Event</label>
+        <picklistValues>
+            <picklist>How_did_you_watch_the_videos__c</picklist>
+            <values>
+                <fullName>DVD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28please specify%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

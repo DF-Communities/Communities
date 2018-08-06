@@ -1,229 +1,240 @@
-<apex:page showHeader="false" docType="html-5.0" controller="DCE_NewOrgRequestController" title="Request to join the Dementia Connect portal"  applyHtmlTag="false" applyBodyTag="false">  
-    <html>
-        <head>
-            <c:DCE_CSS />
-            <script>
-                $(document).ready(function(){
-                    $("[id*='submitRequestButton']").on('click', function(){
-                         
-                         var requiredFields = $('input,textarea').filter('[required]:visible');
-                         var hasError = false;
-                         $("[id*='emailError']").text("");
-                         
-                        for(i=0; i < requiredFields.length; i++){
-                            
-                            if(requiredFields[i].value == ''){
-                                $(requiredFields[i]).closest("div.form-group").addClass("has-error");
-                                hasError = true;
-                            }
-                            
-                         }
-                         
-                         var emailValue = $("[id*='emailInput']").val();
-                         
-                         if( !validateEmail(emailValue)) {
-                            $("[id*='emailInput']").closest("div.form-group").addClass("has-error");
-                            $("[id*='emailError']").text("Please enter valid email");
-                            hasError = true;
-                         }
-                         
-                         if(hasError){
-                            $("[id*='javascriptAlertText']").text("Please complete the highlighted fields before submitting.");
-                            $("[id*='javascriptAlert']").show('fast');
-                         } else {
-                            $("[id*='javascriptAlert']").hide();
-                            $("[id*='approvalModal']").modal('show');
-                         }
-                         
-                    });
-                   
-                    $('input,textarea').filter('[required]:visible').change(function(){
-                         $(this).closest("div.form-group").removeClass("has-error");
-                    });
-                    
-                    $("textarea").bind ("input propertychange", function (e){
-                        var maxLength = $(this).attr('maxlength');
-                        
-                        //console.log("Character length - "+$(this).val().length);
-                        
-                        if ($(this).val().length > maxLength) {  
-                            $(this).val($(this).val().substring(0, maxLength));  
-                        }
-                        
-                    });
-                    
-                    $("[id$='emailInput']").on("change", function(){
-                        
-                        var trimmedValue = $.trim($(this).val());
-                        $(this).val(trimmedValue);
-                        
-                    });
-                    
-                });
-                
-                function validateEmail($email) {
-                    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,5})?$/;
-                    return emailReg.test( $email );
-                }
-                
-            </script>
-            <c:importvisualstrap />
-        </head>
-        <body>
-            <c:visualstrapblock >
-                <apex:form >
-                <!--<c:DCE_AZLogo />-->
-                    <c:row >
-                    </c:row>
-                    <c:row >
-                        <c:column type="col-md-1 hidden-xs"/>
-                        <c:column type="col-md-10">
-                            <c:panel >
-                                <div style="margin-bottom:1em;">
-                                <!--<h3><div class="label label-default" style="margin-bottom:1em;">Log in to the Dementia Connect Portal</div></h3>-->
+<apex:page showHeader="false" docType="html-5.0" controller="DCE_NewOrgRequestController" title="Request to join the Dementia Connect portal"  applyHtmlTag="false" applyBodyTag="false">
+	<html>
+		<head>
+			<c:DCE_CSS />
+			<script>
+				$(document).ready(function(){
+					$("[id*='submitRequestButton']").on('click', function(){
+				         
+				         var requiredFields = $('input,textarea').filter('[required]:visible');
+				         var hasError = false;
+				         $("[id*='emailError']").text("");
+				         
+						for(i=0; i < requiredFields.length; i++){
+				         	
+				         	if(requiredFields[i].value == ''){
+				         		$(requiredFields[i]).closest("div.form-group").addClass("has-error");
+				         		hasError = true;
+				         	}
+				         	
+				         }
+				         
+				         var emailValue = $("[id*='emailInput']").val();
+				         
+				         if( !validateEmail(emailValue)) {
+				         	$("[id*='emailInput']").closest("div.form-group").addClass("has-error");
+				         	$("[id*='emailError']").text("Please enter valid email");
+				         	hasError = true;
+				         }
+				         
+				         if(hasError){
+				         	$("[id*='javascriptAlertText']").text("Please complete the highlighted fields before submitting.");
+				         	$("[id*='javascriptAlert']").show('fast');
+				         } else {
+				         	$("[id*='javascriptAlert']").hide();
+				         	$("[id*='approvalModal']").modal('show');
+				         }
+				         
+				    });
+				   
+				    $('input,textarea').filter('[required]:visible').change(function(){
+				         $(this).closest("div.form-group").removeClass("has-error");
+				    });
+				    
+				    $("textarea").bind ("input propertychange", function (e){
+						var maxLength = $(this).attr('maxlength');
+						
+						//console.log("Character length - "+$(this).val().length);
+						
+						if ($(this).val().length > maxLength) {  
+                			$(this).val($(this).val().substring(0, maxLength));  
+            			}
+						
+					});
+					
+					$("[id$='emailInput']").on("change", function(){
+						
+						var trimmedValue = $.trim($(this).val());
+						$(this).val(trimmedValue);
+						
+					});
+				    
+				});
+				
+				function validateEmail($email) {
+					var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,5})?$/;
+					return emailReg.test( $email );
+				}
+				
+			</script>
+			<c:importvisualstrap />
+		</head>
+		<body>
+			<c:visualstrapblock >
+				<apex:form >
+				<!--<c:DCE_AZLogo />-->
+					<c:row >
+					</c:row>
+					<c:row >
+						<c:column type="col-md-1 hidden-xs"/>
+						<c:column type="col-md-10">
+							<c:panel >
+								<div style="margin-bottom:1em;">
+								<!--<h3><div class="label label-default" style="margin-bottom:1em;">Log in to the Dementia Connect Portal</div></h3>-->
                                     <div class="sectionHeading">Log in to the Dementia Connect Portal</div>
-                                </div>
-                                <p>If your organisation is already a member of the Dementia Connect Portal, you will be able to &nbsp;<apex:outputlink value="{!URLFOR($Page.DCE_LoginPage)}">log-in</apex:outputlink> and amend any of your listings.</p>
-                                <apex:outputlink styleclass="btn btn-primary" value="{!URLFOR($Page.DCE_LoginPage)}">Log-in</apex:outputlink>
-                            </c:panel>
-                        </c:column>
-                        <c:column type="col-md-1 hidden-xs"/>
-                    </c:row>
-                    <c:row >
-                        <c:column type="col-md-1 hidden-xs"/>
-                        <c:column type="col-md-10">
-                            <c:panel >
-                                <div style="margin-bottom:1em;">
-                                <!--<h3><div class="label label-default" style="margin-bottom:1em;">Request access to the Dementia Connect Portal</div></h3>-->
+								</div>
+								<p>If your organisation is already a member of the Dementia Connect Portal, you will be able to&nbsp;<apex:outputlink value="{!URLFOR($Page.DCE_LoginPage)}">log-in</apex:outputlink> and amend any of your listings.</p>
+								<apex:outputlink styleclass="btn btn-primary" value="{!URLFOR($Page.DCE_LoginPage)}">Log-in</apex:outputlink>
+							</c:panel>
+						</c:column>
+						<c:column type="col-md-1 hidden-xs"/>
+					</c:row>
+					<c:row >
+						<c:column type="col-md-1 hidden-xs"/>
+						<c:column type="col-md-10">
+							<c:panel >
+								<div style="margin-bottom:1em;">
+								<!--<h3><div class="label label-default" style="margin-bottom:1em;">Request access to the Dementia Connect Portal</div></h3>-->
                                     <div class="sectionHeading">Request access to the Dementia Connect Portal</div>
                                 </div>
-                                
-                                <apex:outputpanel layout="none" rendered="{!NOT(isloggedin)}">
-                                
-                                    <p>If your organisation would like the ability to submit new services for inclusion in our publicly available directory Dementia Connect, you can submit your details here. 
-                                    Information on the types of services you can list on Dementia Connect can be found in our <a href="https://www.alzheimers.org.uk/site/scripts/download_info.php?downloadID=1835" target="_blank">FAQs</a>. 
-                                    Our Dementia Connect team will be in touch with any questions before approving your organisation's request for inclusion. However, if you have any queries please contact us <a href="mailto:enquiries.dementiaconnect@alzheimers.org.uk" target="_top">enquiries.dementiaconnect@alzheimers.org.uk</a></p>
-                                    
-                                    <div class="alert alert-danger alert-dismissible" role="alert" id="javascriptAlert" style="display:none;">
-                                         <span id="javascriptAlertText"></span>
-                                    </div>
-                                    
-                                    <apex:outputpanel layout="inline" rendered="{!displayPageMessage}" id="messagePanel">
-                                        <apex:outputPanel layout="block" styleClass="alert alert-danger" id="messageBlock">
-                                            <apex:outputText value="{!pageMessage}" escape="false"/>
-                                        </apex:outputPanel>
-                                    </apex:outputpanel>
-                                    
-                                    <c:row >
-                                        <c:column type="col-sm-6">
-                                            <div style="margin-bottom:1em;">
-                                            <!--<h3><div class="label label-default" >Organisation Details</div></h3>-->
-                                                <div class="sectionHeadingSmall" >Organisation Details</div>
+								
+								<apex:outputpanel layout="none" rendered="{!NOT(isloggedin)}">
+								
+                                    <p>
+                                    	If your organisation would like the ability to submit new services for inclusion in the Dementia Connect Online Directory which is publicly available, or to edit existing services already submitted by your organisation, 
+										you can submit your details here. If you want to submit a service on behalf of another person in your organisation, please ensure that you have their permission to do so. To find out more about the types of services you 
+										can list on the Dementia Connect Online Directory please read our <a href="https://www.alzheimers.org.uk/sites/default/files/migrate/downloads/dementia_connect_faqs.pdf">FAQs</a>. For more information about how we use your data and your rights please read our <a href="{!URLFOR($Page.DCE_privacyNotice)}">privacy notice</a>. Our Dementia Connect team will be in touch with 
+										any questions before approving your organisation's request for inclusion. However, if you have any queries please contact us <a href="mailto:enquiries.dementiaconnect@alzheimers.org.uk">enquiries.dementiaconnect@alzheimers.org.uk</a> or 020 7423 1043
+									</p>
+									
+									<div class="alert alert-danger alert-dismissible" role="alert" id="javascriptAlert" style="display:none;">
+										 <span id="javascriptAlertText"></span>
+									</div>
+									
+									<apex:outputpanel layout="inline" rendered="{!displayPageMessage}" id="messagePanel">
+										<apex:outputPanel layout="block" styleClass="alert alert-danger" id="messageBlock">
+										    <apex:outputText value="{!pageMessage}" escape="false"/>
+										</apex:outputPanel>
+									</apex:outputpanel>
+									
+									<c:row >
+										<c:column type="col-sm-6">
+											<div style="margin-bottom:1em;">
+											<!--<h3><div class="label label-default" >Organisation Details</div></h3>-->
+	                                            <div class="sectionHeadingSmall" >Organisation Details</div>
+											</div>
+											<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+								        		<apex:outputLabel for="Organisation" styleclass="control-label">Organisation Name</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+								        		<apex:inputfield value="{!orgRequest.Company}" html-placeholder="Organisation Name" styleClass="form-control" required="true" id="Organisation"/>
+								        	</c:formgroup>
+								        	
+								        	<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+						    					<apex:outputLabel >Address</apex:outputLabel>
+						    					<apex:outputLabel styleclass="sr-only" for="street">Street</apex:outputLabel><apex:inputText id="street" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Street" value="{!orgRequest.Street}" required="true"/>
+						    					<apex:outputLabel styleclass="sr-only" for="town">Town</apex:outputLabel><apex:inputText id="town" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Town/City" value="{!orgRequest.City}" required="true"/>
+						    					<apex:outputLabel styleclass="sr-only" for="state">County</apex:outputLabel><apex:inputText id="state" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="County" value="{!orgRequest.State}"/>
+						    					<apex:outputLabel styleclass="sr-only" for="postcode">Postcode</apex:outputLabel><apex:inputText id="postCode" styleClass="form-control" html-placeholder="Postcode" value="{!orgRequest.PostalCode}" required="true"/>
+						    					<apex:outputLabel styleclass="sr-only" for="country">Country</apex:outputLabel><apex:inputText id="country" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Country" value="{!orgRequest.Country}" required="true"/>
+						    					
+						    					<link rel="stylesheet" type="text/css" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=kb59-yz47-hj67-xf67" />
+						    					<script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=kb59-yz47-hj67-xf67"></script>
+						    					<script type="text/javascript">
+													
+													var fields = [
+														{ element: "{!$Component.street}", field: "Line1" },
+														{ element: "{!$Component.town}", field: "City", mode: pca.fieldMode.POPULATE },
+														{ element: "{!$Component.state}", field: "Province", mode: pca.fieldMode.POPULATE },
+														{ element: "{!$Component.postCode}", field: "PostalCode" },
+														{ element: "{!$Component.country}", field: "{HomeNation}", mode: pca.fieldMode.POPULATE },
+	
+													];
+														
+													var options = {key: "KB59-YZ47-HJ67-XF67", countries: { codesList: "GBR" }, culture:"en_GB" };
+	
+													var control = new pca.Address(fields, options);
+													//control.listen("load", function(){control.setCountry("GBR");});
+												</script>
+						    					
+						    				</c:formgroup>
+						    				
+						    				<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+								        		<apex:outputLabel styleclass="control-label" for="website">Website</apex:outputLabel>
+								        		<apex:inputfield value="{!orgRequest.Website}" html-placeholder="Website" styleClass="form-control" id="website"/>
+								        	</c:formgroup>
+											
+										</c:column>
+										<c:column type="col-sm-6">
+											<div style="margin-bottom:1em;">
+											<!--<h3><div class="label label-default" style="margin-bottom:1em;">Contact Details</div></h3>-->
+												<div class="sectionHeadingSmall" style="margin-bottom:1em;">Contact Details</div>
+	                                        </div>
+											<div class="help-block">
+                                               The information you have submitted, including your personal and business information, will be held by Alzheimer’s Society so we can access your 
+                                               information for signposting and to contact you about your services or the activities of your organisation. Should your organisation be approved 
+                                               to list services in the Dementia Connect Online Directory, we may contact your organisation to provide updates to the information your organisation 
+                                               has submitted or to give you updates about the Dementia Connect Online Directory. 
                                             </div>
-                                            <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
-                                                <apex:outputLabel for="Organisation" styleclass="control-label">Organisation Name</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
-                                                <apex:inputfield value="{!orgRequest.Company}" html-placeholder="Organisation Name" styleClass="form-control" required="true" id="Organisation"/>
-                                            </c:formgroup>
-                                            
-                                            <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
-                                                <apex:outputLabel >Address</apex:outputLabel>
-                                                <apex:outputLabel styleclass="sr-only" for="street">Street</apex:outputLabel><apex:inputText id="street" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Street" value="{!orgRequest.Street}" required="true"/>
-                                                <apex:outputLabel styleclass="sr-only" for="town">Town</apex:outputLabel><apex:inputText id="town" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Town/City" value="{!orgRequest.City}" required="true"/>
-                                                <apex:outputLabel styleclass="sr-only" for="state">County</apex:outputLabel><apex:inputText id="state" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="County" value="{!orgRequest.State}"/>
-                                                <apex:outputLabel styleclass="sr-only" for="postcode">Postcode</apex:outputLabel><apex:inputText id="postCode" styleClass="form-control" html-placeholder="Postcode" value="{!orgRequest.PostalCode}" required="true"/>
-                                                <apex:outputLabel styleclass="sr-only" for="country">Country</apex:outputLabel><apex:inputText id="country" styleClass="form-control" style="margin-bottom:0.2em;" html-placeholder="Country" value="{!orgRequest.Country}" required="true"/>
-                                                
-                                                <link rel="stylesheet" type="text/css" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=kb59-yz47-hj67-xf67" />
-                                                <script type="text/javascript" src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=kb59-yz47-hj67-xf67"></script>
-                                                <script type="text/javascript">
-                                                    
-                                                    var fields = [
-                                                        { element: "{!$Component.street}", field: "Line1" },
-                                                        { element: "{!$Component.town}", field: "City", mode: pca.fieldMode.POPULATE },
-                                                        { element: "{!$Component.state}", field: "Province", mode: pca.fieldMode.POPULATE },
-                                                        { element: "{!$Component.postCode}", field: "PostalCode" },
-                                                        { element: "{!$Component.country}", field: "{HomeNation}", mode: pca.fieldMode.POPULATE },
-    
-                                                    ];
-                                                        
-                                                    var options = {key: "KB59-YZ47-HJ67-XF67", countries: { codesList: "GBR" }, culture:"en_GB" };
-    
-                                                    var control = new pca.Address(fields, options);
-                                                    //control.listen("load", function(){control.setCountry("GBR");});
-                                                </script>
-                                                
-                                            </c:formgroup>
-                                            
-                                            <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
-                                                <apex:outputLabel styleclass="control-label" for="website">Website</apex:outputLabel>
-                                                <apex:inputfield value="{!orgRequest.Website}" html-placeholder="Website" styleClass="form-control" id="website"/>
-                                            </c:formgroup>
-                                            
-                                        </c:column>
-                                        <c:column type="col-sm-6">
-                                            <div style="margin-bottom:1em;">
-                                            <!--<h3><div class="label label-default" style="margin-bottom:1em;">Contact Details</div></h3>-->
-                                                <div class="sectionHeadingSmall" style="margin-bottom:1em;">Contact Details</div>
-                                            </div>
-                                            
-                                            <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
-                                                <apex:outputLabel styleclass="control-label">Name</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
-                                                <apex:outputLabel styleclass="sr-only" for="firstName">First Name</apex:outputLabel><apex:inputfield value="{!orgRequest.FirstName}" html-placeholder="First Name" styleClass="form-control" style="margin-bottom:0.2em;" id="firstName" />
-                                                <apex:outputLabel styleclass="sr-only" for="lastName">Last Name</apex:outputLabel><apex:inputfield value="{!orgRequest.LastName}" html-placeholder="Last Name" styleClass="form-control" required="true" id="lastName"/>
-                                            </c:formgroup>
-                                            
-                                            <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
-                                                <apex:outputLabel styleclass="control-label" for="emailInput">Email</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
-                                                <apex:inputfield value="{!orgRequest.Email}" html-placeholder="Email" styleClass="form-control" required="true" id="emailInput"/>
-                                                <span class="help-block">We may use this email to request an update to the information you have submitted and to send you updates about the service from time to time.</span>
-                                                <span class="help-block" id="emailError"></span>
-                                            </c:formgroup>
-                                            
-                                            <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
-                                                <apex:outputLabel styleclass="control-label" for="phone">Phone</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
-                                                <apex:inputfield value="{!orgRequest.Phone}" html-placeholder="Phone" styleClass="form-control" required="true" id="phone"/>
-                                            </c:formgroup>
-                                        </c:column>
-                                    </c:row>
-                                    <c:row >
-                                        <c:column type="col-md-12">
-                                            <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
-                                                <apex:outputLabel for="orgDescribe">Please provide a brief description of your organisation</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
-                                                <apex:inputtextArea id="orgDescribe" value="{!orgRequest.Description}" html-placeholder="A description of your organisation" styleClass="form-control" rows="3" style="height:90px;" required="true" html-maxlength="{!$ObjectType.Lead.fields.Description.Length}"/>
-                                            </c:formgroup>
-                                            
-                                            <c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
-                                                <apex:outputLabel for="serviceDescribe">Please describe the services you provide</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
-                                                <apex:inputtextArea id="serviceDescribe" value="{!orgRequest.DCE_ServicesProvided__c}" html-placeholder="Describe the services you provide" styleClass="form-control" rows="3" style="height:90px;" required="true" html-maxlength="{!$ObjectType.Lead.fields.DCE_ServicesProvided__c.Length}"/>
-                                            </c:formgroup>
-                                        </c:column>
-                                    </c:row>
-                                    <c:row >
-                                        <span style="float:right;margin-right:1em;">
-                                            <apex:commandButton styleClass="btn-primary" value="Submit request" onclick="return false;" id="submitRequestButton"></apex:commandButton>
+											<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+								        		<apex:outputLabel styleclass="control-label">Name</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+								        		<apex:outputLabel styleclass="sr-only" for="firstName">First Name</apex:outputLabel><apex:inputfield value="{!orgRequest.FirstName}" html-placeholder="First Name" styleClass="form-control" style="margin-bottom:0.2em;" id="firstName" />
+								        		<apex:outputLabel styleclass="sr-only" for="lastName">Last Name</apex:outputLabel><apex:inputfield value="{!orgRequest.LastName}" html-placeholder="Last Name" styleClass="form-control" required="true" id="lastName"/>
+								        	</c:formgroup>
+								        	
+								        	<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+								        		<apex:outputLabel styleclass="control-label" for="emailInput">Email</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+								        		<apex:inputfield value="{!orgRequest.Email}" html-placeholder="Email" styleClass="form-control" required="true" id="emailInput"/>
+								        		<!--<span class="help-block">We may use this email to request an update to the information you have submitted and to send you updates about the service from time to time.</span>-->
+								        		<span class="help-block" id="emailError"></span>
+								        	</c:formgroup>
+								        	
+								        	<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+								        		<apex:outputLabel styleclass="control-label" for="phone">Phone</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+								        		<apex:inputfield value="{!orgRequest.Phone}" html-placeholder="Phone" styleClass="form-control" required="true" id="phone"/>
+								        	</c:formgroup>
+								        </c:column>
+									</c:row>
+									<c:row >
+										<c:column type="col-md-12">
+											<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+						    					<apex:outputLabel for="orgDescribe">Please provide a brief description of your organisation</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+						    					<apex:inputtextArea id="orgDescribe" value="{!orgRequest.Description}" html-placeholder="A description of your organisation" styleClass="form-control" rows="3" style="height:90px;" required="true" html-maxlength="{!$ObjectType.Lead.fields.Description.Length}"/>
+						    				</c:formgroup>
+											
+											<c:formgroup style="margin-left:0.5em;margin-right:0.5em;">
+						    					<apex:outputLabel for="serviceDescribe">Please describe the services you provide</apex:outputLabel><apex:outputpanel layout="inline" style="color:red;">*</apex:outputpanel>
+						    					<apex:inputtextArea id="serviceDescribe" value="{!orgRequest.DCE_ServicesProvided__c}" html-placeholder="Describe the services you provide" styleClass="form-control" rows="3" style="height:90px;" required="true" html-maxlength="{!$ObjectType.Lead.fields.DCE_ServicesProvided__c.Length}"/>
+						    				</c:formgroup>
+										</c:column>
+									</c:row>
+									<c:row >
+										<span style="float:right;margin-right:1em;">
+                                            <div><apex:commandButton styleClass="btn-primary" value="Submit request" onclick="return false;" id="submitRequestButton"></apex:commandButton></div>
+                                            <div style="margin-top:1em;"><a href="{!URLFOR($Page.DCE_privacyNotice)}" >Privacy Notice</a></div>
                                         </span>
-                                    </c:row>
+									</c:row>
+
                                 </apex:outputpanel>
-                                <apex:outputpanel layout="none" rendered="{!isloggedin}">
-                                    <p>You are already logged into the Dementia Connect portal (or one of the Alzheimer's Society communities). If you would like to request access for an additional person, please log-out from any Alzheimer's Community sites and return to this URL.</p>
-                                </apex:outputpanel>
+								<apex:outputpanel layout="none" rendered="{!isloggedin}">
+									<p>You are already logged into the Dementia Connect portal (or one of the Alzheimer's Society communities). If you would like to request access for an additional person, please log-out from any Alzheimer's Community sites and return to this URL.</p>
+								</apex:outputpanel>
+								
                             </c:panel>
                         </c:column>
-                        <c:column type="col-md-1 hidden-xs"/>
-                    </c:row>
-                    <c:modal title="Confirm submission" id="approvalModal" html-role="dialog" html-aria-labelledby="requestTitle">
-                        <div class="modal-dialog" role="document">
-                            <div class="modalText">
-                                <p id="requestTitle">You are about to submit a request to be added to our Dementia Connect portal.</p>
-                                <p>By submitting this request you are giving Alzheimer’s Society permission to publish the information on Dementia Connect, which will be available to anyone using it on our website or approved third party websites.</p>
-                            <!--<p>Our Dementia Connect team will review your request and will contact you shortly.</p>-->
-                                <apex:commandButton value="Cancel" styleClass="btn-primary" html-data-dismiss="modal"/>&nbsp;
-                                <apex:commandButton value="Confirm" action="{!submitLead}"  styleClass="btn-success"/>
-                            </div>
-                        </div>
-                    </c:modal>
-                </apex:form>
-            </c:visualstrapblock>
-        </body>
-    </html>
+						<c:column type="col-md-1 hidden-xs"/>
+					</c:row>
+					<c:modal title="Confirm submission" id="approvalModal" html-role="dialog" html-aria-labelledby="requestTitle">
+						<div class="modal-dialog" role="document">
+							<div class="modalText">
+								<p id="requestTitle">You are about to submit a request to be added to our Dementia Connect portal.</p>
+								<p>By submitting this request you are giving Alzheimer’s Society permission to publish the information on Dementia Connect, which will be available to anyone using it on our website of approved third party websites.</p>
+							<!--<p>Our Dementia Connect team will review your request and will contact you shortly.</p>-->
+								<apex:commandButton value="Cancel" styleClass="btn-primary" html-data-dismiss="modal"/>&nbsp;
+			        			<apex:commandButton value="Confirm" action="{!submitLead}"  styleClass="btn-success"/>
+			        		</div>
+			        	</div>
+		        	</c:modal>
+				</apex:form>
+			</c:visualstrapblock>
+		</body>
+	</html>
 </apex:page>

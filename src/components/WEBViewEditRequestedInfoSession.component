@@ -704,11 +704,22 @@
     
     <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"/>
     <script> 
-    
+    var startDate = new Date();
+  	startDate.setDate(startDate.getDate() + 21);
     
     $(".as-datepicker").datepicker({
         format: 'dd/mm/yyyy',
         autoclose: true
+    });
+    
+     $(".as-datepicker").each( function(index, obj){
+        var eventDate =  new Date($(obj).val());
+        
+         //if(startDate < eventDate) {
+         $(obj).datepicker('setStartDate', startDate);
+         $(obj).datepicker('setDates', eventDate); 
+         // }
+           
     });
         
     </script>

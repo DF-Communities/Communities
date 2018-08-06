@@ -1,0 +1,6 @@
+<messaging:emailTemplate subject="Dementia Friendly Community Application - Please register" recipientType="Contact" relatedToType="DFC_Community_Representative__c">
+<messaging:plainTextEmailBody >
+Congratulations!
+This is your new Visualforce Email Template.
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

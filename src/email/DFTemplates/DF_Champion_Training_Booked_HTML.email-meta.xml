@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Friend Champioon Training Booking Confirmed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DF Champion Training Booked HTML</name>
+    <style>none</style>
+    <subject>Dementia Friends Champions Induction booked</subject>
+    <textOnly>Dear {{contact.First_Name__c}} {{contact.Last_Name__c}},
+
+Thank you for registering to attend your Dementia Friends Champion Induction on  {{event.Event_Date}} at {{event.Event_Time}}.
+
+This email confirms your place for the induction.
+
+Course date: - {{event.Event_Date}}
+Course location: -    {{event.Location__c}}
+{{event.Street__c}}
+{{event.City__c}}
+{{event.County__c}}
+{{event.Postcode__c}}
+
+About the role
+
+Being a Dementia Friends Champion is a volunteer role, where you will be organising and running Dementia Friends Information Sessions in your community.
+If you haven’t already, ensure that you have read and understood the role of a Dementia Friends Champion, the eligibility criteria and what the day will involve before attending. Dementia Friends Champions need to be confident presenters and during the induction, you will be asked to present a small part of an Information Session to the group and receive feedback on this.
+We hope that most people attending our induction will go on to be Dementia Friends Champions but this role isn&apos;t for everyone. You may decide after the induction that it isn&apos;t right for you or the trainer may feel your skills and experience are better suited to getting involved in other ways.
+
+
+About the induction
+
+You will need to attend the whole day to become a Champion. We appreciate that unexpected circumstances or transport delays can leave you running behind schedule, but please be aware that if you are late it may not be possible to catch up and complete the day. The Regional Support Officer (RSO) delivering the induction day will advise you if this is the case and invite you to attend a future induction day.  
+
+Your Dementia Friends Champions induction will prepare you with the knowledge and skills you’ll need to deliver Information Sessions in your community.
+Please be aware that should the induction fail to reach a suitable attendance level, we may be forced to cancel the session. In this case we will notify you by email and offer you a place on an alternative session.
+Please bring a packed lunch.  Tea and coffee will be provided.
+For help planning your route to the venue, please visit Google Maps and select the ‘Get directions’ option.
+Parking information can be found online, such as on the Parkopedia website.
+
+
+Before you attend...
+
+Please complete Module 1 of this e-learning. Whatever your current level of knowledge of dementia, we want to ensure everyone attending has some shared understanding of the condition.
+If you are aged between 16 and 18 you will need to complete a parental consent form before you attend your induction. Download this from your Champions dashboard here and bring it along with you to the induction: https://www.dementiafriends.org.uk/WEBChampionPreTrainingMaterials
+Please don’t plan any Information Sessions until at least 10 days after the induction. This allows time for you to familiarise yourself with the material and to order the resources needed to run Sessions.
+If you have any special requirements that would allow you to get more from the induction day, please let us know as soon as possible.
+
+
+Changed your mind?
+
+If you decide that being a Champion isn&apos;t for you or if you can no longer attend, please log in to your account on the Dementia Friends website and unregister from the induction. There are other ways that you can support Dementia Friends and we would love for you to stay involved.
+
+If you have any further questions about the Champions induction, please don’t hesitate to let us know – otherwise, we’ll see you soon!
+
+Kind regards,
+
+Dementia Friends team
+
+0300 222 5855
+dementiafriends.org.uk
+Facebook
+Twitter</textOnly>
+    <type>custom</type>
+</EmailTemplate>

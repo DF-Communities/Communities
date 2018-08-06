@@ -4,7 +4,7 @@
     <apex:attribute name="dfContactId" type="String" description="" assignTo="{!dfcId}" required="true"/>
     <apex:attribute name="forceCountOnLoad" type="Boolean" description="" assignTo="{!showListing}" required="true"/>
     <apex:attribute name="isChampion" type="Boolean" description="" assignTo="{!isChamp}" required="true"/>
-	
+    
     <apex:outputPanel layout="none" rendered="{!OR(isChampion, AND(!isChampion, events.size >0))}" >
     <div class="col-md-12 column">
         
@@ -37,9 +37,8 @@
                                         
                                     </div>           
                                     
-                                    <apex:outputPanel rendered="{!event.Event_Status__c == 'Completed' && 
-                                                                ((event.Session_Requester__c == dfcId && !event.Host_Feedback_Submitted__c)
-                                                                ||(event.Session_Requester__c != dfcId && !event.Champion_Feedback_Submitted__c))}">
+                                    <apex:outputPanel rendered="{!((event.Session_Requester__c == dfcId && !event.Host_Feedback_Submitted__c)
+                                                                ||(event.Session_Organiser__c == dfcId && !event.Champion_Feedback_Submitted__c))}">
                                         <div class="col-lg-3 col-md-3 col-sm-10 hidden-xs btn-group">
                                             <a class="btn-primary btn-xs" href="WEBSessionFeedback?eventId={!event.Id}">Tell us how the Session went</a>
                                         </div>

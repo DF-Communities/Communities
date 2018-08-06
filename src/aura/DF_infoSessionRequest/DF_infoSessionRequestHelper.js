@@ -110,9 +110,9 @@
         console.log(JSON.stringify(response));
         
         component.set("v.communityUrl", "https://" + response["communityDomain"]);
-        component.set("v.vfHost", response["communityDomain"]);
-        var vfOrigin = component.get("v.communityUrl");
-        
+        component.set("v.vfHost", response["vfCmpOriginDomain"]);
+        var vfOrigin = "https://" + component.get("v.vfHost");
+        console.log('vfOrigin: ' + vfOrigin);
         window.addEventListener("message", function(payload) {
             console.log('In postmessage');
             if (payload.origin !== vfOrigin) {
@@ -363,11 +363,14 @@
     },
     
     fireValidationMessageFromLightningToVfAddr : function(component, isLocationCardValid) {
+        console.log('In fireValidationMessageFromLightningToVfAddr');
         if(!isLocationCardValid) {
-            //var vfOrigin = component.get("v.communityUrl");
             var vfWindow = component.find("vfAddressForm").getElement().contentWindow;
             var message = isLocationCardValid;
-            vfWindow.postMessage(message, component.get("v.vfHost"));
+            console.log(message);
+            console.log(component.get("v.vfHost"));
+            vfWindow.postMessage(message, "https://"+component.get("v.vfHost"));
+            console.log('Completed fireValidationMessageFromLightningToVfAddr');
         }
     },
     

@@ -18,19 +18,12 @@
                     
                     <label class="fLabel">Please <b>contact me</b> by (please tick all that apply)</label>
                     <div></div>
-                    <label style="display:block">
-                        <apex:inputCheckbox value="{!emailPref}" title="Email"/> Email
-                    </label>
-                    <label style="display:block">
+                    <label>
+                        <div><apex:inputCheckbox value="{!emailPref}" title="Email"/> Email</div>
                         <div><apex:inputCheckbox value="{!telPref}" title="Telephone"/> Telephone</div>
-                    </label>
-                    <label style="display:block">
                         <div><apex:inputCheckbox value="{!textPref}" title="Text Message"/> Text Message</div>
-                    </label>
-                    <label style="display:block">
                         <div><apex:inputCheckbox value="{!socialPref}" title="Social Media"/> Social Media</div>
                     </label>
-                    
                 </div>
             </div>
         </div>

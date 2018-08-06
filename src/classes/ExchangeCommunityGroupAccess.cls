@@ -10,6 +10,7 @@ public class ExchangeCommunityGroupAccess implements Queueable {
             CollaborationGroupMember gm = new CollaborationGroupMember();
             gm.CollaborationGroupId = groupId;
             gm.MemberId = u.Id;
+            gm.NotificationFrequency = 'N';
             lisGroupMembers.add(gm);
         }
 

@@ -121,12 +121,14 @@
                                 <a class="btn-primary btn-xs" style="font-size: 14px;float:left; margin-right: 15px;margin-bottom: 15px;">
                                     {!if(v.isReqSessionFirstSubmission, 'Next', 'Save')}
                                 </a>
-                            </div>                    
-                            <div onclick="{!c.handleCancelledSession}">
-                                <a class="btn-primary btn-xs" style="font-size: 14px;float:left;">
-                                    Session did not take place
-                                </a>
-                            </div>
+                            </div>  
+                        	<aura:if isTrue="{!v.isFirstSubmission}"> 
+                                <div onclick="{!c.handleCancelledSession}">
+                                    <a class="btn-primary btn-xs" style="font-size: 14px;float:left;">
+                                        Session did not take place
+                                    </a>
+                                </div>
+                           </aura:if>
                     </div>
                 </aura:if>
             </aura:if>

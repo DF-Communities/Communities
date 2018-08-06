@@ -1,0 +1,20 @@
+Dear {{contact_name}}
+
+Thanks for registering with Dementia Friends.
+
+Due to a problem on our website last week, you will be asked to change your password when you verify your account. Please follow the instructions below to be able to log in to the Dementia Friends website at any time.
+
+Click the link below to verify your email address. The link will verify your email and redirect you to the page where you can change your password. 
+
+{{verifyLink}}
+
+If  the link above does not work, try copying and pasting the URL into a new browser window instead. 
+
+You will be redirected to the change password page. Please enter a new password and save the changes. 
+
+Once your email is verified and you have changed your password you will be able to login into the site at any time. 
+
+Thanks
+
+Dementia Friends - Making life better for people with dementia
+http://www.dementiafriends.org.uk

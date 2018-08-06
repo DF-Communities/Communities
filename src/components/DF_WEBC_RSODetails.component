@@ -11,7 +11,7 @@
            <h4 align="center">Your DFO</h4>
            <br/>
         <br/>
-        <p align="center">   I’m {!rso.FirstName}, your Dementia Friends Officer (DFO) for {!regionName}. I’m based in our {!rso.office_location__c} office. You can call me on {!rso.phone} or email me on {!email}.</p>
+        <p align="center">   I’m {!rso.FirstName}, your Dementia Friends Officer (DFO) for {!regionName}. I’m based in our {!rso.office_location__c} office. You can call me on {!rso.phone} or email me on <a href="mailto:{!email}">{!email}</a></p>
            <!--     <a class="btn btn-primary btn-block" href="mailto:{!email}"> Email your<br/> DFO </a>-->
         
         </apex:outputPanel>

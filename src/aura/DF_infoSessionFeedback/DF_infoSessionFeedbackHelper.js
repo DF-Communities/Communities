@@ -121,10 +121,10 @@
         console.log('isReqSessionRequesterFirstSubmission: ' + isReqSessionRequesterFirstSubmission);
         component.set("v.isReqSessionRequesterFirstSubmission", isReqSessionRequesterFirstSubmission);
         var eventId = component.get("v.eventId");
-        var showPreFormPg = ((!$A.util.isEmpty(eventId) && !responseMap["isRequester"]) || (!responseMap["isRequester"] && responseMap["isChampion"]));
-        console.log('SHOWPREFORM: ' + showPreFormPg);
-        component.set("v.feedbackPgOne", showPreFormPg);
-        component.set("v.showMainForm", !showPreFormPg); 
+        var showPreForm = ((!$A.util.isEmpty(eventId) && !responseMap["isRequester"]) || (!responseMap["isRequester"] && responseMap["isChampion"]));
+        console.log('SHOWPREFORM: ' + showPreForm);
+        component.set("v.showPreForm", showPreForm);
+        component.set("v.showMainForm", !showPreForm); 
         // handle the pick list org and list of session pending for reporting...
         // pick list dfEVENT 
         // 

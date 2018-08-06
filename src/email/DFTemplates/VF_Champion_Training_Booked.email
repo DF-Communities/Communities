@@ -1,0 +1,117 @@
+<messaging:emailTemplate subject="Dementia Friends Champions induction booked" recipientType="Contact" relatedToType="DF_EventAttendee__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+<!-- <img src="{!URLFOR($Resource.img, 'img/f/logo.png')}" height="103" width="259" alt="Dementia Friends" /> -->
+<apex:image id="Logo" value="https://c.eu0.content.force.com/servlet/servlet.ImageServer?id=01520000001HfE1&oid=00D20000000CwQc" height="103" width="259"/>
+<br/>
+Dear {!relatedTo.DF_Contact__r.First_Name__c} {!relatedTo.DF_Contact__r.Last_Name__c},
+<br/><br/>
+<b>Thank you for registering to attend your Dementia Friends Champions induction.</b> 
+<br/><br/>
+This email <b>confirms your place </b> for the induction:
+<br/><br/>
+Date and time: - {!relatedTo.DF_Event__r.Event_Date_Time__c}<br/>
+Location: -    {!relatedTo.DF_Event__r.Location__c}<br/>
+                      {!relatedTo.DF_Event__r.Street__c}<br/>
+                      {!relatedTo.DF_Event__r.City__c}<br/>
+                      {!relatedTo.DF_Event__r.County__c}<br/>
+                      {!relatedTo.DF_Event__r.Postcode__c}
+                                          
+<br/><br/>
+<b>About the role</b>
+<ul>
+<li>Being a Dementia Friends Champion is a volunteer role, where you will be organising and running Dementia Friends Information Sessions in your community.</li>
+<li>If you haven’t already, ensure that you have read and understood <a href="https://www.dementiafriends.org.uk/WEBArticle?page=what-should-i-consider#.VbEAdtJViko">the role of a Dementia Friends Champion</a>, the eligibility criteria and what the day will involve before attending. Dementia Friends Champions need to be confident presenters and during the induction, <b>you will be asked to present</b> a small part of an Information Session to the group and receive feedback on this.</li>
+<li>We hope that most people attending our induction will go on to be Dementia Friends Champions but <b>this role isn't for everyone.</b> You may decide after the induction that it isn't right for you or the trainer may feel your skills and experience are better suited to getting involved in other ways.</li>
+</ul>
+<br/>
+<b>About the induction</b>
+<ul>
+<li>Your Dementia Friends Champions induction will prepare you with the knowledge and skills you’ll need to deliver Information Sessions in your community.</li>
+<li>You will need to attend the <b>whole day</b> (10:00 – 16:00) to become a Champion.</li>
+<li>Please be aware that should the induction fail to reach a suitable attendance level, we may be forced to cancel the session. In this case we will notify you by email and offer you a place on an alternative session.</li>
+<li>Please bring a packed lunch.  Tea and coffee will be provided.</li>
+<li>For help planning your route to the venue, please visit <a href="https://www.google.co.uk/maps">Google Maps</a> and select the ‘Get directions’ option.</li>
+<li>Parking information can be found online, such as on the <a href="http://www.parkopedia.co.uk/">Parkopedia</a> website.</li>
+</ul>
+<br/>
+<b>Before you attend...</b>
+<ul>
+<li>Please complete Module 1 of this <a href="http://www.scie.org.uk/assets/elearning/dementia/dementia01/resource/flash/index.html">e-learning</a>. Whatever your current level of knowledge of dementia, we want to ensure everyone attending has some shared understanding of the condition.</li>
+<li>Please <b>don’t plan</b> any Information Sessions until at least 10 days after the induction. This allows time for you to familiarise yourself with the material and to order the resources needed to run Sessions.</li>
+<li><b>If you have any special requirements</b> that would allow you to get more from the induction day, please let us know as soon as possible.</li>
+</ul>
+<br/>
+<b>Changed your mind?</b>
+<br/><br/>
+If you decide that being a Champion isn't for you or if you can no longer attend, please <a href="https://www.dementiafriends.org.uk/login">log in</a> to your account on the Dementia Friends website and unregister from the induction. There are other ways that you can support Dementia Friends and we would love for you to <a href="https://www.dementiafriends.org.uk/WEBArticle?page=champion-how-else-can-i-help#.VbEEctJViko">stay involved</a>.
+<br/><br/>
+If you have any further questions about the Champions induction, please don’t hesitate to let us know – otherwise, we’ll see you soon!
+<br/><br/>
+Kind regards,
+<br/><br/>
+Dementia Friends team
+<br/><br/>
+0300 222 5855
+<br/>
+<a href="http://www.dementiafriends.org.uk">dementiafriends.org.uk</a>
+<br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a>
+<br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a>
+</span>
+</messaging:htmlEmailBody>
+
+<messaging:plainTextEmailBody >
+Dear {!relatedTo.DF_Contact__r.First_Name__c} {!relatedTo.DF_Contact__r.Last_Name__c},
+
+Thank you for registering to attend your Dementia Friends Champions induction. 
+
+This email confirms your place for the induction:
+
+Date and time: - {!relatedTo.DF_Event__r.Event_Date_Time__c}
+Location: -    {!relatedTo.DF_Event__r.Location__c}
+                      {!relatedTo.DF_Event__r.Street__c}
+                      {!relatedTo.DF_Event__r.City__c}
+                      {!relatedTo.DF_Event__r.County__c}
+                      {!relatedTo.DF_Event__r.Postcode__c}
+                                          
+About the role
+
+-Being a Dementia Friends Champion is a volunteer role, where you will be organising and running Dementia Friends Information Sessions in your community.
+-If you haven’t already, ensure that you have read and understood https://www.dementiafriends.org.uk/WEBArticle?page=what-should-i-consider#.VbEAdtJViko the role of a Dementia Friends Champion, the eligibility criteria and what the day will involve before attending. Dementia Friends Champions need to be confident presenters and during the induction, you will be asked to present a small part of an Information Session to the group and receive feedback on this.
+-We hope that most people attending our induction will go on to be Dementia Friends Champions but this role isn't for everyone. You may decide after the induction that it isn't right for you or the trainer may feel your skills and experience are better suited to getting involved in other ways.
+
+About the induction
+
+-Your Dementia Friends Champions induction will prepare you with the knowledge and skills you’ll need to deliver Information Sessions in your community.
+-You will need to attend the whole day (10:00 – 16:00) to become a Champion.
+-Please be aware that should the induction fail to reach a suitable attendance level, we may be forced to cancel the session. In this case we will notify you by email and offer you a place on an alternative session.
+-Please bring a packed lunch.  Tea and coffee will be provided.
+-For help planning your route to the venue, please visit https://www.google.co.uk/maps Google Maps and select the ‘Get directions’ option.
+-Parking information can be found online, such as on the http://www.parkopedia.co.uk/ Parkopedia website.
+
+Before you attend...
+
+-Please complete Module 1 of this http://www.scie.org.uk/assets/elearning/dementia/dementia01/resource/flash/index.html e-learning. Whatever your current level of knowledge of dementia, we want to ensure everyone attending has some shared understanding of the condition.
+-Please don’t plan any Information Sessions until at least 10 days after the induction. This allows time for you to familiarise yourself with the material and to order the resources needed to run Sessions.
+-If you have any special requirements that would allow you to get more from the induction day, please let us know as soon as possible.
+
+Changed your mind?
+
+If you decide that being a Champion isn't for you or if you can no longer attend, please https://www.dementiafriends.org.uk/login log in to your account on the Dementia Friends website and unregister from the induction. There are other ways that you can support Dementia Friends and we would love for you to https://www.dementiafriends.org.uk/WEBArticle?page=champion-how-else-can-i-help#.VbEEctJViko stay involved.
+
+If you have any further questions about the Champions induction, please don’t hesitate to let us know – otherwise, we’ll see you soon!
+
+Kind regards,
+
+Dementia Friends team
+
+0300 222 5855
+dementiafriends.org.uk
+facebook.com/DementiaFriends
+twitter.com/DementiaFriends
+
+</messaging:plainTextEmailBody>
+
+</messaging:emailTemplate>

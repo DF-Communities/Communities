@@ -22,9 +22,13 @@ public without sharing class WEBChampion extends DF_WEBC_ControllerBase {
     public final String INVALID_CHAMPION_CODE = 'The Champions\' code you entered was not recognised. Please try again.';
     public final String ALERT_ERROR_CLASS = 'alert-danger';
     public final String STATUS_CANCELLED = 'Cancelled';
+    public final String STATUS_COMPLETED = 'Completed';
+    /*private String STATUS_AVAILABLE = 'Available';*/
+
     public final String ACTION = 'Tell us about your action';
     public final String ACTION_ENTERED = 'You\'ve created an action';
     public boolean hasActions {get;set;}
+    public Decimal defaultSearchRadius {get;set;}
     public String actionText {get;set;}
     public List<Action__c> actions {get; set;}
     public String showActionText {get; set;}
@@ -271,7 +275,8 @@ public without sharing class WEBChampion extends DF_WEBC_ControllerBase {
         isChampionSuspended = DF_Utils.isChampionSuspended(currentDfc);
         isChampionHiatus = DF_Utils.isChampionHiatus(currentDfc);
         ischampionVerified = DF_Utils.isChampionVerified(currentDfc);
-        friendCount = currentDfc.Total_No_of_Friends_Created__c.intValue(); // #ISS - 1482
+        friendCount = currentDfc.Total_No_of_Friends_Created__c.intValue();
+        defaultSearchRadius = DF_Utils.getDefaultSearchRadius(currentDfc);
         isExchangeBlocked = currentDfc.Block_champion_exchange_access__c;
         
         actions = DF_Utils.dfActions(currentdfc);
@@ -288,29 +293,33 @@ public without sharing class WEBChampion extends DF_WEBC_ControllerBase {
         String sdt = Datetime.now().format('yyyy-MM-dd HH:mm:ss', 'Europe/London');
         Datetime dt = Datetime.valueOf(sdt);
 
-        upcomingEvents = [SELECT Id, Name, Event_Date_Time__c, Street__c, City__c, County__c, Postcode__c, Number_of_Attendees__c, Number_of_Places__c, Number_of_Attendee_Records__c, Requested_Info_Session__c 
+        upcomingEvents = DF_EventListingHelper.getCreatedSessions(currentDfc.Id).get('upcomingEvents');
+        /*upcomingEvents = [SELECT Id, Name, Event_Date_Time__c, Street__c, City__c, County__c, Postcode__c, Number_of_Attendees__c, Number_of_Places__c, Number_of_Attendee_Records__c, Requested_Info_Session__c 
                           FROM DF_Event__c 
                           WHERE Session_Organiser__c = :currentDfc.Id 
                           AND Event_End_Date_Time__c >=: dt 
                           AND Requested_Info_Session__c = false
-                          AND Event_Status__c != :STATUS_CANCELLED 
+                          AND Event_Status__c = :STATUS_AVAILABLE 
                           AND RecordTypeId = : DF_Utils.getsObjectRecordTypeId('DF_Event__c',SESSION_RT)  
-                          LIMIT 20];
+                          LIMIT 20];*/
         
         eventsRequiringFeedback = [SELECT Id, Name, Event_Date_Time__c, Street__c, City__c, County__c, Postcode__c, Number_of_Attendees__c, Number_of_Places__c, Requested_Info_Session__c 
                                    FROM DF_Event__c 
                                    WHERE Session_Organiser__c = :currentDfc.Id 
-                                   AND Event_End_Date_Time__c <: dt AND (Number_of_Attendees__c = null 
-                                                                         OR Number_of_Attendees__c = 0) 
-                                   AND Event_Status__c != :STATUS_CANCELLED 
+                                   AND Event_End_Date_Time__c <: dt 
+                                   AND (Number_of_Attendees__c = null OR Number_of_Attendees__c = 0) 
+                                   AND Event_Status__c != :STATUS_CANCELLED
                                    AND  RecordTypeId = : DF_Utils.getsObjectRecordTypeId('DF_Event__c',SESSION_RT)  LIMIT 10];
+        
         contactDetailsChanged = [SELECT id 
                                  FROM DF_Contact_Inbound_Change__c 
                                  WHERE Related_DF_Contact__c=:currentdfc.id];
         
+        System.debug('*WED: ' + eventsRequiringFeedback.size());
         if (eventsRequiringFeedback.size() > 0 && isChampionConverted ) {
             showReportingPrompt = true;
         }
+        
         if(contactDetailsChanged.size()>0 ){
             
             showChangeDetailsPrompt = true;

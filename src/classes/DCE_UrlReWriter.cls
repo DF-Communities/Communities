@@ -13,10 +13,19 @@ global class DCE_UrlReWriter implements Site.UrlRewriter {
             
             system.debug('splitURL - '+splitURL);
             
-            String redirectUrl = urlMappings.get('/'+splitURL[1]);
+            string pagetoSeek = splitURL[1];
+            
+            system.debug('pagetoSeek - '+pagetoSeek);
+            
+             string pagetoSeekLower = splitURL[1].toLowerCase();
+            
+            system.debug('pagetoSeek - '+pagetoSeekLower);
+            
+            String redirectUrl = urlMappings.get('/'+pagetoSeekLower);
             
             system.debug('redirectUrl - '+redirectUrl);
             system.debug('splitURL.size() - '+splitURL.size());
+            
             if(redirectUrl == null){ return null;}
             
             if ( splitURL.size() == 2 ) { return new PageReference(redirectUrl); }
@@ -37,7 +46,7 @@ global class DCE_UrlReWriter implements Site.UrlRewriter {
             
 		} catch ( Exception x ) {
 
-            //system.debug('DF_WEBC_UrlRewriter' + x.getMessage());
+            system.debug('DF_WEBC_UrlRewriter' + x.getMessage());
             //return new pageReference('/DCE_Dashboard');
             return null;
 
@@ -65,7 +74,7 @@ global class DCE_UrlReWriter implements Site.UrlRewriter {
 		
 		String[] splitURL = shortUrl.getUrl().split('/');
 		
-		String redirectUrl = urlMappings.get('/'+splitURL[1]);
+		String redirectUrl = urlMappings.get('/'+splitURL[1].toLowerCase());
 		
 		list<DCE_ServiceAmend__c> amends = [select id from DCE_ServiceAmend__c where portalServiceNumber__c = :splitURL[2]];
             	
@@ -85,13 +94,14 @@ global class DCE_UrlReWriter implements Site.UrlRewriter {
     		
     		urlMappings.put('/home', '/DCE_Dashboard');
     		urlMappings.put('/login', '/DCE_LoginPage');
-    		urlMappings.put('/Request', '/DCE_newOrgRequest');
-    		urlMappings.put('/Thank-you', '/DCE_NewOrgRequestConfirm');
+    		urlMappings.put('/request', '/DCE_newOrgRequest');
+    		urlMappings.put('/thank-you', '/DCE_NewOrgRequestConfirm');
     		urlMappings.put('/sign-up', '/DCE_NewUserRegister');
     		urlMappings.put('/our-details', '/DCE_OrgDetails');
-    		urlMappings.put('/ServiceEdit', '/DCE_ServiceEdit');
-    		urlMappings.put('/ServiceView', '/DCE_ServiceView');
+    		urlMappings.put('/serviceedit', '/DCE_ServiceEdit');
+    		urlMappings.put('/serviceview', '/DCE_ServiceView');
     		urlMappings.put('/my-details', '/DCE_UserDetails');
+            urlMappings.put('/privacy', '/DCE_privacyNotice');
     		
     		
     		return urlMappings;

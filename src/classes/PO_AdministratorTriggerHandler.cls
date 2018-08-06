@@ -38,7 +38,7 @@ public without sharing class PO_AdministratorTriggerHandler {
         List<Messaging.SingleEmailMessage> lisMails = new List<Messaging.SingleEmailMessage>();
 
 
-        for(PO_Administrator__c item: [select IsAddedThroughLoadProcess__c,DF_Contact__r.First_Name__c,DF_Contact__r.Last_Name__c,Status__c,Invited_Name__c,Invited_Email__c,DF_Contact__c,Inviter_Name__c,DF_Contact__r.Name__c,DF_Contact__r.Portal_Contact__c,Partner_Organisation__r.Name from PO_Administrator__c where Id in:itemsNewMap.keyset()]){
+        for(PO_Administrator__c item: [select IsAddedThroughLoadProcess__c,DF_Contact__r.First_Name__c,DF_Contact__r.Last_Name__c,Status__c,Invited_Name__c,Invited_Email__c,DF_Contact__c,Inviter_Name__c,DF_Contact__r.Name__c,DF_Contact__r.Portal_Contact__c,Partner_Organisation__r.Name, Partner_Organisation__r.DFC_Code__c from PO_Administrator__c where Id in:itemsNewMap.keyset()]){
            
            system.debug('item  '+ item);
             if ( item.Status__c == 'Invited' && item.Invited_Email__c != null ) {
@@ -76,7 +76,9 @@ public without sharing class PO_AdministratorTriggerHandler {
              Map<String, String> mapValues = new Map<String, String>();
              mapValues.put('contact_firstname', admin.DF_Contact__r.First_Name__c);
              mapValues.put('contact_lastname', admin.DF_Contact__r.Last_Name__c);
-             mapValues.put('inviter_name', admin.Inviter_Name__c); 
+             mapValues.put('contact_name', admin.DF_Contact__r.First_Name__c + ' ' + admin.DF_Contact__r.Last_Name__c);
+             mapValues.put('inviter_name', admin.Inviter_Name__c);
+             mapValues.put('partner_code', admin.Partner_Organisation__r.DFC_Code__c); 
              mapValues.put('partner_name', admin.Partner_Organisation__r.Name); 
             
            

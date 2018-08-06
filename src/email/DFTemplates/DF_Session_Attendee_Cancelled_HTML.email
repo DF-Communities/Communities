@@ -1,0 +1,15 @@
+<img src="https://c.eu0.content.force.com/servlet/servlet.ImageServer?id=01520000001HfE1&oid=00D20000000CwQc" height="103" width="259"/>
+<br/>
+Dear {{event.Session_Organiser__r.Name}},
+<br/><br/>
+{{contact.First_Name__c}} {{contact.Last_Name__c}} has unregistered to your Dementia Friends Information Session<br/>
+{{event.Name}} on {{event.Event_Date_Time__c}}
+<br/><br/>
+You now have {{event.Number_Of_Attendee_Records__c-1}}
+ registered attendees.
+<br/><br/>
+Kind Regards,
+<br/><br/>
+Dementia Friends
+<br/><br/>
+<a href="http://www.dementiafriends.org.uk">http://www.dementiafriends.org.uk</a>

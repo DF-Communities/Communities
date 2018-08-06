@@ -9,6 +9,7 @@ public without sharing class WEBSession extends WEBController {
     public final String SAVED_SEARCH_TYPE_SESSION = 'Session';
     public final String SAVED_SEARCH_TYPE_TRAINING = 'Training';    
     public final String STATUS_AVAILABLE = 'Available';
+    public final String MATCHED_WITH_CHAMP = 'Matched with champion';
     public final String STATUS_FULL = 'Full';
     public final String STATUS_COMPLETED = 'Completed';
     public final String STATUS_CANCELLED = 'Cancelled';
@@ -181,7 +182,10 @@ public without sharing class WEBSession extends WEBController {
                                 and d.RecordTypeId = :rtId
                                 and d.Event_Date_Time__c >= today
                                 //and (d.Event_Status__c = :STATUS_AVAILABLE or d.Event_Status__c = :STATUS_COMPLETED)
-                                and d.Event_Status__c = :STATUS_AVAILABLE
+                                and 
+                                ( (d.Requested_Info_Session__c = false and d.Event_Status__c = :STATUS_AVAILABLE) or
+                                  (d.Requested_Info_Session__c = true and d.Request_Status__c = :MATCHED_WITH_CHAMP)
+                                )
                                 ORDER BY d.Event_Date_Time__c ASC];
 
         noOfRecords = eventCount.size();
@@ -198,7 +202,10 @@ public without sharing class WEBSession extends WEBController {
                                 and d.RecordTypeId = :rtId
                                 and d.Event_Date_Time__c >=:system.now()
                                 //and (d.Event_Status__c = :STATUS_AVAILABLE or d.Event_Status__c = :STATUS_COMPLETED)
-                                and d.Event_Status__c = :STATUS_AVAILABLE
+                                and 
+                                ( (d.Requested_Info_Session__c = false and d.Event_Status__c = :STATUS_AVAILABLE) or
+                                  (d.Requested_Info_Session__c = true and d.Request_Status__c = :MATCHED_WITH_CHAMP)
+                                )
                                 ORDER BY d.Event_Date_Time__c ASC
                                 LIMIT :recordsPerPage 
                                 OFFSET :startRecord]){
@@ -413,7 +420,7 @@ public without sharing class WEBSession extends WEBController {
         if (showUnavailable){
             queryString += 'and d.Event_Status__c != :STATUS_CANCELLED '; 
         }else {
-            queryString += 'and d.Event_Status__c = :STATUS_AVAILABLE '; 
+            queryString += 'and ( (d.Requested_Info_Session__c = false and d.Event_Status__c = :STATUS_AVAILABLE) or (d.Requested_Info_Session__c = true and d.Request_Status__c = :MATCHED_WITH_CHAMP) ) '; 
         }
         
         //searchPostCode = 'CH35AN';

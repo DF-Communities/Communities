@@ -43,6 +43,16 @@
                     </apex:outputPanel>
 
                     </apex:repeat>
+                   <div class="row clearfix">
+                        <div class="col-md-12">
+                            <button type="button" class="pb-md btn btn-primary" id="streamVideo" onclick="$('#myModal').modal('show'); ">
+                            Click here to watch the videos for organisations
+                            </button>
+                        </div>
+                     </div>
+                    <div class="row clearfix">
+                        <br/>
+                    </div>
 
                     <c:DF_WEBC_PartnerVideos />
 

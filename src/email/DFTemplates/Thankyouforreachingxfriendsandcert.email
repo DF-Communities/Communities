@@ -1,0 +1,58 @@
+<messaging:emailTemplate subject="Dementia Friends - Congratulations on reaching  {!Left(TEXT(relatedto.Total_No_of_Friends_Created__c),10)} Dementia Friends " recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+<b>Congratulations!</b> Following your latest Dementia Friends Information Session, you've now created  <apex:outputText value="{0, number, ###}">
+   <apex:param value="{!relatedto.Total_No_of_Friends_Created__c }" />
+</apex:outputText>  Dementia Friends!
+<br/><br/>
+During your Champions induction, we discussed the target of reaching 100 Dementia Friends and I wanted to say <b>thank you</b> on behalf of all the Dementia Friends team for your hard work to get there.
+<br/><br/>
+To recognise this fantastic achievement, I’d like to offer you a certificate.  If you’d like one, please let me know and I’ll happily post it out to you.
+<br/><br/>
+We are very grateful for the time and effort you put in as a Champion.  Every Friend you make is another step towards us reaching 4 million Dementia Friends by 2020 – so thank you for all the Friends you have made so far and all the effort you’ve put in. Keep up the great work!
+<br/><br/>
+Best wishes,<br/>
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Dementia Friends Officer - Dementia Friends<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+{!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+{!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+
+<a href= "http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a><br/>
+Email Id:TEREF17
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+Congratulations! Following your latest Dementia Friends Information Session, you've now created  {!relatedto.Total_No_of_Friends_Created__c}  Dementia Friends!
+
+During your Champions induction, we discussed the target of reaching 100 Dementia Friends and I wanted to say thank you on behalf of all the Dementia Friends team for your hard work to get there.
+
+To recognise this fantastic achievement, I’d like to offer you a certificate.  If you’d like one, please let me know and I’ll happily post it out to you.
+
+We are very grateful for the time and effort you put in as a Champion.  Every Friend you make is another step towards us reaching 4 million Dementia Friends by 2020 – so thank you for all the Friends you have made so far and all the effort you’ve put in. Keep up the great work!
+
+Best wishes,
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Dementia Friends Officer - Dementia Friends
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}){!relatedTo.DF_Region__r.RSO__r.Email}
+{!relatedTo.DF_Region__r.RSO__r.phone}
+
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+Email Id:TEREF17
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

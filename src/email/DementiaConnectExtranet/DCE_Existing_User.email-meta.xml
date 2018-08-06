@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to user when they&apos;re already a community member</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DCE Existing User</name>
+    <style>none</style>
+    <subject>Thank you for registering with the Dementia Connect Portal</subject>
+    <type>text</type>
+</EmailTemplate>

@@ -1,0 +1,11 @@
+Dear {{FirstName}},
+
+One of the Services in the Dementia Connect Portal has been transferred from your name to one of your colleagues. Please see below for the details:
+
+Service: {{ServiceName}}
+New Owner: {{NewOwner}}
+
+If you think this change was made in error, please discuss with your colleagues.
+
+With thanks,
+The Dementia Connect Team

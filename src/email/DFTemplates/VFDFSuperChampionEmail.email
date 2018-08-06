@@ -1,0 +1,76 @@
+<messaging:emailTemplate subject="Dementia Friends - Would you like to deliver extra Information Sessions?" recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+Following on from my previous email, I wanted to offer you an additional opportunity to run Information Sessions.<br/><br/>
+
+During your induction, I asked you to demonstrate the following five key qualities;
+<ul type="circle">
+<li>   Use of positive language about dementia </li>
+<li>    Effective presentation skills</li>
+<li>    Objectivity</li>
+<li>    Willingness to follow code of conduct</li>
+<li>    Enthusiasm and motivation to organise Information Sessions</li>
+</ul>
+I was also looking to identify one or more Champions who go above and beyond these qualities. Throughout the day, I felt that you showed you are a clear and confident communicator and I identified you as a particularly strong Champion.<br/><br/>
+
+If you’re happy to do so, we’d be delighted if we could offer you extra Information Sessions for groups in your area who request one.  Of course, this would be subject to your availability and we’d be happy to cover your travel expenses for helping us to fulfil the request.<br/><br/>
+
+<b>If you are interested </b> in taking on this role and delivering Information Sessions on our behalf, then you don’t need to do anything. You’ll see the available Sessions on your dashboard, and you can sign up to deliver the ones you are interested in. Please contact me if you’d like to claim travel expenses for picking up these extra Sessions.<br/><br/>
+
+<b>If you’re not interested or available</b>, that is no problem at all – simply send me an email to let me know and we can remove that section from your dashboard. We still welcome you as a Champion and wish you the best of luck with your own Sessions!<br/><br/>
+
+Best wishes,<br/>
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Regional Support Officer - Dementia Friends<br/><br/>
+
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+Email: {!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+Phone: {!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+<a href="http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a><br/>
+Email Id:TEREF02
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+Following on from my previous email, I wanted to offer you an additional opportunity to run Information Sessions.
+
+During your induction, I asked you to demonstrate the following five key qualities;
+•   Use of positive language about dementia
+•   Effective presentation skills
+•   Objectivity
+•   Willingness to follow code of conduct
+•   Enthusiasm and motivation to organise Information Sessions
+
+I was also looking to identify one or more Champions who go above and beyond these qualities. Throughout the day, I felt that you showed you are a clear and confident communicator and I identified you as a particularly strong Champion.
+
+If you’re happy to do so, we’d be delighted if we could offer you extra Information Sessions for groups in your area who request one.  Of course, this would be subject to your availability and we’d be happy to cover your travel expenses for helping us to fulfil the request.
+
+If you are interested in taking on this role and delivering Information Sessions on our behalf, then you don’t need to do anything. You’ll see the available Sessions on your dashboard, and you can sign up to deliver the ones you are interested in. Please contact me if you’d like to claim travel expenses for picking up these extra Sessions.
+
+If you’re not interested or available, that is no problem at all – simply send me an email to let me know, and we can remove that section from your dashboard. We still welcome you as a Champion and wish you the best of luck with your own Sessions!
+
+Best wishes,
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Regional Support Officer - Dementia Friends
+
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}
+Email: {!relatedTo.DF_Region__r.RSO__r.Email}
+Phone: {!relatedTo.DF_Region__r.RSO__r.phone}
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+Email Id:TEREF02
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

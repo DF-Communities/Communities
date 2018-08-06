@@ -1,0 +1,14 @@
+A decision has been made about a Dementia Friendly Community application and the application has been rejected.
+
+Community Name : {!DFC_Community__c.Name} 
+
+Submitted by : {!DFC_Community__c.OwnerFullName} 
+{!DFC_Community__c.OwnerEmail} 
+
+
+Click here to see the details of the Dementia Friendly Community requesting recognition: 
+https://alzheimerscommunities.my.salesforce.com/{!DFC_Community__c.Id} 
+
+Many thanks, 
+
+The Dementia Friendly Communities Team

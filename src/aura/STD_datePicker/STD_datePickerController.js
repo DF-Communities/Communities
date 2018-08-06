@@ -1,11 +1,14 @@
 ({
     doInit : function(component, event, helper) {
 		var daysAhead = component.get("v.daysOffsetFromToday");
+        var jsDate = new Date();
         if($A.util.isUndefined(daysAhead)) {
             daysAhead = 0;
+        } else {
+            if (!component.get("v.dateSelectionFromToday")) {
+				jsDate.setDate(jsDate.getDate() + daysAhead);
+            }
         }
-        var jsDate = new Date();
-		jsDate.setDate(jsDate.getDate() + daysAhead);
         // Set the default date
         var dateStrFormat = jsDate.getFullYear() + "-" + 
                                   ('0' + (jsDate.getMonth() + 1)).slice(-2) + "-" + 
@@ -19,11 +22,16 @@
 
         // Determine the min start date
         var daysAhead = component.get("v.daysOffsetFromToday");
+        var targetDate = new Date();
         if($A.util.isUndefined(daysAhead)) {
             daysAhead = 0;
+        } else {
+            if (!component.get("v.dateSelectionFromToday")) {
+                targetDate.setDate(targetDate.getDate() + daysAhead);
+            }
         }
-        var targetDate = new Date();
-		targetDate.setDate(targetDate.getDate() + daysAhead);
+        
+		
         var maxDate = new Date();
         maxDate.setDate(targetDate.getDate() + component.get("v.maxDaysFromNowSelectionRestriction")); // Sessions cannot be more than 180 days in advance
         
@@ -49,7 +57,7 @@
             component.set("v.value", dateStrFormat); 
             helper.verifyDateInRangeHelper(component, event, helper);
         });
-        
+        j$( datepickerId ).datepicker('setDate', targetDate);
         helper.setDefaultDate(component);   
 
     },
@@ -65,7 +73,6 @@
     
     setDate : function(component, event, handler) {
       //$A.get('e.force:refreshView').fire();
-      console.log(JSON.stringify(event));
     },
     
     validateComponent : function(component, event, helper) {

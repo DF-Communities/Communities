@@ -1,0 +1,8 @@
+*** NEW LEAD ASSIGNMENT NOTIFICATION ***  
+
+There has been a new request on the Dementia Connect Portal from a new person/organisation.
+  
+Company:  {!Lead.Company} 
+Lead Name:  {!Lead.Name}  
+
+Click on the link to access the lead directly:  {!Lead.Link}

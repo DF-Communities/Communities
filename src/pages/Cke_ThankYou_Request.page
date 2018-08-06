@@ -35,7 +35,7 @@
                             <p class="large"><c:EdtText group="cke-requestthanks" key="intro-text-1" context="{!edtContext}" text="Thank you for signing up to host a Cupcake Day. Your fundraising kit will be with you within a few weeks time. We’ve also sent you an email confirmation with lots of exciting downloads to help you start planning."/></p>          
                         </div>
                         <div class="col-md-12">
-                            <p><c:EdtText group="cke-requestthanks" key="intro-text-1" context="{!edtContext}" text="Get started straightaway by setting up your JustGiving page to help raise that all-important ‘dough’."/></p>          
+                            <p><c:EdtText group="cke-requestthanks" key="intro-text-2" context="{!edtContext}" text="Get started straightaway by setting up your JustGiving page to help raise that all-important ‘dough’."/></p>          
                         </div>
                         <div class="col-sm-12 col-xs-12 col-md-12">         
                             <a href="http://cupcakeday.org.uk/justgiving" target="_blank" class="btn btn-primary">Set up your JustGiving page</a>                  
@@ -57,7 +57,7 @@
                                 <h2><c:EdtText group="cke-requestthanks" key="intro-title-2" context="{!edtContext}" text="Get people on board with your #CupcakeDay"/></h2>                
                             </div>
                             <div class="col-sm-12 col-xs-12 col-md-12">  
-                                <p><c:EdtText group="cke-requestthanks" key="intro-text-1" context="{!edtContext}" text="It's never too early to invite people to join in your day, or to share the great thing you’re doing with friends and family – and the whole world if you like. Share loud and proud using #CupcakeDay and let's cook up a social media storm."/></p>
+                                <p><c:EdtText group="cke-requestthanks" key="intro-text-3" context="{!edtContext}" text="It's never too early to invite people to join in your day, or to share the great thing you’re doing with friends and family – and the whole world if you like. Share loud and proud using #CupcakeDay and let's cook up a social media storm."/></p>
                             </div>
                             <div class="col-sm-6 col-xs-12 xs-center text-right">
                                 <a class="btn btn-social btn-twitter" target="_blank" href="https://twitter.com/intent/tweet?text=I%E2%80%99ve%20signed%20up%20to%20host%20a%20%23CupcakeDay%20for%20%40alzheimerssoc.%20Join%20me%20and%20rise%20against%20dementia.%20ow.ly/ShJP309CPuI%0A"><span class="fa fa-twitter"></span> Twitter</a>                   

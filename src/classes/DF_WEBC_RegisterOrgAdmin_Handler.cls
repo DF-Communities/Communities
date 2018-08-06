@@ -33,7 +33,7 @@ global without sharing class DF_WEBC_RegisterOrgAdmin_Handler extends DF_WEBC_Re
         WEBC_CommunityWrapper community = new WEBC_CommunityWrapper('DF');                 
         //Contact contact = DF_Utils.getContactRecord(dfc); 
         Contact contact=  DF_Utils.getContactRecordForDfcId(dfc.id); 
-        if ( handleInvite(contact, community) ) { return; } 
+        if (!String.isEmpty(data.inviteId) && !handleInvite(contact, community) ) { return; } 
         community.sendAdminVerificationRequest(contact,data.orgName, data.password, getStartUrl(), getEmailTemplateName());
         system.debug('DF_WEBC_RegisterBase_Handler : user registered');
 

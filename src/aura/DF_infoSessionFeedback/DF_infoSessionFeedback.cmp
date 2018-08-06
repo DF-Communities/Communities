@@ -18,8 +18,7 @@
     <aura:attribute name="userIsChampion" type="Boolean"/>
     <aura:attribute name="events" type="Object"  />
     <aura:attribute name="pOrgs" type="Object"  />
-    <aura:attribute name="feedbackPgOne" type="Boolean" default="true"/>
-
+    
     <aura:attribute name="showPreForm" type="Boolean" default="false"/>
     <aura:attribute name="showMainForm" type="Boolean" default="false"/>
     
@@ -66,13 +65,13 @@
     </aura:if-->
     
     
-    <aura:if isTrue="{! v.feedbackPgOne}">    
+    <aura:if isTrue="{!v.showPreForm}">    
         <c:DF_infoSessionFeedbackCreatedSession simpleRecord="{!v.simpleRecord}" userIsChampion="{!v.userIsChampion}"
                                                 eventId="{!v.eventId}" events="{!v.events}" pOrgs="{!v.pOrgs}" isReqSessionFirstSubmission="{!v.isReqSessionOrganiserFirstSubmission}"/>
     </aura:if>
-    <!--aura:if isTrue="{!v.showMainForm}">
+    <aura:if isTrue="{!v.showMainForm}">
         <c:DF_infoSessionFeedbackRequestedSession simpleRecord="{!v.simpleRecord}" userIsChampion="{!v.userIsChampion}"
                                                   userIsRequester="{!v.userIsRequester}"/>
-    </aura:if-->
+    </aura:if>
     
 </aura:component>

@@ -4,7 +4,7 @@
 <apex:attribute name="dfcW" description="Current DF_Contact Wrapper" required="false" default="" type="DF_Contact_Wrapper"/>
 
 <div class="col-md-3 column col-md-pull-9"> 
-        <div class="row">
+        <div class="not-a-row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="well">
 
@@ -242,7 +242,7 @@
                         </apex:outputPanel>
                       </ul>
                 </div>
-            	
+                
                 
             </div>
         </div>

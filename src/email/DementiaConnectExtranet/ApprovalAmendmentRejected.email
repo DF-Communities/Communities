@@ -1,0 +1,10 @@
+Hi there,
+
+A record you have submitted for Approval has been Rejected by the Dementia Connect team. The record has now been unlocked and is available for editing.
+
+Service Name: {!DCE_ServiceAmend__c.Name}{!DCE_OrgAmend__c.Name}
+
+Approval Comments: {!ApprovalRequest.Comments}
+
+With thanks,
+The Dementia Connect team

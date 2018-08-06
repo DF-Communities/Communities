@@ -64,8 +64,8 @@ private class DCE_UrlReWriter_Test {
         system.assertEquals('/our-details', returnedReferences[1].getUrl());
         system.assertEquals('/my-details', returnedReferences[2].getUrl());
         system.assertEquals('/DCE_unhandledUrl', returnedReferences[3].getUrl());
-        system.assertEquals('/ServiceEdit/'+amend.portalServiceNumber__c, returnedReferences[4].getUrl());
-        system.assertEquals('/ServiceView/'+amend.portalServiceNumber__c, returnedReferences[5].getUrl());
+        system.assertEquals('/serviceedit/'+amend.portalServiceNumber__c, returnedReferences[4].getUrl());
+        system.assertEquals('/serviceview/'+amend.portalServiceNumber__c, returnedReferences[5].getUrl());
         system.assertEquals('/home', returnedReferences[6].getUrl());
         system.assertEquals('/home', returnedReferences[7].getUrl());
         system.assertEquals('/home', returnedReferences[8].getUrl());

@@ -1,10 +1,11 @@
-<apex:page controller="CkePayinController" showHeader="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" docType="html-5.0" cache="true" expires="604800">>
+<apex:page controller="CkePayinController" showHeader="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" docType="html-5.0" cache="false" expires="604800">>
     
     <apex:variable value="{!IF($Site.BaseCustomUrl=='', $Site.BaseUrl, $Site.BaseCustomUrl)}" var="baseUrl"/>
     
     <html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en" class="no-js">  
         <head>
             
+            <c:Cke_GoogleTagManager />
             <c:Cke_CommonHead />
             <c:Cke_WebMainNav pageUrl="donate"/>
             <link rel="icon" type="image/png" href="{!$Resource.Cke_Fav_Icon}" />
@@ -201,11 +202,18 @@
                                                 <div class="col-md-4 col-md-push-4 col-sm-6 col-sm-push-3 col-xs-12"><hr class="blue"/></div>                                        
                                                 <div class="clearfix"></div>            
                                                 
-                                                <h2><c:EdtText group="cke-donate" key="form-title-4" context="{!edtContext}" text="How can we contact you?"/></h2>          
-                                                
-                                                <c:EdtText group="cke-donate" key="intro-text-3a" context="{!edtContext}" text="We&rsquo;d love to stay in touch with news on future Cupcake Days and everything we&rsquo;re doing to lead the fight against dementia; from fundraising, campaigning, services and research to volunteering.<br/><br/>"/>
-                                                <c:EdtText group="cke-donate" key="intro-text-3b" context="{!edtContext}" text="We will never sell your details to third parties.<br/><br/>"/>                                          
-                                                <c:Cke_OptInContactOptions />
+                                                <div class="col-lg-10 col-md-11 col-sm-10 col-xs-10" style="padding-left:0px">
+                                                    <h2>
+                                                        <c:EdtText group="cke-packrequest" key="intro-title-4" context="{!edtContext}" text="How can we contact you?"/>
+                                                    </h2>
+                                                </div>
+
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <c:EdtText group="cke-packrequest" key="intro-text-4a" context="{!edtContext}" text="We&#x2019;d love to stay in touch with news on future Cupcake Days and everything we&#x2019;re doing to lead the fight against dementia; from fundraising, campaigning, services and research to volunteering. We may also contact you to ask for feedback about your experience.<br/><br/>"/>
+                                                    <c:EdtText group="cke-packrequest" key="intro-text-4b" context="{!edtContext}" text='We will never sell your details to third parties. Find out more about how we use your personal information in our <a href="https://www.alzheimers.org.uk/legal-information/personal-data#content-start" target="_blank">privacy policy</a>.<br/><br/>'/>
+                                                    <c:EdtText group="cke-packrequest" key="intro-text-4c" context="{!edtContext}" text='You change what you receive from us at any time. Just call Customer Care on 0330 333 0804.<br/><br/>'/>                                                
+                                                    <c:Cke_OptInContactOptions />
+                                                </div>
                                                 
                                                 <div class="clearfix"></div>
                                                 <div class="col-md-4 col-md-push-4 col-sm-6 col-sm-push-3 col-xs-12"><hr class="blue"/></div>                                        
@@ -288,7 +296,6 @@
             
             <link rel="stylesheet" href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=HP48-DU78-YK99-MZ87"/>
             
-            <!--script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script-->
             <script type="text/javascript" src="{!URLFOR($Resource.Cke_Assets, 'js/main.js')}"></script>                 
             <script src="{!$Resource.cke_autofill_shim_js}"></script>
             <script src="{!$Resource.cke_code_service_js}"></script>     

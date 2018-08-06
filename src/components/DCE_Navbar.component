@@ -4,10 +4,10 @@
 	  		<li role="presentation" class="{!IF($CurrentPage.Name=='/DCE/home','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_Dashboard)}">Home</apex:outputlink></li>
 	  		<li role="presentation" class="{!IF($CurrentPage.Name=='/DCE/our-details','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_OrgDetails)}">Our Details</apex:outputlink></li>
 	  		<li role="presentation" class="{!IF($CurrentPage.Name=='/DCE/my-details','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_UserDetails)}">My Details</apex:outputlink></li>
-	  		<li role="presentation"><a href="{!$Site.Prefix}/secur/logout.jsp">Logout</a></li>
+	  		<li role="presentation" class="{!IF($CurrentPage.Name=='/DCE/privacy','active','')}"><apex:outputlink value="{!URLFOR($Page.DCE_privacyNotice)}">Privacy</apex:outputlink></li>
+            <li role="presentation"><a href="{!$Site.Prefix}/secur/logout.jsp">Logout</a></li>
 	  		<apex:outputpanel layout="none" rendered="{!NOT(ISBLANK(HelpFile))}">
-	  		<li role="presentation"><a href="{!$Site.Prefix}/sfc/servlet.shepherd/version/download/{!HelpFile}">Help</a></li>
-	  		<!--<li role="presentation"><a href="{!$Site.Prefix}/servlet/servlet.FileDownload?file={!HelpFile}">Help</a></li>-->
+	  			<li role="presentation"><a href="{!$Site.Prefix}/sfc/servlet.shepherd/version/download/{!HelpFile}">Help</a></li>
 	  		</apex:outputpanel>
 		</ul>
 	</c:navbar>

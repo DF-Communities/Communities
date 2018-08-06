@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DF Contact Change Notification HTML</name>
+    <style>none</style>
+    <subject>Changes to your contact details</subject>
+    <textOnly>Dear {{FirstName}} ,
+
+As you may know, Dementia Friends is an Alzheimer’s Society initiative and we have noticed that your contact details have recently been updated through one of our Alzheimer’s Society channels. 
+
+You can choose to update your details or retain the information we hold for you on your Dementia Friends account too, by following the simple steps below. 
+
+Current Details 
+{{dTitle__c}}  
+{{dFirst_Name__c}}  
+{{dLast_Name__c}}  
+{{dBirthDate__c}}  
+{{dStreet__c}}  
+{{dCity__c}}  
+{{dCounty__c}}  
+{{dPostcode__c}}  
+{{dContact_Number__c}}  
+
+Changes
+{{cTitle__c}}
+{{cFirst_Name__c}}
+{{cLast_Name__c}}
+{{cBirthDate__c}}
+{{cStreet__c}}
+{{cCity__c}}
+{{cCounty__c}}
+{{cPostcode__c}}
+{{cContact_Number__c}}
+
+
+Retain your current details
+The left hand column above displays the contact details that we currently hold for you.If you would like these details stay the same, please log into your account on the Dementia Friends website (https://www.dementiafriends.org.uk/login) and reject the changes.
+
+Update your details
+If you would like to update your contact details to those displayed in the right hand column above, , please log into your account on the Dementia Friends website (https://www.dementiafriends.org.uk/login) and choose the ‘Accept’ option.
+
+If you have any questions, please email us at DementiaFriends@Alzheimers.org.uk.
+
+Thank you,
+Dementia Friends Team
+
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends</textOnly>
+    <type>custom</type>
+</EmailTemplate>

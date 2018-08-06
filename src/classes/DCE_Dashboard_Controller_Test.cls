@@ -31,11 +31,13 @@ private class DCE_Dashboard_Controller_Test {
 		
 		DCE_TestDataFactory.setUpDataWithAmends();
 		
-		User u = [select id from User where isActive = true and Contact.Account.Name = 'PartnerAccount1' limit 1];
+		User u = [select id, ContactId, AccountId, Contact.AccountId from User where isActive = true and Contact.Account.Name = 'PartnerAccount1' limit 1];
 		
 		system.runAs(u){
 		
 			test.startTest();
+			
+			system.assertEquals(25, [select id from DCE_ServiceAmend__c where DCEPartner__c = :u.AccountId].size());
 			
 			DCE_SingleRequestMock fakeResponse = new DCE_SingleRequestMock(200, 'Complete', '{"totalSize":1,"done":true,"records":[{"attributes":{"type":"Services__c","url":"/services/data/v35.0/sobjects/Services__c/a0z3E00000000K7QAI"},"Id":"a0z3E00000000K7QAI","Name":"Example Memory Assessment Service","service_type__c":"Dementia Support & Groups","Last_Reviewed__c":"2016-04-02", "service_status__c":"Pending","Service_Reference__c":"ReferenceNo"}]}', null);
 	        
@@ -50,7 +52,7 @@ private class DCE_Dashboard_Controller_Test {
 	        
 	        test.stopTest();
 	        
-	        system.assertEquals(6, partnerServices.size());
+			system.assertEquals(6, partnerServices.size());
 	        system.assertEquals(20, amendmentMap.size());
 		}
         

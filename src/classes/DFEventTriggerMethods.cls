@@ -21,6 +21,9 @@ public without sharing class DFEventTriggerMethods extends DF_WEBC_RegisterBase_
     public static final String VF_NEW_INFORMATION_SESSIONS = 'VF_New_Information_Sessions';
     public static final String VF_SESSION_ATTENDEE_CANCELLATION = 'DF_Session_Attendee_Cancellation_HTML';
     public static final String VF_UPDATED_SESSION_INFORMATION = 'DF_Updated_Session_Information_HTML';
+    public static final String EVENT_STATUS_UNSUCCESSFUL = 'Cancelled';
+    public static final List<String> REQUEST_STATUS_UNSUCCESSFUL = new List<String>{'Withdrawn','Unsuccessful'};
+    
     
     private static String sdt = Datetime.now().format('yyyy-MM-dd HH:mm:ss', UserInfo.getTimeZone().getDisplayName());
     private static Datetime dt = Datetime.valueOf(sdt);
@@ -357,6 +360,11 @@ rtMap.put(rt.Id, rt);
         //DF_Event__c dfEvent = (DF_Event__c)JSON.serialize(dfEventAsStr);
         System.debug('dfEvent: ' + dfEvent);
         
+        if (dfEvent.Champion_Feedback_Submitted__c || ( dfEvent.Number_of_Attendees__c != null && dfEvent.Number_of_Attendees__c > 0)) {
+        	dfEvent.Event_Status__c = 'Completed';
+        	dfEvent.Request_Status__c = 'Completed';
+        }
+        
         Database.SaveResult dsr = Database.update(dfEvent, true);
         if(dsr.isSuccess()) {
             return true;
@@ -547,7 +555,7 @@ rtMap.put(rt.Id, rt);
     @AuraEnabled
     public static DF_Event__c getEventInfo(String eventId) {
         
-        List<DF_Event__c> event = [SELECT Id, Name, Comments__c, Number_of_Attendees__c  
+        List<DF_Event__c> event = [SELECT Id, Name, Comments__c, Number_of_Attendees__c, Partner_Organisation__c  
                                    FROM DF_Event__c
                                    WHERE Id = :eventId];
         if(event.size()==1) {
@@ -567,13 +575,13 @@ rtMap.put(rt.Id, rt);
                                              c.Info_Session_Search_Radius__c, 
                                              c.Portal_User__r.Profile.UserLicense.Name,
                                              c.Record_Type_Name__c, c.Blocked_due_to_excessive_req_sessions__c,
-                                             c.Admin_block_from_requesting_info_session__c,
+                                             c.Admin_block_from_requesting_info_session__c, c.Partner_Organisation_ID__c, c.Partner_Organisation_ID__r.Name,
                                              (SELECT po.Id, po.Name, po.Partner_Organisation__c, po.Partner_Organisation__r.Name FROM PO_Administrators__r po),
-                                             (SELECT ev.Id, ev.Name, ev.Session_Requester__c, ev.Champion_Feedback_Submitted__c, 
+                                             (SELECT ev.Id, ev.Name, ev.Session_Requester__c, ev.Champion_Feedback_Submitted__c, ev.Partner_Organisation__c,
                                                      ev.Host_Feedback_Submitted__c, ev.Requested_Info_Session__c, ev.Number_of_Attendees__c 
                                              FROM DF_Events__r ev  WHERE 
                                              (ev.Id =:eventId ) OR (
-                                             ((ev.Requested_Info_Session__c = true AND ev.Request_Status__c = 'Completed' ) OR (ev.Event_Status__c = 'Completed') )  AND 
+                                             ((ev.Requested_Info_Session__c = true AND ev.Request_Status__c NOT IN :REQUEST_STATUS_UNSUCCESSFUL ) OR (ev.Event_Status__c != :EVENT_STATUS_UNSUCCESSFUL) )  AND 
                                              (ev.Number_of_Attendees__c = null OR ev.Number_of_Attendees__c <= 0) AND
                                              (ev.Event_End_Date_Time__c <: dt AND ev.RecordTypeId = :DF_Utils.getsObjectRecordTypeId('DF_Event__c',SESSION_RT))
                                              ))
@@ -584,7 +592,8 @@ rtMap.put(rt.Id, rt);
         Integer noRequestedEventsOpen = 0;
         if( String.isNotEmpty(eventId)) {
             existingEventData = [SELECT Session_Organiser__c, Session_Requester__c, Requested_Info_Session__c,
-                                 Host_Feedback_Submitted__c, Champion_Feedback_Submitted__c, Number_of_Attendees__c 
+                                 Host_Feedback_Submitted__c, Champion_Feedback_Submitted__c, Number_of_Attendees__c,
+                                 Partner_Organisation__c
                                  FROM DF_Event__c
                                  WHERE Id = :eventId];
             
@@ -640,15 +649,22 @@ rtMap.put(rt.Id, rt);
         if(userType=='Customer Community Login') {
             
             List<Id> associatedPartnerOrgs = new List<Id>();
+            userInfo.partnerOrgList = new List<PartnerOrg>();
             if(!siteUserData[0].PO_Administrators__r.isEmpty()) {
-                userInfo.partnerOrgList = new List<PartnerOrg>();
+                //userInfo.partnerOrgList = new List<PartnerOrg>();
                 // User is attributed to a DF Org
                 System.debug('Detected one or more partner orgs');
                 for(PO_Administrator__c po : siteUserData[0].PO_Administrators__r) {
                     System.debug('Partner admin: ' + po.Name);
                     associatedPartnerOrgs.add(po.Id);
-                    userInfo.partnerOrgList.add( new PartnerOrg(po));
+                    if (siteUserData[0].Partner_Organisation_ID__c != po.Partner_Organisation__c) {
+                    	userInfo.partnerOrgList.add( new PartnerOrg(po));
+                    }
                 }
+            }
+            if (siteUserData[0].Partner_Organisation_ID__c != null && 
+            				!siteUserData[0].Partner_Organisation_ID__r.Name.startsWithIgnoreCase('*General Public')) {
+            	userInfo.partnerOrgList.add( new PartnerOrg(siteUserData[0].Partner_Organisation_ID__r));
             }
         }
         
@@ -708,8 +724,12 @@ rtMap.put(rt.Id, rt);
         @AuraEnabled public String name {get;set;} 
         @AuraEnabled public String recordId {get;set;} 
         
+        public PartnerOrg(Partner_Organisation__c po) {
+        	this.name = po.Name;
+            this.recordId = po.Id;
+        }
         public PartnerOrg(PO_Administrator__c po) {
-            this.name = po.Partner_Organisation__r.Name;
+        	this.name = po.Partner_Organisation__r.Name;
             this.recordId = po.Partner_Organisation__c;
         }
     }
@@ -717,6 +737,8 @@ rtMap.put(rt.Id, rt);
     public class DFEvent {
         @AuraEnabled public String name {get;set;} 
         @AuraEnabled public String recordId {get;set;} 
+        @AuraEnabled public String partnerOrgId {get;set;}
+        @AuraEnabled public Decimal nbrOfAttendees {get;set;}
         @AuraEnabled Boolean isRequester {get;set;}
         @AuraEnabled Boolean isRequestedSession {get;set;}
         @AuraEnabled Boolean isChampFdbackSubmitted {get;set;}
@@ -726,6 +748,8 @@ rtMap.put(rt.Id, rt);
         public DFEvent(DF_Event__c ev, Id requesterId) {
             this.name = ev.name;
             this.recordId = ev.id;
+            this.partnerOrgId = ev.Partner_Organisation__c;
+            this.nbrOfAttendees = ev.Number_of_Attendees__c;
             this.isRequester = (ev.Session_Requester__c == requesterId) ? true : false; //depricated
             this.isChampFdbackSubmitted = ev.Champion_Feedback_Submitted__c ;
             this.isHostFdbackSubmitted = ev.Host_Feedback_Submitted__c;
@@ -818,13 +842,13 @@ rtMap.put(rt.Id, rt);
         if(fromDateStr!=null){
             List<String> dateElements = fromDateStr.split('-');
             fromDate = Date.valueOf(fromDateStr);
-            fromDate = fromDate.addDays(-1);
+            //fromDate = fromDate.addDays(-1);
         }
         
         if(toDateStr!=null){
             List<String> dateElements = toDateStr.split('-');
             toDate = Date.valueOf(toDateStr);
-            toDate = toDate.addDays(1);
+           // toDate = toDate.addDays(1);
         }
         
         
@@ -853,12 +877,12 @@ rtMap.put(rt.Id, rt);
             'AND Request_Status__c = \'Open - waiting for champion\' ';  
         String dateAndSessionTypeFilters = '';
         
-        if (fromDate != null) {
-            dateAndSessionTypeFilters += 'AND (Preference_1_Date__c > :fromDate OR Preference_2_Date__c > :fromDate OR Preference_3_Date__c > :fromDate) ' ;
+        if (fromDate != null && toDate != null) {
+            dateAndSessionTypeFilters += 'AND ( (Preference_1_Date__c != null AND Preference_1_Date__c >= :fromDate AND Preference_1_Date__c <= :toDate) OR ' +
+            								   '(Preference_2_Date__c != null AND Preference_2_Date__c >= :fromDate AND Preference_2_Date__c <= :toDate) OR ' + 
+            								   '(Preference_3_Date__c != null AND Preference_3_Date__c >= :fromDate AND Preference_3_Date__c <= :toDate) ) ';
         }
-        if (toDate != null) {
-            dateAndSessionTypeFilters += 'AND (Preference_1_Date__c < :toDate OR Preference_2_Date__c < :toDate OR Preference_3_Date__c < :toDate) ';
-        }
+        
         
         if (sessionType != '') {
             dateAndSessionTypeFilters += 'AND Type_of_session__c = \'' + sessionType + '\'';

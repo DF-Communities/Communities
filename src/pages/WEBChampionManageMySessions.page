@@ -90,18 +90,18 @@
                         <!-- START Created Events Tables -->
                         <div class="row *.css">
                             <a name="created-feedback"></a>
-                            <c:DF_EventsAwaitingFeedbackListing isRequestedSession="false" isChampion="true" events="{!createdEventsRequiringFeedback}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>   
+                            <c:DF_EventsAwaitingFeedbackListing isRequestedSession="false" isChampion="{!isChampion}" events="{!createdEventsRequiringFeedback}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>   
                         </div>
                         
                         <div class="row *.css">
                             <a name="created-upcoming"></a>
                             <c:DF_UpcomingEventsListing isRequestedSession="false" events="{!upcomingCreatedEvents}" dfContactId="{!currentDfc.Id}" 
-                                                        defaultSessionOrganiser="{!placeholderOrganiserId}" isChampion="true" forceCountOnLoad="true"/>   
+                                                        defaultSessionOrganiser="{!placeholderOrganiserId}" isChampion="{!isChampion}" forceCountOnLoad="true"/>   
                         </div>
                         
                         <div class="row *.css">
                             <a name="created-past"></a>
-                            <c:DF_PastEventsListing isRequestedSession="false" isChampion="true" events="{!pastCreatedEvents}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>  
+                            <c:DF_PastEventsListing isRequestedSession="false" isChampion="{!isChampion}" events="{!pastCreatedEvents}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>  
                         </div>
                         <!-- END Created Events Tables -->
                         
@@ -112,18 +112,18 @@
                                 <h1>Sessions I have requested </h1>
                             </div>
                             <a name="requested-feedback"></a>
-                            <c:DF_EventsAwaitingFeedbackListing isRequestedSession="true" isChampion="true" events="{!requestedEventsRequiringFeedback}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>   
+                            <c:DF_EventsAwaitingFeedbackListing isRequestedSession="true" isChampion="{!isChampion}" events="{!requestedEventsRequiringFeedback}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>   
                         </div>
                         
                         <div class="row *.css">
                             <a name="requested-upcoming"></a>
                             <c:DF_UpcomingEventsListing isRequestedSession="true" events="{!upcomingRequestedEvents}" dfContactId="{!currentDfc.Id}" 
-                                                        defaultSessionOrganiser="{!placeholderOrganiserId}"  isChampion="true" forceCountOnLoad="true"/>   
+                                                        defaultSessionOrganiser="{!placeholderOrganiserId}"  isChampion="{!isChampion}" forceCountOnLoad="true"/>   
                         </div>
                         
                         <div class="row *.css">
                             <a name="requested-past"></a>
-                            <c:DF_PastEventsListing isRequestedSession="true" isChampion="true" events="{!pastRequestedEvents}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>  
+                            <c:DF_PastEventsListing isRequestedSession="true" isChampion="{!isChampion}" events="{!pastRequestedEvents}" dfContactId="{!currentDfc.Id}" forceCountOnLoad="true"/>  
                         </div>
                         </apex:outputPanel>
                         <!-- END Requested Events Tables -->

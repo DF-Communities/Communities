@@ -6,7 +6,7 @@
  *  Date    : 17/11/2015
  *  Version : 
  *
-
+ *  Description :  Remote Action base class for handling registration of new the Dementia Friend
  *                 Long Form
  *               
  *  Modification History
@@ -22,14 +22,16 @@ global without sharing class DF_WEBC_Register_Remoter {
         DF_WEBC_RegisterCommunityAdmin_Handler handler = new DF_WEBC_RegisterCommunityAdmin_Handler(sJson);
         return handler.handleJson();
         
+
     }
 
     @RemoteAction   
     global static DF_WEBC_RegisterBase_Handler.ResponseHolder handleFriendJson(String sJson) {
-		
+
         DF_WEBC_RegisterFriend_Handler handler = new DF_WEBC_RegisterFriend_Handler(sJson);
         return handler.handleJson();
         
+
     }
 
 
@@ -43,7 +45,7 @@ global without sharing class DF_WEBC_Register_Remoter {
 
     @RemoteAction   
     global static DF_WEBC_RegisterBase_Handler.ResponseHolder handleDigitalFriendJson(String sJson) {
-        System.debug('json direct from form: ' + sJson);
+
         DF_WEBC_RegisterDigitalFriend_Handler handler = new DF_WEBC_RegisterDigitalFriend_Handler(sJson);
         return handler.handleJson();
         

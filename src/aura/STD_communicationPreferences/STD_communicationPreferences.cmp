@@ -1,4 +1,4 @@
-<aura:component>
+<aura:component >
     
     <aura:attribute name="contactInstance" type="DF_Contact__c"/>
     <aura:attribute name="gdprPreferences" type="Object"/>

@@ -1,0 +1,67 @@
+<messaging:emailTemplate subject="Dementia Friends - Planning your next Information Session" recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+How are you? I wanted to get in touch to thank you again for the Information Sessions you’ve run so far, and to see if you had any plans to organise your next one?
+<br/><br/>
+If you need any ideas or advice for your next Session, I’m happy to talk this through with you – from reviewing how your last Session went, to advice on new groups and venues to use.Don’t forget you can connect with other Champions through the online Exchange – our dedicated volunteer’s forum.
+<br/><br/>
+<b>If you’ve run a Session in the past two months</b>, then don’t worry!  You’re only receiving this because I can’t see it on the Dementia Friends website, so I thought you might want a little support with planning your next.  If you have, you just need to log on to the website and record them. Log in <a href="https://www.dementiafriends.org.uk/login">here</a> to update your Sessions. If you need a recap, just let me know.
+<br/><br/>
+Thanks for all you have been doing so far as a Dementia Friends Champion. Your support really is making a difference to people affected by dementia in your community.
+<br/><br/>
+If you’re not able to plan any Sessions on the website over the next 2 months, I will check in with you again then.
+<br/><br/>
+Best wishes,<br/>
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Regional Support Officer - Dementia Friends<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+{!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+{!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+
+<a href= "http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a><br/><br/>
+
+This email has come from a ‘noreply’ address via our website. My direct contact details are above, so feel free to get in touch.
+<br/><br/>
+Email Id:TEREF11
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+How are you? I wanted to get in touch to thank you again for the Information Sessions you’ve run so far, and to see if you had any plans to organise your next one?
+
+If you need any ideas or advice for your next Session, I’m happy to talk this through with you– from reviewing how your last Session went, to advice on new groups and venues to use. Don’t forget you can connect with other Champions through the online Exchange – our dedicated volunteer’s forum.
+
+If you’ve run a Session in the past two months, then don’t worry!  You’re only receiving this because I can’t see it on the Dementia Friends website, so I thought you might want a little support with planning your next. If you have, you just need to log on to the website and record them. Log in to update your Sessions here: https://www.dementiafriends.org.uk/login - if you need a recap, just let me know.
+
+Thanks for all you have been doing so far as a Dementia Friends Champion. Your support really is making a difference to people affected by dementia in your community.
+
+If you’re not able to plan any Sessions on the website over the next 2 months, I will check in with you again then.
+
+Best wishes,
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Regional Support Officer - Dementia Friends
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}
+{!relatedTo.DF_Region__r.RSO__r.Email}
+{!relatedTo.DF_Region__r.RSO__r.phone}
+
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+Email Id:TEREF11
+
+This email has come from a ‘noreply’ address via our website. My direct contact details are above, so feel free to get in touch.
+
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

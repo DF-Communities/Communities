@@ -61,10 +61,10 @@
                                           <c:EdtText group="cke-home" key="block-text-1" context="{!edtContext}" text="Whether you bake or buy - get your workmates, friends or family together and raise money for Alzheimer’s Society."/>
                                        </p>
                                     </div>
-                                    <!--div class="col-md-4 col-sm-12" This button changed link after the day is done with -->
+                                    <!--div class="col-md-4 col-sm-12"-->
                                     <div class="col-md-12 col-sm-12">
                                        <a href="pay-in" class="btn btn-secondary btn">
-                                          <c:EdtText group="cke-home" key="button-home-sign-up" context="{!edtContext}" text="Pay in your fund raising" hideEditPrompt="true"/>
+                                          <c:EdtText group="cke-home" key="button-home-sign-up" context="{!edtContext}" text="Pay in your fundraising" hideEditPrompt="true"/>
                                        </a>
                                     </div>
                                  </div>
@@ -96,7 +96,7 @@
                                     <h2>
                                        <c:EdtText group="cke-home" key="block-title-2" context="{!edtContext}" text="Recipe for Cupcake Day"/>
                                     </h2>
-                                    <c:EdtText group="cke-home" key="block-text-1" context="{!edtContext}" text='
+                                    <c:EdtText group="cke-home" key="sign-up-1" context="{!edtContext}" text='
                                        <ol>
                                        <li><strong><a href="request-a-pack">Sign up</a></strong> to host a Cupcake Day and receive your free fundraising kit in the post</li>
                                        <li>Set the date:  Cupcake Day is 14 June, but you can host yours any day that suits you</li>
@@ -169,7 +169,7 @@
                               <div class="row flex">
                                  <div class="col-md-3 thumbnail goal-green drop-shadow">
                                     <div class="caption">
-                                       <h2 class="white-text">£40</h2>
+                                       <h2 class="white-text">£50</h2>
                                        <p class="white-text">
                                           <c:EdtText group="cke-home" key="info-text-1" context="{!edtContext}" text="would pay for five people with dementia to attend a Singing for the Brain session – a fun activity that enhances wellbeing and connection through music."/>
                                        </p>

@@ -131,19 +131,18 @@
     },
     
     verifyRequiredFieldsArePopulated : function(component, helper, cmpInFocus) {
-        
+
         var isValid;
-        
         var dateValidity = !$A.util.isUndefined(component.get("v.selectedDate"));
-        var periodValidity = component.get("v.selectedPeriod") != "";
+        var periodValidity = component.get("v.selectedTimeslot") != "";
         
         var timeValidity; // Only applicable for the specifc time selection
-        if(component.get("v.selectedPeriod") == "Specifc time (hh:mm)") {
+        if(component.get("v.selectedPeriod") == "Specific time (hh:mm)") {
             timeValidity = !$A.util.isUndefined(component.get("v.selectedTime"));
-        }else {
+        } else {
             timeValidity = true;
         }
-      
+
         isValid = dateValidity && periodValidity && timeValidity;
         return isValid;
     },

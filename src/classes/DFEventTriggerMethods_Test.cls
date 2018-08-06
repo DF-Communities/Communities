@@ -112,7 +112,7 @@ public class DFEventTriggerMethods_Test{
         System.debug('All events: ' + [SELECT Id FROM DF_Event__c]);
         System.debug('All events requested: ' + [SELECT Id FROM DF_Event__c WHERE Requested_Info_Session__c = true]);
         Test.starttest();
-        List<DF_Event__c> testEvnt = [SELECT Id FROM DF_Event__c WHERE Requested_Info_Session__c = true];
+        List<DF_Event__c> testEvnt = [SELECT Id, Champion_Feedback_Submitted__c, Number_of_Attendees__c, Event_Status__c, Request_Status__c FROM DF_Event__c WHERE Requested_Info_Session__c = true];
         System.debug('All events requested in test are now: ' + testEvnt.size());
         DFEventTriggerMethods.submitEventFeedback(testEvnt[0]);
     }

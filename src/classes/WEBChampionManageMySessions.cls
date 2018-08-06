@@ -116,7 +116,7 @@ public without sharing class WEBChampionManageMySessions extends DF_WEBC_Control
         noEventsRequiringFeedback = 0;
         offset = DF_Utils.offset;
         System.debug('*** WEBChampionManageMySessions : User Champion ' + isChampion);
-		
+        
         
         if (currentDfc != null && isChampion) {
             // +++ EVENT SELECTIONS FOR CHAMPIONS +++

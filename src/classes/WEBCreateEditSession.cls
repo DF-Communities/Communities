@@ -370,7 +370,9 @@ public without sharing class WEBCreateEditSession extends DF_WEBC_ControllerBase
         monthTextMap = buildMonthTextMap();
         //isChampion = WEBController.isChampion;
         //isChampionConverted = WEBController.isChampionConverted;
-        isChampion = currentdfc.Type_Of_Champion__c != '';
+        System.debug('currentdfc.Type_Of_Champion__c: ' +  currentdfc.Type_Of_Champion__c);
+        System.debug('isChampion: ' +  currentdfc.Type_Of_Champion__c != '');
+        isChampion = (currentdfc.Type_Of_Champion__c != '' && currentdfc.Type_Of_Champion__c != null);
         isChampionConverted = currentdfc.Status__c == 'Converted';
         
         //list with duplicate partner name
@@ -682,28 +684,18 @@ public without sharing class WEBCreateEditSession extends DF_WEBC_ControllerBase
             
             System.debug('Pref1: ' + eventDatePref1 + startTimeHourPref1  + startTimeMinutesPref1 + endTimeHourPref1 + endTimeMinutesPref1);
             if(eventDatePref1!=null) { // Pref1 timing entry detected 
-                if(startTimeHourPref1!='null' && startTimeMinutesPref1!='null' && endTimeHourPref1!='null' && endTimeMinutesPref1!='null'){
-                    eventStartPref1 = datetime.newInstance(eventDatePref1.year(), eventDatePref1.month(), eventDatePref1.day(), integer.valueOf(startTimeHourPref1), integer.valueOf(startTimeMinutesPref1),0); 
-                } else {
-                    eventStartPref1 = datetime.newInstance(eventDatePref1.year(), eventDatePref1.month(), eventDatePref1.day());
-                }
+                eventStartPref1 = datetime.newInstance(eventDatePref1.year(), eventDatePref1.month(), eventDatePref1.day());
+                event.Preference_1_Date__c = eventStartPref1.date();
             }
             System.debug('Pref2: ' + eventDatePref2 + startTimeHourPref2  + startTimeMinutesPref2 + endTimeHourPref2 + endTimeMinutesPref2);
             if(eventDatePref2!=null) { // Pref2 timing entry detected
-                System.debug(startTimeHourPref2 == 'null');
-                if(startTimeHourPref2!='null' && startTimeMinutesPref2!='null' && endTimeHourPref2!='null' && endTimeMinutesPref2!='null'){
-                    eventStartPref2 = datetime.newInstance(eventDatePref2.year(), eventDatePref2.month(), eventDatePref2.day(), integer.valueOf(startTimeHourPref2), integer.valueOf(startTimeMinutesPref2),0); 
-                } else {
-                    eventStartPref2 = datetime.newInstance(eventDatePref2.year(), eventDatePref2.month(), eventDatePref2.day());
-                }
+                eventStartPref2 = datetime.newInstance(eventDatePref2.year(), eventDatePref2.month(), eventDatePref2.day());
+                event.Preference_2_Date__c = eventStartPref2.date();
             }
             System.debug('Pref3: ' + eventDatePref3 + startTimeHourPref3  + startTimeMinutesPref3 + endTimeHourPref3 + endTimeMinutesPref3);
             if(eventDatePref3!=null) { // Pref3 timing entry detected
-                if(startTimeHourPref3!='null' && startTimeMinutesPref3!='null' && endTimeHourPref3!='null' && endTimeMinutesPref3!='null'){
-                    eventStartPref3 = datetime.newInstance(eventDatePref3.year(), eventDatePref3.month(), eventDatePref3.day(), integer.valueOf(startTimeHourPref3), integer.valueOf(startTimeMinutesPref3),0); 
-                } else {
-                    eventStartPref3 = datetime.newInstance(eventDatePref3.year(), eventDatePref3.month(), eventDatePref3.day());
-                }
+                eventStartPref3 = datetime.newInstance(eventDatePref3.year(), eventDatePref3.month(), eventDatePref3.day());
+                event.Preference_3_Date__c = eventStartPref3.date();
             }
         }
         

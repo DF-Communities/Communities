@@ -15,10 +15,11 @@
         var defaultStartDate = helper.getFormattedDate(unformattedStartDate);
         component.set("v.startDate", defaultStartDate);
 
-        //var unformattedEndDate = new Date(unformattedStartDate.getFullYear(), unformattedStartDate.getMonth(), unformattedStartDate.getDate());
-        var defaultEndDate = helper.getFormattedDate(new Date());
+        var unformattedEndDate = new Date(unformattedStartDate.getFullYear(), unformattedStartDate.getMonth() + 2, unformattedStartDate.getDate());
+        var defaultEndDate = helper.getFormattedDate(unformattedEndDate);
 
-        component.set("v.endDate", defaultStartDate);
+        component.set("v.endDate", defaultEndDate);
+        console.log("## End Date set on it saerch ....." + component.get("v.endDate"));
         component.set("v.isResultsView", "true");
         
         // Chaining asynchronous server calls
@@ -74,11 +75,13 @@
     
     handleDatePickSelection : function(component, event, helper) {
         var datePickerName = event.getSource().get("v.name");
-        
-        if(datePickerName == "startDate") {
-            component.set("v.startDate", event.getSource().get("v.value"));
-        } else if(datePickerName == "endDate") {
-            component.set("v.endDate", event.getSource().get("v.value"));
+        console.log("### handleDatePickSelection " + event.getSource().get("v.value"));
+        if (!$A.util.isEmpty(event.getSource().get("v.value"))) {
+            if(datePickerName == "startDate" ) {
+                component.set("v.startDate", event.getSource().get("v.value"));
+            } else if(datePickerName == "endDate") {
+                component.set("v.endDate", event.getSource().get("v.value"));
+            }
         }
     },
     

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DF Updated Session Information HTML</name>
+    <style>none</style>
+    <subject>Updated Information for your Dementia Friends Session</subject>
+    <textOnly>Dear {{contact.First_Name__c}} {{contact.Last_Name__c}},
+
+The Dementia Friends Information Session you have registered for has been updated. Here are the new details:
+
+Session date: - {{event.Event_Date_Time__c}}
+Session location: {{event.Location__c}}
+{{event.Street__c}}
+{{event.City__c}}
+{{event.County__c}} {{event.Postcode__c}}
+
+
+Please visit the site here {{sessionLink}} to view up-to-date details.
+
+Kind regards,
+
+The Dementia Friends team
+
+0300 222 5855
+dementiafriends.org.uk
+Facebook
+Twitter</textOnly>
+    <type>custom</type>
+</EmailTemplate>

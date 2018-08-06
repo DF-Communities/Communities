@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" >
     <head>
         <apex:includeLightning />
     </head>

@@ -1,0 +1,60 @@
+<messaging:emailTemplate subject="Dementia Friends - Congratulations on reaching {!Left(TEXT(relatedto.Total_No_of_Friends_Created__c),10)} Dementia Friends! " recipientType="Contact" relatedToType="DF_Contact__c">
+<messaging:htmlEmailBody >
+<span style="font-family: arial;">
+Hi {!relatedto.First_Name__c},<br/><br/>
+
+Following your last Information Session, I just wanted to say <b>thank you</b> so much and well done for creating <apex:outputText value="{0, number, ###}">
+   <apex:param value="{!relatedto.Total_No_of_Friends_Created__c }" />
+</apex:outputText> Dementia Friends!
+<br/><br/>
+Never forget that, through your Information Sessions, you’re helping to change the way people think, act and talk about dementia.
+<br/><br/>
+We are very grateful for the time and effort you put in as a Champion and hope you’re enjoying delivering your Information Sessions.  Every Friend you make is another step towards us reaching 4 million Dementia Friends by 2020 – we simply couldn’t do this without you.
+<br/><br/>
+
+Best wishes,<br/>
+{!relatedTo.DF_Region__r.RSO__r.FirstName}<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}<br/>
+Dementia Friends Officer - Dementia Friends<br/><br/>
+
+{!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode}<br/>
+{!relatedTo.DF_Region__r.RSO__r.Email}<br/>
+{!relatedTo.DF_Region__r.RSO__r.phone}<br/><br/>
+
+<a href= "http://www.dementiafriends.org.uk/">dementiafriends.org.uk </a><br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a><br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a><br/>
+Email Id:TEREF16
+</span>
+</messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+Hi {!relatedto.First_Name__c},
+
+Following your last Information Session, I just wanted to say thank you so much and well done for creating: 
+ 
+<apex:outputText value="{0, number, 000}">
+   <apex:param value="{!relatedto.Total_No_of_Friends_Created__c }" />
+</apex:outputText> Dementia Friends!
+
+Never forget that, through your Information Sessions, you’re helping to change the way people think, act and talk about dementia.
+
+We are very grateful for the time and effort you put in as a Champion and hope you’re enjoying delivering your Information Sessions.  Every Friend you make is another step towards us reaching 4 million Dementia Friends by 2020 – we simply couldn’t do this without you.
+
+Best wishes,
+{!relatedTo.DF_Region__r.RSO__r.FirstName}
+
+{!relatedTo.DF_Region__r.RSO__r.FirstName} {!relatedTo.DF_Region__r.RSO__r.LastName}
+Dementia Friends Officer - Dementia Friends
+
+({!relatedTo.DF_Region__r.RSO__r.Street}, {!relatedTo.DF_Region__r.RSO__r.City}, {!relatedTo.DF_Region__r.RSO__r.PostalCode})
+{!relatedTo.DF_Region__r.RSO__r.Email}
+{!relatedTo.DF_Region__r.RSO__r.phone}
+
+
+dementiafriends.org.uk
+twitter.com/DementiaFriends
+facebook.com/DementiaFriends
+Email Id:TEREF16
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,15 @@
+A Dementia Friendly Community Annual Assessment has been submitted for you to review. 
+        
+Community Name : {!DFC_Community__c.Name__c}
+
+Submitted by         : {!DFC_Assessment__c.CreatedBy}                                
+                                {!User.Email}
+    
+Click here to see the details of the Annual Assessment : 
+{!DFC_Assessment__c.Link}
+
+Please review the assessment for information. If there are any issues described please pick these up with the Community Representative directly.
+
+Many thanks, 
+
+The Dementia Friendly Communities Team

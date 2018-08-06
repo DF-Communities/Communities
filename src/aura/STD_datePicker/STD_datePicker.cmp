@@ -13,6 +13,7 @@
     <aura:handler name="change" value="{!v.value}" action="{!c.setDate}"/>
     
     <aura:attribute name="daysOffsetFromToday" type="Integer" default="0"/>
+    <aura:attribute name="dateSelectionFromToday" type="Boolean" default="false"/>
     <aura:attribute name="maxDaysFromNowSelectionRestriction" type="Integer" default="99999"/>
     <aura:attribute name="enforceOffset" type="Boolean" default="true"/>
     <aura:attribute name="setDate" type="Date" default=""/>

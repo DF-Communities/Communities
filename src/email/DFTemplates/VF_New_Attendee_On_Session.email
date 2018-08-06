@@ -1,0 +1,64 @@
+<messaging:emailTemplate subject="A new attendee for your session!" recipientType="Contact" relatedToType="DF_EventAttendee__c">
+<messaging:htmlEmailBody >
+<!-- <img src="{!URLFOR($Resource.img, 'img/f/logo.png')}" height="103" width="259" alt="Dementia Friends" /> -->
+<apex:image id="Logo" value="https://c.eu0.content.force.com/servlet/servlet.ImageServer?id=01520000001HfE1&oid=00D20000000CwQc" height="103" width="259"/>
+<br/>
+Dear {!relatedTo.DF_Event__r.Session_Organiser__r.Name},
+<br/><br/>
+{!relatedTo.DF_Contact__r.First_Name__c} {!relatedTo.DF_Contact__r.Last_Name__c} has registered to your Dementia Friends Information Session<br/>
+{!relatedTo.DF_Event__r.Name} on <apex:outputText value="{0, date, dd/MM/yyyy}">
+    <apex:param value="{!relatedTo.DF_Event__r.Event_Date_Time__c}"/>
+</apex:outputText>.
+
+<!-- {!relatedTo.DF_Event__r.Event_Date_Time__c}. -->
+
+<br/><br/>
+You now have <apex:outputText value="{0, number, 0}">
+   <apex:param value="{!relatedTo.DF_Event__r.Number_Of_Attendee_Records__c}" />
+</apex:outputText> registered attendees.
+<br/><br/>
+Good luck with the Session, we hope it goes well.
+<br/><br/>
+Kind regards,
+<br/><br/>
+The Dementia Friends team
+<br/><br/>
+0300 222 5855
+<br/>
+<a href="http://www.dementiafriends.org.uk">dementiafriends.org.uk</a>
+<br/>
+<a href="https://www.facebook.com/DementiaFriends">Facebook</a>
+<br/>
+<a href="https://twitter.com/DementiaFriends">Twitter</a>
+
+</messaging:htmlEmailBody>
+
+<messaging:plainTextEmailBody >
+Dear {!relatedTo.DF_Event__r.Session_Organiser__r.Name},
+
+{!relatedTo.DF_Contact__r.First_Name__c} {!relatedTo.DF_Contact__r.Last_Name__c} has registered to your Dementia Friends Information Session
+
+{!relatedTo.DF_Event__r.Name} on <apex:outputText value="{0, date, dd/MM/yyyy}">
+    <apex:param value="{!relatedTo.DF_Event__r.Event_Date_Time__c}"/>
+</apex:outputText>.
+
+<!-- {!relatedTo.DF_Event__r.Event_Date_Time__c}.-->
+
+<!-- You now have {!relatedTo.DF_Event__r.Number_Of_Attendee_Records__c} registered attendees. -->
+
+You now have <apex:outputText value="{0, number, 0}">
+   <apex:param value="{!relatedTo.DF_Event__r.Number_Of_Attendee_Records__c}" />
+</apex:outputText> registered attendees.
+
+Good luck with the Session, we hope it goes well.
+
+Kind regards,
+
+The Dementia Friends team
+
+0300 222 5855
+dementiafriends.org.uk
+facebook.com/DementiaFriends
+twitter.com/DementiaFriends
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

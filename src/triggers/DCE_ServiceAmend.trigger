@@ -14,6 +14,14 @@ trigger DCE_ServiceAmend on DCE_ServiceAmend__c (before insert, before update, a
 	    		amend.ServiceId__c = Id.ValueOf(amend.ServiceId__c);
 	    	}
 	    	
+	    	system.debug('amend - '+amend);
+			if(amend != null){
+				system.debug('amend.status__c - '+amend.status__c);
+		    	if(trigger.oldMap != null && trigger.oldMap.containsKey(amend.id)){ system.debug('trigger.oldMap.get(amend.id).status__c - '+trigger.oldMap.get(amend.id).status__c); }
+		    	system.debug('amend.service_status__c - '+amend.service_status__c);
+		    	system.debug('amend.service_closeDate__c - '+amend.service_closeDate__c);
+			}
+	    	
 	    	//Changes to make to the record before transfer over
 	    	if(amend.status__c == 'Accepted - Pending Transfer' && (trigger.isInsert || (trigger.isUpdate && trigger.oldMap.get(amend.id).status__c != amend.status__c) )  ){
 	    		
@@ -26,7 +34,7 @@ trigger DCE_ServiceAmend on DCE_ServiceAmend__c (before insert, before update, a
 	    		}
 	    		
 	    		if(amend.service_status__c == 'Closed' && amend.service_closeDate__c == null){
-	    			
+	    			system.debug('re-opening service!');
 	    			amend.service_status__c = 'Open';
 	    		
 	    		}

@@ -1,5 +1,5 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBCreateEditSession" cache="false" >
-        
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html" controller="WEBCreateEditSession" action="{!loginRedirect}" cache="false" >
+
         <!-- SHOW REQUESTED SESSION DETAIL. AS REQUESTED SESSIONS ARE ONLY CREATED THROUGH LIGHTNING, THIS WILL ALWAYS BE AN EDIT PAGE -->
         <apex:outputPanel rendered="{!isRequestedSession}">
             <c:WEBViewEditRequestedInfoSession />
@@ -7,11 +7,6 @@
     
         <!-- SHOW LEGEACY SESSION DETAIL -->
         <apex:outputPanel rendered="{!!isRequestedSession}">
-            <apex:outputPanel rendered="{!isChampion}">
-                <c:WEBChampionCreateEditSession />
-            </apex:outputPanel>
-            <!--apex:outputPanel rendered="{!!isChampion}">
-                <c:WEBFriendCreateEditSession />
-            </apex:outputPanel-->
+            <c:WEBChampionCreateEditSession />
         </apex:outputPanel>
 </apex:page>
