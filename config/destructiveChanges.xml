@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <name>CustomPageWebLink</name>
+    </types>
+    <types>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <name>WebLink</name>
+    </types>
+    <types>
+        <name>ValidationRule</name>
+    </types>
+
+</Package>
