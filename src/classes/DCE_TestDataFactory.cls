@@ -275,7 +275,7 @@ public class DCE_TestDataFactory {
 		if(partnerServiceAmends != null){ return partnerServiceAmends;}
     	//if(partnerUsers == null){ createPartnerUsers();}
     	
-    	list<User> partnerUsersAsync = [select id, Name, AccountId from User where isActive = true and Id IN (select AssigneeId from PermissionSetAssignment where PermissionSet.Name = :DCE_ControllerUtils.DCE_PERMISSION_SET_NAME) limit 15];
+    	list<User> partnerUsersAsync = [select id, Name, AccountId from User where isActive = true and Id IN (select AssigneeId from PermissionSetAssignment where PermissionSet.Name = :DCE_ControllerUtils.DCE_PERMISSION_SET_NAME) and accountId != null  limit 15];
     	
 		partnerServiceAmends = new list<DCE_ServiceAmend__c>();
     	
