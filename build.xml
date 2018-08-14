@@ -14,7 +14,7 @@
     </taskdef>
 
     <!-- Default build target -->
-    <target name="build" depends="deploy, destructiveChanges" />
+    <target name="build" depends="deploy" />
 
     <!-- Continuous Integration Build -->
     <target name="ci">
